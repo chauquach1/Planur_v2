@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import SignInBtn from '../auth/signin/components/SignInBtn'
-import SignUpBtn from '../auth/signup/components/SignUpBtn'
+import SignUpBtn from '../auth/sign-up/components/SignUpBtn'
 import { Fragment } from 'react'
 
 const navigation = [

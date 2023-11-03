@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import Nav from "./components/Nav";
-import { createClient } from '@supabase/supabase-js'
 
 // const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY )
 
