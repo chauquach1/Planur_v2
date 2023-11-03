@@ -1,7 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import Example from "./components/Nav";
+import Nav from "./components/Nav";
+import { createClient } from '@supabase/supabase-js'
+
+// const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY )
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Example />
+        <Nav />
         <main className="flex min-h-screen flex-col items-center">
           {children}
         </main>

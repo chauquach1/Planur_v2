@@ -4,7 +4,6 @@ export default function Page() {
   return (
     <>
     <div className="row-auto flex-col">
-      some div
     </div>
       <div className="container flex flex-col border border-solid border-white">
         <h1 className="underline">Trips Index</h1>
