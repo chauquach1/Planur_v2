@@ -1,8 +1,8 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import AuthForm from "../../auth-form";
+import SignUpForm from "./SignUpForm";
 
-const SignInModal = ({ open, onClose }) => {
+const SignUpModal = ({ open, onClose }) => {
   const cancelButtonRef = useRef(null);
 
   return (
@@ -36,7 +36,7 @@ const SignInModal = ({ open, onClose }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
                 <div className=" bg-white px-4 pb-4 pt-5">
                   <div className="columns-1 flex-col justify-center items-center">
                     <div className="mt-3 sm:mt-0 sm:text-left">
@@ -44,10 +44,11 @@ const SignInModal = ({ open, onClose }) => {
                         as="h3"
                         className="text-base text-center font-semibold leading-6 text-gray-900"
                       >
-                        Log in with a Magic Link
+                        Sign Up
                       </Dialog.Title>
                       <div className="mt-2">
-                        <AuthForm />
+                        <SignUpForm />
+
                       </div>
                     </div>
                   </div>
@@ -61,4 +62,4 @@ const SignInModal = ({ open, onClose }) => {
   );
 };
 
-export default SignInModal;
+export default SignUpModal;

@@ -1,5 +1,6 @@
-import { createServerClient} from '@supabase/ssr'
-import { NextResponse} from 'next/server'
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse } from 'next/server'
+
 
 export async function middleware(request) {
   let response = NextResponse.next({
@@ -53,8 +54,5 @@ export async function middleware(request) {
       },
     }
   )
-
-  await supabase.auth.getSession()
-
-  return response
+  return { supabase, response }
 }
