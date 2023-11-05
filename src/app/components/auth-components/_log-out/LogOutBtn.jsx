@@ -1,14 +1,10 @@
-'use client'
-import LogOutFunction from "./log-out"
-
+"use client";
+import LogOutFunction from "./log-out-csr";
 
 export default async function LogOutBtn() {
-  
-
   const handleSignOut = async () => {
-    LogOutFunction()
-  }
-  
+    LogOutFunction();
+  };
 
   return (
     <>
@@ -19,5 +15,5 @@ export default async function LogOutBtn() {
         Logout
       </button>
     </>
-  )
+  );
 }
