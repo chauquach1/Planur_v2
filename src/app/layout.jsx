@@ -1,8 +1,11 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Nav from "../../components/Nav";
+import Nav from "./components/Nav";
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import SignUpBtn from "./components/auth-components/_sign-up/SignUpBtn";
+import LogInBtn from "./components/auth-components/_log-in/LogInBtn";
+import LogOutBtn from "./components/auth-components/_log-out/LogOutBtn";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,8 +39,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Nav user={user}/>
+        <Nav/>
         <main className="flex min-h-screen flex-col items-center">
+        <SignUpBtn/>
+        <LogInBtn/>
+        <LogOutBtn/>
           {children}
         </main>
       </body>

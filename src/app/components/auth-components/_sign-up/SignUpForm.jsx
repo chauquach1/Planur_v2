@@ -1,36 +1,53 @@
 import { NextResponse } from 'next/server'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { createContext } from 'react'
-import { createBrowserClient } from '@supabase/ssr'
+import { createServerClient } from "@supabase/ssr";
+import { redirect } from 'next/navigation';
 
 
 export default function SignUpForm() {
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )
 
-  async function POST(request) {
-    const requestUrl = new URL(request.url)
-    const formData = await request.formData()
-    const email = formData.get('email')
-    const password = formData.get('password')
-    
-    await supabase.auth.signUp({
+  const signUp = async (formData) => {
+
+    const origin = headers().get("origin");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const cookieStore = cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          get(name) {
+            return cookieStore.get(name)?.value;
+          },
+        },
+      }
+    );
+
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${requestUrl.origin}/auth/callback`,
+        emailRedirectTo: `${origin}/auth/callback`,
       },
-    })
+    });
+
+    if (data) {
+      console.log(data);
+    }
+
+    if (error) {
+      return redirect("/login?message=Could not authenticate user");
+    }
+
+    return redirect("/login?message=Check email to continue sign in process");
+  };
+
   
-    return NextResponse.redirect(requestUrl.origin, {
-      status: 301,
-    })
-  }
   return (
     <>
-      <form>
+      <form action={signUp}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-4">
             <div className="mt-5 grid grid-cols-1 gap-x-6 sm:grid-cols-6">
@@ -108,7 +125,6 @@ export default function SignUpForm() {
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            onClick={POST}
           >
             Save
           </button>
