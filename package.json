@@ -11,11 +11,13 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@nextui-org/react": "^2.2.3",
     "@supabase/auth-ui-react": "^0.4.6",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.6",
     "@supabase/supabase-js": "^2.38.4",
     "dotenv": "^16.3.1",
+    "framer-motion": "^10.16.4",
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "next": "14.0.1",
@@ -24,10 +26,10 @@
   },
   "devDependencies": {
     "@types/react": "18.2.34",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
-    "postcss": "^8",
+    "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5"
   }
 }

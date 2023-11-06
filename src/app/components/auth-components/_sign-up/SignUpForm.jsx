@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { createContext } from 'react'
 import { createServerClient } from "@supabase/ssr";
 import { redirect } from 'next/navigation';
 

@@ -1,25 +1,38 @@
-import { createClient } from "@supabase/supabase-js";
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 
 export default async function Page() {
+  const cookieStore = cookies()
 
-  const supabase = createClient(
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value
+        },
+      },
+    }
+  )
 
-  const {data, error} = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser()
 
-  if (!data) {
+
+  if (error) {
+    console.log('error getSession(): ', error);
     return (
       <div className="container bg-zinc-500">
-        <h1>no user</h1>
+        <h1>error getSession()</h1>
       </div>
     );
-  } else {
-    console.log(data.user);
+  } 
+  
+  if (data) {
+    console.log(data);
     return (
       <div className="container bg-zinc-500">
-        <h1>{data.email}'s page</h1>
+        <h1>user page</h1>
       </div>
     );
   }
