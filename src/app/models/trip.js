@@ -30,9 +30,9 @@ const tripSchema = new mongoose.Schema(
     reason: String,
     transportation: String,
     tripName: String,
-    packLists: {
+    packList: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Packlists',
+      ref: 'PackList',
       default: null, // You can specify a default value or leave it as null
     },
   },
