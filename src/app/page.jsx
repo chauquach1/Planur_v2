@@ -1,7 +1,7 @@
 export default async function Page() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="animate-in flex-1 flex flex-col gap-20 max-w-4xl px-3">
+    <div className="flex-1 w-full flex flex-col gap-20 justify-center items-center">
+      <div className="animate-in flex-1 flex flex-col  justify-center gap-20 max-w-4xl px-3">
           <h1 className="text-4xl font-bold">Planur Landing</h1>
       </div>
 

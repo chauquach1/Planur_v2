@@ -26,9 +26,11 @@ export default async function RootLayout({ children }) {
         <Providers>
           <main className="flex min-h-screen min-w-full flex-col items-center">
             <NavNextUI />
-            <SignUpBtn />
-            <LogInBtn />
-            <LogOutBtn />
+            <div className="row flex flex-row w-1/3 justify-around">
+              <SignUpBtn />
+              <LogInBtn />
+              <LogOutBtn />
+            </div>
             {children}
           </main>
         </Providers>

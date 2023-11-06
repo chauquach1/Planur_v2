@@ -1,6 +1,5 @@
 "use client";
 
-import { SignIn } from '@supabase/auth-ui-react';
 import { createBrowserClient } from '@supabase/ssr'
 import { redirect } from 'next/navigation';
 

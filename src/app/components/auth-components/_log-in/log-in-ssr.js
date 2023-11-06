@@ -3,8 +3,6 @@ import { cookies } from "next-cookies";
 import { redirect } from "next/navigation";
 
 const logIn = async (formData) => {
-  "use server";
-
   const email = formData.get("email");
   const password = formData.get("password");
   const cookieStore = cookies();
@@ -20,6 +18,11 @@ const logIn = async (formData) => {
     }
   );
 
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
   supabase.auth.onAuthStateChange((event, session) => {
     console.log(event, session);
     if (event === 'SIGNED_IN') {
@@ -30,10 +33,6 @@ const logIn = async (formData) => {
     }
   });
   
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
 
   if (error) {
     console.log(error);
