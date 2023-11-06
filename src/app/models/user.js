@@ -1,18 +1,13 @@
-import {mongoose, Schema} from "mongoose";
+import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema(
-  {
-    firstname: String,
-    lastname: String,
-    email: String,
-    password: String,
-    UUID: String
-  },
-  {
-    timestamps: true,
-  }
-);
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  uuid: String, // You can store the UUID obtained from Supabase Auth here
+  trips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trip' }], // Reference to Trip model
+});
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;

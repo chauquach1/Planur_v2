@@ -46,7 +46,7 @@ export default function LogInForm() {
             <div className="sm:col-span-6">
               <div className="mt-2">
                 <label
-                  htmlFor="email"
+                  for="email"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Email
