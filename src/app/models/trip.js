@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const tripSchema = new mongoose.Schema(
   {
     accommodations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Accommodation' }],

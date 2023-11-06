@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const packListsSchema = new mongoose.Schema({
+const packList = new mongoose.Schema({
   clothes: {
     shirts: Boolean,
     pants: Boolean,
@@ -39,6 +39,6 @@ const packListsSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const PackLists = mongoose.model('PackLists', packListsSchema);
+const PackList = mongoose.model('PackList', packListSchema);
 
-module.exports = PackLists;
+module.exports = PackList;
