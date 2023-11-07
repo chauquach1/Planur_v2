@@ -30,8 +30,8 @@ export default async function RootLayout({ children }) {
             <div className="row flex flex-row w-1/3 justify-around">
               <AuthModal />
               <LogOutBtn />
-              <GetSessionBtn />
-              <GetUserBtn />  
+              {/* <GetSessionBtn />
+              <GetUserBtn />   */}
             </div>
             {children}
           </main>

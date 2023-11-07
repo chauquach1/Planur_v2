@@ -2,9 +2,9 @@
 import LogOutFunction from "./log-out-csr";
 import { Button } from "@nextui-org/react";
 
-export default async function LogOutBtn() {
+export default function LogOutBtn() {
   const handleSignOut = async () => {
-    LogOutFunction();
+    await LogOutFunction();
   };
 
   return (

@@ -10,10 +10,17 @@ export default async function userRouter(request) {
     if (request.method === "GET") {
       const { uuid } = request.query;
 
+      if (!uuid) {
+        return NextResponse.error("UUID parameter is missing", { status: 400 });
+      }
+
       const user = await User.findOne({ uuid });
 
-      return NextResponse.json(user, { status: 200 });
+      if (!user) {
+        return NextResponse.error("User not found", { status: 404 });
+      }
 
+      return NextResponse.json(user, { status: 200 });
     } 
 
     // Handle POST request

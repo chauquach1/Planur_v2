@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from "../../models/user.js";
 
 const connectMongoDB = async () => {
   const mongoURI = process.env.MONGODB_URI;
@@ -8,7 +7,6 @@ const connectMongoDB = async () => {
     // Connect to MongoDB
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
 
     // MongoDB connected event handler
@@ -38,4 +36,4 @@ const connectMongoDB = async () => {
   }
 };
 
-export default { connectMongoDB, User };
+export default connectMongoDB ;
