@@ -1,5 +1,6 @@
 "use client";
 import LogOutFunction from "./log-out-csr";
+import { Button } from "@nextui-org/react";
 
 export default async function LogOutBtn() {
   const handleSignOut = async () => {
@@ -8,12 +9,12 @@ export default async function LogOutBtn() {
 
   return (
     <>
-      <button
-        className="bg-blue-500 hover:bg-zinc-600 text-white font-bold py-2 px-4 rounded"
+      <Button
+        color="secondary" size="md"
         onClick={handleSignOut}
       >
         Logout
-      </button>
+      </Button>
     </>
   );
 }

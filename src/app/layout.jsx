@@ -2,10 +2,11 @@ import React from "react";
 import { Providers } from "./providers";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SignUpBtn from "./components/auth-components/_sign-up/SignUpBtn";
-import LogInBtn from "./components/auth-components/_log-in/LogInBtn";
 import LogOutBtn from "./components/auth-components/_log-out/LogOutBtn";
+import GetSessionBtn from "./components/auth-components/GetSessionBtn";
+import GetUserBtn from "./components/auth-components/GetUserBtn";
 import NavNextUI from "./components/NavNextUI";
+import AuthModal from "./components/AuthModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +28,10 @@ export default async function RootLayout({ children }) {
           <main className="flex min-h-screen min-w-full flex-col items-center">
             <NavNextUI />
             <div className="row flex flex-row w-1/3 justify-around">
-              <SignUpBtn />
-              <LogInBtn />
+              <AuthModal />
               <LogOutBtn />
+              <GetSessionBtn />
+              <GetUserBtn />  
             </div>
             {children}
           </main>

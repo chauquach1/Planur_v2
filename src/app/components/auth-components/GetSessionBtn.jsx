@@ -1,23 +1,23 @@
-export default async function GetSessionBtn({data, error}) {
+"use client";
+import { createBrowserClient } from "@supabase/ssr";
+import { Button } from "@nextui-org/react";
 
+export default async function GetSessionBtn() {
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
 
-  function handleClick() {
-    if (data) {
-      console.log(`getSession() data: ${data}`);
-    }
-    else {
-      console.log(`error: ${error}`)
-    }
-  }
+  const getSession = async () => {
+    console.log("getSession onClick");
+    const { data, error } = await supabase.auth.getSession();
+    console.log("session data success:", data);
+    console.log("session error: ", error);
+  };
 
   return (
-    <>
-      <button
-        className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-        onClick={handleClick()}
-      >
-        Get Session
-      </button>
-    </>
+    <Button color="primary" size="md" onPress={getSession}>
+      Get Session
+    </Button>
   );
 }
