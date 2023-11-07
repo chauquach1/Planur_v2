@@ -8,8 +8,8 @@ export default async function Layout({ children }) {
     <main className="flex min-h-fit min-w-full flex-col items-center">
       <div className=" flex-1 flex flex-col w-full p-8 justify-start items-center">
         User Page
-        {children}
       </div>
+        {children}
     </main>
   );
 }

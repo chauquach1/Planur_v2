@@ -2,14 +2,15 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import connectMongoDB from '../libs/mongo/mongodb.js';
 import User from '../models/user.js';
+import NewTripForm from '../components/user-components/NewTripForm.jsx';
 
 // This should be a utility function, not an API route handler
-async function getMongoData(uuid) {
-  await connectMongoDB();
-  // Fetch the user from the MongoDB database using the UUID
-  const user = await User.findOne({ uuid });
-  return user; // Return the user data directly
-}
+// async function getMongoData(uuid) {
+//   await connectMongoDB();
+//   // Fetch the user from the MongoDB database using the UUID
+//   const user = await User.findOne({ uuid });
+//   return user; // Return the user data directly
+// }
 
 export default async function UserPage() {
   const cookieStore = cookies();
@@ -29,27 +30,30 @@ export default async function UserPage() {
   // Use Supabase to get the current user
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    return (
-      <div className="flex gap-4 items-center">
-        Not logged in
-      </div>
-    );
-  }
+  // if (!user) {
+  //   return (
+  //     <div className="flex gap-4 items-center">
+  //       Not logged in
+  //     </div>
+  //   );
+  // }
 
-  const mongoData = await getMongoData(user.id);
+  // const mongoData = await getMongoData(user.id);
 
   return (
-    <div className="flex gap-4 items-center">
-      {user.email} {user.id}
-      {/* Display MongoDB data here */}
-      {mongoData ? (
-        <div>
-          {mongoData.id}
-        </div>
-      ) : (
-        <div>User not found in MongoDB</div>
-      )}
+    // <div className="flex gap-4 items-center">
+    //   {user.email} {user.id}
+    //   {/* Display MongoDB data here */}
+    //   {mongoData ? (
+    //     <div>
+    //       {mongoData.id}
+    //     </div>
+    //   ) : (
+    //     <div>User not found in MongoDB</div>
+    //   )}
+    // </div>
+    <div className="columns-1 flex w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 justify-center items-center">
+      <NewTripForm />
     </div>
   );
 }
