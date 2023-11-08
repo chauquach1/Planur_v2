@@ -4,6 +4,8 @@ import connectMongoDB from "../libs/mongo/mongodb.js";
 import User from "../models/user.js";
 import NewTripForm from "../components/user-components/NewTripForm.jsx";
 import NextTripBanner from "../components/trip-components/next-trip.jsx";
+// import TripsIndex from "./trips/page.jsx";
+import Link from "next/link.js";
 
 // This should be a utility function, not an API route handler
 async function getMongoData(uuid) {
@@ -38,8 +40,10 @@ export default async function UserPage() {
   }
 
   const mongoData = await getMongoData(user.id);
+  let tripIds = mongoData.trips.map(trip => trip._id);
   console.log("user id:", user.id);
-  console.log(typeof user.id);
+  console.log(mongoData.trips);
+  console.log(tripIds);
 
   return (
     <>
@@ -57,9 +61,10 @@ export default async function UserPage() {
             </div>
           </div>
 
-          <NextTripBanner />
+          <NextTripBanner  tripid={2}/>
+          <Link href={`/trips`}>Trips Index</Link>
           <div className="columns-1 bg-orange-500/10 rounded-large flex flex-col w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 p-2 m-2 justify-center items-center">
-            <NewTripForm uuid={user.id} />
+            <NewTripForm uuid={user.id}/>
           </div>
         </>
       ) : (

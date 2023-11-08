@@ -8,6 +8,7 @@
     "nextjs",
     "nextui",
     "signin",
-    "supabase"
+    "supabase",
+    "tripid"
   ]
 }
