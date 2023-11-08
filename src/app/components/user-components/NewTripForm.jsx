@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, user } from "@nextui-org/react";
 
-export default function NewTripForm() {
+export default function NewTripForm({uuid, userEmail}) {
   const [tripName, setTripName] = useState("");
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -20,6 +20,8 @@ export default function NewTripForm() {
 
   return (
     <>
+    {/* {console.log('console on client uuid: ', uuid)}
+    {console.log('console on client userEmail: ', userEmail)} */}
       <div className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center">
         <div className="row w-full flex flex-row gap-2 flex-wrap md:flex-nowrap justify-between">
           <Input
@@ -112,7 +114,7 @@ export default function NewTripForm() {
           />
         </div>
         <div>
-          <Button variant="success" onClick={handleSubmit} fullWidth>
+          <Button color="success" radius="full" className="text-white" onClick={handleSubmit} fullWidth>
             Generate Itinerary
           </Button>
         </div>
