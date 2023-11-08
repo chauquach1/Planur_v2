@@ -22,7 +22,7 @@ export default function NewTripForm({uuid, userEmail}) {
     <>
     {/* {console.log('console on client uuid: ', uuid)}
     {console.log('console on client userEmail: ', userEmail)} */}
-      <div className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center">
+      <form className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center">
         <div className="row w-full flex flex-row gap-2 flex-wrap md:flex-nowrap justify-between">
           <Input
             label="Trip Name"
@@ -118,7 +118,7 @@ export default function NewTripForm({uuid, userEmail}) {
             Generate Itinerary
           </Button>
         </div>
-      </div>
+      </form>
     </>
   );
 }

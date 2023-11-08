@@ -50,8 +50,8 @@ export default async function UserPage() {
             id="welcome-container"
             className="container rounded-lg bg-orange-500/10 text-white text-center p-2 my-5 bg-info"
           >
-            <div class="container text-center">
-              <h1 class="my-0">Hello {user.email}</h1>
+            <div className="container text-center">
+              <h1 className="my-0">Hello {user.email}</h1>
               <h6>Where to Next?</h6>
             </div>
           </div>
