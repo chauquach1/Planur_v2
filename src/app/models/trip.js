@@ -9,10 +9,15 @@ const tripSchema = new mongoose.Schema(
       type: Date,
       required: true,
       validate: {
-        validator: (date) => {
-          return date >= new Date(); // Check if start date is in the future
+        validator: function(date) {
+          // Convert the provided date and the current date to their 'start of day' values
+          const userStartDate = new Date(date).setHours(0, 0, 0, 0);
+          const currentDate = new Date().setHours(0, 0, 0, 0);
+    
+          // Check if the user start date is today or in the future
+          return userStartDate >= currentDate;
         },
-        message: 'Start date must be in the future',
+        message: 'Start date must be today or in the future',
       },
     },
     endDate: {
@@ -39,6 +44,6 @@ const tripSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Trip = mongoose.model('Trip', tripSchema);
+const Trip = mongoose.models.Trip || mongoose.model('Trip', tripSchema);
 
-module.exports = Trip;
+export default Trip;
