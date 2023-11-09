@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import connectMongoDB from "../libs/mongo/mongodb.js";
 import User from "../models/user.js";
 import NewTripForm from "../components/user-components/NewTripForm.jsx";
-import NextTripBanner from "../components/trip-components/next-trip.jsx";
+import NextTripBanner from "../components/trip-components/NextTrip.jsx";
 // import TripsIndex from "./trips/page.jsx";
 import Link from "next/link.js";
 
@@ -40,10 +40,8 @@ export default async function UserPage() {
   }
 
   const mongoData = await getMongoData(user.id);
-  let tripIds = mongoData.trips.map(trip => trip._id);
-  console.log("user id:", user.id);
-  console.log(mongoData.trips);
-  console.log(tripIds);
+  console.log(mongoData.uuid);
+
 
   return (
     <>

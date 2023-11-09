@@ -1,13 +1,9 @@
-import Link from "next/link"
-
-export default function TripDashboard({params}) {
-
-  const tripid = params.id
-  // console.log('tripid from trip dashboard',tripid);
+export default function TripDashboard() {
   
+
   return (
     <>
-      <h1>Trip {tripid} </h1>
+      <h1>Trip </h1>
     </>
-  )
+  );
 }
