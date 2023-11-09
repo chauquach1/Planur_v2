@@ -5,9 +5,7 @@ const connectMongoDB = async () => {
 
   try {
     // Connect to MongoDB
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-    });
+    await mongoose.connect(mongoURI);
 
     // MongoDB connected event handler
     mongoose.connection.on("connected", () => {

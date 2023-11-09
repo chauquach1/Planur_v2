@@ -18,7 +18,7 @@ export default function TripIndexCard({uuid, tripId}) {
         <Link
           isExternal
           showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
+          href={`/trip/${tripId}`}
         >
           Edit / View
         </Link>

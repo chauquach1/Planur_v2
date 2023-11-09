@@ -22,7 +22,7 @@ export default function NewTripForm({ uuid }) {
     setMessage('');
 
     // Construct the form data object
-    const formData = {
+    const tripDetails = {
       uuid, // Pass uuid along with the trip details
       startDate: new Date(), // JavaScript Date object
       timeZoneOffset: new Date().getTimezoneOffset(), // Timezone offset in minutes
@@ -38,7 +38,7 @@ export default function NewTripForm({ uuid }) {
     };
 
     // Log the form data to ensure it's collected correctly
-    console.log("Form data being sent to the server:", formData);
+    console.log("Form data being sent to the server:", tripDetails);
 
     try {
       const response = await fetch("/api/trip", {
@@ -46,7 +46,7 @@ export default function NewTripForm({ uuid }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(tripDetails),
       });
 
       if (!response.ok) {

@@ -5,6 +5,7 @@
     "firstname",
     "fullname",
     "lastname",
+    "mongodata",
     "nextjs",
     "nextui",
     "signin",
