@@ -40,10 +40,8 @@ export default async function UserPage() {
   }
 
   const mongoData = await getMongoData(user.id);
-  let tripIds = mongoData.trips.map(trip => trip._id);
-  console.log("user id:", user.id);
-  console.log(mongoData.trips);
-  console.log(tripIds);
+  console.log(mongoData.uuid);
+
 
   return (
     <>

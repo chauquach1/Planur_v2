@@ -37,9 +37,9 @@ export default async function TripsIndex() {
 
   const mongoData = await getMongoData(user.id);
   let tripIds = mongoData.trips.map(trip => (trip._id).toString());
-  console.log("user id:", user.id);
-  console.log(mongoData.trips);
-  console.log('tripIds array', tripIds);
+  // console.log("user id:", user.id);
+  // console.log('mongodata:',mongoData);
+  // console.log('tripIds array', tripIds);
 
 
   return (
@@ -49,7 +49,7 @@ export default async function TripsIndex() {
         {mongoData ? (
           <>
           {tripIds.map((tripId) => (
-              <TripIndexCard tripId={tripId} uuid={user.id} />
+              <TripIndexCard tripId={tripId} uuid={user.id} key={tripId}/>
           ))}
           </>
         ): (

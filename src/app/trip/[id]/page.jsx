@@ -1,9 +1,11 @@
+const punycode = require('punycode/');
 import Link from "next/link"
+import getTrip from "../../api/trip/get-trip"
 
-export default function TripDashboard({uuid}) {
+export default async function TripDashboard() {
 
-console.log(uuid);
-  // console.log('tripid from trip dashboard',tripid);
+  const uuid = 'b9c85a1a-6605-4de5-9ccb-386472df4647'
+  const user = await getTrip(uuid)
   
   return (
     <>
