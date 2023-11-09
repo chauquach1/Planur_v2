@@ -1,24 +1,3 @@
-"use client";
-const punycode = require("punycode/");
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
-
-// const getTripDetails = async (tripId) => {
-//   const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`);
-//   }
-
-//   const tripDetailsMongo = await response.json();
-//   return tripDetailsMongo;
-//   // console.log(trip);
-// };
-
 const sampleTrip = {
   _id: "654d66c715835f8a51afd58f",
   firstName: "Chau Quach",
@@ -126,50 +105,3 @@ const sampleTrip = {
     },
   ],
 };
-// console.log(sampleTrip);
-
-
-
-export default function TripDashboard({ children, params }) {
-  let tabs = [
-    {
-      id: "accommodations",
-      label: "Accommodations",
-      content: [sampleTrip.trips[0].accommodations[0].name, sampleTrip.trips[0].accommodations[1].name],
-    },
-    {
-      id: "stops",
-      label: "Stops",
-      content: sampleTrip.trips[0].stops[0].stopName,
-    },
-    {
-      id: "packLists",
-      label: "Packing List",
-      content: sampleTrip.trips[0].packLists.clothes.pants,
-    },
-  ];
-
-  return (
-    <div className="container bg-slate-500 h-screen items-center text-center justify-center">
-      <h1 className="font-bold text-2xl">Wedding 2023</h1>
-      <h1>MM/DD/YYYY - MM/DD/YYYY</h1>
-      <h1>Destination: Tokyo, Japan</h1>
-      <h1>Address: TOKYO MIDTOWN 9-7-1 AKASAKA MINATO-KU, TOKYO, JAPAN, 107-6245</h1>
-      <h1>Travelers: 5</h1>
-      <h1>Reason: Vacation</h1>
-      <h1>Transportation: Mixed</h1>
-
-      <div className="flex w-full flex-col">
-        <Tabs aria-label="Dynamic tabs" items={tabs}>
-          {(item) => (
-            <Tab key={item.id} title={item.label}>
-              <Card>
-                <CardBody>{item.content}</CardBody>
-              </Card>
-            </Tab>
-          )}
-        </Tabs>
-      </div>
-    </div>
-  );
-}

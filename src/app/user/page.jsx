@@ -12,6 +12,7 @@ async function getMongoData(uuid) {
   await connectMongoDB();
   // Fetch the user from the MongoDB database using the UUID
   const user = await User.findOne({ uuid });
+  console.log('user json from getMongoData',user);
   return user; // Return the user data directly
 }
 
