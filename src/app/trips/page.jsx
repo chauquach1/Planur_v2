@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import connectMongoDB from "../libs/mongo/mongodb.js";
 import User from "../models/user.js";
 import Link from "next/link.js";
+import TripIndexCard from "../components/trip-components/trip-index-card.jsx";
 
 async function getMongoData(uuid) {
   await connectMongoDB();
@@ -43,15 +44,13 @@ export default async function TripsIndex() {
 
   return (
     <>
-    <div className="row-auto flex-col">
-    </div>
-      <div className="container flex flex-col border border-solid border-white">
-        <h1 className="underline">Trips Index</h1>
+      <h1 className="underline">Trips Index</h1>
+      <div className="container flex flex-row flex-wrap justify-evenly border border-solid gap-2 p-2 border-white">
         {mongoData ? (
           <>
           {tripIds.map((tripId) => (
             <Link href={`/trip/${tripId}`} key={tripId}>
-              {tripId}
+              <TripIndexCard tripId={tripId} uuid={user.id} />
             </Link>
           ))}
           </>
