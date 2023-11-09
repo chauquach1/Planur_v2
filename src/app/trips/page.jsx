@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import connectMongoDB from "../libs/mongo/mongodb.js";
 import User from "../models/user.js";
 import Link from "next/link.js";
-import TripIndexCard from "../components/trip-components/trip-index-card.jsx";
+import TripIndexCard from "../components/trip-components/TripCard.jsx";
 
 async function getMongoData(uuid) {
   await connectMongoDB();
@@ -33,7 +33,7 @@ export default async function TripsIndex() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log("trips index user id:", user.id);
+  // console.log("trips index user id:", user.id);
 
   const mongoData = await getMongoData(user.id);
   let tripIds = mongoData.trips.map(trip => (trip._id).toString());
