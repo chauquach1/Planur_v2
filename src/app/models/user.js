@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import tripSchema from './trip.js';
 
 const userSchema = new mongoose.Schema({
   firstName: String,

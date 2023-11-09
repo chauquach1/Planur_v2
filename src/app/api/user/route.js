@@ -6,7 +6,7 @@ export default async function userRouter(request) {
   try {
     await connectMongoDB();
 
-    // Handle GET request
+    // Handle GET User request
     if (request.method === "GET") {
       const { uuid } = request.query;
 
@@ -23,7 +23,7 @@ export default async function userRouter(request) {
       return NextResponse.json(user, { status: 200 });
     } 
 
-    // Handle POST request
+    // Handle POST User request
     else if (request.method === "POST") {
       const { firstname, lastname, email, password, uuid } =
         await request.json();
@@ -36,7 +36,7 @@ export default async function userRouter(request) {
       
     }
 
-    // Handle PUT request
+    // Handle PUT User request
     else if (request.method === "PUT") {
       const { uuid, firstname, lastname, email, password } =
         await request.json();
@@ -51,7 +51,7 @@ export default async function userRouter(request) {
 
     }
 
-    // Handle DELETE request
+    // Handle DELETE User request
     else if (request.method === "DELETE") {
       const { uuid } = await request.json();
 
