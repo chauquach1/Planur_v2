@@ -45,13 +45,11 @@ export default async function TripsIndex() {
   return (
     <>
       <h1 className="underline">Trips Index</h1>
-      <div className="container flex flex-row flex-wrap justify-evenly border border-solid gap-2 p-2 border-white">
+      <div className="container flex flex-row flex-wrap border border-solid gap-2 p-2 border-white">
         {mongoData ? (
           <>
           {tripIds.map((tripId) => (
-            <Link href={`/trip/${tripId}`} key={tripId}>
               <TripIndexCard tripId={tripId} uuid={user.id} />
-            </Link>
           ))}
           </>
         ): (
