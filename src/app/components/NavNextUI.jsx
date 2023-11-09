@@ -52,8 +52,8 @@ export default function NavNextUI() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="">
-            Empty Link
+          <Link color="foreground" href="/trips">
+            Trips
           </Link>
         </NavbarItem>
       </NavbarContent>

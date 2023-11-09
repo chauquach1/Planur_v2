@@ -5,9 +5,11 @@
     "firstname",
     "fullname",
     "lastname",
+    "mongodata",
     "nextjs",
     "nextui",
     "signin",
-    "supabase"
+    "supabase",
+    "tripid"
   ]
 }
