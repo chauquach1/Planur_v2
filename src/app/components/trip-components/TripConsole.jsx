@@ -4,6 +4,7 @@ import { Button } from "@nextui-org/react";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
 import StopsCard from "../../components/trip-components/StopsCard";
 import { useState, useEffect } from "react";
+import AddAccommodationsBtn from "../../components/trip-components/AddAccommodationsBtn";
 // import TabButton from "../../components/trip-components/TabButton";
 
 export default function TripConsole({ trip }) {
@@ -114,12 +115,11 @@ export default function TripConsole({ trip }) {
             </Button>
         </div>
         {/* Tab Content */}
-        <div className="py-3">
-            <div
-              className={`tab-content ${
-                activeTab === "accommodations" ? "" : "hidden"
-              }`}
-            >
+        <div className="py-3 h-full w-full flex flex-col justify-start items-center">
+            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "accommodations" ? "" : "hidden"}`}>
+              <div className="w-full row flex flex-row justify-end">
+                <AddAccommodationsBtn/>
+              </div>
               {activeTab === "accommodations" && renderTabContent()}
             </div>
             <div
@@ -134,7 +134,7 @@ export default function TripConsole({ trip }) {
             >
               {activeTab === "packList" && renderTabContent()}
             </div>
-          </div>
+        </div>
       </div>
       <div id="details content" className="flex-grow bg-white h-full"></div>
     </div>
