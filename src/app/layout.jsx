@@ -28,8 +28,8 @@ export default async function RootLayout({ children }) {
           <main className="flex min-h-screen min-w-full flex-col items-center">
             <NavNextUI />
             <div className="row flex flex-row w-1/3 justify-around">
-              <AuthModal />
-              <LogOutBtn />
+              {/* <AuthModal />
+              <LogOutBtn /> */}
               {/* <GetSessionBtn />
               <GetUserBtn />   */}
             </div>

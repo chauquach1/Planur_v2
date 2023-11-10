@@ -1,9 +1,10 @@
 "use client";
 const punycode = require("punycode/");
-import { Tabs, Tab, Card, CardBody, ScrollShadow } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
+import StopsCard from "../../components/trip-components/StopsCard";
 import TripBanner from "../../components/trip-components/TripBanner";
-
+import { useState, useEffect } from "react";
 // const getTripDetails = async (tripId) => {
 //   const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
 //     method: "GET",
@@ -130,8 +131,39 @@ const sampleTrip = {
 };
 
 export default function TripDashboard({ children, params }) {
+  const [activeTab, setActiveTab] = useState("accommodations"); // Default active tab
+
   const trip = sampleTrip.trips[0];
-  console.log("accommodations", trip.accommodations);
+  // console.log("accommodations", trip.accommodations);
+  // console.log("stops", trip.stops);
+
+  // Function to handle tab click
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+    console.log("clicked on tab: ", tabId);
+  };
+
+
+  // Function to render tab content based on active tab
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "accommodations":
+        return trip.accommodations.map((acc) => (
+          <AccommodationsCard key={acc._id} accommodation={acc} />
+        ));
+      case "stops":
+        return trip.stops.map((stop) => (
+          <StopsCard key={stop._id} stop={stop} />
+        ));
+      case "packingLists":
+        // Assuming packLists is an array in your trip object
+        return trip.packLists.map((packList) => (
+          <StopsCard key={packList._id} packList={packList} />
+        ));
+      default:
+        return null;
+    }
+  };
 
   let accommodations = {
     id: "accommodations",
@@ -147,7 +179,7 @@ export default function TripDashboard({ children, params }) {
   let stops = {
     id: "stops",
     label: "Stops",
-    content: null,
+    content: trip.stops.map((stop) => <StopsCard key={stop._id} stop={stop} />),
   };
 
   let packingLists = {
@@ -157,66 +189,87 @@ export default function TripDashboard({ children, params }) {
   };
 
   return (
-    <div className="columns-1 flex flex-col w-full h-fit border bg-gray-300/30 text-center items-center justify-center">
-
+    <div className="columns-1 flex flex-col w-full h-fit text-center items-center justify-center">
       <TripBanner />
+      <div
+        id="trip-controller-container"
+        className="w-full row columns-2 flex justify-start items-start bg-gray-100 h-[800px] my-5"
+      >
+        <div id="details-tabs" className="w-[400px] m-2 columns-1 flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full">
+          {/* Tab Buttons */}
+          <div
+            className="border rounded-2xl p-2 w-[400px] justify-between inline-flex"
+            aria-label="Dynamic tabs"
+          >
+            {/* Accommodations Tab */}
+            <Button
+              className={`transition-opacity ${
+                activeTab === "accommodations"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+              onClick={() => handleTabClick("accommodations")}
+              aria-selected={activeTab === "accommodations"}
+              role="tab"
+              type="button"
+              size="sm"
+              radius="lg"
+            >
+              Accommodations
+            </Button>
 
-      <div className="container p-2 border overflow-scroll">
-        <div className="m-0 p-0 text-start max-h-fit overflow-scroll items-center">
-          <Tabs aria-label="Dynamic tabs">
-            <Tab key={accommodations.id} title={accommodations.label}>
-              <Card>
-                <div className="row flex flex-row gap-2 py-2">
-                  <div className="columns-1 min-w-fit max-h-[600px] overflow-y-scroll">
-                    {/* <ScrollShadow className="min-w-fit min-h-fit "size={100}> */}
-                    <CardBody>{accommodations.content}</CardBody>
-                    {/* </ScrollShadow> */}
-                  </div>
-                  <div className="container">sometext</div>
-                </div>
-              </Card>
-            </Tab>
-            <Tab key={stops.id} title={stops.label}>
-              <Card>
-                <div className="row flex flex-row gap-2">
-                  <div className="columns-1 flex-col flex-wrap">
-                    <CardBody>{stops.content}</CardBody>
-                  </div>
-                  <div className="container">sometext</div>
-                </div>
-              </Card>
-            </Tab>{" "}
-            <Tab key={packingLists.id} title={packingLists.label}>
-              <Card>
-                <div className="row flex flex-row gap-2">
-                  <div className="columns-1 flex-col flex-wrap">
-                    <CardBody>{packingLists.content}</CardBody>
-                  </div>
-                  <div className="container">sometext</div>
-                </div>
-              </Card>
-            </Tab>
-          </Tabs>
+            {/* Stops Tab */}
+            <Button
+              className={`transition-opacity ${
+                activeTab === "stops"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+              onClick={() => handleTabClick("stops")}
+              aria-selected={activeTab === "stops"}
+              role="tab"
+              type="button"
+              size="sm"
+              radius="lg"
+            >
+              Stops
+            </Button>
+
+            {/* Packing List Tab */}
+            <Button
+              className={`transition-opacity ${
+                activeTab === "packLists"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+              onClick={() => handleTabClick("packLists")}
+              aria-selected={activeTab === "packLists"}
+              role="tab"
+              type="button"
+              size="sm"
+              radius="lg"
+            >
+              Packing List
+            </Button>
+          </div>
+
+          {/* Tab Content */}
+          <div className="py-3">
+            <div className={`tab-content ${activeTab === "accommodations" ? "" : "hidden"}`}>
+              {activeTab === "accommodations" && renderTabContent()}
+            </div>
+            <div className={`tab-content ${activeTab === "stops" ? "" : "hidden"}`}>
+              {activeTab === "stops" && renderTabContent()}
+            </div>
+            <div className={`tab-content ${activeTab === "packingLists" ? "" : "hidden"}`}>
+              {activeTab === "packingLists" && renderTabContent()}
+            </div>
+          </div>
+        </div>
+        <div id='details content' className="flex-grow bg-white h-full">
+
         </div>
       </div>
     </div>
   );
-}
-
-{
-  /* <Tabs aria-label="Dynamic tabs" items={tabs}>
-{(item) => (
-  <Tab key={item.id} title={item.label}>
-    <Card>
-      <div className="row flex flex-row gap-2">
-        <div className="columns-1 flex-col flex-wrap">
-          <CardBody>{item.content}</CardBody>
-          <CardBody>{item.content}</CardBody>
-        </div>
-        <div className="container">sometext</div>
-      </div>
-    </Card>
-  </Tab>
-)}
-</Tabs> */
 }
