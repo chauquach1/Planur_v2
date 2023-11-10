@@ -1,15 +1,15 @@
 import React from "react";
-import {BsHouseAddFill} from "react-icons/bs";
+import {MdFormatListBulletedAdd} from "react-icons/md";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link} from "@nextui-org/react";
 import {MailIcon} from '../../public/MailIcon.jsx';
 import {LockIcon} from '../../public/LockIcon.jsx';
 
-export default function AddAccommodationsBtn() {
+export default function AddPackingListBtn() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   return (
     <>
-      <Button size="lg" isIconOnly className="bg-white w-fit min-w-fit min-h-fit h-fit p-0 border rounded" radius="full" onPress={onOpen} color="primary"><BsHouseAddFill className="fill-blue-400"/></Button>
+      <Button size="lg" isIconOnly className="bg-white w-fit min-w-fit min-h-fit h-fit p-1"  onPress={onOpen} color="primary"><MdFormatListBulletedAdd className="fill-blue-400"/></Button>
       <Modal 
         isOpen={isOpen} 
         onOpenChange={onOpenChange}

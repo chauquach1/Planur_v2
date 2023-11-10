@@ -9,7 +9,7 @@ export default function AddAccommodationsBtn() {
 
   return (
     <>
-      <Button size="lg" isIconOnly className="bg-white w-fit min-w-fit min-h-fit h-fit p-0 border rounded" radius="full" onPress={onOpen} color="primary"><BsHouseAddFill className="fill-blue-400"/></Button>
+      <Button size="lg" isIconOnly className="bg-white w-fit min-w-fit min-h-fit h-fit p-1" onPress={onOpen} color="primary"><BsHouseAddFill className="fill-blue-400"/></Button>
       <Modal 
         isOpen={isOpen} 
         onOpenChange={onOpenChange}

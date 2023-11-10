@@ -5,6 +5,8 @@ import AccommodationsCard from "../../components/trip-components/AccommodationsC
 import StopsCard from "../../components/trip-components/StopsCard";
 import { useState, useEffect } from "react";
 import AddAccommodationsBtn from "../../components/trip-components/AddAccommodationsBtn";
+import AddStopBtn from "../../components/trip-components/AddStopBtn";
+import AddPackingListBtn from "../../components/trip-components/AddPackingListBtn";
 // import TabButton from "../../components/trip-components/TabButton";
 
 export default function TripConsole({ trip }) {
@@ -118,20 +120,20 @@ export default function TripConsole({ trip }) {
         <div className="py-3 h-full w-full flex flex-col justify-start items-center">
             <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "accommodations" ? "" : "hidden"}`}>
               <div className="w-full row flex flex-row justify-end">
-                <AddAccommodationsBtn/>
+                  <AddAccommodationsBtn/>
               </div>
               {activeTab === "accommodations" && renderTabContent()}
             </div>
-            <div
-              className={`tab-content ${activeTab === "stops" ? "" : "hidden"}`}
-            >
+            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "stops" ? "" : "hidden"}`}>
+              <div className="w-full row flex flex-row justify-end">
+                  <AddStopBtn/>
+              </div>
               {activeTab === "stops" && renderTabContent()}
             </div>
-            <div
-              className={`tab-content ${
-                activeTab === "packList" ? "" : "hidden"
-              }`}
-            >
+            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "packList" ? "" : "hidden"}`}>
+              <div className="w-full row flex flex-row justify-end">
+                  <AddPackingListBtn/>
+              </div>
               {activeTab === "packList" && renderTabContent()}
             </div>
         </div>
