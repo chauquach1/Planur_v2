@@ -1,6 +1,7 @@
 "use client";
 const punycode = require("punycode/");
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
 
 // const getTripDetails = async (tripId) => {
 //   const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
@@ -126,26 +127,31 @@ const sampleTrip = {
     },
   ],
 };
-// console.log(sampleTrip);
 
 
 
 export default function TripDashboard({ children, params }) {
+  const trip = sampleTrip.trips[0];
+  console.log('accommodations',trip.accommodations);
+
+
   let tabs = [
     {
       id: "accommodations",
       label: "Accommodations",
-      content: [sampleTrip.trips[0].accommodations[0].name, sampleTrip.trips[0].accommodations[1].name],
+      content: trip.accommodations.map((accommodation) => (
+        <AccommodationsCard key={accommodation._id} accommodation={accommodation} />
+      )),
     },
     {
       id: "stops",
       label: "Stops",
-      content: sampleTrip.trips[0].stops[0].stopName,
+      content: null,
     },
     {
       id: "packLists",
       label: "Packing List",
-      content: sampleTrip.trips[0].packLists.clothes.pants,
+      content: null,
     },
   ];
 
