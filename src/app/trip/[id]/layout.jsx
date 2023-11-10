@@ -1,7 +1,8 @@
 "use client";
 const punycode = require("punycode/");
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody, ScrollShadow } from "@nextui-org/react";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
+import TripBanner from "../../components/trip-components/TripBanner";
 
 // const getTripDetails = async (tripId) => {
 //   const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
@@ -128,54 +129,94 @@ const sampleTrip = {
   ],
 };
 
-
-
 export default function TripDashboard({ children, params }) {
   const trip = sampleTrip.trips[0];
-  console.log('accommodations',trip.accommodations);
+  console.log("accommodations", trip.accommodations);
 
+  let accommodations = {
+    id: "accommodations",
+    label: "Accommodations",
+    content: trip.accommodations.map((accommodation) => (
+      <AccommodationsCard
+        key={accommodation._id}
+        accommodation={accommodation}
+      />
+    )),
+  };
 
-  let tabs = [
-    {
-      id: "accommodations",
-      label: "Accommodations",
-      content: trip.accommodations.map((accommodation) => (
-        <AccommodationsCard key={accommodation._id} accommodation={accommodation} />
-      )),
-    },
-    {
-      id: "stops",
-      label: "Stops",
-      content: null,
-    },
-    {
-      id: "packLists",
-      label: "Packing List",
-      content: null,
-    },
-  ];
+  let stops = {
+    id: "stops",
+    label: "Stops",
+    content: null,
+  };
+
+  let packingLists = {
+    id: "packLists",
+    label: "Packing List",
+    content: null,
+  };
 
   return (
-    <div className="container bg-slate-500 h-screen items-center text-center justify-center">
-      <h1 className="font-bold text-2xl">Wedding 2023</h1>
-      <h1>MM/DD/YYYY - MM/DD/YYYY</h1>
-      <h1>Destination: Tokyo, Japan</h1>
-      <h1>Address: TOKYO MIDTOWN 9-7-1 AKASAKA MINATO-KU, TOKYO, JAPAN, 107-6245</h1>
-      <h1>Travelers: 5</h1>
-      <h1>Reason: Vacation</h1>
-      <h1>Transportation: Mixed</h1>
+    <div className="columns-1 flex flex-col w-full h-fit border bg-gray-300/30 text-center items-center justify-center">
 
-      <div className="flex w-full flex-col">
-        <Tabs aria-label="Dynamic tabs" items={tabs}>
-          {(item) => (
-            <Tab key={item.id} title={item.label}>
+      <TripBanner />
+
+      <div className="container p-2 border overflow-scroll">
+        <div className="m-0 p-0 text-start max-h-fit overflow-scroll items-center">
+          <Tabs aria-label="Dynamic tabs">
+            <Tab key={accommodations.id} title={accommodations.label}>
               <Card>
-                <CardBody>{item.content}</CardBody>
+                <div className="row flex flex-row gap-2 py-2">
+                  <div className="columns-1 min-w-fit max-h-[600px] overflow-y-scroll">
+                    {/* <ScrollShadow className="min-w-fit min-h-fit "size={100}> */}
+                    <CardBody>{accommodations.content}</CardBody>
+                    {/* </ScrollShadow> */}
+                  </div>
+                  <div className="container">sometext</div>
+                </div>
               </Card>
             </Tab>
-          )}
-        </Tabs>
+            <Tab key={stops.id} title={stops.label}>
+              <Card>
+                <div className="row flex flex-row gap-2">
+                  <div className="columns-1 flex-col flex-wrap">
+                    <CardBody>{stops.content}</CardBody>
+                  </div>
+                  <div className="container">sometext</div>
+                </div>
+              </Card>
+            </Tab>{" "}
+            <Tab key={packingLists.id} title={packingLists.label}>
+              <Card>
+                <div className="row flex flex-row gap-2">
+                  <div className="columns-1 flex-col flex-wrap">
+                    <CardBody>{packingLists.content}</CardBody>
+                  </div>
+                  <div className="container">sometext</div>
+                </div>
+              </Card>
+            </Tab>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
+}
+
+{
+  /* <Tabs aria-label="Dynamic tabs" items={tabs}>
+{(item) => (
+  <Tab key={item.id} title={item.label}>
+    <Card>
+      <div className="row flex flex-row gap-2">
+        <div className="columns-1 flex-col flex-wrap">
+          <CardBody>{item.content}</CardBody>
+          <CardBody>{item.content}</CardBody>
+        </div>
+        <div className="container">sometext</div>
+      </div>
+    </Card>
+  </Tab>
+)}
+</Tabs> */
 }
