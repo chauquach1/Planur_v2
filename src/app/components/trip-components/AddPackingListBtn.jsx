@@ -18,7 +18,7 @@ export default function AddPackingListBtn() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Add Packing List</ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -55,8 +55,8 @@ export default function AddPackingListBtn() {
                 <Button color="danger" variant="flat" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Sign in
+                <Button type="submit" color="primary" onPress={onClose}>
+                  Add Packing List
                 </Button>
               </ModalFooter>
             </>

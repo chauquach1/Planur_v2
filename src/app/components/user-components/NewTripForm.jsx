@@ -92,7 +92,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="ex. Mexico 2023"
             value={tripName}
             onChange={(event) => setTripName(event.target.value)}
-            required
             size="sm"
             className="md:w-1/2"
             autoComplete="off"
@@ -103,7 +102,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="ex. Tijuana"
             value={destination}
             onChange={(event) => setDestination(event.target.value)}
-            required
             size="sm"
             className="md:w-1/2"
           />
@@ -115,7 +113,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="mm/dd/yyyy"
             value={startDate}
             onChange={(event) => setStartDate(event.target.value)}
-            required
             size="sm"
             isRequired
           />
@@ -125,7 +122,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="mm/dd/yyyy"
             value={endDate}
             onChange={(event) => setEndDate(event.target.value)}
-            required
             size="sm"
             isRequired
           />
@@ -136,7 +132,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={reason}
             onChange={(event) => setReason(event.target.value)}
-            required
             size="sm"
           />
           <Input
@@ -144,7 +139,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={guests}
             onChange={(event) => setGuests(event.target.value)}
-            required
             size="sm"
           />
         </div>
@@ -154,7 +148,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={transportation}
             onChange={(event) => setTransportation(event.target.value)}
-            required
             size="sm"
           />
         </div>
@@ -164,7 +157,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={accommodation}
             onChange={(event) => setAccommodation(event.target.value)}
-            required
             size="sm"
           />
           <Input
@@ -172,7 +164,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={address}
             onChange={(event) => setAddress(event.target.value)}
-            required
             size="sm"
           />
         </div>

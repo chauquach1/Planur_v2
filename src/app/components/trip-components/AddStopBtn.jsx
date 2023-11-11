@@ -18,7 +18,7 @@ export default function AddStopBtn() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Add Stop</ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -55,8 +55,8 @@ export default function AddStopBtn() {
                 <Button color="danger" variant="flat" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Sign in
+                <Button type="submit"  color="primary" onPress={onClose}>
+                  Add Stop
                 </Button>
               </ModalFooter>
             </>

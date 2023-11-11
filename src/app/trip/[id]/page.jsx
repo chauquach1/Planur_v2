@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import TabButton from "../../components/trip-components/TabButton";
 
 export default function TripDashboardLayout( {trip} ) {
-  console.log("tripDetails", trip);
 
   // console.log("trip", trip);
   // console.log('parentData', parentData);

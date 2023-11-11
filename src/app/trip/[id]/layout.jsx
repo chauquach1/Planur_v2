@@ -1,9 +1,12 @@
 // "use client";
-const punycode = require("punycode/");
+// const punycode = require("punycode/");
+// import { get } from "mongoose";
 import TripBanner from "../../components/trip-components/TripBanner";
 import TripConsole from "../../components/trip-components/TripConsole";
+// import User from "../../models/user.js"
 
 
+// Get Trip Details with tripId
 const getTripDetails = async (tripId) => {
   const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
     method: "GET",
@@ -24,6 +27,7 @@ const getTripDetails = async (tripId) => {
 export default async function TripDashboardLayout({params, children}) {
   const tripId = params.id;
   const tripDetails = await getTripDetails(tripId)
+  // console.log('tripDetails', tripDetails);
   
 
   return (

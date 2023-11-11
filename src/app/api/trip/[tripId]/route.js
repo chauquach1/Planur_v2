@@ -1,5 +1,6 @@
 import connectMongoDB from "../../../libs/mongo/mongodb";
 import Trip from "../../../models/trip";
+import User from "../../../models/user";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
