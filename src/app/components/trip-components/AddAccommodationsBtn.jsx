@@ -6,8 +6,7 @@ import {MailIcon} from '../../public/MailIcon.jsx';
 import {LockIcon} from '../../public/LockIcon.jsx';
 import { useState, useEffect } from "react";
 
-export default function AddAccommodationsBtn({uuid, trip}) {
-  const [tripId, setTripId] = useState("");
+export default function AddAccommodationsBtn({uuid, tripId}) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
   const [accomCheckIn, setAccomCheckIn] = useState("");
@@ -25,9 +24,6 @@ export default function AddAccommodationsBtn({uuid, trip}) {
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-  useEffect(() => {
-    setTripId(trip._id);
-  }, []);
 
 
 

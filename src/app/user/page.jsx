@@ -12,13 +12,12 @@ async function getMongoData(uuid) {
   await connectMongoDB();
   // Fetch the user from the MongoDB database using the UUID
   const user = await User.findOne({ uuid });
-  console.log('user json from getMongoData',user);
+  // console.log('user json from getMongoData',user);
   return user; // Return the user data directly
 }
 
 export default async function UserPage() {
   const cookieStore = cookies();
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -41,7 +40,7 @@ export default async function UserPage() {
   }
 
   const mongoData = await getMongoData(user.id);
-  console.log(mongoData.uuid);
+  // console.log(mongoData.uuid);
 
 
   return (

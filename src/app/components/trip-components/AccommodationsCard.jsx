@@ -8,8 +8,9 @@ import {
   Image,
 } from "@nextui-org/react";
 
-export default function AccommodationsCard({ accommodation }) {
-  // console.log(accommodation);
+export default function AccommodationsCard(key={key},{ acc }) {
+  // console.log('accommodation details',acc);
+  // console.log('accommodation card key',key);
 
   return (
     <>
@@ -18,14 +19,14 @@ export default function AccommodationsCard({ accommodation }) {
           <div className="flex flex-col">
             <div className="row flex flex-row flex-wrap justify-between items-baseline">
               <p className="text-md inline-block align-baseline">
-                {accommodation.name}
+                {/* {accommodation.accomName} */}
               </p>
             </div>
             <p className="text-small text-default-500">
-              {accommodation.checkIn} - {accommodation.checkOut}
+              {/* {accommodation.accomCheckIn} - {accommodation.accomCheckOut} */}
             </p>
             <p className="text-small text-default-500 align-baseline">
-              {accommodation.type}
+              {/* {accommodation.accomType} */}
             </p>
           </div>
         </CardBody>

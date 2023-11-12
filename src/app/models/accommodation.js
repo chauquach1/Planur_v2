@@ -22,4 +22,4 @@ const accommodationSchema = new mongoose.Schema({
 
 const Accommodation = mongoose.models.Accommodation || mongoose.model('Accommodation', accommodationSchema);
 
-module.exports = Accommodation;
+export default Accommodation;

@@ -1,19 +1,28 @@
 'use client'
-const punycode = require("punycode/");
 import { Button } from "@nextui-org/react";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
 import StopsCard from "../../components/trip-components/StopsCard";
+import PackListCard from "../../components/trip-components/PackListCard";
 import { useState, useEffect } from "react";
 import AddAccommodationsBtn from "../../components/trip-components/AddAccommodationsBtn";
 import AddStopBtn from "../../components/trip-components/AddStopBtn";
 import AddPackingListBtn from "../../components/trip-components/AddPackingListBtn";
-// import TabButton from "../../components/trip-components/TabButton";
+import TripConsoleAddBtn from "../../components/trip-components/TripConsoleAddBtn"
 import { createBrowserClient } from '@supabase/ssr'
+// import Accommodation from "../../models/accommodation.js";
 
 
-export default function TripConsole({ trip }) {
+
+export default function TripConsole({ tripConsoleDetails }) {
   const [uuid, setUUID] = useState("");
   const [activeTab, setActiveTab] = useState("accommodations"); // Default active tab
+  // console.log("trip console tripConsoleDetails:", tripConsoleDetails);
+  // console.log("trip console tripConsoleDetails.accomIds:", tripConsoleDetails.accomIds);
+  const tripId = tripConsoleDetails.tripId
+  const accomIds = tripConsoleDetails.accomIds
+  const stopIds = tripConsoleDetails.stopIds
+  const packListIds = tripConsoleDetails.packListIds
+
 
   // SUPABASE GET/SET UUID
   useEffect(() => {
@@ -50,34 +59,33 @@ export default function TripConsole({ trip }) {
   const renderTabContent = () => {
     switch (activeTab) {
       case "accommodations":
-        if (trip.accommodations.length === 0) {
-          return <p className="font-thin italic text-gray-500"> Accommodations Empty</p>;
-        } else {
-          return trip.accommodations.map((acc) => (
-            <AccommodationsCard key={acc._id} accommodation={acc} />
-          ));
-        }
+        return accomIds && accomIds.length > 0
+        ? accomIds.map((accomId, index) => (
+              // <AccommodationsCard key={accomId || index} accomDetails={acc} />
+              <AccommodationsCard key={accomId || index} />
+            ))
+          : <p className="font-thin italic text-gray-500"> Accommodations Empty</p>;
       case "stops":
-        if (trip.stops.length === 0) {
-          return <p className="font-thin italic text-gray-500">Stops Empty</p>;
-        } else {
-          return trip.stops.map((stop) => (
-            <StopsCard key={stop._id} stop={stop} />
-          ));
-        }
+        return stopIds && stopIds.length > 0
+          ? stopIds.map((stopId) => (
+              // <StopsCard key={stopId} stop={stopId} />
+              <StopsCard key={stopId}/>
+            ))
+          : <p className="font-thin italic text-gray-500">Stops Empty</p>;
       case "packList":
-        if (!trip.packList || trip.packList.length === 0) {
-          return <p className="font-thin italic text-gray-500">Packing List Empty</p>;
-        } else {
-          // Assume packList is an array and map over it
-          return trip.packList.map((packList) => (
-            <StopsCard key={packList._id} packList={packList} />
-          ));
-        }
+        return packListIds && packListIds.length > 0
+        ? packListIds.map((packListId) => (
+            // <PackListCard key={packListId} packListId={packListId} />
+            <PackListCard key={packListId} />
+          ))
+        : <p className="font-thin italic text-gray-500">Packing List Empty</p>;
       default:
         return null;
     }
   };
+
+
+  const tabContent = renderTabContent();
 
   return (
     <div
@@ -145,23 +153,11 @@ export default function TripConsole({ trip }) {
         </div>
         {/* Tab Content */}
         <div className="py-3 h-full w-full flex flex-col justify-start items-center">
-            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "accommodations" ? "" : "hidden"}`}>
+            <div className={`w-full flex flex-col justify-center items-center tab-content`}>
               <div className="w-full row flex flex-row justify-end">
-                  <AddAccommodationsBtn uuid={uuid} trip={trip}/>
+                  <TripConsoleAddBtn activeTab={activeTab} uuid={uuid} tripId={tripId}/>
               </div>
-              {activeTab === "accommodations" && renderTabContent()}
-            </div>
-            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "stops" ? "" : "hidden"}`}>
-              <div className="w-full row flex flex-row justify-end">
-                  <AddStopBtn uuid={uuid} trip={trip}/>
-              </div>
-              {activeTab === "stops" && renderTabContent()}
-            </div>
-            <div className={`w-full flex flex-col justify-center items-center tab-content ${activeTab === "packList" ? "" : "hidden"}`}>
-              <div className="w-full row flex flex-row justify-end">
-                  <AddPackingListBtn uuid={uuid} trip={trip}/>
-              </div>
-              {activeTab === "packList" && renderTabContent()}
+              {tabContent}
             </div>
         </div>
       </div>
@@ -169,26 +165,3 @@ export default function TripConsole({ trip }) {
     </div>
   );
 }
-
-// let accommodations = {
-//   id: "accommodations",
-//   label: "Accommodations",
-//   content: trip.accommodations.map((accommodation) => (
-//     <AccommodationsCard
-//       key={accommodation._id}
-//       accommodation={accommodation}
-//     />
-//   )),
-// };
-
-// let stops = {
-//   id: "stops",
-//   label: "Stops",
-//   content: trip.stops.map((stop) => <StopsCard key={stop._id} stop={stop} />),
-// };
-
-// let packingLists = {
-//   id: "packLists",
-//   label: "Packing List",
-//   content: null,
-// };

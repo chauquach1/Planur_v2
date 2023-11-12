@@ -8,7 +8,7 @@ import {
   Image,
 } from "@nextui-org/react";
 
-export default function StopsCard(key={key},{ stop }) {
+export default function PackListCard(key={key},{ stop }) {
   return (
     <>
       <Card className="w-[400px] border my-1 shadow-lg">

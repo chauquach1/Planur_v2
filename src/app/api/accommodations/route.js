@@ -12,6 +12,14 @@ async function getUserByUUID(uuid) {
   return user;
 }
 
+// const getAccommodation = async () => {
+//   const accomId = '654ef7b9c169417803640764'
+//   await connectMongoDB();
+//   const accommodation = await Accommodation.findById(accomId).lean().exec();
+//   console.log('accommodation:',accommodation);
+//   return accommodation;
+// };
+
 export async function POST(request) {
   try {
     console.log('request from accom form',request);
