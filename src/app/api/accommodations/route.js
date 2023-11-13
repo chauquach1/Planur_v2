@@ -1,6 +1,6 @@
 import connectMongoDB from "../../libs/mongo/mongodb";
 // import User from "../../models/user";
-// import Trip from "../../models/trip";
+import Trip from "../../models/trip";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 // import {cookies} from "next/headers"
@@ -20,10 +20,36 @@ import { NextResponse } from "next/server";
 //   return accommodation;
 // };
 
-export async function getAllAccommodations() {
-  await connectMongoDB();
-  const accommodations = await Accommodation.find({}).lean().exec();
-  return accommodations;
+await connectMongoDB();
+
+export async function getAllAccommodations(tripId) {
+  // const accommodations = await Accommodation.find({}).lean().exec();
+  // return accommodations;
+  try {
+    if (!tripId) {
+      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+    }
+
+    // Fetch user by UUID
+    const trip = await Trip.findById({ tripId });
+    if (!trip) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Fetch trips
+    const accommodationIds = trip.accommodations;
+    
+    if (!accommodationIds || accommodationIds.length === 0) {
+      return NextResponse.json({ error: "Accommodations not found" }, { status: 404 });
+    }
+    const accommodations = await Accommodation.find({ _id: { $in: accommodationIds } });
+    
+
+    return accommodations
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
 }
 
 // export async function POST(request) {

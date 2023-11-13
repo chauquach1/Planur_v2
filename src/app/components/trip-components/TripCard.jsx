@@ -1,8 +1,16 @@
 import React from "react";
+import { format, parse } from 'date-fns';
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 
 export default function TripIndexCard({tripId, tripName, startDate, endDate }) {
-  // console.log("trip index card trip id:", trip);
+  // Convert the date strings into Date objects
+  const startDateObj = new Date(startDate);
+  const endDateObj = new Date(endDate);
+
+  // Format the dates without time
+  const formattedStartDate = format(startDateObj, 'PP'); // 'PP' is a format for 'Dec 31, 2023'
+  const formattedEndDate = format(endDateObj, 'PP');
+
   return (
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3 font-bold">
@@ -12,7 +20,7 @@ export default function TripIndexCard({tripId, tripName, startDate, endDate }) {
       </CardHeader>
       <Divider/>
       <CardBody>
-        <p>{startDate} - {endDate}</p>
+        <p>{formattedStartDate} - {formattedEndDate}</p>
       </CardBody>
       <Divider/>
       <CardFooter className="justify-end">

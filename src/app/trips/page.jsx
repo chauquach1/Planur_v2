@@ -1,8 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import connectMongoDB from "../libs/mongo/mongodb.js";
-import User from "../models/user.js";
-import Link from "next/link.js";
 import TripIndexCard from "../components/trip-components/TripCard.jsx";
 import { getAllTrips } from "../api/tripsindex/route";
 
@@ -25,12 +22,8 @@ export default async function TripsIndex() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  // console.log("trips index user id:", user.id);
 
   const tripsArray = await getAllTrips(user.id);
-  // console.log(tripsArray.length);
-  // console.log("trips array from trips .page.jsx:", tripsArray);
-  // let tripIds = tripsArray.map(trip => (trip._id).toString());
 
   return (
     <>
@@ -39,11 +32,7 @@ export default async function TripsIndex() {
         {tripsArray ? (
           <>
             {tripsArray.map((trip) => (
-              // (trip._id).toString(),
-              // (trip.startDate).toString(),
-              // (trip.endDate).toString(),
-              // (trip.tripName).toString(),
-              <TripIndexCard trip={trip._id} tripName={trip.tripName} startDate={trip.startDate.toString()} endDate={trip.endDate.toString()} key={trip._id} />
+              <TripIndexCard tripId={trip._id} tripName={trip.tripName} startDate={trip.startDate.toString()} endDate={trip.endDate.toString()} key={trip._id} />
             ))}
           </>
         ) : (
