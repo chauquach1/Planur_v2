@@ -1,6 +1,21 @@
 import { Button } from "@nextui-org/react";
 
-export default function TabButton({  activeTab, tabText, tabName }) {
+export default function TabButton({activeTab, tabName, onClick }) {
+
+  let tabText = null
+  switch (tabName) {
+    case "accommodations":
+      tabText = "Accommodations"
+      break;
+    case "stops":
+      tabText = "Stops"
+      break;
+    case "packLists":
+      tabText = "Packing List"
+      break;
+    default:
+      break;
+  }
 
   return (
     <Button
@@ -9,13 +24,12 @@ export default function TabButton({  activeTab, tabText, tabName }) {
           ? "bg-blue-500 text-white"
           : "bg-gray-200 text-black"
       }`}
-      // onClick={() => handleTabClick(tabName)}
-      // aria-selected={activeTab === tabName}
+      onClick={() => onClick(tabName)}
+      aria-selected={activeTab === tabName}
       role="tab"
       type="button"
       size="sm"
       radius="lg"
-      aria-selected={activeTab === tabName}
     >
       {tabText}
     </Button>

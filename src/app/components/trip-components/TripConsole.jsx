@@ -9,6 +9,7 @@ import AddStopBtn from "../../components/trip-components/AddStopBtn";
 import AddPackingListBtn from "../../components/trip-components/AddPackingListBtn";
 import TripConsoleAddBtn from "../../components/trip-components/TripConsoleAddBtn"
 import { createBrowserClient } from '@supabase/ssr'
+import TabButton from "../../components/trip-components/TabButton";
 // import Accommodation from "../../models/accommodation.js";
 
 
@@ -52,7 +53,7 @@ export default function TripConsole({ tripConsoleDetails }) {
   // Function to handle tab click
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
-    // console.log("clicked on tab: ", tabId);
+    console.log("clicked on tab: ", tabId);
   };
 
   // Function to render tab content based on active tab
@@ -72,7 +73,7 @@ export default function TripConsole({ tripConsoleDetails }) {
               <StopsCard key={stopId}/>
             ))
           : <p className="font-thin italic text-gray-500">Stops Empty</p>;
-      case "packList":
+      case "packLists":
         return packListIds && packListIds.length > 0
         ? packListIds.map((packListId) => (
             // <PackListCard key={packListId} packListId={packListId} />
@@ -101,64 +102,40 @@ export default function TripConsole({ tripConsoleDetails }) {
           aria-label="Dynamic tabs"
         >
           {/* Accommodations Tab */}
-          <Button
-              className={`transition-opacity ${
-                activeTab === "accommodations"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
-              }`}
-              onClick={() => handleTabClick("accommodations")}
-              aria-selected={activeTab === "accommodations"}
-              role="tab"
-              type="button"
-              size="sm"
-              radius="lg"
-            >
-              Accommodations
-            </Button>
+          <TabButton
+            activeTab={activeTab}
+            tabName={"accommodations"}
+            onClick={handleTabClick}
+          />
 
           {/* Stops Tab */}
-          <Button
-              className={`transition-opacity ${
-                activeTab === "stops"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
-              }`}
-              onClick={() => handleTabClick("stops")}
-              aria-selected={activeTab === "stops"}
-              role="tab"
-              type="button"
-              size="sm"
-              radius="lg"
-            >
-              Stops
-            </Button>
+          <TabButton
+            activeTab={activeTab}
+            tabName={"stops"}
+            onClick={handleTabClick}
+          />
 
           {/* Packing List Tab */}
-          <Button
-              className={`transition-opacity ${
-                activeTab === "packList"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
-              }`}
-              onClick={() => handleTabClick("packList")}
-              aria-selected={activeTab === "packList"}
-              role="tab"
-              type="button"
-              size="sm"
-              radius="lg"
-            >
-              Packing List
-            </Button>
+          <TabButton
+            activeTab={activeTab}
+            tabName={"packLists"}
+            onClick={handleTabClick}
+          />
         </div>
         {/* Tab Content */}
         <div className="py-3 h-full w-full flex flex-col justify-start items-center">
-            <div className={`w-full flex flex-col justify-center items-center tab-content`}>
-              <div className="w-full row flex flex-row justify-end">
-                  <TripConsoleAddBtn activeTab={activeTab} uuid={uuid} tripId={tripId}/>
-              </div>
-              {tabContent}
+          <div
+            className={`w-full flex flex-col justify-center items-center tab-content`}
+          >
+            <div className="w-full row flex flex-row justify-end">
+              <TripConsoleAddBtn
+                activeTab={activeTab}
+                uuid={uuid}
+                tripId={tripId}
+              />
             </div>
+            {tabContent}
+          </div>
         </div>
       </div>
       <div id="details content" className="flex-grow bg-white h-full"></div>

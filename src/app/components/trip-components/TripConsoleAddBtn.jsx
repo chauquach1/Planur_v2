@@ -15,7 +15,7 @@ export default function TripConsoleAddBtn({ activeTab, uuid, trip }) {
     case "stops":
       activeAddBtn = <AddStopBtn uuid={uuid} trip={trip}/>
       break;
-    case "packList":
+    case "packLists":
       activeAddBtn = <AddPackingListBtn uuid={uuid} trip={trip}/>
       break;
     default:
