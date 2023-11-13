@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { useContext } from 'react';
 
 const accommodationSchema = new mongoose.Schema({
   accomName: String,

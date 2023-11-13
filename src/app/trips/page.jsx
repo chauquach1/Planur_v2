@@ -4,17 +4,9 @@ import connectMongoDB from "../libs/mongo/mongodb.js";
 import User from "../models/user.js";
 import Link from "next/link.js";
 import TripIndexCard from "../components/trip-components/TripCard.jsx";
-
-async function getMongoData(uuid) {
-  await connectMongoDB();
-  // Fetch the user from the MongoDB database using the UUID
-  const user = await User.findOne({ uuid });
-  return user; // Return the user data directly
-}
-
+import { getAllTrips } from "../api/tripsindex/route";
 
 export default async function TripsIndex() {
-
   const cookieStore = cookies();
 
   const supabase = createServerClient(
@@ -35,24 +27,26 @@ export default async function TripsIndex() {
   } = await supabase.auth.getUser();
   // console.log("trips index user id:", user.id);
 
-  const mongoData = await getMongoData(user.id);
-  let tripIds = mongoData.trips.map(trip => (trip._id).toString());
-  // console.log("user id:", user.id);
-  // console.log('mongodata:',mongoData);
-  // console.log('tripIds array', tripIds);
-
+  const tripsArray = await getAllTrips(user.id);
+  // console.log(tripsArray.length);
+  // console.log("trips array from trips .page.jsx:", tripsArray);
+  // let tripIds = tripsArray.map(trip => (trip._id).toString());
 
   return (
     <>
       <h1 className="underline">Trips Index</h1>
       <div className="container flex flex-row flex-wrap border border-solid gap-2 p-2 border-white">
-        {mongoData ? (
+        {tripsArray ? (
           <>
-          {tripIds.map((tripId) => (
-              <TripIndexCard tripId={tripId} uuid={user.id} key={tripId}/>
-          ))}
+            {tripsArray.map((trip) => (
+              // (trip._id).toString(),
+              // (trip.startDate).toString(),
+              // (trip.endDate).toString(),
+              // (trip.tripName).toString(),
+              <TripIndexCard trip={trip._id} tripName={trip.tripName} startDate={trip.startDate.toString()} endDate={trip.endDate.toString()} key={trip._id} />
+            ))}
           </>
-        ): (
+        ) : (
           <h1>no trips</h1>
         )}
       </div>

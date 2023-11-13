@@ -3,29 +3,20 @@ import User from "../../models/user";
 import Trip from "../../models/trip";
 import { NextResponse } from "next/server";
 
-async function getUserByUUID(uuid) {
-  await connectMongoDB();
-  const user = await User.findOne({ uuid });
-  return user;
-}
+await connectMongoDB();
 
-
-export async function GET(request) {
+export async function getTrip(tripId) {
   try {
     // Extract UUID from request
-    const { uuid } = request.query;
-    if (!uuid) {
-      return NextResponse.json({ error: "UUID parameter is missing" }, { status: 400 });
+    if (!tripId) {
+      return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
+    const trip = await Trip.findById(tripId).lean().exec();
 
-    // Fetch user by UUID
-    const user = await getUserByUUID(uuid);
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 404 });
     }
-
-    // Return the user's trips
-    return NextResponse.json({ trips: user.trips }, { status: 200 });
+    return trip
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

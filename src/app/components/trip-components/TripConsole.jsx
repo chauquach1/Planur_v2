@@ -1,17 +1,13 @@
 'use client'
-import { Button } from "@nextui-org/react";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
 import StopsCard from "../../components/trip-components/StopsCard";
 import PackListCard from "../../components/trip-components/PackListCard";
 import { useState, useEffect } from "react";
-import AddAccommodationsBtn from "../../components/trip-components/AddAccommodationsBtn";
-import AddStopBtn from "../../components/trip-components/AddStopBtn";
-import AddPackingListBtn from "../../components/trip-components/AddPackingListBtn";
 import TripConsoleAddBtn from "../../components/trip-components/TripConsoleAddBtn"
 import { createBrowserClient } from '@supabase/ssr'
 import TabButton from "../../components/trip-components/TabButton";
+import { get } from "mongoose";
 // import Accommodation from "../../models/accommodation.js";
-
 
 
 export default function TripConsole({ tripConsoleDetails }) {
@@ -63,21 +59,19 @@ export default function TripConsole({ tripConsoleDetails }) {
         return accomIds && accomIds.length > 0
         ? accomIds.map((accomId, index) => (
               // <AccommodationsCard key={accomId || index} accomDetails={acc} />
-              <AccommodationsCard key={accomId || index} />
+              <AccommodationsCard key={accomId} accomId={accomId} />
             ))
           : <p className="font-thin italic text-gray-500"> Accommodations Empty</p>;
       case "stops":
         return stopIds && stopIds.length > 0
           ? stopIds.map((stopId) => (
-              // <StopsCard key={stopId} stop={stopId} />
-              <StopsCard key={stopId}/>
+              <StopsCard key={stopId} stop={stopId} />
             ))
           : <p className="font-thin italic text-gray-500">Stops Empty</p>;
       case "packLists":
         return packListIds && packListIds.length > 0
         ? packListIds.map((packListId) => (
-            // <PackListCard key={packListId} packListId={packListId} />
-            <PackListCard key={packListId} />
+            <PackListCard key={packListId} packListId={packListId} />
           ))
         : <p className="font-thin italic text-gray-500">Packing List Empty</p>;
       default:

@@ -12,6 +12,7 @@
     "nextui",
     "signin",
     "supabase",
-    "tripid"
+    "tripid",
+    "tripsindex"
   ]
 }

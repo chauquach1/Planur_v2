@@ -8,9 +8,8 @@ import {
   Image,
 } from "@nextui-org/react";
 
-export default function AccommodationsCard(key={key},{ acc }) {
-  // console.log('accommodation details',acc);
-  // console.log('accommodation card key',key);
+export default function AccommodationsCard({ accomId }) {
+  // console.log('accommodation details',accomId);
 
   return (
     <>

@@ -1,46 +1,31 @@
-// "use client";
 import TripBanner from "../../components/trip-components/TripBanner";
 import TripConsole from "../../components/trip-components/TripConsole";
-import Trip from "../../models/trip.js"
 import { cookies } from "next/headers";
-import connectMongoDB from "../../libs/mongo/mongodb";
 import { createServerClient } from "@supabase/ssr";
-
-// Get Trip Details with tripId
-const getTripDetails = async (tripId) => {
-  await connectMongoDB();
-  const mongoTrip = await Trip.findById(tripId).lean().exec();
-  return mongoTrip;
-};
+import { getTrip } from "../../api/trip/route";
 
 export default async function TripDashboardLayout({params}) {
+  // Get Trip Details with tripId
   const tripId = params.id;
-  const mongoTrip = await getTripDetails(tripId)
-  const accomIds = mongoTrip.accommodations ? mongoTrip.accommodations.map(acc => acc) : [];
-  const stopIds = mongoTrip.stops ? mongoTrip.stops.map(stop => stop) : [];
-  const packListIds = mongoTrip.packList ? mongoTrip.packList.map(list => list) : [];
-  // mongoTrip._id = mongoTrip._id.toString();
-  // mongoTrip.accommodations = mongoTrip.accommodations ? mongoTrip.accommodations.map(acc => acc.toString()) : [];
-  // mongoTrip.stops = mongoTrip.stops ? mongoTrip.stops.map(stop => stop.toString()) : [];
-  // mongoTrip.packList = mongoTrip.packList ? mongoTrip.packList.map(list => list.toString()) : [];
+  const trip = await getTrip(tripId);
 
   const tripBannerDetails = {
     tripId,
-    tripName: mongoTrip.tripName,
-    startDate: mongoTrip.startDate,
-    endDate: mongoTrip.endDate,
-    destination: mongoTrip.destination,
-    address: mongoTrip.address,
-    guests: mongoTrip.guests,
-    reason: mongoTrip.reason,
-    transportation: mongoTrip.transportation
+    tripName: trip.tripName,
+    startDate: trip.startDate,
+    endDate: trip.endDate,
+    destination: trip.destination,
+    address: trip.address,
+    guests: trip.guests,
+    reason: trip.reason,
+    transportation: trip.transportation
   }
 
   const tripConsoleDetails = {
     tripId,
-    accomIds: mongoTrip.accommodations = mongoTrip.accommodations ? mongoTrip.accommodations.map(acc => acc.toString()) : [],
-    stopIds: mongoTrip.stops = mongoTrip.stops ? mongoTrip.stops.map(stop => stop.toString()) : [],
-    packListIds: mongoTrip.packList = mongoTrip.packList ? mongoTrip.packList.map(list => list.toString()) : []
+    accomIds: trip.accommodations = trip.accommodations ? trip.accommodations.map(acc => acc.toString()) : [],
+    stopIds: trip.stops = trip.stops ? trip.stops.map(stop => stop.toString()) : [],
+    packListIds: trip.packList = trip.packList ? trip.packList.map(list => list.toString()) : []
   }
 
 
