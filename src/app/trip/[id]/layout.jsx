@@ -1,33 +1,14 @@
 import TripBanner from "../../components/trip-components/TripBanner";
-import TripConsole from "../../components/trip-components/TripConsole";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { getTrip } from "../../api/trip/route";
+import TripDashboardClient from "../../components/trip-components/TripDashboardClient";
 
-export default async function TripDashboardLayout({params}) {
+export default async function TripDashboardLayout({ params, children }) {
   // Get Trip Details with tripId
   const tripId = params.id;
-  const trip = await getTrip(tripId);
-
-  const tripBannerDetails = {
-    tripId,
-    tripName: trip.tripName,
-    startDate: trip.startDate,
-    endDate: trip.endDate,
-    destination: trip.destination,
-    address: trip.address,
-    guests: trip.guests,
-    reason: trip.reason,
-    transportation: trip.transportation
-  }
-
-  const tripConsoleDetails = {
-    tripId,
-    accomIds: trip.accommodations = trip.accommodations ? trip.accommodations.map(acc => acc.toString()) : [],
-    stopIds: trip.stops = trip.stops ? trip.stops.map(stop => stop.toString()) : [],
-    packListIds: trip.packList = trip.packList ? trip.packList.map(list => list.toString()) : []
-  }
-
+  const response = await getTrip(tripId);
+  const trip = response.trip;
 
   const cookieStore = cookies();
   const supabase = createServerClient(
@@ -50,14 +31,12 @@ export default async function TripDashboardLayout({params}) {
   if (!user) {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
-
-
-  
+  const uuid = user.id;
 
   return (
     <div className="columns-1 flex flex-col w-full h-fit text-center items-center justify-center">
-      <TripBanner tripBannerDetails={tripBannerDetails}/>
-      <TripConsole tripConsoleDetails={tripConsoleDetails}/>
+      <TripBanner uuid={uuid} tripDetails={trip}/>
+      <TripDashboardClient uuid={uuid} tripId={tripId}/>
     </div>
   );
 }

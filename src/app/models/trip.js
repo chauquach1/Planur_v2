@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+// const { Schema } = mongoose;
 
 const tripSchema = new mongoose.Schema(
   {
@@ -28,7 +29,6 @@ const tripSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 const Trip = mongoose.models.Trip || mongoose.model('Trip', tripSchema);
 
 export default Trip;

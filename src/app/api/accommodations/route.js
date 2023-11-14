@@ -1,88 +1,92 @@
-import connectMongoDB from "../../libs/mongo/mongodb";
-// import User from "../../models/user";
-import Trip from "../../models/trip";
+import mongoClient from "../../libs/mongo/mongodb";
+import { ObjectId } from "mongodb";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
-// import {cookies} from "next/headers"
-// import { createServerClient } from "@supabase/ssr";
 
-// async function getUserByUUID(uuid) {
-//   await connectMongoDB();
-//   const user = await User.findOne({ uuid });
-//   return user;
-// }
+export async function POST(request) {
 
-// const getAccommodation = async () => {
-//   const accomId = '654ef7b9c169417803640764'
-//   await connectMongoDB();
-//   const accommodation = await Accommodation.findById(accomId).lean().exec();
-//   console.log('accommodation:',accommodation);
-//   return accommodation;
-// };
-
-await connectMongoDB();
-
-export async function getAllAccommodations(tripId) {
-  // const accommodations = await Accommodation.find({}).lean().exec();
-  // return accommodations;
+  const {tripId, uuid, ...accomDetails} = await request.json();
+  
   try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
+    const tripCollection = db.collection("trips");
+    const accommodationCollection = db.collection("accommodations");
+    
+  
     if (!tripId) {
-      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+      console.log('NO TRIP ID', tripId);
+      return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
+    }
+    const user = await userCollection.findOne({ uuid: uuid });
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+
+    if (!user) {
+      console.log('NO USER', user);
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
-    // Fetch user by UUID
-    const trip = await Trip.findById({ tripId });
     if (!trip) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      console.log('NO TRIP', trip);
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
-    // Fetch trips
-    const accommodationIds = trip.accommodations;
-    
-    if (!accommodationIds || accommodationIds.length === 0) {
-      return NextResponse.json({ error: "Accommodations not found" }, { status: 404 });
-    }
-    const accommodations = await Accommodation.find({ _id: { $in: accommodationIds } });
-    
 
-    return accommodations
+
+    // Create a new accommodation
+    const newAccommodation = new Accommodation({ 
+      accomName: accomDetails.accomName,
+      accomType: accomDetails.accomType,
+      accomCheckIn: accomDetails.accomCheckIn,
+      accomCheckOut: accomDetails.accomCheckOut,
+      accomAddress: accomDetails.accomAddress,
+      accomPhoneNumber: accomDetails.accomPhoneNumber,
+      accomEmail: accomDetails.accomEmail,
+      accomResNum: accomDetails.accomResNum,
+    });
+    await newAccommodation.save();
+
+    await tripCollection.updateOne(
+      { _id: new ObjectId(tripId) },
+      { $push: { accommodations: newAccommodation._id } }
+    );
+    
+    // // Return the accommodation
+    return NextResponse.json({ newAccommodation }, { status: 200 });
+
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
+
 }
 
-// export async function POST(request) {
+// export async function getAllAccommodations(tripId) {
+
 //   try {
-//     console.log('request from accom form',request);
-//     const { uuid, tripId, ...accomDetails } = await request.json();
+//     if (!tripId) {
+//       return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+//     }
 
 //     // Fetch user by UUID
-//     const user = await getUserByUUID(uuid);
-//     if (!user) {
+//     const trip = await Trip.findById(tripId);
+//     if (!trip) {
 //       return NextResponse.json({ error: "User not found" }, { status: 404 });
 //     }
 
-//     // Create and save the new trip
-//     const newAccommodation = new Accommodation(accomDetails);
-//     console.log(newAccommodation);
-//     await newAccommodation.save();  // Save the new trip to generate an _id
-
-//     // Find the specific trip by tripId and add the accommodation
-//     const trip = await Trip.findById(tripId);
+//     // Fetch trips
+//     const accommodationIds = trip.accommodations;
     
-//     // console.log('trip from mongo route', trip);
-//     if (!trip) {
-//       return NextResponse.json({ error: "Trip not found" }, { status: 404 });
+//     if (!accommodationIds || accommodationIds.length === 0) {
+//       return NextResponse.json({ error: "Accommodations not found" }, { status: 404 });
 //     }
+//     const accommodations = await Accommodation.find({ _id: { $in: accommodationIds } });
+    
 
-//     trip.accommodations.push(newAccommodation._id);
-//     await trip.save();
-
-//     // Respond with the created accommodation
-//     return NextResponse.json({ message: "Accommodation created.", accommodation: newAccommodation }, { status: 201 });
+//     return accommodations
 //   } catch (error) {
-//     console.error("Error creating accommodation:", error);
+//     console.log(error);
 //     return NextResponse.json({ error: "Server error" }, { status: 500 });
 //   }
 // }

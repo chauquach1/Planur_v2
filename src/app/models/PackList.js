@@ -41,4 +41,4 @@ const packList = new mongoose.Schema({
 
 const PackList = mongoose.model('PackList', packListSchema);
 
-module.exports = PackList;
+export default PackList;

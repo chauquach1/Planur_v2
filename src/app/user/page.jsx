@@ -1,22 +1,16 @@
+import mongoClient from "../libs/mongo/mongodb";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import connectMongoDB from "../libs/mongo/mongodb.js";
-import User from "../models/user.js";
-import NewTripForm from "../components/user-components/NewTripForm.jsx";
-import NextTripBanner from "../components/trip-components/NextTrip.jsx";
-// import TripsIndex from "./trips/page.jsx";
-import Link from "next/link.js";
+import { Link } from "@nextui-org/react";
+import NewTripForm from "../components/user-components/NewTripForm";
+import NextTripBanner from "../components/trip-components/NextTripBanner"
 
-// This should be a utility function, not an API route handler
-async function getMongoData(uuid) {
-  await connectMongoDB();
-  // Fetch the user from the MongoDB database using the UUID
-  const user = await User.findOne({ uuid });
-  // console.log('user json from getMongoData',user);
-  return user; // Return the user data directly
-}
 
 export default async function UserPage() {
+  const client = await mongoClient();
+  const db = client.db('planur_v2');
+  const collection = db.collection('users');
+
   const cookieStore = cookies();
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -38,16 +32,14 @@ export default async function UserPage() {
   if (!user) {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
-
-  const mongoData = await getMongoData(user.id);
-  // console.log(mongoData.uuid);
-
+  const uuid = user.id
+  const mongoUserData = await collection.findOne({uuid : uuid});
+  const tripsArray = mongoUserData.trips;
+  
 
   return (
     <>
-      {/* {console.log('console on server mongoData: ', mongoData)}    
-    {console.log('console on server supabase user email: ', user.email)}     */}
-      {mongoData ? (
+      {mongoUserData && user ? (
         <>
           <div
             id="new-trip-form-container"
@@ -67,7 +59,7 @@ export default async function UserPage() {
         </>
       ) : (
         <div>User not found in MongoDB</div>
-      )}
+        )}
     </>
   );
 }

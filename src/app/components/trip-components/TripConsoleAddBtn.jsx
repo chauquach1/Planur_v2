@@ -1,22 +1,20 @@
-import AddAccommodationsBtn from "../../components/trip-components/AddAccommodationsBtn";
-import AddStopBtn from "../../components/trip-components/AddStopBtn";
-import AddPackingListBtn from "../../components/trip-components/AddPackingListBtn";
-{/* <AddAccommodationsBtn uuid={uuid} trip={trip}/>
-<AddStopBtn uuid={uuid} trip={trip}/>
-<AddPackingListBtn uuid={uuid} trip={trip}/> */}
+import TestAddAccomBtn from '../test-components/TestAddAccomBtn';
+import TestAddStopBtn from '../test-components/TestAddStopBtn';
+import TestAddPackListBtn from '../test-components/TestAddPackListBtn';
 
 export default function TripConsoleAddBtn({ activeTab, uuid, trip }) {
+  // console.log('uuid in TripConsoleAddBtn: ', uuid);
 
   let activeAddBtn = null
   switch (activeTab) {
     case "accommodations":
-      activeAddBtn = <AddAccommodationsBtn uuid={uuid} trip={trip}/>
+      activeAddBtn = <TestAddAccomBtn uuid={uuid} trip={trip}/>
       break;
     case "stops":
-      activeAddBtn = <AddStopBtn uuid={uuid} trip={trip}/>
+      activeAddBtn = <TestAddStopBtn uuid={uuid} trip={trip}/>
       break;
     case "packLists":
-      activeAddBtn = <AddPackingListBtn uuid={uuid} trip={trip}/>
+      activeAddBtn = <TestAddPackListBtn uuid={uuid} trip={trip}/>
       break;
     default:
       break;

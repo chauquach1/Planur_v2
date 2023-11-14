@@ -71,7 +71,7 @@ export default function NewTripForm({ uuid }) {
       setAddress('');
       
     } catch (error) {
-      console.error("Failed to create trip:", error);
+      console.log("Failed to create trip:", error);
       setMessage('Failed to create trip: ' + error.message);
     } finally {
       setIsSubmitting(false);
@@ -80,8 +80,6 @@ export default function NewTripForm({ uuid }) {
 
   return (
     <>
-      {/* {console.log('console on client uuid: ', uuid)}
-    {console.log('console on client userEmail: ', userEmail)} */}
       <form
         onSubmit={handleSubmit}
         className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center"

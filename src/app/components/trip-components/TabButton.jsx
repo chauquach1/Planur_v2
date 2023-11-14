@@ -1,17 +1,16 @@
 import { Button } from "@nextui-org/react";
 
-export default function TabButton({activeTab, tabName, onClick }) {
-
-  let tabText = null
+export default function TabButton({ activeTab, tabName, onClick }) {
+  let tabText;
   switch (tabName) {
     case "accommodations":
-      tabText = "Accommodations"
+      tabText = "Accommodations";
       break;
     case "stops":
-      tabText = "Stops"
+      tabText = "Stops";
       break;
     case "packLists":
-      tabText = "Packing List"
+      tabText = "Packing List";
       break;
     default:
       break;
@@ -20,16 +19,14 @@ export default function TabButton({activeTab, tabName, onClick }) {
   return (
     <Button
       className={`transition-opacity ${
-        activeTab === tabName
-          ? "bg-blue-500 text-white"
-          : "bg-gray-200 text-black"
+        activeTab === tabName ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
       }`}
-      onClick={() => onClick(tabName)}
       aria-selected={activeTab === tabName}
       role="tab"
       type="button"
       size="sm"
       radius="lg"
+      onClick={onClick}
     >
       {tabText}
     </Button>
