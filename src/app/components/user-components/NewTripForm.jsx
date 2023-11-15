@@ -24,21 +24,15 @@ export default function NewTripForm({ uuid }) {
     // Construct the form data object
     const tripDetails = {
       uuid, // Pass uuid along with the trip details
-      startDate: new Date(), // JavaScript Date object
-      timeZoneOffset: new Date().getTimezoneOffset(), // Timezone offset in minutes
+      startDate, // JavaScript Date object
+      endDate, // Timezone offset in minutes
       tripName,
       destination,
-      startDate,
-      endDate,
       guests,
       reason,
       transportation,
       accommodation,
-      address,
     };
-
-    // Log the form data to ensure it's collected correctly
-    console.log("Form data being sent to the server:", tripDetails);
 
     try {
       const response = await fetch("/api/trip", {
@@ -68,10 +62,9 @@ export default function NewTripForm({ uuid }) {
       setReason('');
       setTransportation('');
       setAccommodation('');
-      setAddress('');
       
     } catch (error) {
-      console.error("Failed to create trip:", error);
+      console.log("Failed to create trip:", error);
       setMessage('Failed to create trip: ' + error.message);
     } finally {
       setIsSubmitting(false);
@@ -80,8 +73,6 @@ export default function NewTripForm({ uuid }) {
 
   return (
     <>
-      {/* {console.log('console on client uuid: ', uuid)}
-    {console.log('console on client userEmail: ', userEmail)} */}
       <form
         onSubmit={handleSubmit}
         className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center"
@@ -92,7 +83,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="ex. Mexico 2023"
             value={tripName}
             onChange={(event) => setTripName(event.target.value)}
-            required
             size="sm"
             className="md:w-1/2"
             autoComplete="off"
@@ -103,7 +93,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="ex. Tijuana"
             value={destination}
             onChange={(event) => setDestination(event.target.value)}
-            required
             size="sm"
             className="md:w-1/2"
           />
@@ -115,7 +104,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="mm/dd/yyyy"
             value={startDate}
             onChange={(event) => setStartDate(event.target.value)}
-            required
             size="sm"
             isRequired
           />
@@ -125,7 +113,6 @@ export default function NewTripForm({ uuid }) {
             placeholder="mm/dd/yyyy"
             value={endDate}
             onChange={(event) => setEndDate(event.target.value)}
-            required
             size="sm"
             isRequired
           />
@@ -136,7 +123,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={reason}
             onChange={(event) => setReason(event.target.value)}
-            required
             size="sm"
           />
           <Input
@@ -144,7 +130,6 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={guests}
             onChange={(event) => setGuests(event.target.value)}
-            required
             size="sm"
           />
         </div>
@@ -154,25 +139,13 @@ export default function NewTripForm({ uuid }) {
             placeholder=""
             value={transportation}
             onChange={(event) => setTransportation(event.target.value)}
-            required
             size="sm"
           />
-        </div>
-        <div className="row w-full flex flex-row gap-2 justify-between">
           <Input
             label="Accommodation"
             placeholder=""
             value={accommodation}
             onChange={(event) => setAccommodation(event.target.value)}
-            required
-            size="sm"
-          />
-          <Input
-            label="Address"
-            placeholder=""
-            value={address}
-            onChange={(event) => setAddress(event.target.value)}
-            required
             size="sm"
           />
         </div>

@@ -66,7 +66,7 @@ export default function Login() {
         router.refresh();
       } else {
         console.log(data);
-        console.log("user uuid: ", data.user.id);
+        // console.log("user uuid: ", data.user.id);
         router.replace("/user", { scroll: false });
       }
     } else {

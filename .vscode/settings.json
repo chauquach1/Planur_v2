@@ -1,15 +1,25 @@
 {
   "cSpell.ignoreWords": [
+    "Cháuteau",
     "Planur",
+    "accom",
     "connectmongoDB",
+    "dufflebag",
     "firstname",
     "fullname",
+    "garmentbag",
     "lastname",
     "mongodata",
     "nextjs",
     "nextui",
+    "packlist",
+    "packlists",
+    "planur_v2",
+    "planurv2",
     "signin",
+    "splitted",
     "supabase",
-    "tripid"
+    "tripid",
+    "tripsindex"
   ]
 }

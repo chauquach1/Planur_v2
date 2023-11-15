@@ -26,3 +26,21 @@ html, body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.tab-content {
+  transition: opacity 300ms ease-in-out;
+  opacity: 1; /* default state */
+}
+
+.tab-content.hidden {
+  opacity: 0;
+  display: none; /* hide the content */
+}

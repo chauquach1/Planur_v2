@@ -2,19 +2,27 @@ import mongoose from "mongoose";
 
 const stopSchema = new mongoose.Schema({
   stopName: String,
-  address: String,
-  arrival: Date, // Use Date for date/time fields
-  departure: Date,
-  type: {
-    type: String, // Example: "rest stop", "landmark", etc.
-    enum: ["rest stop", "landmark", "other"], // Define valid types
+  stopAddress: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String,
+    country: String,
   },
-  transportation: String,
-  interest: String,
-  resNum: String,
-  notes: String,
+  stopArrival: Date, // Use Date for date/time fields
+  stopDeparture: Date,
+  stopType: {
+    type: String, // Example: "rest stop", "landmark", etc.
+    enum: ["Restaurant", "Food", "Landmark", "Family", "Friends", "Museum", "Attractions", "Other"], // Define valid types
+  },
+  stopTransportation: String,
+  stopInterest: String,
+  stopResNum: String,
+  stopNotes: String,
+  stopPhoneNumber: String,
+  stopEmail: String
 }, { timestamps: true });
 
-const Stop = mongoose.model('Stop', stopSchema);
+const Stop = mongoose.models.Stop || mongoose.model('Stop', stopSchema);
 
-module.exports = Stop;
+export default Stop;

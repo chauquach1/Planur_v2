@@ -1,9 +1,3 @@
-export default function TripDashboard() {
-  
-
-  return (
-    <>
-      <h1>Trip </h1>
-    </>
-  );
+export default async function TripDashboardPage() {
+  return <></>;
 }

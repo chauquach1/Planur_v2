@@ -1,62 +1,97 @@
-import connectMongoDB from "../../libs/mongo/mongodb";
-import User from "../../models/user";
+import mongoClient from "../../libs/mongo/mongodb";
+import { ObjectId } from "mongodb";
 import Trip from "../../models/trip";
 import { NextResponse } from "next/server";
 
-async function getUserByUUID(uuid) {
-  await connectMongoDB();
-  const user = await User.findOne({ uuid });
-  return user;
-}
+export async function POST(request) {
+  const { uuid, ...tripDetails } = await request.json();
 
-
-export async function GET(request) {
   try {
-    // Extract UUID from request
-    const { uuid } = request.query;
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
+
     if (!uuid) {
-      return NextResponse.json({ error: "UUID parameter is missing" }, { status: 400 });
+      console.log("NO UUID", uuid);
+      return { error: "No UUID Imported", status: 400 };
     }
 
-    // Fetch user by UUID
-    const user = await getUserByUUID(uuid);
+    const user = await userCollection.findOne({ uuid: uuid });
+
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      console.log('NO USER', user);
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
-    // Return the user's trips
-    return NextResponse.json({ trips: user.trips }, { status: 200 });
+    // Create a new trip
+    const newTrip = new Trip ({
+      tripName: tripDetails.tripName,
+      tripDestination: tripDetails.destination,
+      tripStartDate: tripDetails.startDate,
+      tripEndDate: tripDetails.endDate,
+      tripGuests: tripDetails.guests,
+      tripAccommodation: tripDetails.accommodation,
+      tripReason: tripDetails.reason,
+      tripTransportation: tripDetails.transportation,
+    });
+
+    await newTrip.save();
+    await userCollection.updateOne(
+      { uuid: uuid },
+      { $push: { trips: newTrip._id } }
+    );
+
+
+    return NextResponse.json({ newTrip }, { status: 200 });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 
-export async function POST(request) {
+export async function GET(request) {
+  const { tripId } = await request.json();
+  console.log(tripId);
   try {
-    // Parse the JSON body from the request
-    const { uuid, ...tripDetails } = await request.json();
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
 
-    // Fetch user by UUID
-    const user = await getUserByUUID(uuid);
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!uuid) {
+      console.log("NO UUID", uuid);
+      return { error: "No UUID Imported", status: 400 };
     }
 
-    // Create and save the new trip
-    const newTrip = new Trip(tripDetails);
-    console.log(newTrip);
-    await newTrip.save();  // Save the new trip to generate an _id
+    const user = await userCollection.findOne({ uuid: uuid });
 
-    // Associate the trip with the user's trips array
-    user.trips.push(newTrip); // Push the trip _id, not the whole trip object
-    await user.save(); // Save the updated user document
+    if (!user) {
+      console.log('NO USER', user);
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
+    }
 
-    // Respond with the created trip
-    return NextResponse.json({ message: "Trip created.", trip: newTrip }, { status: 201 });
+    // Create a new trip
+    const newTrip = new Trip ({
+      tripName: tripDetails.tripName,
+      tripDestination: tripDetails.destination,
+      tripStartDate: tripDetails.startDate,
+      tripEndDate: tripDetails.endDate,
+      tripGuests: tripDetails.guests,
+      tripAccommodation: tripDetails.accommodation,
+      tripReason: tripDetails.reason,
+      tripTransportation: tripDetails.transportation,
+    });
+
+    await newTrip.save();
+    await userCollection.updateOne(
+      { uuid: uuid },
+      { $push: { trips: newTrip._id } }
+    );
+
+
+    return NextResponse.json({ newTrip }, { status: 200 });
   } catch (error) {
-    console.error("Error creating trip:", error);
+    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
