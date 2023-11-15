@@ -27,6 +27,10 @@ export default async function TripsIndex() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (!user) {
+    return <div className="flex gap-4 items-center">Not logged in</div>;
+  }
+
   const uuid = user.id;
 
   const mongoUserData = await usersCollection.findOne({ uuid: uuid });
