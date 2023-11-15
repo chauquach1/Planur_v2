@@ -5,7 +5,8 @@ import { ObjectId } from "mongodb";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-async function getSupabaseUser(cookieStore) {
+async function getSupabaseUser() {
+  const cookieStore = cookies();
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -21,24 +22,33 @@ async function getSupabaseUser(cookieStore) {
   return await supabase.auth.getUser();
 }
 
-async function getMongoTrip(uuid, tripId) {
-  const client = await mongoClient();
-  const db = client.db("planur_v2");
-  const tripCollection = db.collection("trips");
-  return await tripCollection.findOne({ _id: new ObjectId(tripId)});
+async function fetchTrip(tripId) {
+  if (!tripId) {
+    console.error("no tripId from params");
+    return <div>no tripId from params</div>;
+  }
+
+  const response = await fetch('http://localhost:3000/api/trip/' + tripId);
+
+  if(!response.ok) {
+    console.error("response not ok");
+  }
+
+  const data = await response.json();
+  return data;
 }
 
 export default async function TripDashboardLayout({ params }) {
-  const cookieStore = cookies();
-  
+
   try {
-    const { data: { user } } = await getSupabaseUser(cookieStore);
+    const { data: { user } } = await getSupabaseUser();
 
     if (!user) {
       return <div className="flex gap-4 items-center">Not logged in</div>;
     }
 
-    const tripData = await getMongoTrip(user.id, params.id);
+    const tripData = await fetchTrip(params.id);
+    console.log("tripData:", tripData);
     
     if (!tripData) {
       return <div className="flex gap-4 items-center">No trip found</div>;

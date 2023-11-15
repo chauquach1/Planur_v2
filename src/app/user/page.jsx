@@ -29,7 +29,6 @@ export default async function UserPage() {
     return <div>User not found in Supabase</div>;
   }
 
-  const userEmail = user.email;
 
   const fetchUserData = async (userEmail) => {
     const response = await fetch(`http://localhost:3000/api/user/${userEmail}`);
@@ -39,7 +38,7 @@ export default async function UserPage() {
     return data;
   }
 
-  const userData = await fetchUserData(userEmail);
+  const userData = await fetchUserData(user.email);
 
   if (!userData) {
     console.error("!userData", error);
@@ -53,7 +52,7 @@ export default async function UserPage() {
         className="container rounded-lg bg-orange-500/10 text-white text-center p-2 my-5 bg-info"
       >
         <div className="container text-center">
-          <h1 className="my-0">Hello {user.email}</h1>
+          <h1 className="my-0">Hello {userData.firstName}</h1>
           <h6>Where to Next?</h6>
         </div>
       </div>
@@ -61,7 +60,7 @@ export default async function UserPage() {
       <NextTripBanner tripid={2} />
       <Link href={`/trips`}>Trips Index</Link>
       <div className="columns-1 bg-orange-500/10 rounded-large flex flex-col w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 p-2 m-2 justify-center items-center">
-        <NewTripForm uuid={user.id} />
+        <NewTripForm uuid={user.id} user={userData} />
       </div>
     </>
   );

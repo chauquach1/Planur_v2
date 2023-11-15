@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button, Input, user } from "@nextui-org/react";
 
-export default function NewTripForm({ uuid }) {
+export default function NewTripForm({ uuid, user }) {
   const [tripName, setTripName] = useState("");
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -23,7 +23,7 @@ export default function NewTripForm({ uuid }) {
 
     // Construct the form data object
     const tripDetails = {
-      uuid, // Pass uuid along with the trip details
+      user,
       startDate, // JavaScript Date object
       endDate, // Timezone offset in minutes
       tripName,
