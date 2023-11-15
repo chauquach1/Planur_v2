@@ -3,8 +3,6 @@ import { Providers } from "./providers";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LogOutBtn from "./components/auth-components/_log-out/LogOutBtn";
-import GetSessionBtn from "./components/auth-components/GetSessionBtn";
-import GetUserBtn from "./components/auth-components/GetUserBtn";
 import NavNextUI from "./components/NavNextUI";
 import AuthModal from "./components/AuthModal";
 
@@ -28,10 +26,8 @@ export default async function RootLayout({ children }) {
           <main className="flex min-h-screen min-w-full flex-col items-center">
             <NavNextUI />
             <div className="row flex flex-row w-1/3 justify-around">
-              {/* <AuthModal />
-              <LogOutBtn /> */}
-              {/* <GetSessionBtn />
-              <GetUserBtn />   */}
+              {/* <AuthModal /> */}
+              {/* <LogOutBtn /> */}
             </div>
             {children}
           </main>
