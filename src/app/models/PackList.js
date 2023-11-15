@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const packList = new mongoose.Schema({
+const packListSchema = new mongoose.Schema({
   clothes: {
     shirts: Boolean,
     pants: Boolean,
@@ -32,13 +32,19 @@ const packList = new mongoose.Schema({
   emergencyContact: {
     firstName: String,
     lastName: String,
+    relationship: String,
     phoneNumber: String, // Consider using String for flexibility
     email: String,
-    address: String,
-    relationship: String,
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      zip: String,
+      country: String,
+    },
   }
 }, { timestamps: true });
 
-const PackList = mongoose.model('PackList', packListSchema);
+const PackList = mongoose.models.PackList || mongoose.model('PackList', packListSchema);
 
 export default PackList;

@@ -2,10 +2,10 @@ import React from "react";
 import { format, parse } from 'date-fns';
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 
-export default function TripIndexCard({tripId, tripName, startDate, endDate }) {
+export default function TripIndexCard({tripId, tripName, tripStartDate, tripEndDate }) {
   // Convert the date strings into Date objects
-  const startDateObj = new Date(startDate);
-  const endDateObj = new Date(endDate);
+  const startDateObj = (tripStartDate);
+  const endDateObj = (tripEndDate);
 
   // Format the dates without time
   const formattedStartDate = format(startDateObj, 'PP'); // 'PP' is a format for 'Dec 31, 2023'

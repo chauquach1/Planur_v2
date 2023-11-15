@@ -38,15 +38,15 @@ export default async function TripsIndex() {
   return (
     <>
       <h1 className="underline">Trips Index</h1>
-      <div className="container flex flex-row flex-wrap border border-solid gap-2 p-2 border-white">
+      <div className="container flex flex-row flex-wrap gap-2 p-2 border-white">
         {tripsArray ? (
           <>
             {tripsArray.map((trip) => (
               <TripIndexCard
                 tripId={trip._id}
                 tripName={trip.tripName}
-                startDate={trip.startDate.toString()}
-                endDate={trip.endDate.toString()}
+                tripStartDate={trip.tripStartDate}
+                tripEndDate={trip.tripEndDate}
                 key={trip._id}
               />
             ))}

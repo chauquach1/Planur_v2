@@ -34,7 +34,6 @@ export default async function UserPage() {
   }
   const uuid = user.id
   const mongoUserData = await collection.findOne({uuid : uuid});
-  const tripsArray = mongoUserData.trips;
   
 
   return (

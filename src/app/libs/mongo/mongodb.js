@@ -20,10 +20,7 @@ const mongoClient = async () => {
 
   try {
     // Connect to MongoDB
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongoURI);
     console.log("Connected to MongoDB.");
 
     isConnectedBefore = true;

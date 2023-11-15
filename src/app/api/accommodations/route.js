@@ -12,7 +12,6 @@ export async function POST(request) {
     const db = client.db("planur_v2");
     const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
-    const accommodationCollection = db.collection("accommodations");
     
   
     if (!tripId) {

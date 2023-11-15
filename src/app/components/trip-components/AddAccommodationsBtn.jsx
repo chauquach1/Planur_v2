@@ -32,7 +32,6 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleSubmit = async () => {
-    // event.preventDefault();
     setIsSubmitting(true);
     setMessage("");
 

@@ -1,25 +1,30 @@
 import mongoose from "mongoose";
-// const { Schema } = mongoose;
-
 const tripSchema = new mongoose.Schema(
   {
     accommodations: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Accommodation" },
     ],
-    address: String,
-    destination: String,
-    startDate: {
+    tripAddress: {
+      street: String,
+      city: String,
+      state: String,
+      zip: String,
+      country: String,
+    },
+    tripDestination: String,
+    tripStartDate: {
       type: Date,
       required: true,
     },
-    endDate: {
+    tripEndDate: {
       type: Date,
       required: true,
     },
-    guests: Number,
+    tripAccommodation: String,
+    tripGuests: Number,
     stops: [{ type: mongoose.Schema.Types.ObjectId, ref: "Stop" }],
-    reason: String,
-    transportation: String,
+    tripReason: String,
+    tripTransportation: String,
     tripName: String,
     packList: {
       type: mongoose.Schema.Types.ObjectId,

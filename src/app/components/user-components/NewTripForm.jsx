@@ -24,21 +24,15 @@ export default function NewTripForm({ uuid }) {
     // Construct the form data object
     const tripDetails = {
       uuid, // Pass uuid along with the trip details
-      startDate: new Date(), // JavaScript Date object
-      timeZoneOffset: new Date().getTimezoneOffset(), // Timezone offset in minutes
+      startDate, // JavaScript Date object
+      endDate, // Timezone offset in minutes
       tripName,
       destination,
-      startDate,
-      endDate,
       guests,
       reason,
       transportation,
       accommodation,
-      address,
     };
-
-    // Log the form data to ensure it's collected correctly
-    console.log("Form data being sent to the server:", tripDetails);
 
     try {
       const response = await fetch("/api/trip", {
@@ -68,7 +62,6 @@ export default function NewTripForm({ uuid }) {
       setReason('');
       setTransportation('');
       setAccommodation('');
-      setAddress('');
       
     } catch (error) {
       console.log("Failed to create trip:", error);
@@ -148,20 +141,11 @@ export default function NewTripForm({ uuid }) {
             onChange={(event) => setTransportation(event.target.value)}
             size="sm"
           />
-        </div>
-        <div className="row w-full flex flex-row gap-2 justify-between">
           <Input
             label="Accommodation"
             placeholder=""
             value={accommodation}
             onChange={(event) => setAccommodation(event.target.value)}
-            size="sm"
-          />
-          <Input
-            label="Address"
-            placeholder=""
-            value={address}
-            onChange={(event) => setAddress(event.target.value)}
             size="sm"
           />
         </div>
