@@ -41,7 +41,7 @@ const packListSchema = new mongoose.Schema({
       state: String,
       zip: String,
       country: String,
-    },
+    }
   }
 }, { timestamps: true });
 

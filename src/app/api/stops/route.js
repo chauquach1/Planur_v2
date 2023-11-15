@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const { tripId, uuid, ...stopDetails } = await request.json();
-  console.log("stopDetails", stopDetails);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");

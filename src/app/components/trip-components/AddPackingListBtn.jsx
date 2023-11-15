@@ -114,36 +114,73 @@ export default function AddPackingListBtn({ uuid, tripId }) {
 
     // Construct the form data object
     const packListDetails = {
-      ...formState,
-      address: {
-        street: formState.street,
-        city: formState.city,
-        state: formState.state,
-        zip: formState.zip,
-        country: formState.country,
+      uuid,
+      tripId,
+      clothes: {
+        shirts: formState.shirts,
+        pants: formState.pants,
+        shorts: formState.shorts,
+        sweater: formState.sweater,
+        underwear: formState.underwear,
       },
+      luggage: {
+        backpack: formState.backpack,
+        carryon: formState.carryon,
+        dufflebag: formState.dufflebag,
+        suitcase: formState.suitcase,
+        garmentbag: formState.garmentbag,
+      },
+      toiletries: {
+        toothbrush: formState.toothbrush,
+        toothpaste: formState.toothpaste,
+        shampoo: formState.shampoo,
+        conditioner: formState.conditioner,
+        sunscreen: formState.sunscreen,
+      },
+      miscellaneous: {
+        cellphone: formState.cellphone,
+        laptop: formState.laptop,
+        tablet: formState.tablet,
+        passport: formState.passport,
+        medication: formState.medication,
+      },
+      emergencyContact: {
+        firstName: formState.firstName,
+        lastName: formState.lastName,
+        relationship: formState.relationship,
+        phoneNumber: formState.phoneNumber,
+        email: formState.email,
+        address: {
+          street: formState.street,
+          city: formState.city,
+          state: formState.state,
+          zip: formState.zip,
+          country: formState.country,
+        }
+      }
     };
-    
+
     try {
       console.log("Form data being sent to the server:", packListDetails);
-      const response = await fetch(`/api/stops`, {
+      const response = await fetch(`/api/packlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(packListDetails),
       });
-      console.log(response);
 
+      console.log("Response from server:", response);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
+      console.log("Result from server:", result);
 
       // Process the response here
-      console.log("Stop created:", result);
-      setMessage("Stop successfully created!");
+      console.log("Packing List created:", result);
+      setMessage("Packing List successfully created!");
 
       // Reset form fields
       const resetFormFields = () => {
@@ -330,7 +367,7 @@ export default function AddPackingListBtn({ uuid, tripId }) {
                   color="primary"
                   onPress={handleSubmit}
                 >
-                  Add Stop
+                  Add Packing List
                 </Button>
               </ModalFooter>
             </>

@@ -6,7 +6,6 @@ import AddStopBtn from "./AddStopBtn"
 import AddPackingListBtn from "./AddPackingListBtn"
 
 export default function TripDashboardClient({ uuid, tripId }) {
-
   const [activeTab, setActiveTab] = useState("accommodations");
 
   // // Client-side logic
@@ -38,7 +37,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
             <div className="w-full row flex flex-row justify-end gap-1 px-2 my-2">
               <AddAccommodationsBtn uuid={uuid} tripId={tripId}/>
               <AddStopBtn uuid={uuid} tripId={tripId}/>
-              <AddPackingListBtn />
+              <AddPackingListBtn uuid={uuid} tripId={tripId}/>
             </div>
             <div className="w-full h-full bg-orange-200 flex flex-col justify-start items-center gap-1 px-2">
               <h1>Tab Content</h1>
