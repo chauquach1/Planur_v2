@@ -1,7 +1,7 @@
 import mongoClient from "../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
-import PackList from "../../models/packList";
+import PackList from "../../models/PackList";
 
 export async function POST(request) {
   const { tripId, uuid, ...packListDetails } = await request.json();
