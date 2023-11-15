@@ -1,44 +1,19 @@
+import { useRouter } from 'next/navigation';
 import mongoClient from "../libs/mongo/mongodb";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { createBrowserClient } from "@supabase/ssr";
 import { Link } from "@nextui-org/react";
 import NewTripForm from "../components/user-components/NewTripForm";
 import NextTripBanner from "../components/trip-components/NextTripBanner"
+import { SupabaseProvider } from "../context/SupabaseProvider";
+
 
 
 export default async function UserPage() {
-  const client = await mongoClient();
-  const db = client.db('planur_v2');
-  const collection = db.collection('users');
-
-  const cookieStore = cookies();
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        get(name) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    }
-  );
-
-  // Use Supabase to get the current user
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return <div className="flex gap-4 items-center">Not logged in</div>;
-  }
-  const uuid = user.id
-  const mongoUserData = await collection.findOne({uuid : uuid});
+ 
   
-
   return (
     <>
-      {mongoUserData && user ? (
+      {/* {mongoUserData && user ? (
         <>
           <div
             id="new-trip-form-container"
@@ -58,7 +33,8 @@ export default async function UserPage() {
         </>
       ) : (
         <div>User not found in MongoDB</div>
-        )}
+        )} */}
+        <div>User not logged in</div>
     </>
   );
 }
