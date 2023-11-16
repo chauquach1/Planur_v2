@@ -1,13 +1,23 @@
-import mongoClient from "../libs/mongo/mongodb";
+import { user } from "@nextui-org/react";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import TripIndexCard from "../components/trip-components/TripCard.jsx";
 
+const fetchTrips = async (userEmail) => {
+  if (!userEmail) {
+    console.error("no userEmail");
+    return <div>no userEmail</div>;
+  }
+  const response = await fetch(`http://localhost:3000/api/tripsindex/${userEmail}`);
+
+  if (!response.ok) {
+    console.error("response not ok");
+  }
+  const data = await response.json();
+  return data;
+}
+
 export default async function TripsIndex() {
-  const client = await mongoClient();
-  const db = client.db("planur_v2");
-  const usersCollection = db.collection("users");
-  const tripsCollection = db.collection("trips");
 
   const cookieStore = cookies();
   const supabase = createServerClient(
@@ -31,13 +41,12 @@ export default async function TripsIndex() {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
 
-  const uuid = user.id;
+  const tripsArray = await fetchTrips(user.email);
 
-  const mongoUserData = await usersCollection.findOne({ uuid: uuid });
-  const mongoUserTripsIds = mongoUserData.trips;
-  const tripsArray = await tripsCollection
-    .find({ _id: { $in: mongoUserTripsIds } })
-    .toArray();
+  if (!tripsArray) {
+    console.error("!allTrips");
+    return <div>Error fetching trips from MongoDB</div>;
+  }
 
   return (
     <>

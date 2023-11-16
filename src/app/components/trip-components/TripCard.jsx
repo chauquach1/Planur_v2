@@ -1,15 +1,11 @@
 import React from "react";
-import { format, parse } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 
 export default function TripIndexCard({tripId, tripName, tripStartDate, tripEndDate }) {
   // Convert the date strings into Date objects
-  const startDateObj = (tripStartDate);
-  const endDateObj = (tripEndDate);
-
-  // Format the dates without time
-  const formattedStartDate = format(startDateObj, 'PP'); // 'PP' is a format for 'Dec 31, 2023'
-  const formattedEndDate = format(endDateObj, 'PP');
+  const formattedStartDate = format(parseISO(tripStartDate), 'PP');
+  const formattedEndDate = format(parseISO(tripEndDate), 'PP');
 
   return (
     <Card className="max-w-[400px]">

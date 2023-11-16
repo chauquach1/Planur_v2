@@ -16,9 +16,12 @@
     "packlists",
     "planur_v2",
     "planurv2",
+    "sbsession",
+    "sbuser",
     "signin",
     "splitted",
     "supabase",
+    "supbasecontext",
     "tripid",
     "tripsindex"
   ]
