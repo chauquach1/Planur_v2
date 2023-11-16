@@ -25,7 +25,7 @@ export default async function TripDashboardPage({params}) {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
 
-  const tripId  = params.id;
+  const tripId  = params.tripId;
   const fetchTrip = async () => {
     const response = await fetch(`http://localhost:3000/api/trip/${tripId}`)
     if (!response.ok) {
@@ -40,7 +40,7 @@ export default async function TripDashboardPage({params}) {
   return (
     <>
       <TripBanner uuid={user.id} tripDetails={tripData} />
-      <TripDashboardClient uuid={user.id} tripId={params.id} />
+      <TripDashboardClient uuid={user.id} tripId={params.tripId} />
     </>
   );
 }

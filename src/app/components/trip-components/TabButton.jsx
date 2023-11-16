@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 
-export default function TabButton({ activeTab, tabName, onClick }) {
+export default function TabButton({ activeTab, tabName, onPress }) {
   let tabText;
   switch (tabName) {
     case "accommodations":
@@ -26,7 +26,7 @@ export default function TabButton({ activeTab, tabName, onClick }) {
       type="button"
       size="sm"
       radius="lg"
-      onClick={onClick}
+      onPress={onPress}
     >
       {tabText}
     </Button>

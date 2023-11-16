@@ -31,7 +31,7 @@ export async function POST(request) {
 
 
     const newStop = new Stop({
-      stopName: stopDetails.name,
+      stopName: stopDetails.stopName,
       stopType: stopDetails.stopType,
       stopArrival: stopDetails.stopArrival,
       stopDeparture: stopDetails.stopDeparture,
