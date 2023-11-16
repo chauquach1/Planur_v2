@@ -57,3 +57,31 @@ export async function POST(request) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
+export async function GET(request) {
+  const client = await mongoClient();
+
+  try {
+    const tripId = request.nextUrl.searchParams.get('tripId')
+    
+    if (!tripId) {
+      console.log('NO TRIP ID', tripId);
+      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+    }
+
+    const db = client.db("planur_v2");
+    const tripsCollection = db.collection("trips");
+    const stopsCollection = db.collection("stops");
+
+    const trip = await tripsCollection.findOne({ _id: new ObjectId(tripId)})
+    if (!trip || !trip.stops) {
+      return NextResponse.json({ error: "Stops not found" }, { status: 401 });
+    }
+    const stops = await stopsCollection.find({ _id: { $in: trip.stops.map(id => new ObjectId(id)) }}).toArray();
+
+    return NextResponse.json( stops , { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

@@ -1,16 +1,33 @@
-import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
+"use client";
+import StopsCard from "../../components/trip-components/StopsCard";
+import { useState, useEffect } from "react";
 
+export default function StopsTab({ uuid, tripId }) {
+  const [stops, setStops] = useState([]);
 
+  useEffect(() => {
+    async function getAllStops() {
+      try {
+        const response = await fetch(`/api/stops?tripId=${tripId}`);
+        const data = await response.json();
 
-export default function StopsTab({ tripConsoleDetails }) {
-  return (
-    // accomIds && accomIds.length > 0 ? (
-    //   accomIds.map((accomId) => (
-    //     <AccommodationsCard key={accomId} accomId={accomId} />
-    //   ))
-    // ) : (
-    //   <p className="font-thin italic text-gray-500"> Stops Empty</p>
-    //   )
+        if (!response.ok) {
+          throw new Error(data.message || "Something went wrong!");
+        }
+        setStops(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getAllStops();
+  }, []);
+
+  return stops.length > 0 ? (
+    stops.map((stop) => (
+      <StopsCard data={stop} key={stop._id} />
+    ))
+  ) : (
     <p className="font-thin italic text-gray-500"> Stops Empty</p>
   );
 }

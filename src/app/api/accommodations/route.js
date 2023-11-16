@@ -4,9 +4,7 @@ import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-
   const {tripId, uuid, ...accomDetails} = await request.json();
-  
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
@@ -62,12 +60,10 @@ export async function POST(request) {
 }
 
 export async function GET(request) {
-  console.log('GET ACCOMMODATIONS');
   const client = await mongoClient();
 
   try {
     const tripId = request.nextUrl.searchParams.get('tripId')
-    console.log('TRIP ID', tripId);
     
     if (!tripId) {
       console.log('NO TRIP ID', tripId);
