@@ -1,13 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Divider,
-  Link,
-  Image,
-} from "@nextui-org/react";
-
+import { Card, CardBody } from "@nextui-org/react";
 import { format } from "date-fns";
 
 const sampleStop = {
@@ -31,11 +22,10 @@ const sampleStop = {
   stopEmail: "chau268@gmail.com",
 };
 
-const arrivalDate = format(new Date(sampleStop.stopArrival), "PP");
-const departureDate = format(new Date(sampleStop.stopDeparture), "PP");
+export default function StopsCard({data}) {
+  const arrivalDate = format(new Date(data.stopArrival), "PP");
+  const departureDate = format(new Date(data.stopDeparture), "PP");
 
-
-export default function StopsCard() {
   return (
     <>
       <Card
@@ -48,24 +38,24 @@ export default function StopsCard() {
           <div className="flex flex-col">
             <div className="row flex flex-row flex-wrap justify-between items-baseline">
               <p className="text-md inline-block align-baseline">
-                {sampleStop.stopName}
+                {data.stopName}
               </p>
               <p className="text-small inline-block text-default-500 align-baseline">
-                {sampleStop.stopType}
+                {data.stopType}
               </p>
               <p className="text-small text-default-500">
-                {sampleStop.stopArrival && sampleStop.stopDeparture
+                {data.stopArrival && data.stopDeparture
                   ? `${arrivalDate}  - ${departureDate}`
                   : null}
-                {sampleStop.stopArrival && !sampleStop.stopDeparture
+                {data.stopArrival && !data.stopDeparture
                   ? `${arrivalDate}`
                   : null}
               </p>
             </div>
             <div className="row flex flex-row flex-wrap justify-between items-baseline">
               <p className="text-small text-default-500">
-                {sampleStop.stopAddress.street
-                  ? sampleStop.stopAddress.street
+                {data.stopAddress.street
+                  ? data.stopAddress.street
                   : null}
               </p>
             </div>
