@@ -1,12 +1,13 @@
 import mongoClient from "../../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
+import Trip from "../../../models/trip";
 import { NextResponse } from "next/server";
 
-export async function GET(request, { params }) {
-  const {tripId} = params;
+export async function GET(request, { params } ) {
+  const tripId = params.id;
+  const client = await mongoClient();
 
   try {
-    const client = await mongoClient();
     const db = client.db("planur_v2");
     const tripCollection = db.collection("trips");
 

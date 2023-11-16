@@ -61,31 +61,32 @@ export async function POST(request) {
 
 }
 
-// export async function getAllAccommodations(tripId) {
+export async function GET(request) {
+  console.log('GET ACCOMMODATIONS');
+  const client = await mongoClient();
 
-//   try {
-//     if (!tripId) {
-//       return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
-//     }
-
-//     // Fetch user by UUID
-//     const trip = await Trip.findById(tripId);
-//     if (!trip) {
-//       return NextResponse.json({ error: "User not found" }, { status: 404 });
-//     }
-
-//     // Fetch trips
-//     const accommodationIds = trip.accommodations;
+  try {
+    const tripId = request.nextUrl.searchParams.get('tripId')
+    console.log('TRIP ID', tripId);
     
-//     if (!accommodationIds || accommodationIds.length === 0) {
-//       return NextResponse.json({ error: "Accommodations not found" }, { status: 404 });
-//     }
-//     const accommodations = await Accommodation.find({ _id: { $in: accommodationIds } });
-    
+    if (!tripId) {
+      console.log('NO TRIP ID', tripId);
+      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+    }
 
-//     return accommodations
-//   } catch (error) {
-//     console.log(error);
-//     return NextResponse.json({ error: "Server error" }, { status: 500 });
-//   }
-// }
+    const db = client.db("planur_v2");
+    const tripsCollection = db.collection("trips");
+    const accommodationsCollection = db.collection("accommodations");
+
+    const trip = await tripsCollection.findOne({ _id: new ObjectId(tripId)})
+    if (!trip || !trip.accommodations) {
+      return NextResponse.json({ error: "Accommodations not found" }, { status: 401 });
+    }
+    const accommodations = await accommodationsCollection.find({ _id: { $in: trip.accommodations.map(id => new ObjectId(id)) }}).toArray();
+
+    return NextResponse.json( accommodations , { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

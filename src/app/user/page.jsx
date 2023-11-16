@@ -7,7 +7,6 @@ import NextTripBanner from "../components/trip-components/NextTripBanner";
 
 export default async function UserPage() {
   const cookieStore = cookies();
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -29,11 +28,11 @@ export default async function UserPage() {
     return <div>User not found in Supabase</div>;
   }
 
-
   const fetchUserData = async (userEmail) => {
     const response = await fetch(`http://localhost:3000/api/user/${userEmail}`);
     const data = await response.json();
     if (!response.ok) {
+      console.error("response not ok");
     }
     return data;
   }

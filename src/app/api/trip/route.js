@@ -7,15 +7,6 @@ export async function POST(request) {
   console.log('POST request received');
   const { user: userInfo, ...tripDetails } = await request.json();
 
-  // user object {
-  //   _id: '655309ec79c47838c5ad653c',
-  //   uuid: 'b9c85a1a-6605-4de5-9ccb-386472df4647',
-  //   email: 'chau268@gmail.com',
-  //   firstName: 'Chau',
-  //   lastName: 'Quach',
-  //   trips: [ '655393b7a78ad5ce497b1afb' ]
-  // }
-
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
