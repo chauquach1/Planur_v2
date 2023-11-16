@@ -6,7 +6,12 @@ export default function AccommodationsCard({ data }) {
   const checkOutDate = format(new Date(data.accomCheckOut), "PP");
 
   return (
-    <Card className="w-[400px] my-1 border shadow-md">
+    <Card
+      isHoverable
+      isPressable
+      isBlurred
+      className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+    >
       <CardBody>
         <div className="flex flex-col">
           <div className="row flex flex-row flex-wrap justify-between items-baseline">
