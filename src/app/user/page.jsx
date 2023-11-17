@@ -48,7 +48,7 @@ export default async function UserPage() {
     <>
       <div
         id="new-trip-form-container"
-        className="container rounded-lg bg-orange-500/10 text-white text-center p-2 my-5 bg-info"
+        className="container rounded-lg bg-neutral-600 text-white text-center p-2 my-5 bg-info"
       >
         <div className="container text-center">
           <h1 className="my-0">Hello {userData.firstName}</h1>
@@ -57,8 +57,8 @@ export default async function UserPage() {
       </div>
 
       <NextTripBanner tripid={2} />
-      <Link href={`/trips`}>Trips Index</Link>
-      <div className="columns-1 bg-orange-500/10 rounded-large flex flex-col w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 p-2 m-2 justify-center items-center">
+      <Link className="text-white hover:text-black" href={`/trips`}>Trips Index</Link>
+      <div className="columns-1 bg-neutral-600 rounded-large flex flex-col w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 p-2 m-2 justify-center items-center">
         <NewTripForm uuid={user.id} user={userData} />
       </div>
     </>

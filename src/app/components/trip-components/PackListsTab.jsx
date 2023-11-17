@@ -22,9 +22,9 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        isBlurred
-        className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>handleCardPress(packList['clothes'], 'clothes')}
+        // isBlurred
+        className="w-full border my-1 shadow-lg"
+        onPress={()=>handleCardPress(packList, 'packLists')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -42,9 +42,9 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        isBlurred
-        className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>handleCardPress(packList['luggage'], 'luggage')}
+        // isBlurred
+        className="w-full border my-1 shadow-lg"
+        onPress={()=>handleCardPress(packList, 'packLists')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -62,9 +62,9 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        isBlurred
-        className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>handleCardPress(packList['toiletries'], 'toiletries')}
+        // isBlurred
+        className="w-full border my-1 shadow-lg bg-white"
+        onPress={()=>handleCardPress(packList, 'packLists')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -82,9 +82,9 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        isBlurred
-        className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>handleCardPress(packList['miscellaneous'], 'miscellaneous')}
+        // isBlurred
+        className="w-full border my-1 shadow-lg"
+        onPress={()=>handleCardPress(packList, 'packLists')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -102,9 +102,9 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        isBlurred
-        className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>handleCardPress(packList['emergencyContact'], 'emergencyContact')}
+        // isBlurred
+        className="w-full border my-1 shadow-lg"
+        onPress={()=>handleCardPress(packList, 'packLists')}
       >
         <CardBody>
           <div className="flex flex-col">

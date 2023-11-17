@@ -19,9 +19,10 @@ export default function TabButton({ activeTab, tabName, onPress }) {
   return (
     <Button
       className={`transition-opacity ${
-        activeTab === tabName ? "bg-blue-500 text-white" : "bg-gray-200 text-black"
+        activeTab === tabName ? "bg-gray-400 text-white shadow-sm" : "bg-gray-200 font-light text-black"
       }`}
       aria-selected={activeTab === tabName}
+      variant={activeTab === tabName ? "solid" : "flat"}
       role="tab"
       type="button"
       size="sm"

@@ -14,8 +14,8 @@ export default function AccommodationsCard({
     <Card
       isHoverable
       isPressable
-      isBlurred
-      className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+      // isBlurred
+      className=" w-full border my-1 shadow-lg bg-white"
       onPress={() =>
         handleCardPress(data, "accommodations")
       }

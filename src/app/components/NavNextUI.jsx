@@ -38,7 +38,7 @@ export default function NavNextUI() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">ACME</p>
+          <p className="font-bold text-inherit">Planur</p>
         </NavbarBrand>
       </NavbarContent>
 
