@@ -4,11 +4,7 @@ import StopsCard from "../../components/trip-components/StopsCard";
 import { Card, CardBody } from "@nextui-org/react";
 
 
-export default function PackListsTab({ tripId, getPackList, packList, panelType, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
-  useEffect(() => {
-    getPackList();
-  }, [tripId]);
-
+export default function PackListsTab({ tripId, getPackList, packList, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
   const categoryCount = (category) => {
     let list = packList[category]; // Access the category in sampleList
@@ -28,7 +24,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>console.log("ClothesCard pressed")}
+        onPress={()=>handleCardPress(packList['clothes'], 'clothes')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -48,7 +44,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>console.log("Luggage Card pressed")}
+        onPress={()=>handleCardPress(packList['luggage'], 'luggage')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -68,7 +64,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>console.log("Toiletries Card pressed")}
+        onPress={()=>handleCardPress(packList['toiletries'], 'toiletries')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -88,7 +84,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>console.log("Miscellaneous Card pressed")}
+        onPress={()=>handleCardPress(packList['miscellaneous'], 'miscellaneous')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -108,7 +104,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={()=>console.log("Emergency Contact pressed")}
+        onPress={()=>handleCardPress(packList['emergencyContact'], 'emergencyContact')}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -118,7 +114,7 @@ export default function PackListsTab({ tripId, getPackList, packList, panelType,
               </p>
             </div>
             <p className="text-small text-default-500">
-              {sampleList.emergencyContact.firstName} {sampleList.emergencyContact.lastName}
+              {packList.emergencyContact.firstName} {packList.emergencyContact.lastName}
             </p>
           </div>
         </CardBody>

@@ -1,6 +1,6 @@
 
 
-export default function StopsPanel(panelType, currCardData, currCardType, prevCardData, prevCardType) {
+export default function StopsPanel(currCardData, currCardType, prevCardData, prevCardType) {
 
   return (
     <>

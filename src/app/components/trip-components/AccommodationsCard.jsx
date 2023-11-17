@@ -3,9 +3,6 @@ import { format } from "date-fns";
 
 export default function AccommodationsCard({
   data,
-  panelType,
-  currCardData,
-  currCardType,
   prevCardData,
   prevCardType,
   handleCardPress,
@@ -20,7 +17,7 @@ export default function AccommodationsCard({
       isBlurred
       className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
       onPress={() =>
-        handleCardPress(data, "accommodations", prevCardData, prevCardType)
+        handleCardPress(data, "accommodations")
       }
     >
       <CardBody>

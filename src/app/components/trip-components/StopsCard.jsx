@@ -3,9 +3,6 @@ import { format } from "date-fns";
 
 export default function StopsCard({
   data,
-  panelType,
-  currCardData,
-  currCardType,
   prevCardData,
   prevCardType,
   handleCardPress,
@@ -20,7 +17,7 @@ export default function StopsCard({
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
-        onPress={() => handleCardPress(data, "stops", prevCardData, prevCardType)}
+        onPress={() => handleCardPress(data, "stops")}
       >
         <CardBody className="">
           <div className="flex flex-col">

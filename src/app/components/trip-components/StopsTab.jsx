@@ -2,11 +2,7 @@
 import StopsCard from "../../components/trip-components/StopsCard";
 import { useState, useEffect } from "react";
 
-export default function StopsTab({ tripId, getTripStops, stops, panelType, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
-
-  useEffect(() => {
-    getTripStops();
-  }, [tripId]);
+export default function StopsTab({ tripId, getTripStops, stops, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
   // return <p className="font-thin italic text-gray-500"> Stops Empty</p>
   return stops.length > 0 ? (
@@ -14,7 +10,6 @@ export default function StopsTab({ tripId, getTripStops, stops, panelType, currC
       <StopsCard
         data={stop}
         key={stop._id}
-        panelType={panelType}
         currCardData={currCardData}
         currCardType={currCardType}
         prevCardData={prevCardData}
