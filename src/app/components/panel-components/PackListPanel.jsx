@@ -1,6 +1,6 @@
 
 
-export default function PackListPanel(panelType, currCardData, currCardType, prevCardData, prevCardType) {
+export default function PackListPanel(currCardData, currCardType, prevCardData, prevCardType) {
 
   return (
     <>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import TabButtonsContainer from "./TabButtonsContainer";
 import AddAccommodationsBtn from "./AddAccommodationsBtn";
 import AddStopBtn from "./AddStopBtn";
@@ -15,14 +15,11 @@ function logWithTimestamp(...messages) {
 }
 
 export default function TripDashboardClient({ uuid, tripId }) {
-  const [activeTab, setActiveTab] = useState('accommodations');
-  const [panelType, setPanelType] = useState('no panel type');
-  const [currCardId, setCurrCardId] = useState('no currCard id');
-  const [prevCardId, setPrevCardId] = useState('no prevCard id');
+  const [activeTab, setActiveTab] = useState("accommodations");
   const [currCardData, setCurrCardData] = useState({});
-  const [currCardType, setCurrCardType] = useState('no currCard type');
+  const [currCardType, setCurrCardType] = useState("no currCard type");
   const [prevCardData, setPrevCardData] = useState({});
-  const [prevCardType, setPrevCardType] = useState('no prevCard type');
+  const [prevCardType, setPrevCardType] = useState("no prevCard type");
   const [accommodations, setAccommodations] = useState([]);
   const [stops, setStops] = useState([]);
   const [packList, setPackList] = useState(null);
@@ -78,54 +75,34 @@ export default function TripDashboardClient({ uuid, tripId }) {
       console.error(error);
     }
   }, [tripId]);
-  
-  const initialFetch = useCallback(async () => {
-  }, []);
+
+  useEffect(() => {
+    getAccoms();
+    getTripStops();
+    getPackList();
+  }, [getAccoms, getTripStops, getPackList]);
+
   // Client-side logic
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
 
-// HANDLE CARD PRESS V2
-  const handleCardPress = (currCardData, currCardType, prevCardData, prevCardType) => {
-    setCurrCardData(currCardData)
-    setCurrCardType(currCardType)
-    if ((currCardData === prevCardData)) {
-      console.log('currCardData and prevCardData are the same');
-      return 
-    } else if ((currCardType === prevCardType) && (currCardData !== prevCardData)) {
-      console.log('types same, currCardData and prevCardData are different');
-      setPrevCardData(currCardData)
-      setPrevCardType(currCardType)
-    } else {
-      console.log('types diff, data diff');
-      setPanelType(currCardType)
-      setPrevCardData(currCardData);
-      setPrevCardType(currCardType);
-    }
-  }
-
-// HANDLE CARD PRESS V3
-  // const handleCardPress = (currCardData, currCardType, prevCardData, prevCardType) => {
-  //   console.log('panelType before', panelType);
-  //   console.log('prevCardType before:', prevCardType,'prevCardData before', prevCardData);
-  //   console.log('currCardType before:', currCardType,'currCardData before', currCardData);
-  //   setPrevCardData(currCardData);
-  //   setPrevCardType(currCardType);
-  //   setCurrCardData(currCardData);
-  //   setCurrCardType(currCardType);
-  //   setPanelType(currCardType);
-  // }
+  const handleCardPress = (currCardData, currCardType) => {
+    setCurrCardData(currCardData);
+    setCurrCardType(currCardType);
+    setPrevCardData(currCardData);
+    setPrevCardType(currCardType);
+  };
 
   return (
     <>
       <div
         id="trip-controller-container"
-        className="w-full row columns-2 flex justify-start items-start bg-purple-200 h-[800px] my-5"
+        className="w-full row columns-2 flex justify-start items-star h-[800px] my-5"
       >
         <div
           id="dashboard-controller-container"
-          className="w-full sm:w-4/6 bg-blue-300 columns-1 flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full p-2"
+          className="w-full sm:w-4/6 bg-gray-400 columns-1 flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full p-2"
         >
           <div
             id="details-tabs"
@@ -140,30 +117,28 @@ export default function TripDashboardClient({ uuid, tripId }) {
                 handleTabClick={handleTabClick}
               />
             </div>
-            <div className="w-full row flex flex-row justify-end gap-1 px-2 my-2">
-              <AddAccommodationsBtn uuid={uuid} tripId={tripId} />
-              <AddStopBtn uuid={uuid} tripId={tripId} />
-              <AddPackingListBtn uuid={uuid} tripId={tripId} />
-            </div>
-            <div className="w-full h-full border flex flex-col justify-start items-center gap-1 px-2">
+            <div className="w-full h-full flex flex-col justify-start items-center gap-1 my-2 px-2">
+              <div className="w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] row flex flex-row justify-start gap-1 px-2">
+                <AddAccommodationsBtn uuid={uuid} tripId={tripId} />
+                <AddStopBtn uuid={uuid} tripId={tripId} />
+                <AddPackingListBtn uuid={uuid} tripId={tripId} />
+              </div>
               {activeTab === "accommodations" ? (
                 <AccommodationsTab
                   tripId={tripId}
                   accommodations={accommodations}
-                  panelType={panelType}
                   currCardData={currCardData}
                   currCardType={currCardType}
                   prevCardData={prevCardData}
                   prevCardType={prevCardType}
                   handleCardPress={handleCardPress}
                   getAccoms={getAccoms}
-                  className='hidden'
+                  className="hidden"
                 />
               ) : activeTab === "stops" ? (
                 <StopsTab
                   tripId={tripId}
                   stops={stops}
-                  panelType={panelType}
                   currCardData={currCardData}
                   currCardType={currCardType}
                   prevCardData={prevCardData}
@@ -175,7 +150,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
                 <PackListsTab
                   tripId={tripId}
                   packList={packList}
-                  panelType={panelType}
                   currCardData={currCardData}
                   currCardType={currCardType}
                   prevCardData={prevCardData}
@@ -189,18 +163,12 @@ export default function TripDashboardClient({ uuid, tripId }) {
             </div>
           </div>
         </div>
-        <div
-          id="dashboard-panel-container"
-          className="hidden w-full bg-green-300 columns-1 sm:flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
-        >
-          <AccomsPanel 
-            panelType={panelType}
-            currCardData={currCardData}
-            currCardType={currCardType}
-            prevCardData={prevCardData}
-            prevCardType={prevCardType}
-          />
-        </div>
+        <AccomsPanel
+          currCardData={currCardData}
+          currCardType={currCardType}
+          prevCardData={prevCardData}
+          prevCardType={prevCardType}
+        />
       </div>
     </>
   );
