@@ -3,7 +3,9 @@ import TripDashboardClient from "../../components/trip-components/TripDashboardC
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-export default async function TripDashboardPage({params}) {
+export default async function TripDashboardPage({ params }) {
+  const tripId = params.tripId;
+  // SUPABASE AUTH FUNCTION
   const cookieStore = cookies();
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -20,27 +22,31 @@ export default async function TripDashboardPage({params}) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  
+
   if (!user) {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
 
-  const tripId  = params.tripId;
+
+
   const fetchTrip = async () => {
-    const response = await fetch(`http://localhost:3000/api/trip/${tripId}`)
+    const response = await fetch(`http://localhost:3000/api/trip/${tripId}`);
     if (!response.ok) {
       console.error("Response not ok, status:", response.status);
       return null; // Or handle error appropriately
     }
     return await response.json();
-  }
+  };
 
-  const tripData = await fetchTrip(tripId);
+  const tripData = await fetchTrip();
 
   return (
     <>
-      <TripBanner uuid={user.id} tripDetails={tripData} />
-      <TripDashboardClient uuid={user.id} tripId={params.tripId} />
+      <TripBanner trip={tripData} />
+      <TripDashboardClient
+        uuid={user.id}
+        tripId={tripId}
+      />
     </>
   );
 }

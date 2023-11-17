@@ -4,13 +4,14 @@ import StopsCard from "../../components/trip-components/StopsCard";
 import { Card, CardBody } from "@nextui-org/react";
 
 
-
-
-export default function PackListsTab({ tripId }) {
+export default function PackListsTab({ tripId, getPackList, packList, panelType, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
+  useEffect(() => {
+    getPackList();
+  }, [tripId]);
 
 
   const categoryCount = (category) => {
-    let list = sampleList[category]; // Access the category in sampleList
+    let list = packList[category]; // Access the category in sampleList
     let count = 0;
     Object.values(list).forEach((item) => { // Use forEach for iterating
       if (item === true) {
@@ -27,6 +28,7 @@ export default function PackListsTab({ tripId }) {
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+        onPress={()=>console.log("ClothesCard pressed")}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -46,6 +48,7 @@ export default function PackListsTab({ tripId }) {
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+        onPress={()=>console.log("Luggage Card pressed")}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -65,6 +68,7 @@ export default function PackListsTab({ tripId }) {
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+        onPress={()=>console.log("Toiletries Card pressed")}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -84,6 +88,7 @@ export default function PackListsTab({ tripId }) {
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+        onPress={()=>console.log("Miscellaneous Card pressed")}
       >
         <CardBody>
           <div className="flex flex-col">
@@ -103,6 +108,7 @@ export default function PackListsTab({ tripId }) {
         isPressable
         isBlurred
         className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+        onPress={()=>console.log("Emergency Contact pressed")}
       >
         <CardBody>
           <div className="flex flex-col">

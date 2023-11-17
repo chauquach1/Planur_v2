@@ -1,33 +1,25 @@
 "use client";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
-export default function AccommodationsTab({ uuid, tripId }) {
-  const [accommodations, setAccommodations] = useState([]);
-
+export default function AccommodationsTab({ tripId, getAccoms, accommodations, panelType, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
+  
   useEffect(() => {
-    async function getAllAccommodations() {
-      try {
-        const response = await fetch(`/api/accommodations?tripId=${tripId}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Something went wrong!");
-        }
-        setAccommodations(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getAllAccommodations();
-  }, []);
-
+    getAccoms();
+  }, [tripId]);
 
   return accommodations.length > 0 ? (
     accommodations.map((accommodation) => (
-      <AccommodationsCard data={accommodation} key={accommodation._id} />
+      <AccommodationsCard
+        data={accommodation}
+        key={accommodation._id}
+        panelType={panelType}
+        currCardData={currCardData}
+        currCardType={currCardType}
+        prevCardData={prevCardData}
+        prevCardType={prevCardType}
+        handleCardPress={handleCardPress}
+      />
     ))
   ) : (
     <p className="font-thin italic text-gray-500">Accommodations Empty</p>

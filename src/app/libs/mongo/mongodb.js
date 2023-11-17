@@ -1,7 +1,13 @@
 'use server'
 import mongoose from "mongoose";
+import {format} from 'date-fns';
 
 let isConnectedBefore = false;
+
+function logWithTimestamp(...messages) {
+  const timestamp = format(new Date(), 'pp');
+  console.log(...messages, timestamp);
+}
 
 const mongoClient = async () => {
   const mongoURI = process.env.MONGODB_URI;
@@ -14,21 +20,21 @@ const mongoClient = async () => {
 
   // Avoid creating a new connection if one already exists
   if (mongoose.connection.readyState === 1) {
-    console.log("Using existing MongoDB connection.");
+    logWithTimestamp("Using existing MongoDB connection.");
     return mongoose.connection.getClient();
   }
 
   try {
     // Connect to MongoDB
     await mongoose.connect(mongoURI);
-    console.log("Connected to MongoDB.");
+    logWithTimestamp("Connected to MongoDB.");
 
     isConnectedBefore = true;
 
     // Return the MongoDB client
     return mongoose.connection.getClient();
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    logWithTimestamp("MongoDB connection error:", error);
     throw error;
   }
 
