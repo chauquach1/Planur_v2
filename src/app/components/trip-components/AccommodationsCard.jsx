@@ -1,7 +1,15 @@
 import { Card, CardBody } from "@nextui-org/react";
 import { format } from "date-fns";
 
-export default function AccommodationsCard({ data }) {
+export default function AccommodationsCard({
+  data,
+  panelType,
+  currCardData,
+  currCardType,
+  prevCardData,
+  prevCardType,
+  handleCardPress,
+}) {
   const checkInDate = format(new Date(data.accomCheckIn), "PP");
   const checkOutDate = format(new Date(data.accomCheckOut), "PP");
 
@@ -11,6 +19,9 @@ export default function AccommodationsCard({ data }) {
       isPressable
       isBlurred
       className="data-[hover=true]:bg-content2 dark:data-[hover=true]:bg-content2 w-full max-w-xs sm:max-w-[300px] md:max-w-[400px] border my-1 shadow-lg bg-background/60 dark:bg-default-100/50"
+      onPress={() =>
+        handleCardPress(data, "accommodations", prevCardData, prevCardType)
+      }
     >
       <CardBody>
         <div className="flex flex-col">

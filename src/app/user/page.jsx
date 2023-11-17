@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Link } from "@nextui-org/react";
-import NewTripForm from "../components/user-components/NewTripForm";
+import NewTripForm from "../components/form-components/NewTripForm";
 import NextTripBanner from "../components/trip-components/NextTripBanner";
 
 

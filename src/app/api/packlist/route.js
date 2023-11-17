@@ -62,3 +62,34 @@ export async function POST(request) {
     );
   }
 }
+
+
+export async function GET(request) {
+  const client = await mongoClient();
+
+  try {
+    const tripId = request.nextUrl.searchParams.get('tripId')
+    
+    if (!tripId) {
+      console.log('NO TRIP ID', tripId);
+      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+    }
+
+    const db = client.db("planur_v2");
+    const tripsCollection = db.collection("trips");
+    const packListsCollection = db.collection("packlists");
+
+    const trip = await tripsCollection.findOne({ _id: new ObjectId(tripId)})
+    if (!trip || !trip.stops) {
+      return NextResponse.json({ error: "Stops not found" }, { status: 401 });
+    }
+
+    const tripPackListId = new ObjectId(trip.packList);
+    const packList = await packListsCollection.findOne({ _id: new ObjectId(tripPackListId)})
+
+    return NextResponse.json( packList , { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

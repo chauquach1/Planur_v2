@@ -2,30 +2,25 @@
 import StopsCard from "../../components/trip-components/StopsCard";
 import { useState, useEffect } from "react";
 
-export default function StopsTab({ uuid, tripId }) {
-  const [stops, setStops] = useState([]);
+export default function StopsTab({ tripId, getTripStops, stops, panelType, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
   useEffect(() => {
-    async function getAllStops() {
-      try {
-        const response = await fetch(`/api/stops?tripId=${tripId}`);
-        const data = await response.json();
+    getTripStops();
+  }, [tripId]);
 
-        if (!response.ok) {
-          throw new Error(data.message || "Something went wrong!");
-        }
-        setStops(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getAllStops();
-  }, []);
-
+  // return <p className="font-thin italic text-gray-500"> Stops Empty</p>
   return stops.length > 0 ? (
     stops.map((stop) => (
-      <StopsCard data={stop} key={stop._id} />
+      <StopsCard
+        data={stop}
+        key={stop._id}
+        panelType={panelType}
+        currCardData={currCardData}
+        currCardType={currCardType}
+        prevCardData={prevCardData}
+        prevCardType={prevCardType}
+        handleCardPress={handleCardPress}
+      />
     ))
   ) : (
     <p className="font-thin italic text-gray-500"> Stops Empty</p>
