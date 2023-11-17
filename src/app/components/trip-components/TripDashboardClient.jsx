@@ -2,6 +2,7 @@
 import { Button } from "@nextui-org/react";
 import { BsCodeSlash } from "react-icons/bs";
 import React, { useState, useCallback, useEffect } from "react";
+import EditDetailsTrigger from "../panel-components/EditDetailsTrigger";
 import TabButtonsContainer from "./TabButtonsContainer";
 import AddAccommodationsBtn from "./AddAccommodationsBtn";
 import AddStopBtn from "./AddStopBtn";
@@ -10,7 +11,6 @@ import AccommodationsTab from "./AccommodationsTab";
 import PanelContainer from "../panel-components/PanelContainer";
 import StopsTab from "./StopsTab";
 import PackListsTab from "./PackListsTab";
-
 
 export default function TripDashboardClient({ uuid, tripId }) {
   const [activeTab, setActiveTab] = useState("accommodations");
@@ -173,16 +173,16 @@ export default function TripDashboardClient({ uuid, tripId }) {
         </div>
         <div
           id="dashboard-panel-container"
-          className="w-full bg-white/20 rounded-e-xl columns-1 sm:flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
+          className="w-full bg-white/20 rounded-r-xl columns-1 sm:flex sm:p-2 flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
         >
-          <PanelContainer currCardData={currCardData} currCardType={currCardType} />
-          {/* <AccomsPanel
+          <EditDetailsTrigger 
             currCardData={currCardData}
             currCardType={currCardType}
-            prevCardData={prevCardData}
-            prevCardType={prevCardType}
-            isEditing={isEditing}
-          /> */}
+          />
+          <PanelContainer
+            currCardData={currCardData}
+            currCardType={currCardType}
+          />
         </div>
       </div>
     </>
