@@ -59,6 +59,65 @@ export async function POST(request) {
 
 }
 
+export async function PUT(request) {
+  const { uuid, tripId, ...updatedAccom } = await request.json();
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
+    const tripCollection = db.collection("trips");
+
+    if (!tripId) {
+      console.log("NO TRIP ID", tripId);
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
+    const user = await userCollection.findOne({ uuid: uuid });
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+
+    if (!user) {
+      console.log("NO USER", user);
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
+    }
+
+    if (!trip) {
+      console.log("NO TRIP", trip);
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
+
+    // Create a new accommodation
+    const accomToUpdate = await Accommodation.findByIdAndUpdate(
+      { _id: new ObjectId(updatedAccom.accomId) },
+      {
+        accomName: updatedAccom.accomName,
+        accomType: updatedAccom.accomType,
+        accomCheckIn: updatedAccom.accomCheckIn,
+        accomCheckOut: updatedAccom.accomCheckOut,
+        accomAddress: updatedAccom.accomAddress,
+        accomPhoneNumber: updatedAccom.accomPhoneNumber,
+        accomEmail: updatedAccom.accomEmail,
+        accomResNum: updatedAccom.accomResNum,
+      },
+      { new: true } // This option returns the updated document
+    );
+
+    if (!accomToUpdate) {
+      console.log("NO ACCOMMODATION FOUND", accomToUpdate);
+      return NextResponse.json(
+        { error: "Accommodation not found or update failed" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(accomToUpdate, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
 export async function GET(request) {
   const client = await mongoClient();
 

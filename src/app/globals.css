@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 165, 133, 177;
+  --background-start-rgb: 146, 156, 153;
   --background-end-rgb: 255, 255, 255;
 }
 
@@ -19,12 +19,7 @@
 html, body {
   color: rgb(var(--foreground-rgb));
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--background-start-rgb));
 }
 
 .fade-enter {
