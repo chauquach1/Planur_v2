@@ -13,7 +13,6 @@ export async function GET(request, { params } ) {
 
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
-      console.log('TRIP NOT FOUND', trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 404 });
     }
 

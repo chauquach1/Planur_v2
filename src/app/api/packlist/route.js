@@ -13,7 +13,6 @@ export async function POST(request) {
     const tripCollection = db.collection("trips");
 
     if (!tripId) {
-      console.log("NO TRIP ID", tripId);
       return NextResponse.json(
         { error: "Trip ID parameter is missing" },
         { status: 400 }
@@ -23,12 +22,10 @@ export async function POST(request) {
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
 
     if (!user) {
-      console.log("NO USER", user);
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
     if (!trip) {
-      console.log("NO TRIP", trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
@@ -41,9 +38,7 @@ export async function POST(request) {
     });
 
     try {
-      console.log('newPackList before', newPackList);
       await newPackList.save();
-      console.log('newPackList after', newPackList);
     } catch (error) {
       console.error("Error saving packList:", error);
     }
@@ -63,6 +58,58 @@ export async function POST(request) {
   }
 }
 
+export async function PUT(request) {
+  const { packListId, tripId, uuid, ...updatedPackListDetails } = await request.json();
+
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
+    const tripCollection = db.collection("trips");
+
+    if (!tripId) {
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
+    const user = await userCollection.findOne({ uuid: uuid });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
+    }
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
+
+
+
+    const packListToUpdate = await PackList.findByIdAndUpdate(
+      { _id: new ObjectId(packListId) },
+      { 
+        clothes: updatedPackListDetails.clothes,
+        luggage: updatedPackListDetails.luggage,
+        toiletries: updatedPackListDetails.toiletries,
+        miscellaneous: updatedPackListDetails.miscellaneous,
+        emergencyContact: updatedPackListDetails.emergencyContact,
+      },
+      { new: true } // This option returns the updated document
+    );
+
+    if (!packListToUpdate) {
+      return NextResponse.json(
+        { error: "PackList not found or update failed" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json( packListToUpdate, { status: 200 });
+  } catch {
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function GET(request) {
   const client = await mongoClient();
@@ -71,7 +118,6 @@ export async function GET(request) {
     const tripId = request.nextUrl.searchParams.get('tripId')
     
     if (!tripId) {
-      console.log('NO TRIP ID', tripId);
       return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
     }
 
@@ -89,7 +135,6 @@ export async function GET(request) {
 
     return NextResponse.json( packList , { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

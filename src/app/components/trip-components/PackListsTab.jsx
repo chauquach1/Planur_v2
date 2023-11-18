@@ -4,7 +4,7 @@ import StopsCard from "../../components/trip-components/StopsCard";
 import { Card, CardBody } from "@nextui-org/react";
 
 
-export default function PackListsTab({ tripId, getPackList, packList, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
+export default function PackListsTab({ packList, handleCardPress }) {
 
   const categoryCount = (category) => {
     let list = packList[category]; // Access the category in packlist
@@ -22,7 +22,6 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        // isBlurred
         className="w-full border my-1 shadow-lg"
         onPress={()=>handleCardPress(packList, 'packLists')}
       >
@@ -42,7 +41,6 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        // isBlurred
         className="w-full border my-1 shadow-lg"
         onPress={()=>handleCardPress(packList, 'packLists')}
       >
@@ -62,7 +60,6 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        // isBlurred
         className="w-full border my-1 shadow-lg bg-white"
         onPress={()=>handleCardPress(packList, 'packLists')}
       >
@@ -82,7 +79,6 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        // isBlurred
         className="w-full border my-1 shadow-lg"
         onPress={()=>handleCardPress(packList, 'packLists')}
       >
@@ -102,7 +98,6 @@ export default function PackListsTab({ tripId, getPackList, packList, currCardDa
       <Card
         isHoverable
         isPressable
-        // isBlurred
         className="w-full border my-1 shadow-lg"
         onPress={()=>handleCardPress(packList, 'packLists')}
       >

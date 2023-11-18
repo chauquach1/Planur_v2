@@ -1,6 +1,4 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import { BsCodeSlash } from "react-icons/bs";
 import React, { useState, useCallback, useEffect } from "react";
 import EditDetailsTrigger from "../panel-components/EditDetailsTrigger";
 import TabButtonsContainer from "./TabButtonsContainer";
@@ -11,7 +9,6 @@ import AccommodationsTab from "./AccommodationsTab";
 import PanelContainer from "../panel-components/PanelContainer";
 import StopsTab from "./StopsTab";
 import PackListsTab from "./PackListsTab";
-import { set } from "date-fns";
 
 export default function TripDashboardClient({ uuid, tripId }) {
   const [activeTab, setActiveTab] = useState("accommodations");
@@ -25,7 +22,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
 
   // FETCH REQUEST FUNCTIONS
   const getAccoms = useCallback(async () => {
-    // logWithTimestamp("getAccoms called on dashboard");
     try {
       const response = await fetch(
         `http://localhost:3000/api/accommodations?tripId=${tripId}`
@@ -42,7 +38,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
   }, [tripId]);
 
   const getTripStops = useCallback(async () => {
-    // logWithTimestamp('getTripStops called on dashboard');
     try {
       const response = await fetch(
         `http://localhost:3000/api/stops?tripId=${tripId}`
@@ -59,7 +54,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
   }, [tripId]);
 
   const getPackList = useCallback(async () => {
-    // logWithTimestamp('getPackList called on dashboard');
     try {
       const response = await fetch(
         `http://localhost:3000/api/packlist?tripId=${tripId}`
@@ -97,22 +91,17 @@ export default function TripDashboardClient({ uuid, tripId }) {
     setStops(updatedStops); // Update the accommodations state
   }, [stops])
 
-  // const updatePackList = useCallback((newCardData) => {
-  //   const updatedAccoms = accommodations.map((accom) => {
-  //     if (accom._id === newCardData._id) {
-  //       return newCardData; // Replace with new data
-  //     }
-  //     return accom; // Keep existing data
-  //   });
-  
-  //   setAccommodations(updatedAccoms); // Update the accommodations state
-  // }, [accommodations])
+  const updatePackList = useCallback((newCardData) => {
+    if (packList._id === newCardData._id) {
+      setPackList(newCardData); // Replace with new data
+    }
+  }, [packList])
 
   useEffect(() => {
     getAccoms();
     getTripStops();
     getPackList();
-  }, [getAccoms, getTripStops, getPackList]);
+  }, [tripId]);
 
   // Client-side logic
   const handleTabClick = (tabName) => {
@@ -134,16 +123,12 @@ export default function TripDashboardClient({ uuid, tripId }) {
     if (newCardType === "accommodations") {
       updateAccomCard(newCardData);
     } 
-    
     if (newCardType === "stops") {
       updateStopCard(newCardData);
-    } else if (newCardType === "packLists") {
+    }
+    if (newCardType === "packLists") {
       updatePackList(newCardData);
     }
-  };
-
-  const logData = () => {
-    console.log(currCardData);
   };
 
   return (
@@ -154,10 +139,10 @@ export default function TripDashboardClient({ uuid, tripId }) {
       >
         <div
           id="details-tabs"
-          className="w-full sm:max-w-xs sm:border-r border-gray-400 columns-1 rounded-l-lg flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
+          className="w-full sm:max-w-xs columns-1 rounded-l-lg flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
         >
           <div
-            className=" sm: border-b p-0 sm:p-2 w-full sm:w-[300px] md:w-[400px] flex justify-between flex-wrap"
+            className="p-3 h-12 w-full sm:w-[300px] md:w-[400px] flex justify-between flex-wrap"
             aria-label="Dynamic tabs"
           >
             <TabButtonsContainer
@@ -170,15 +155,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
               <AddAccommodationsBtn uuid={uuid} tripId={tripId} />
               <AddStopBtn uuid={uuid} tripId={tripId} />
               <AddPackingListBtn uuid={uuid} tripId={tripId} />
-              <Button
-                isIconOnly
-                size="lg"
-                className="bg-white w-fit min-w-fit min-h-fit h-fit p-1"
-                radius="full"
-                onClick={logData}
-              >
-                <BsCodeSlash />
-              </Button>
             </div>
             {activeTab === "accommodations" ? (
               <AccommodationsTab
@@ -221,9 +197,9 @@ export default function TripDashboardClient({ uuid, tripId }) {
         </div>
         <div
           id="dashboard-panel-container"
-          className="w-full bg-white/20 rounded-r-xl columns-1 sm:flex sm:p-2 flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
+          className="flex flex-col w-full bg-white/20 rounded-r-xl justify-between text-start items-center min-h-full"
         >
-          <div className="w-fit place-self-end h-fit">
+          <div id="details-trigger-container" className="flex justify-end w-full h-12 shadow-xl rounded-tr-xl place-self-end p-3">
             <EditDetailsTrigger
               uuid={uuid}
               tripId={tripId}
@@ -233,10 +209,15 @@ export default function TripDashboardClient({ uuid, tripId }) {
               updateStopCard={updateStopCard}
             />
           </div>
-          <PanelContainer
-            currCardData={currCardData}
-            currCardType={currCardType}
-          />
+          <div id="panel-container" className="flex-grow bg-transparent w-full p-6 overflow-hidden">
+            <PanelContainer
+              uuid={uuid}
+              tripId={tripId}
+              currCardData={currCardData}
+              currCardType={currCardType}
+              handleUpdateForm={handleUpdateForm}
+            />
+          </div>
         </div>
       </div>
     </>

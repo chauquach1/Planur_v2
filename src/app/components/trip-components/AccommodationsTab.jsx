@@ -1,8 +1,7 @@
 "use client";
 import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
-import { useEffect } from "react";
 
-export default function AccommodationsTab({ tripId, getAccoms, accommodations, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
+export default function AccommodationsTab({ accommodations, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
   return accommodations.length > 0 ? (
     accommodations.map((accommodation) => (

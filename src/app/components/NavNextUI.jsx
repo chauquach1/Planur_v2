@@ -12,7 +12,6 @@ import {
   Button,
 } from "@nextui-org/react";
 import LogOutBtn from "./auth-components/LogOutBtn";
-import SupabaseBtn from "./auth-components/SupabaseBtn";
 
 export default function NavNextUI() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -41,7 +40,6 @@ export default function NavNextUI() {
           <p className="font-bold text-inherit">Planur</p>
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/">

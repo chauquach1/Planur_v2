@@ -1,6 +1,6 @@
 import React from "react";
 import { format, parseISO } from 'date-fns';
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 
 export default function TripIndexCard({tripId, tripName, tripStartDate, tripEndDate }) {
   // Convert the date strings into Date objects

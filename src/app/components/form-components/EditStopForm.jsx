@@ -117,7 +117,6 @@ export default function EditStopsForm({
 
       const result = await response.json();
       handleUpdateForm(result, "stops");
-      console.log("Stop updated:", result);
       setMessage("Stop updated successfully!");
       // Reset form fields
       setStopName(currCardData.stopName);
@@ -137,7 +136,6 @@ export default function EditStopsForm({
       setStopNotes(currCardData.stopNotes);
       setStopId(currCardData._id);
     } catch (error) {
-      console.log("Failed to create accommodation:", error);
       setMessage("Failed to create accommodation: " + error.message);
     } finally {
       setIsSubmitting(false);

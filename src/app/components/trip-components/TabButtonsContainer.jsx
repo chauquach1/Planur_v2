@@ -1,6 +1,5 @@
 'use client'
 import TabButton from "../../components/trip-components/TabButton";
-import { useState } from "react";
 
 export default function TabButtonsContainer({activeTab, handleTabClick}) {
 

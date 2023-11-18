@@ -13,19 +13,16 @@ export async function POST(request) {
     
   
     if (!tripId) {
-      console.log('NO TRIP ID', tripId);
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
     const user = await userCollection.findOne({ uuid: uuid });
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
 
     if (!user) {
-      console.log('NO USER', user);
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
     if (!trip) {
-      console.log('NO TRIP', trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
@@ -53,7 +50,6 @@ export async function POST(request) {
     return NextResponse.json({ newAccommodation }, { status: 200 });
 
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 
@@ -68,7 +64,6 @@ export async function PUT(request) {
     const tripCollection = db.collection("trips");
 
     if (!tripId) {
-      console.log("NO TRIP ID", tripId);
       return NextResponse.json(
         { error: "Trip ID parameter is missing" },
         { status: 400 }
@@ -76,13 +71,11 @@ export async function PUT(request) {
     }
     const user = await userCollection.findOne({ uuid: uuid });
     if (!user) {
-      console.log("NO USER", user);
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
     
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
-      console.log("NO TRIP", trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
@@ -103,7 +96,6 @@ export async function PUT(request) {
     );
 
     if (!accomToUpdate) {
-      console.log("NO ACCOMMODATION FOUND", accomToUpdate);
       return NextResponse.json(
         { error: "Accommodation not found or update failed" },
         { status: 404 }
@@ -112,7 +104,6 @@ export async function PUT(request) {
 
     return NextResponse.json(accomToUpdate, { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
@@ -124,7 +115,6 @@ export async function GET(request) {
     const tripId = request.nextUrl.searchParams.get('tripId')
     
     if (!tripId) {
-      console.log('NO TRIP ID', tripId);
       return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
     }
 
@@ -140,7 +130,6 @@ export async function GET(request) {
 
     return NextResponse.json( accommodations , { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
