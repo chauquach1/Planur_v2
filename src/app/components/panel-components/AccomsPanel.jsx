@@ -13,7 +13,7 @@ export default function AccomsPanel({ currCardData, getAccoms }) {
     console.log(accomId);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/accommodations?accomId=${accomId}`,
+        `/api/accommodations?accomId=${accomId}`,
         {
           method: "DELETE",
           headers: {

@@ -7,7 +7,7 @@ const fetchTrips = async (userEmail) => {
     console.error("no userEmail");
     return <div>no userEmail</div>;
   }
-  const response = await fetch(`http://localhost:3000/api/tripsindex/${userEmail}`);
+  const response = await fetch(`/api/tripsindex/${userEmail}`);
 
   if (!response.ok) {
     console.error("response not ok");
