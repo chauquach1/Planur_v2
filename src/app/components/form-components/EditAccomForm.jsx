@@ -8,10 +8,6 @@ import {
   Button,
   useDisclosure,
   Input,
-  Accordion,
-  AccordionItem,
-  CheckboxGroup,
-  Checkbox,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
@@ -20,8 +16,8 @@ export default function EditAccomsForm({
   uuid,
   tripId,
   currCardData,
-  currCardType,
-  handleSubmitForm,
+  handleUpdateForm,
+  updateAccomCard
 }) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
@@ -89,10 +85,6 @@ export default function EditAccomsForm({
       accomResNum: accomResNum,
     };
 
-    // Log the form data to ensure it's collected correctly
-    console.log("currCardData from EditAccomsForm:", currCardData);
-    console.log("New form data from EditAccomsForm:", updatedAccom);
-
     try {
       // Send the form data to the serverless function
       const response = await fetch(
@@ -110,22 +102,25 @@ export default function EditAccomsForm({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      
       const result = await response.json();
-      console.log("Accommodation created:", result);
-      setMessage("Accommodation successfully created!");
+      handleUpdateForm(result, 'accommodations');
+      console.log("Accommodation updated:", result);
+      setMessage("Accommodation updated successfully!");
       // Reset form fields
-      setAccomName("");
-      setAccomType("");
-      setAccomCheckIn("");
-      setAccomCheckOut("");
-      setStreet("");
-      setCity("");
-      setState("");
-      setZip("");
-      setCountry("");
-      setAccomPhoneNumber("");
-      setAccomEmail("");
-      setAccomResNum("");
+      setAccomName(currCardData.accomName);
+      setAccomType(currCardData.accomType);
+      setAccomCheckIn(formattedCheckIn);
+      setAccomCheckOut(formattedCheckOut);
+      setStreet(currCardData.accomAddress.street);
+      setCity(currCardData.accomAddress.city);
+      setState(currCardData.accomAddress.state);
+      setZip(currCardData.accomAddress.zip);
+      setCountry(currCardData.accomAddress.country);
+      setAccomPhoneNumber(currCardData.accomPhoneNumber);
+      setAccomEmail(currCardData.accomEmail);
+      setAccomResNum(currCardData.accomResNum);
+      setAccomId(currCardData._id);
     } catch (error) {
       console.log("Failed to create accommodation:", error);
       setMessage("Failed to create accommodation: " + error.message);

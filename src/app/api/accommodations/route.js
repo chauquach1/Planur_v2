@@ -111,7 +111,7 @@ export async function PUT(request) {
       );
     }
 
-    return NextResponse.json(updatedAccom, { status: 200 });
+    return NextResponse.json(accomToUpdate, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

@@ -11,15 +11,16 @@ import AccommodationsTab from "./AccommodationsTab";
 import PanelContainer from "../panel-components/PanelContainer";
 import StopsTab from "./StopsTab";
 import PackListsTab from "./PackListsTab";
+import { set } from "date-fns";
 
 export default function TripDashboardClient({ uuid, tripId }) {
   const [activeTab, setActiveTab] = useState("accommodations");
-  const [isEditing, setIsEditing] = useState(false);
   const [currCardData, setCurrCardData] = useState(null);
   const [currCardType, setCurrCardType] = useState(null);
   const [prevCardData, setPrevCardData] = useState(null);
   const [prevCardType, setPrevCardType] = useState(null);
   const [accommodations, setAccommodations] = useState([]);
+  const [accomToUpdate, setAccomToUpdate] = useState(null); // accommodations[X]._id
   const [stops, setStops] = useState([]);
   const [packList, setPackList] = useState(null);
 
@@ -75,6 +76,17 @@ export default function TripDashboardClient({ uuid, tripId }) {
     }
   }, [tripId]);
 
+  const updateAccomCard = useCallback((newCardData) => {
+    const updatedAccoms = accommodations.map((accom) => {
+      if (accom._id === newCardData._id) {
+        return newCardData; // Replace with new data
+      }
+      return accom; // Keep existing data
+    });
+  
+    setAccommodations(updatedAccoms); // Update the accommodations state
+  }, [accommodations])
+
   useEffect(() => {
     getAccoms();
     getTripStops();
@@ -93,21 +105,18 @@ export default function TripDashboardClient({ uuid, tripId }) {
     setPrevCardType(currCardType);
   };
 
-  // const handleSubmitForm = (currCardData, currCardType) => {
-  //   setCurrCardData(currCardData);
-  //   setCurrCardType(currCardType);
-  //   setPrevCardData(currCardData);
-  //   setPrevCardType(currCardType);
-  // };
-  
-  
-  const handleSubmitForm = (sampleData) => {
-    console.log("handleSubmitForm called on dashboard", sampleData);
+  const handleUpdateForm = (newCardData, newCardType) => {
+    setCurrCardData(newCardData);
+    setCurrCardType(newCardType);
+    setPrevCardData(newCardData);
+    setPrevCardType(newCardType);
+    if (newCardType === "accommodations") {
+      updateAccomCard(newCardData);
+    } 
   };
 
   const logData = () => {
-    console.log(currCardType);
-    console.log(currCardData);
+    console.log(accommodations);
   };
 
   return (
@@ -193,7 +202,8 @@ export default function TripDashboardClient({ uuid, tripId }) {
               tripId={tripId}
               currCardData={currCardData}
               currCardType={currCardType}
-              handleSubmitForm={handleSubmitForm}
+              handleUpdateForm={handleUpdateForm}
+              updateAccomCard={updateAccomCard}
             />
           </div>
           <PanelContainer

@@ -7,7 +7,8 @@ export default function EditDetailsTrigger({
   tripId,
   currCardData,
   currCardType,
-  handleSubmitForm,
+  handleUpdateForm,
+  updateAccomCard
 }) {
   if (currCardData === null || currCardData === undefined) {
     return <></>;
@@ -18,7 +19,8 @@ export default function EditDetailsTrigger({
         tripId={tripId}
         currCardData={currCardData}
         currCardType={currCardType}
-        handleSubmitForm={handleSubmitForm}
+        handleUpdateForm={handleUpdateForm}
+        updateAccomCard={updateAccomCard}
       />
     );
   } else if (currCardData && currCardType === "stops") {
@@ -28,7 +30,7 @@ export default function EditDetailsTrigger({
         tripId={tripId}
         currCardData={currCardData}
         currCardType={currCardType}
-        handleSubmitForm={handleSubmitForm}
+        handleUpdateForm={handleUpdateForm}
       />
     );
   } else if (currCardData && currCardType === "packLists") {
@@ -38,7 +40,7 @@ export default function EditDetailsTrigger({
         tripId={tripId}
         currCardData={currCardData}
         currCardType={currCardType}
-        handleSubmitForm={handleSubmitForm}
+        handleUpdateForm={handleUpdateForm}
       />
     );
   }
