@@ -32,7 +32,6 @@ export default function EditAccomsForm({
   const [accomResNum, setAccomResNum] = useState("");
   const [accomId, setAccomId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
 
   const currAccomCheckIn = currCardData.accomCheckIn;
   const currAccomCheckOut = currCardData.accomCheckOut;
@@ -61,7 +60,6 @@ export default function EditAccomsForm({
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    setMessage("");
 
     // Construct the form data object
     const updatedAccom = {
@@ -104,8 +102,6 @@ export default function EditAccomsForm({
       
       const result = await response.json();
       handleUpdateForm(result, 'accommodations');
-      console.log("Accommodation updated:", result);
-      setMessage("Accommodation updated successfully!");
       // Reset form fields
       setAccomName(currCardData.accomName);
       setAccomType(currCardData.accomType);
@@ -121,7 +117,6 @@ export default function EditAccomsForm({
       setAccomResNum(currCardData.accomResNum);
       setAccomId(currCardData._id);
     } catch (error) {
-      console.log("Failed to create accommodation:", error);
       setMessage("Failed to create accommodation: " + error.message);
     } finally {
       setIsSubmitting(false);

@@ -11,7 +11,6 @@ import {
   Input,
   Accordion,
   AccordionItem,
-  CheckboxGroup,
   Checkbox,
 } from "@nextui-org/react";
 import { useState, useReducer } from "react";
@@ -108,7 +107,6 @@ export default function AddPackingListBtn({ uuid, tripId }) {
 
 
   const handleSubmit = async (event) => {
-    console.log("Submitting form...");
     setIsSubmitting(true);
     setMessage("");
 
@@ -161,7 +159,6 @@ export default function AddPackingListBtn({ uuid, tripId }) {
     };
 
     try {
-      console.log("Form data being sent to the server:", packListDetails);
       const response = await fetch(`/api/packlist`, {
         method: "POST",
         headers: {
@@ -170,16 +167,11 @@ export default function AddPackingListBtn({ uuid, tripId }) {
         body: JSON.stringify(packListDetails),
       });
 
-      console.log("Response from server:", response);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
-      console.log("Result from server:", result);
-
       // Process the response here
-      console.log("Packing List created:", result);
       setMessage("Packing List successfully created!");
 
       // Reset form fields
@@ -189,14 +181,12 @@ export default function AddPackingListBtn({ uuid, tripId }) {
       resetFormFields();
       
     } catch (error) {
-      console.log("Failed to create pack list:", error);
       setMessage("Failed to create pack list: " + error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
   const showFormState = () => {
-    console.log(formState);
   }
   return (
     <form onSubmit={handleSubmit}>

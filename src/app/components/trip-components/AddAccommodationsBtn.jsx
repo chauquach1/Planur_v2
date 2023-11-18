@@ -72,7 +72,6 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
       }
   
       const result = await response.json();
-      console.log("Accommodation created:", result);
       setMessage("Accommodation successfully created!");
       // Reset form fields
       setAccomName("");
@@ -89,7 +88,6 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
       setAccomResNum("");
       
     } catch (error) {
-      console.log("Failed to create accommodation:", error);
       setMessage("Failed to create accommodation: " + error.message);
     } finally {
       setIsSubmitting(false);

@@ -19,7 +19,6 @@ export default function SupabaseBtn() {
     const checkSession = async () => {
       const { data, error } = await supabase.auth.getSession()
       if (error) {
-        console.log('Error getting session:', error);
       } else {
         setSbsession(data);
       }
@@ -28,7 +27,6 @@ export default function SupabaseBtn() {
     const checkUser = async () => {
       const {data: { user }} = await supabase.auth.getUser();
       if (!user) {
-        console.log("Error getting user");
       } else {
         setSbuser(user);
       }
@@ -41,8 +39,6 @@ export default function SupabaseBtn() {
 
 
   const handleClick = () => {
-    console.log("sbsession", sbsession);
-    console.log("sbuser", sbuser);
   }
 
   return <Button auto size="mini" onClick={handleClick}> SupabaseBtn </Button>;

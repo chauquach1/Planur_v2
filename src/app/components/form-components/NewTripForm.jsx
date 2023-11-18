@@ -50,7 +50,6 @@ export default function NewTripForm({ uuid, user }) {
       const result = await response.json();
 
       // Process the response here
-      console.log("Trip created:", result);
       setMessage('Trip successfully created!');
       
       // Reset form fields
@@ -64,7 +63,6 @@ export default function NewTripForm({ uuid, user }) {
       setAccommodation('');
       
     } catch (error) {
-      console.log("Failed to create trip:", error);
       setMessage('Failed to create trip: ' + error.message);
     } finally {
       setIsSubmitting(false);

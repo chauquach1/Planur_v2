@@ -32,14 +32,6 @@ export default function EditDetailsTrigger({
       />
     );
   } else if (currCardData && currCardType === "packLists") {
-    return (
-      <EditPackListForm
-        uuid={uuid}
-        tripId={tripId}
-        currCardData={currCardData}
-        currCardType={currCardType}
-        handleUpdateForm={handleUpdateForm}
-      />
-    );
+    return <></>;
   }
 }

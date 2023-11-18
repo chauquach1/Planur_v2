@@ -3,7 +3,6 @@ import TestAddStopBtn from '../test-components/TestAddStopBtn';
 import TestAddPackListBtn from '../test-components/TestAddPackListBtn';
 
 export default function TripConsoleAddBtn({ activeTab, uuid, trip }) {
-  // console.log('uuid in TripConsoleAddBtn: ', uuid);
 
   let activeAddBtn = null
   switch (activeTab) {
