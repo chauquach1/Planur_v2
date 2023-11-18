@@ -8,7 +8,6 @@ export default function EditDetailsTrigger({
   currCardData,
   currCardType,
   handleUpdateForm,
-  updateAccomCard
 }) {
   if (currCardData === null || currCardData === undefined) {
     return <></>;
@@ -20,7 +19,6 @@ export default function EditDetailsTrigger({
         currCardData={currCardData}
         currCardType={currCardType}
         handleUpdateForm={handleUpdateForm}
-        updateAccomCard={updateAccomCard}
       />
     );
   } else if (currCardData && currCardType === "stops") {
@@ -34,14 +32,6 @@ export default function EditDetailsTrigger({
       />
     );
   } else if (currCardData && currCardType === "packLists") {
-    return (
-      <EditPackListForm
-        uuid={uuid}
-        tripId={tripId}
-        currCardData={currCardData}
-        currCardType={currCardType}
-        handleUpdateForm={handleUpdateForm}
-      />
-    );
+    return <></>;
   }
 }

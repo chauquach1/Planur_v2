@@ -36,20 +36,9 @@ export default function Login() {
     if (isLogin) {
       // Handle login
       const { data, error } = await supabase.auth.signInWithPassword(formData);
-      console.log('authSignInWithPassword data.user.email',data.user.email); // data.user.email -> chau268@gmail.com
 
-      supabase.auth.onAuthStateChange((event, session) => {
-        console.log('onAuthStateChange ',event, session);
-        if (event === "SIGNED_IN") {
-          console.log("SIGNED_IN");
-        }
-        if (event === "SIGNED_OUT") {
-          console.log("SIGNED_OUT");
-        }
-      });
 
       if (error) {
-        console.log(error);
         router.refresh();
       } else {
         router.replace('/user', { scroll: false })
@@ -65,10 +54,8 @@ export default function Login() {
       });
 
       if (error) {
-        console.log(error);
         router.refresh();
       } else {
-        console.log(data);
         router.replace('/user', { scroll: false })
       }
     }

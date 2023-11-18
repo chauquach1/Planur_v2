@@ -4,10 +4,7 @@ import {format} from 'date-fns';
 
 let isConnectedBefore = false;
 
-function logWithTimestamp(...messages) {
-  const timestamp = format(new Date(), 'pp');
-  console.log(...messages, timestamp);
-}
+
 
 const mongoClient = async () => {
   const mongoURI = process.env.MONGODB_URI;
@@ -20,21 +17,18 @@ const mongoClient = async () => {
 
   // Avoid creating a new connection if one already exists
   if (mongoose.connection.readyState === 1) {
-    logWithTimestamp("Using existing MongoDB connection.");
     return mongoose.connection.getClient();
   }
 
   try {
     // Connect to MongoDB
     await mongoose.connect(mongoURI);
-    logWithTimestamp("Connected to MongoDB.");
 
     isConnectedBefore = true;
 
     // Return the MongoDB client
     return mongoose.connection.getClient();
   } catch (error) {
-    logWithTimestamp("MongoDB connection error:", error);
     throw error;
   }
 
@@ -46,7 +40,6 @@ const mongoClient = async () => {
   });
 
   mongoose.connection.on("disconnected", () => {
-    console.log("MongoDB disconnected.");
     if (isConnectedBefore) {
       connectMongoDB();
     }
@@ -54,7 +47,6 @@ const mongoClient = async () => {
 
   process.on("SIGINT", async () => {
     await mongoose.connection.close();
-    console.log("MongoDB connection closed due to app termination.");
     process.exit(0);
   });
 };

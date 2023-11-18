@@ -28,7 +28,6 @@ export async function GET(request, {params}) {
     
     return NextResponse.json(tripsArray, { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

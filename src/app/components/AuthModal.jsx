@@ -51,22 +51,9 @@ export default function Login() {
       // Handle login
       const { data, error } = await supabase.auth.signInWithPassword(formData);
 
-      supabase.auth.onAuthStateChange((event, session) => {
-        console.log(event, session);
-        if (event === "SIGNED_IN") {
-          console.log("SIGNED_IN");
-        }
-        if (event === "SIGNED_OUT") {
-          console.log("SIGNED_OUT");
-        }
-      });
-
       if (error) {
-        console.log(error);
         router.refresh();
       } else {
-        console.log(data);
-        // console.log("user uuid: ", data.user.id);
         router.replace("/user", { scroll: false });
       }
     } else {
@@ -80,10 +67,8 @@ export default function Login() {
       });
 
       if (error) {
-        console.log(error);
         router.refresh();
       } else {
-        console.log(data);
         router.replace("/user", { scroll: false });
       }
     }

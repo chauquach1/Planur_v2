@@ -1,4 +1,3 @@
-import { user } from "@nextui-org/react";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import TripIndexCard from "../components/trip-components/TripCard.jsx";

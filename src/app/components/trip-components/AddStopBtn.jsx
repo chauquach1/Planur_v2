@@ -10,7 +10,7 @@ import {
   useDisclosure,
   Input,
 } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NextResponse } from "next/server";
 
 export default function AddStopBtn({ uuid, tripId }) {
@@ -73,7 +73,6 @@ export default function AddStopBtn({ uuid, tripId }) {
 
       // Process the response here
       const result = await createStop.json();
-      console.log("Stop created:", result);
 
       // Reset form fields
       setStopName("");
@@ -94,7 +93,6 @@ export default function AddStopBtn({ uuid, tripId }) {
 
       return new NextResponse(200, result);
     } catch (error) {
-      console.log(error);
     }
   };
 

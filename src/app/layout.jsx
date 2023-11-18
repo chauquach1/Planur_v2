@@ -2,7 +2,6 @@ import React from "react";
 import { Providers } from "./providers";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import LogOutBtn from "./components/auth-components/LogOutBtn";
 import NavNextUI from "./components/NavNextUI";
 import AuthModal from "./components/AuthModal";
 

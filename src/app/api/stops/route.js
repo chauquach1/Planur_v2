@@ -10,22 +10,18 @@ export async function POST(request) {
     const db = client.db("planur_v2");
     const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
-    const stopsCollection = db.collection("stops");
 
     if (!tripId) {
-      console.log('NO TRIP ID', tripId);
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
     const user = await userCollection.findOne({ uuid: uuid });
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
 
     if (!user) {
-      console.log('NO USER', user);
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
     if (!trip) {
-      console.log('NO TRIP', trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
@@ -53,7 +49,63 @@ export async function POST(request) {
 
     return NextResponse.json({ newStop }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  const { uuid, tripId, ...updatedStop } = await request.json();
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const userCollection = db.collection("users");
+    const tripCollection = db.collection("trips");
+
+    if (!tripId) {
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
+    const user = await userCollection.findOne({ uuid: uuid });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 401 });
+    }
+    
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
+
+    // Create a new stop
+    const stopToUpdate = await Stop.findByIdAndUpdate(
+      { _id: new ObjectId(updatedStop.stopId) },
+      {
+        stopAddress: updatedStop.stopAddress,
+        stopArrival: updatedStop.stopArrival,
+        stopDeparture: updatedStop.stopDeparture,
+        stopEmail: updatedStop.stopEmail,
+        stopInterest: updatedStop.stopInterest,
+        stopName: updatedStop.stopName,
+        stopNotes: updatedStop.stopNotes,
+        stopPhoneNumber: updatedStop.stopPhoneNumber,
+        stopResNum: updatedStop.stopResNum,
+        stopTransportation: updatedStop.stopTransportation,
+        stopType: updatedStop.stopType,
+
+      },
+      { new: true } // This option returns the updated document
+    );
+
+    if (!stopToUpdate) {
+      return NextResponse.json(
+        { error: "Stop not found or update failed" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(stopToUpdate, { status: 200 });
+  } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
@@ -65,7 +117,6 @@ export async function GET(request) {
     const tripId = request.nextUrl.searchParams.get('tripId')
     
     if (!tripId) {
-      console.log('NO TRIP ID', tripId);
       return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
     }
 
@@ -81,7 +132,6 @@ export async function GET(request) {
 
     return NextResponse.json( stops , { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

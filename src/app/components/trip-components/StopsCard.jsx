@@ -1,12 +1,7 @@
 import { Card, CardBody } from "@nextui-org/react";
 import { format } from "date-fns";
 
-export default function StopsCard({
-  data,
-  prevCardData,
-  prevCardType,
-  handleCardPress,
-}) {
+export default function StopsCard({ data, handleCardPress }) {
   const arrivalDate = format(new Date(data.stopArrival), "PP");
   const departureDate = format(new Date(data.stopDeparture), "PP");
 
