@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavNextUI from "./components/NavNextUI";
-import AuthModal from "./components/AuthModal";
+import AuthProvider from "./components/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +22,15 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <main className="flex min-h-screen min-w-full flex-col items-center">
-            <NavNextUI />
-            <div className="row flex flex-row w-1/3 justify-around">
-              {/* <AuthModal /> */}
-            </div>
-            {children}
-          </main>
+          <AuthProvider>
+            <main className="flex min-h-screen min-w-full flex-col items-center">
+              <NavNextUI />
+              <div className="row flex flex-row w-1/3 justify-around">
+                {/* <AuthModal /> */}
+              </div>
+              {children}
+            </main>
+          </AuthProvider>
         </Providers>
       </body>
     </html>

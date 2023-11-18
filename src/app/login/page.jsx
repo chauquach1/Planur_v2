@@ -1,16 +1,18 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../components/context/AuthContext";
+import { is } from "date-fns/locale";
 
 export default function Login() {
   const router = useRouter()
+  const [isLogin, setIsLogin] = useState(true); // Default to login mode
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const [isLogin, setIsLogin] = useState(true); // Default to login mode
+  const {isLoggedIn, logIn, logOut} = useContext(AuthContext);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +43,8 @@ export default function Login() {
       if (error) {
         router.refresh();
       } else {
+        console.log("Logged in, isLoggedIn:", isLoggedIn);
+        logIn();
         router.replace('/user', { scroll: false })
       }
     } else {
@@ -56,6 +60,8 @@ export default function Login() {
       if (error) {
         router.refresh();
       } else {
+        console.log("Logged in, isLoggedIn:", isLoggedIn);
+        logIn();
         router.replace('/user', { scroll: false })
       }
     }

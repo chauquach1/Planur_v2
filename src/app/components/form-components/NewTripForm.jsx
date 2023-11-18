@@ -73,7 +73,7 @@ export default function NewTripForm({ uuid, user }) {
     <>
       <form
         onSubmit={handleSubmit}
-        className=" md:4/5 lg:w-2/3 flex flex-row flex-wrap gap-2 items-center justify-center"
+        className="max-w-xl flex flex-row flex-wrap gap-2 items-center justify-center bg-white p-4 rounded-xl"
       >
         <div className="row w-full flex flex-row gap-2 flex-wrap md:flex-nowrap justify-between">
           <Input
