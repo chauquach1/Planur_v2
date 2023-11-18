@@ -88,7 +88,7 @@ export default function Login() {
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-left text-foreground"
         onSubmit={handleSubmit}
       >
-        <label className="text-md" htmlFor="email">
+        <label id="email" className="text-md" htmlFor="email">
           Email
         </label>
         <input
@@ -100,7 +100,7 @@ export default function Login() {
           value={formData.email}
           onChange={handleChange}
         />
-        <label className="text-md" htmlFor="password">
+        <label  id="password" className="text-md" htmlFor="password">
           Password
         </label>
         <input
@@ -108,7 +108,6 @@ export default function Login() {
           type="password"
           name="password"
           placeholder="password"
-          autoComplete="password"
           required
           value={formData.password}
           onChange={handleChange}
