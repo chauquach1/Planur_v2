@@ -1,15 +1,16 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 export default function Login() {
   const router = useRouter()
-  const [isLogin, setIsLogin] = useState(true); // Default to login mode
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [isLogin, setIsLogin] = useState(true); // Default to login mode
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,8 +37,18 @@ export default function Login() {
       // Handle login
       const { data, error } = await supabase.auth.signInWithPassword(formData);
 
+      supabase.auth.onAuthStateChange((event, session) => {
+        console.log('onAuthStateChange ',event, session);
+        if (event === "SIGNED_IN") {
+          console.log("SIGNED_IN");
+        }
+        if (event === "SIGNED_OUT") {
+          console.log("SIGNED_OUT");
+        }
+      });
 
       if (error) {
+        console.log(error);
         router.refresh();
       } else {
         router.replace('/user', { scroll: false })
@@ -53,8 +64,10 @@ export default function Login() {
       });
 
       if (error) {
+        console.log(error);
         router.refresh();
       } else {
+        console.log(data);
         router.replace('/user', { scroll: false })
       }
     }
