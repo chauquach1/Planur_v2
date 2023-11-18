@@ -16,8 +16,13 @@ import {
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 
-
-export default function EditAccomsForm({ uuid, tripId, currCardData, currCardType, handleSubmitForm }) {
+export default function EditAccomsForm({
+  uuid,
+  tripId,
+  currCardData,
+  currCardType,
+  handleSubmitForm,
+}) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
   const [accomCheckIn, setAccomCheckIn] = useState("");
@@ -39,11 +44,11 @@ export default function EditAccomsForm({ uuid, tripId, currCardData, currCardTyp
   const parsedCheckIn = parseISO(currAccomCheckIn);
   const parsedCheckOut = parseISO(currAccomCheckOut);
   const formattedCheckIn = format(new Date(parsedCheckIn), "yyyy-MM-dd");
-  const formattedCheckOut = format(new Date(parsedCheckOut), "yyyy-MM-dd")
-  
+  const formattedCheckOut = format(new Date(parsedCheckOut), "yyyy-MM-dd");
+
   useEffect(() => {
     setAccomName(currCardData.accomName);
-    setAccomType(currCardData.AccomType);
+    setAccomType(currCardData.accomType);
     setAccomCheckIn(formattedCheckIn);
     setAccomCheckOut(formattedCheckOut);
     setStreet(currCardData.accomAddress.street);
@@ -82,7 +87,7 @@ export default function EditAccomsForm({ uuid, tripId, currCardData, currCardTyp
       accomPhoneNumber: accomPhoneNumber,
       accomEmail: accomEmail,
       accomResNum: accomResNum,
-    }
+    };
 
     // Log the form data to ensure it's collected correctly
     console.log("currCardData from EditAccomsForm:", currCardData);
@@ -90,13 +95,16 @@ export default function EditAccomsForm({ uuid, tripId, currCardData, currCardTyp
 
     try {
       // Send the form data to the serverless function
-      const response = await fetch(`http://localhost:3000/api/accommodations?tripId=${tripId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedAccom),
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/accommodations?tripId=${tripId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedAccom),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -160,7 +168,7 @@ export default function EditAccomsForm({ uuid, tripId, currCardData, currCardTyp
                   className="col-span-3"
                   variant="faded"
                 />
-                              <Input
+                <Input
                   label="Accommodation Type"
                   placeholder="Hotel, Hostel, Airbnb, etc."
                   value={accomType}
