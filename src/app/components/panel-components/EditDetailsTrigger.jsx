@@ -2,23 +2,43 @@ import EditAccomsForm from "../form-components/EditAccomForm";
 import EditStopForm from "../form-components/EditStopForm";
 import EditPackListForm from "../form-components/EditPackListForm";
 
-export default function EditDetailsTrigger({ currCardData, currCardType }) {
-
+export default function EditDetailsTrigger({
+  uuid,
+  tripId,
+  currCardData,
+  currCardType,
+  handleSubmitForm,
+}) {
   if (currCardData === null || currCardData === undefined) {
     return <></>;
   } else if (currCardData && currCardType === "accommodations") {
     return (
-      <EditAccomsForm currCardData={currCardData} currCardType={currCardType} />
+      <EditAccomsForm
+        uuid={uuid}
+        tripId={tripId}
+        currCardData={currCardData}
+        currCardType={currCardType}
+        handleSubmitForm={handleSubmitForm}
+      />
     );
   } else if (currCardData && currCardType === "stops") {
     return (
-      <EditStopForm currCardData={currCardData} currCardType={currCardType} />
+      <EditStopForm
+        uuid={uuid}
+        tripId={tripId}
+        currCardData={currCardData}
+        currCardType={currCardType}
+        handleSubmitForm={handleSubmitForm}
+      />
     );
   } else if (currCardData && currCardType === "packLists") {
     return (
       <EditPackListForm
+        uuid={uuid}
+        tripId={tripId}
         currCardData={currCardData}
         currCardType={currCardType}
+        handleSubmitForm={handleSubmitForm}
       />
     );
   }

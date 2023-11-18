@@ -93,6 +93,18 @@ export default function TripDashboardClient({ uuid, tripId }) {
     setPrevCardType(currCardType);
   };
 
+  // const handleSubmitForm = (currCardData, currCardType) => {
+  //   setCurrCardData(currCardData);
+  //   setCurrCardType(currCardType);
+  //   setPrevCardData(currCardData);
+  //   setPrevCardType(currCardType);
+  // };
+  
+  
+  const handleSubmitForm = (sampleData) => {
+    console.log("handleSubmitForm called on dashboard", sampleData);
+  };
+
   const logData = () => {
     console.log(currCardType);
     console.log(currCardData);
@@ -175,10 +187,15 @@ export default function TripDashboardClient({ uuid, tripId }) {
           id="dashboard-panel-container"
           className="w-full bg-white/20 rounded-r-xl columns-1 sm:flex sm:p-2 flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
         >
-          <EditDetailsTrigger 
-            currCardData={currCardData}
-            currCardType={currCardType}
-          />
+          <div className="w-fit place-self-end h-fit">
+            <EditDetailsTrigger
+              uuid={uuid}
+              tripId={tripId}
+              currCardData={currCardData}
+              currCardType={currCardType}
+              handleSubmitForm={handleSubmitForm}
+            />
+          </div>
           <PanelContainer
             currCardData={currCardData}
             currCardType={currCardType}

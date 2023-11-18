@@ -3,7 +3,7 @@
 export default function PackListPanel({ currCardData }) {
   const data = currCardData;
   const categoryCount = (category) => {
-    let list = data[category]; // Access the category in sampleList
+    let list = data[category]; // Access the category in packList
     let count = 0;
     Object.values(list).forEach((item) => { // Use forEach for iterating
       if (item === true) {

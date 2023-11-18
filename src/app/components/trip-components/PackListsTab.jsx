@@ -7,7 +7,7 @@ import { Card, CardBody } from "@nextui-org/react";
 export default function PackListsTab({ tripId, getPackList, packList, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
   const categoryCount = (category) => {
-    let list = packList[category]; // Access the category in sampleList
+    let list = packList[category]; // Access the category in packlist
     let count = 0;
     Object.values(list).forEach((item) => { // Use forEach for iterating
       if (item === true) {
