@@ -4,24 +4,38 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 146, 156, 153;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+} */
+
+html, body {
+  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.tab-content {
+  transition: opacity 300ms ease-in-out;
+  opacity: 1; /* default state */
+}
+
+.tab-content.hidden {
+  opacity: 0;
+  display: none; /* hide the content */
 }
