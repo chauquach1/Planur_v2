@@ -17,7 +17,6 @@ export default function EditAccomsForm({
   tripId,
   currCardData,
   handleUpdateForm,
-  updateAccomCard
 }) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
@@ -288,7 +287,7 @@ export default function EditAccomsForm({
                   color="primary"
                   onPress={handleSubmit}
                 >
-                  Add Accommodation
+                  Update Accommodation
                 </Button>
               </ModalFooter>
             </>
