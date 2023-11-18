@@ -150,56 +150,69 @@ export default function TripDashboardClient({ uuid, tripId }) {
               handleTabClick={handleTabClick}
             />
           </div>
-          <div className="w-full h-full flex flex-col justify-start items-center gap-1 my-2 px-2">
-            <div className="w-full max-w-xs row flex flex-row justify-start gap-1 px-2">
-              <AddAccommodationsBtn uuid={uuid} tripId={tripId} />
-              <AddStopBtn uuid={uuid} tripId={tripId} />
+          <div className="w-full h-full flex flex-col justify-start items-center gap-1 my-2 px-2 overflow-clip">
+            <div className="w-full max-w-xs row flex flex-row justify-start gap-1 px-2 relative mb-2">
+              <AddAccommodationsBtn
+                uuid={uuid}
+                tripId={tripId}
+                getAccoms={getAccoms}
+              />
+              <AddStopBtn
+                uuid={uuid}
+                tripId={tripId}
+                getTripStops={getTripStops}
+              />
               <AddPackingListBtn uuid={uuid} tripId={tripId} />
             </div>
-            {activeTab === "accommodations" ? (
-              <AccommodationsTab
-                tripId={tripId}
-                accommodations={accommodations}
-                currCardData={currCardData}
-                currCardType={currCardType}
-                prevCardData={prevCardData}
-                prevCardType={prevCardType}
-                handleCardPress={handleCardPress}
-                getAccoms={getAccoms}
-                className=""
-              />
-            ) : activeTab === "stops" ? (
-              <StopsTab
-                tripId={tripId}
-                stops={stops}
-                currCardData={currCardData}
-                currCardType={currCardType}
-                prevCardData={prevCardData}
-                prevCardType={prevCardType}
-                getTripStops={getTripStops}
-                handleCardPress={handleCardPress}
-              />
-            ) : activeTab === "packLists" ? (
-              <PackListsTab
-                tripId={tripId}
-                packList={packList}
-                currCardData={currCardData}
-                currCardType={currCardType}
-                prevCardData={prevCardData}
-                prevCardType={prevCardType}
-                getPackList={getPackList}
-                handleCardPress={handleCardPress}
-              />
-            ) : (
-              <p>Tab Empty</p>
-            )}
+            <div className="w-full max-w-xs row flex-col justify-start gap-1 px-2 overflow-scroll">
+              {activeTab === "accommodations" ? (
+                <AccommodationsTab
+                  tripId={tripId}
+                  accommodations={accommodations}
+                  currCardData={currCardData}
+                  currCardType={currCardType}
+                  prevCardData={prevCardData}
+                  prevCardType={prevCardType}
+                  handleCardPress={handleCardPress}
+                  getAccoms={getAccoms}
+                  className=""
+                />
+              ) : activeTab === "stops" ? (
+                <StopsTab
+                  tripId={tripId}
+                  stops={stops}
+                  currCardData={currCardData}
+                  currCardType={currCardType}
+                  prevCardData={prevCardData}
+                  prevCardType={prevCardType}
+                  getTripStops={getTripStops}
+                  handleCardPress={handleCardPress}
+                />
+              ) : activeTab === "packLists" ? (
+                <PackListsTab
+                  tripId={tripId}
+                  packList={packList}
+                  currCardData={currCardData}
+                  currCardType={currCardType}
+                  prevCardData={prevCardData}
+                  prevCardType={prevCardType}
+                  getPackList={getPackList}
+                  handleCardPress={handleCardPress}
+                />
+              ) : (
+                <p>Tab Empty</p>
+              )}
+            </div>
           </div>
         </div>
         <div
           id="dashboard-panel-container"
           className="flex flex-col w-full bg-white/20 rounded-r-xl justify-between text-start items-center min-h-full"
         >
-          <div id="details-trigger-container" className="flex justify-end w-full h-12 shadow-xl rounded-tr-xl place-self-end p-3">
+          <div
+            id="details-trigger-container"
+            className="flex justify-end w-full h-12 shadow-xl rounded-tr-xl place-self-end p-3"
+          >
             <EditDetailsTrigger
               uuid={uuid}
               tripId={tripId}
@@ -209,13 +222,18 @@ export default function TripDashboardClient({ uuid, tripId }) {
               updateStopCard={updateStopCard}
             />
           </div>
-          <div id="panel-container" className="flex-grow bg-transparent w-full p-6 overflow-hidden">
+          <div
+            id="panel-container"
+            className="flex-grow bg-transparent w-full p-6 justify-items-center items-center overflow-hidden"
+          >
             <PanelContainer
               uuid={uuid}
               tripId={tripId}
               currCardData={currCardData}
               currCardType={currCardType}
               handleUpdateForm={handleUpdateForm}
+              getTripStops={getTripStops}
+              getAccoms={getAccoms}
             />
           </div>
         </div>

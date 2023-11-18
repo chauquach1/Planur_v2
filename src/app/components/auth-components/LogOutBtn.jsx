@@ -3,10 +3,8 @@ import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import { useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
 
 export default function LogOutBtn() {
-  const { isLoggedIn, logIn, logOut } = useContext(AuthContext);
   const router = useRouter();
 
   const handleSignOut = async () => {

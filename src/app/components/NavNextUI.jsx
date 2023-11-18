@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { use, useContext } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -12,11 +12,22 @@ import {
   Button,
 } from "@nextui-org/react";
 import LogOutBtn from "./auth-components/LogOutBtn";
-import AuthContext from "./context/AuthContext";
+import {createBrowserClient} from '@supabase/ssr';
 
 export default function NavNextUI() {
-  const { isLoggedIn, logIn, logOut } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  const getUser = async () => {
+    const { data, error } = await supabase.auth.getSession()
+    console.log("data:", data);
+    console.log("error:", error);
+  }
+
   
 
   const menuItems = [
@@ -62,9 +73,6 @@ export default function NavNextUI() {
         </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-            <Button 
-              onPress={() => console.log('isLoggedIn?', isLoggedIn)}
-            />
         </NavbarItem>
         <NavbarItem>
           <Button

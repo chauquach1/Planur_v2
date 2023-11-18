@@ -44,10 +44,10 @@ export default async function UserPage() {
   }
 
   return (
-    <div className="bg-gray-300 h-full rounded-xl container text-center">
+    <div className="bg-slate-600 h-full rounded-xl container text-center">
       <div
         id="new-trip-form-container"
-        className="container bg-gray-600 text-white text-center p-2 bg-info"
+        className="container text-white text-center p-2 bg-info"
       >
         <div className="container bg- text-center">
           <h1 className="my-0">Hello {userData.firstName}</h1>

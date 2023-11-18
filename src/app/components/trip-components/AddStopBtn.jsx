@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import { NextResponse } from "next/server";
 
-export default function AddStopBtn({ uuid, tripId }) {
+export default function AddStopBtn({ uuid, tripId, getTripStops }) {
   const [stopName, setStopName] = useState("");
   const [stopType, setStopType] = useState("");
   const [stopArrival, setStopArrival] = useState("");
@@ -90,7 +90,7 @@ export default function AddStopBtn({ uuid, tripId }) {
       setStopTransportation("");
       setStopResNum("");
       setStopNotes("");
-
+      getTripStops();
       return new NextResponse(200, result);
     } catch (error) {
     }
