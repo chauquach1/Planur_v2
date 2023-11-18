@@ -8,7 +8,7 @@ export default function TripIndexCard({tripId, tripName, tripStartDate, tripEndD
   const formattedEndDate = format(parseISO(tripEndDate), 'PP');
 
   return (
-    <Card className="max-w-[400px]">
+    <Card className="max-w-[400px] max-h-40">
       <CardHeader className="flex gap-3 font-bold">
         <div className="flex flex-col">
           <p className="text-md">{tripName}</p>

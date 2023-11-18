@@ -12,8 +12,9 @@ import {
   Input,
 } from "@nextui-org/react";
 import { useState, useEffect } from "react";
+import { get } from "mongoose";
 
-export default function AddAccommodationsBtn({ uuid, tripId }) {
+export default function AddAccommodationsBtn({ uuid, tripId, getAccoms }) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
   const [accomCheckIn, setAccomCheckIn] = useState("");
@@ -72,7 +73,7 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
       }
   
       const result = await response.json();
-      setMessage("Accommodation successfully created!");
+      getAccoms();
       // Reset form fields
       setAccomName("");
       setAccomType("");

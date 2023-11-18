@@ -1,16 +1,15 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 export default function Login() {
   const router = useRouter()
+  const [isLogin, setIsLogin] = useState(true); // Default to login mode
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const [isLogin, setIsLogin] = useState(true); // Default to login mode
   
   const handleChange = (e) => {
     const { name, value } = e.target;

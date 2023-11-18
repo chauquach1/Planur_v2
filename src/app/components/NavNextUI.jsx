@@ -1,5 +1,5 @@
-'use client'
-import React from "react";
+"use client";
+import React, { use, useContext } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -12,9 +12,23 @@ import {
   Button,
 } from "@nextui-org/react";
 import LogOutBtn from "./auth-components/LogOutBtn";
+import {createBrowserClient} from '@supabase/ssr';
 
 export default function NavNextUI() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  const getUser = async () => {
+    const { data, error } = await supabase.auth.getSession()
+    console.log("data:", data);
+    console.log("error:", error);
+  }
+
+  
 
   const menuItems = [
     "Profile",
@@ -28,7 +42,7 @@ export default function NavNextUI() {
     "Help & Feedback",
     "Log Out",
   ];
-
+  
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
@@ -40,30 +54,35 @@ export default function NavNextUI() {
           <p className="font-bold text-inherit">Planur</p>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/">
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem >
-          <Link color="foreground" href="/user">
-            User
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/trips">
-            Trips
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link color="foreground" href="/">
+              Home
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/user">
+              User
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/trips">
+              Trips
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="/login" variant="flat" size="sm">
-            Sign Up
+          <Button
+            as={Link}
+            color="primary"
+            href="/login"
+            variant="flat"
+            size="sm"
+          >
+            Sign Up/Log In
           </Button>
         </NavbarItem>
         <NavbarItem>

@@ -43,14 +43,19 @@ export default async function TripsIndex() {
   const tripsArray = await fetchTrips(user.email);
 
   if (!tripsArray) {
-    console.error("!allTrips");
-    return <div>Error fetching trips from MongoDB</div>;
+        return (
+          <div>
+            <a href="/user">
+              Oh oh! Looks like you need a vacation. Let's Plan One!
+            </a>
+          </div>
+        );
   }
 
   return (
-    <>
-      <h1 className="underline">Trips Index</h1>
-      <div className="container flex flex-row flex-wrap gap-2 p-2 border-white">
+    <div className="container flex flex-col justify-center items-center h-full bg-slate-600 pt-6 gap-4">
+      <h1 className="text-white text-6xl">Trips Index</h1>
+      <div className="container flex flex-row justify-center flex-wrap gap-2 p-6 h-full shadow-xl">
         {tripsArray ? (
           <>
             {tripsArray.map((trip) => (
@@ -67,6 +72,6 @@ export default async function TripsIndex() {
           <h1>no trips</h1>
         )}
       </div>
-    </>
+    </div>
   );
 }

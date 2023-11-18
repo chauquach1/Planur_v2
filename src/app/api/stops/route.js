@@ -110,6 +110,27 @@ export async function PUT(request) {
   }
 }
 
+export async function DELETE(request) {
+
+  const stopId = request.nextUrl.searchParams.get('stopId')
+  console.log('DELETE STOP ROUTE HIT', stopId);
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const stopCollection = db.collection("stops");
+
+    const stop = await stopCollection.findOne({ _id: new ObjectId(stopId) });
+    if (!stop) {
+      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    }
+
+    await stopCollection.deleteOne({ _id: new ObjectId(stopId) });
+    return NextResponse.json({ message: "Stop deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
 export async function GET(request) {
   const client = await mongoClient();
 

@@ -108,6 +108,26 @@ export async function PUT(request) {
   }
 }
 
+export async function DELETE(request) {
+
+  const accomId = request.nextUrl.searchParams.get('accomId')
+  console.log('DELETE ACCOM ROUTE HIT', accomId);
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const accomsCollections = db.collection("accommodations");
+
+    const accommodation = await accomsCollections.findOneAndDelete({ _id: new ObjectId(accomId) });
+    if (!accommodation) {
+      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    }
+
+    return NextResponse.json({ message: "Accom deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
 export async function GET(request) {
   const client = await mongoClient();
 
