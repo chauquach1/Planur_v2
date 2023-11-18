@@ -75,13 +75,12 @@ export async function PUT(request) {
       );
     }
     const user = await userCollection.findOne({ uuid: uuid });
-    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-
     if (!user) {
       console.log("NO USER", user);
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
-
+    
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
       console.log("NO TRIP", trip);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });

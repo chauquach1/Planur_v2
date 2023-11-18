@@ -20,7 +20,6 @@ export default function TripDashboardClient({ uuid, tripId }) {
   const [prevCardData, setPrevCardData] = useState(null);
   const [prevCardType, setPrevCardType] = useState(null);
   const [accommodations, setAccommodations] = useState([]);
-  const [accomToUpdate, setAccomToUpdate] = useState(null); // accommodations[X]._id
   const [stops, setStops] = useState([]);
   const [packList, setPackList] = useState(null);
 
@@ -87,6 +86,28 @@ export default function TripDashboardClient({ uuid, tripId }) {
     setAccommodations(updatedAccoms); // Update the accommodations state
   }, [accommodations])
 
+  const updateStopCard = useCallback((newCardData) => {
+    const updatedStops = stops.map((stop) => {
+      if (stop._id === newCardData._id) {
+        return newCardData; // Replace with new data
+      }
+      return stop; // Keep existing data
+    });
+  
+    setStops(updatedStops); // Update the accommodations state
+  }, [stops])
+
+  // const updatePackList = useCallback((newCardData) => {
+  //   const updatedAccoms = accommodations.map((accom) => {
+  //     if (accom._id === newCardData._id) {
+  //       return newCardData; // Replace with new data
+  //     }
+  //     return accom; // Keep existing data
+  //   });
+  
+  //   setAccommodations(updatedAccoms); // Update the accommodations state
+  // }, [accommodations])
+
   useEffect(() => {
     getAccoms();
     getTripStops();
@@ -113,10 +134,16 @@ export default function TripDashboardClient({ uuid, tripId }) {
     if (newCardType === "accommodations") {
       updateAccomCard(newCardData);
     } 
+    
+    if (newCardType === "stops") {
+      updateStopCard(newCardData);
+    } else if (newCardType === "packLists") {
+      updatePackList(newCardData);
+    }
   };
 
   const logData = () => {
-    console.log(accommodations);
+    console.log(currCardData);
   };
 
   return (
@@ -203,7 +230,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
               currCardData={currCardData}
               currCardType={currCardType}
               handleUpdateForm={handleUpdateForm}
-              updateAccomCard={updateAccomCard}
+              updateStopCard={updateStopCard}
             />
           </div>
           <PanelContainer

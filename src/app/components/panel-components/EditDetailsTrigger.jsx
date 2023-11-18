@@ -8,7 +8,6 @@ export default function EditDetailsTrigger({
   currCardData,
   currCardType,
   handleUpdateForm,
-  updateAccomCard
 }) {
   if (currCardData === null || currCardData === undefined) {
     return <></>;
@@ -20,7 +19,6 @@ export default function EditDetailsTrigger({
         currCardData={currCardData}
         currCardType={currCardType}
         handleUpdateForm={handleUpdateForm}
-        updateAccomCard={updateAccomCard}
       />
     );
   } else if (currCardData && currCardType === "stops") {

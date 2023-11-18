@@ -61,9 +61,6 @@ export default function NavNextUI() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <SupabaseBtn />
-        </NavbarItem>
-        <NavbarItem className="hidden lg:flex">
           <Link href="/login">Login</Link>
         </NavbarItem>
         <NavbarItem>
