@@ -46,7 +46,7 @@ export default async function TripsIndex() {
         return (
           <div>
             <a href="/user">
-              Oh oh! Looks like you need a vacation. Let's Plan One!
+              Oh oh! Looks like you need a vacation. Time to Plan One!
             </a>
           </div>
         );
