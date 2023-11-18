@@ -2,8 +2,11 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import jwt from "jsonwebtoken";
 
 export default function Login() {
+
+  const secretKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
@@ -35,7 +38,10 @@ export default function Login() {
 
     if (isLogin) {
       // Handle login
-      const { data, error } = await supabase.auth.signInWithPassword(formData);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: "chau268@gmail.com",
+        password: "Statesnminds1!",
+      });
 
       supabase.auth.onAuthStateChange((event, session) => {
         console.log('onAuthStateChange ',event, session);
@@ -51,24 +57,27 @@ export default function Login() {
         console.log(error);
         router.refresh();
       } else {
-        router.replace('/user', { scroll: false })
+        const jwtToken = jwt.sign({ sub: user.id }, secretKey);
+        localStorage.setItem("jwtToken", jwtToken);
+        router.replace("/user", { scroll: false });
       }
     } else {
       // Handle sign up
-      const { data, error } = await supabase.auth.signUp({
-        email: "chau268@gmail.com",
-        password: "Statesnminds1!",
-        options: {
-          emailRedirectTo: `${origin}/auth/callback`,
-        },
+      const { user, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
       });
 
       if (error) {
         console.log(error);
         router.refresh();
       } else {
-        console.log(data);
-        router.replace('/user', { scroll: false })
+        const jwtToken = jwt.sign({ sub: user.id }, secretKey);
+
+        // Save the JWT token to localStorage for future use
+        localStorage.setItem("jwtToken", jwtToken);
+
+        router.replace("/user", { scroll: false });
       }
     }
   };
