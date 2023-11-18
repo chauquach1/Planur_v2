@@ -56,8 +56,8 @@ export default function Login() {
     } else {
       // Handle sign up
       const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
+        email: "chau268@gmail.com",
+        password: "Statesnminds1!",
         options: {
           emailRedirectTo: `${origin}/auth/callback`,
         },
