@@ -6,33 +6,35 @@ import { useState } from "react";
 // import {logIn} from "./api/logIn";
 import { is } from "date-fns/locale";
 
-
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
-  const newMongoUser = async (data) => {
-    try {
-      const response = await fetch("http://localhost:3000/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Error creating new user: ${response.status} - ${errorMessage}`);
-      }
-  
-      const result = await response.json();
-      // console.log("result from POST request @ login:", result);
-    } catch (error) {
-      console.error(error);
-      // Handle the error, e.g., display an error message to the user
+const newMongoUser = async (data) => {
+  try {
+    const response = await fetch("http://localhost:3000/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(
+        `Error creating new user: ${response.status} - ${errorMessage}`
+      );
     }
-  };
+
+    const result = await response.json();
+    // console.log("result from POST request @ login:", result);
+  } catch (error) {
+    console.error(error);
+    // Handle the error, e.g., display an error message to the user
+  }
+};
 
 export default function Login() {
   // const secretKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -61,13 +63,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
-
     if (isSignIn) {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       });
-      
+
       if (data) {
         // console.log('data:', data);
         router.refresh();
@@ -95,13 +96,13 @@ export default function Login() {
       });
       if (data) {
         // console.log("signUpWithEmail:", data);
-        await newMongoUser(data);
-        router.refresh();
-      } else if (error) {
+        newMongoUser(data);
+      }
+      if (error) {
         // console.log("signUpWithEmail:", error);
         router.refresh();
       }
-      await newMongoUser(formData);
+      router.refresh();
     }
   };
 
@@ -113,7 +114,11 @@ export default function Login() {
       >
         {!isSignIn ? (
           <div className="flex flex-col">
-            <label id="firstName" className="text-md col-span-1" htmlFor="firstName">
+            <label
+              id="firstName"
+              className="text-md col-span-1"
+              htmlFor="firstName"
+            >
               First Name
             </label>
             <input
@@ -124,7 +129,11 @@ export default function Login() {
               value={formData.firstName}
               onChange={handleChange}
             />
-            <label id="lastName" className="text-md col-span-1" htmlFor="lastName">
+            <label
+              id="lastName"
+              className="text-md col-span-1"
+              htmlFor="lastName"
+            >
               Last Name
             </label>
             <input
@@ -136,9 +145,7 @@ export default function Login() {
               onChange={handleChange}
             />
           </div>
-        ) : (
-          null
-        )}
+        ) : null}
         <label id="email" className="text-md" htmlFor="email">
           Email
         </label>
