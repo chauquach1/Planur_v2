@@ -22,7 +22,6 @@ export default async function UserPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-
   if (!user) {
     redirect('/login');
   }
@@ -31,7 +30,7 @@ export default async function UserPage() {
     const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
     const data = await response.json();
     if (!response.ok) {
-      console.error("response not ok");
+      redirect('/login')
     }
     return data;
   }
@@ -40,7 +39,7 @@ export default async function UserPage() {
 
   if (!userData) {
     console.error("!userData", error);
-    return <div>Error fetching user data from MongoDB</div>;
+    redirect('/login')
   }
 
   return (
@@ -56,7 +55,7 @@ export default async function UserPage() {
       </div>
 
       <div className="container rounded-large flex flex-col p-2 m-2 justify-center items-center">
-        <NewTripForm uuid={user.id} user={userData} />
+        <NewTripForm user={userData} />
       </div>
     </div>
   );
