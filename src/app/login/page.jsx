@@ -27,7 +27,7 @@ const supabase = createBrowserClient(
       }
   
       const result = await response.json();
-      console.log("result from POST request @ login:", result);
+      // console.log("result from POST request @ login:", result);
     } catch (error) {
       console.error(error);
       // Handle the error, e.g., display an error message to the user
@@ -69,14 +69,14 @@ export default function Login() {
       });
       
       if (data) {
-        console.log('data:', data);
+        // console.log('data:', data);
         router.refresh();
       } else if (error) {
-        console.log("signInWIthEmailError:", error);
+        // console.log("signInWIthEmailError:", error);
         router.refresh();
       }
       if (error) {
-        console.log(error);
+        // console.log(error);
         router.refresh();
       } else {
         router.replace("/user", { scroll: false });
@@ -94,11 +94,11 @@ export default function Login() {
         },
       });
       if (data) {
-        console.log("signUpWithEmail:", data);
+        // console.log("signUpWithEmail:", data);
         await newMongoUser(data);
         router.refresh();
       } else if (error) {
-        console.log("signUpWithEmail:", error);
+        // console.log("signUpWithEmail:", error);
         router.refresh();
       }
       await newMongoUser(formData);

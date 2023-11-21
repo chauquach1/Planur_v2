@@ -3,7 +3,7 @@ import User from "../../models/user";
 import { NextResponse } from "next/server";
 
 export default async function POST(request) {
-  console.log('POST REQUEST HIT');
+  // console.log('POST REQUEST HIT');
   const sbUser = await request.body.json();
   try {
     if (!sbUser) {
@@ -28,7 +28,7 @@ export default async function POST(request) {
 
     await userCollection.insertOne(user); // Insert the user data into the MongoDB collection
 
-    console.log("user data submitted to mongo:", user);
+    // console.log("user data submitted to mongo:", user);
     return NextResponse.json(
       { message: "User updated successfully" },
       { status: 200 }

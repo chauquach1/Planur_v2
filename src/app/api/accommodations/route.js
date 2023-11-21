@@ -111,7 +111,7 @@ export async function PUT(request) {
 export async function DELETE(request) {
 
   const accomId = request.nextUrl.searchParams.get('accomId')
-  console.log('DELETE ACCOM ROUTE HIT', accomId);
+  // console.log('DELETE ACCOM ROUTE HIT', accomId);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");

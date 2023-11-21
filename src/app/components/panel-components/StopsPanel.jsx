@@ -8,7 +8,7 @@ export default function StopsPanel({ currCardData, getTripStops, tripId }) {
   
   const handleDelete = async () => {
     const stopId = data._id;
-    console.log(stopId);
+    // console.log(stopId);
     try {
       const response = await fetch(
         `/api/stops?stopId=${stopId}`,
