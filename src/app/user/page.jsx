@@ -23,13 +23,17 @@ export default async function UserPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
+    console.log("No user found");
     redirect('/login');
   }
+
+  console.log("user", user);
 
   const fetchUserData = async (userEmail) => {
     const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
     const data = await response.json();
     if (!response.ok) {
+      console.error("fetchUserData error", data);
       redirect('/login')
     }
     return data;
