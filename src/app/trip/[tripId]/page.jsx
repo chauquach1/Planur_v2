@@ -30,7 +30,7 @@ export default async function TripDashboardPage({ params }) {
 
 
   const fetchTrip = async () => {
-    const response = await fetch(`http://localhost:3000/api/trip/${tripId}`);
+    const response = await fetch(`https://planur-v2.vercel.app/api/trip/${tripId}`);
     if (!response.ok) {
       console.error("Response not ok, status:", response.status);
       return null; // Or handle error appropriately

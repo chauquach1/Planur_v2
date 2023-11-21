@@ -63,7 +63,7 @@ export default function AddStopBtn({ uuid, tripId, getTripStops }) {
 
     try {
       // Send the form data to the API
-      const createStop = await fetch("/api/stops", {
+      const createStop = await fetch("https://planur-v2.vercel.app/api/stops", {
         method: "POST",
         body: JSON.stringify(stopDetails),
         headers: {

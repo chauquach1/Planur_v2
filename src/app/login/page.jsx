@@ -13,7 +13,7 @@ const supabase = createBrowserClient(
 
 const newMongoUser = async (data) => {
   try {
-    const response = await fetch("http://localhost:3000/api/user", {
+    const response = await fetch("https://planur-v2.vercel.app/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

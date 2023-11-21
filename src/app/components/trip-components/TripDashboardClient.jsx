@@ -24,7 +24,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
   const getAccoms = useCallback(async () => {
     try {
       const response = await fetch(
-        `/api/accommodations?tripId=${tripId}`
+        `https://planur-v2.vercel.app/api/accommodations?tripId=${tripId}`
       );
       const data = await response.json();
 
@@ -40,7 +40,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
   const getTripStops = useCallback(async () => {
     try {
       const response = await fetch(
-        `/api/stops?tripId=${tripId}`
+        `https://planur-v2.vercel.app/api/stops?tripId=${tripId}`
       );
       const data = await response.json();
 
@@ -56,7 +56,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
   const getPackList = useCallback(async () => {
     try {
       const response = await fetch(
-        `/api/packlist?tripId=${tripId}`
+        `https://planur-v2.vercel.app/api/packlist?tripId=${tripId}`
       );
       const data = await response.json();
 
