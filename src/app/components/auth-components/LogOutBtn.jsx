@@ -18,7 +18,6 @@ export default function LogOutBtn() {
     if (error) {
       console.log("Error logging out:", error.message);
     }
-    logOut();
     router.push("/");
   };
 

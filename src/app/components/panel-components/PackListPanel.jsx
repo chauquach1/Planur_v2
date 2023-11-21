@@ -177,7 +177,7 @@ export default function PackListPanel({
     };
 
     try {
-      const response = await fetch(`/api/packlist`, {
+      const response = await fetch(`http://localhost:3000/api/packlist`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
