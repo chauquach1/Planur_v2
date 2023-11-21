@@ -35,7 +35,7 @@ export default function NewTripForm({ uuid, user }) {
     };
 
     try {
-      const response = await fetch("/api/trip", {
+      const response = await fetch("https://planur-v2.vercel.app/api/trip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -60,7 +60,7 @@ export default function AddAccommodationsBtn({ uuid, tripId, getAccoms }) {
 
     try {
       // Send the form data to the serverless function
-      const response = await fetch("/api/accommodations", {
+      const response = await fetch("https://planur-v2.vercel.app/api/accommodations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
