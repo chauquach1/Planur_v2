@@ -113,7 +113,7 @@ export async function PUT(request) {
 export async function DELETE(request) {
 
   const stopId = request.nextUrl.searchParams.get('stopId')
-  console.log('DELETE STOP ROUTE HIT', stopId);
+  // console.log('DELETE STOP ROUTE HIT', stopId);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");

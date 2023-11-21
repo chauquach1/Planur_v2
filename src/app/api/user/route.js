@@ -3,7 +3,7 @@ import User from "../../models/user";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  console.log('POST REQUEST HIT');
+  // console.log('POST REQUEST HIT');
   const sbData = await request.json();
   let client; 
   try {
@@ -11,7 +11,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "User is required" }, { status: 400 });
     }
 
-    console.log('sbUser:', sbData);
+    // console.log('sbUser:', sbData);
 
     client = await mongoClient();
     const db = client.db("planur_v2");
@@ -33,7 +33,7 @@ export async function POST(request) {
 
     await userCollection.insertOne(user); // Insert the user data into the MongoDB collection
 
-    console.log("user data submitted to mongo:", user);
+    // console.log("user data submitted to mongo:", user);
     return NextResponse.json(
       { message: "User created successfully" },
       { status: 200 }

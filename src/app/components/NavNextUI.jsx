@@ -24,8 +24,8 @@ export default function NavNextUI() {
 
   const getUser = async () => {
     const { data, error } = await supabase.auth.getSession()
-    console.log("data:", data);
-    console.log("error:", error);
+    // console.log("data:", data);
+    // console.log("error:", error);
   }
 
   

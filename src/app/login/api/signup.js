@@ -3,7 +3,7 @@ import mongoClient from "../../libs/mongo/mongodb.js";
 import User from "../../models/user";
 
 export default async function signUp(data) {
-  console.log("request.body:", data);
+  // console.log("request.body:", data);
   client = await mongoClient();
   try {
     const sbUser = data.user;
@@ -27,13 +27,13 @@ export default async function signUp(data) {
     
 
     if (!user) {
-      console.log("User not found");
+      // console.log("User not found");
       return res.status(404).json({ error: "User not found" });
     }
-    console.log("user data submitted to mongo:", user);
+    // console.log("user data submitted to mongo:", user);
     return res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({ error: error.message });
   } finally {
     client.close();

@@ -10,7 +10,7 @@ export default function AccomsPanel({ currCardData, getAccoms }) {
 
   const handleDelete = async () => {
     const accomId = data._id;
-    console.log(accomId);
+    // console.log(accomId);
     try {
       const response = await fetch(
         `/api/accommodations?accomId=${accomId}`,
