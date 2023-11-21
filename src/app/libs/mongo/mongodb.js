@@ -17,6 +17,7 @@ const mongoClient = async () => {
 
   // Avoid creating a new connection if one already exists
   if (mongoose.connection.readyState === 1) {
+    console.log("Using existing MongoDB connection.");
     return mongoose.connection.getClient();
   }
 
@@ -27,8 +28,10 @@ const mongoClient = async () => {
     isConnectedBefore = true;
 
     // Return the MongoDB client
+    console.log("Creating a new MongoDB connection.");
     return mongoose.connection.getClient();
   } catch (error) {
+    console.error("MongoDB connection error:", error);
     throw error;
   }
 

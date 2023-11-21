@@ -28,7 +28,7 @@ export default async function UserPage() {
   }
 
   const fetchUserData = async (userEmail) => {
-    const response = await fetch(`/api/user/${userEmail}`);
+    const response = await fetch(`http://localhost:3000/api/user/${userEmail}`);
     const data = await response.json();
     if (!response.ok) {
       console.error("response not ok");

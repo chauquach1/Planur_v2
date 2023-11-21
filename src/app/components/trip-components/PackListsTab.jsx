@@ -5,8 +5,10 @@ import { Card, CardBody } from "@nextui-org/react";
 
 
 export default function PackListsTab({ packList, handleCardPress }) {
+  if (!packList) return <p className="font-thin italic text-gray-500"> Packing List Empty</p>;
 
   const categoryCount = (category) => {
+    if (!packList) return;
     let list = packList[category]; // Access the category in packlist
     let count = 0;
     Object.values(list).forEach((item) => { // Use forEach for iterating
