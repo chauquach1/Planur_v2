@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Button, Input, user } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 
-export default function NewTripForm({ uuid, user }) {
+export default function NewTripForm({ user }) {
   const [tripName, setTripName] = useState("");
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -44,6 +44,7 @@ export default function NewTripForm({ uuid, user }) {
       });
 
       if (!response.ok) {
+        // console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 

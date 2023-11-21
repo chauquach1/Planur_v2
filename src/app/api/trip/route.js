@@ -4,26 +4,28 @@ import Trip from "../../models/trip";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { user: userInfo, ...tripDetails } = await request.json();
+  const { user, ...tripDetails } = await request.json();
+  console.log('request', user, tripDetails);
+  const client = await mongoClient();
 
   try {
-    const client = await mongoClient();
     const db = client.db("planur_v2");
+    // console.log('db', db);
     const userCollection = db.collection("users");
+    // console.log('userCollection', userCollection);
 
-    if (!userInfo) {
-      return NextResponse.json({ error: "No userEmail Imported", status: 400 });
-    }
-
-    const user = await userCollection.findOne({
+    const mongoUser = await userCollection.findOne({
       $or: [
-        { _id: new ObjectId(userInfo._id) },
-        { uuid: userInfo.uuid },
-        { email: userInfo.email }
+        { _id: new ObjectId(user._id) },
+        { uuid: user.uuid },
+        { email: user.email }
       ]
     });
+    // console.log('user from trip route', mongoUser);
 
-    if (!user) {
+
+    if (!mongoUser) {
+      // console.log('user not found');
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
@@ -40,7 +42,7 @@ export async function POST(request) {
     });
 
     await newTrip.save();
-    await userCollection.updateOne(
+    userCollection.updateOne(
       { _id: new ObjectId(user._id)},
       { $push: { trips: newTrip._id } }
     );

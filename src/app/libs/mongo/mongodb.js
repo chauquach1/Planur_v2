@@ -11,7 +11,7 @@ const mongoClient = async () => {
 
   // Check if MongoDB URI is provided
   if (!mongoURI) {
-    console.error("MongoDB URI not provided in environment variables.");
+    // console.error("MongoDB URI not provided in environment variables.");
     return;
   }
 
