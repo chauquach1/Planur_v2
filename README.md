@@ -19,7 +19,7 @@ Install Node.js and npm if not already installed.
 Navigate to the project directory and run npm install to install dependencies.
 Create a .env file in the root directory and add the necessary environment variables.
 Start the development server with npm run dev.
-Access the application at http://localhost:3000.
+Access the application at https://planur-v2.vercel.app/
 User Stories
 Planur v2 User Stories
 

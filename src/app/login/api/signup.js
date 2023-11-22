@@ -1,5 +1,5 @@
 'use client'
-import mongoClient from "../../libs/mongo/mongodb.js";
+import {mongoClient} from "../../libs/mongo/mongodb.js";
 import User from "../../models/user";
 
 export default async function signUp(data) {

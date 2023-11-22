@@ -70,18 +70,13 @@ export default function Login() {
       });
 
       if (data) {
-        // console.log('data:', data);
-        router.refresh();
-      } else if (error) {
+        // console.log('data @ login:', data);
+        router.push("/user", { scroll: false });
+      } if (error) {
         // console.log("signInWIthEmailError:", error);
         router.refresh();
       }
-      if (error) {
-        // console.log(error);
-        router.refresh();
-      } else {
-        router.replace("/user", { scroll: false });
-      }
+      
     } else {
       // Handle sign up
       const { data, error } = await supabase.auth.signUp({

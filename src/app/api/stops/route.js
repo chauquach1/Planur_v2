@@ -1,4 +1,4 @@
-import mongoClient from "../../libs/mongo/mongodb";
+import {mongoClient} from "../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import Stop from "../../models/stop"
 import { NextResponse } from "next/server";

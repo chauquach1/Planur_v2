@@ -1,17 +1,14 @@
 'use server'
 import mongoose from "mongoose";
-import {format} from 'date-fns';
 
 let isConnectedBefore = false;
 
-
-
-const mongoClient = async () => {
+export async function mongoClient () {
   const mongoURI = process.env.MONGODB_URI;
 
   // Check if MongoDB URI is provided
   if (!mongoURI) {
-    // console.error("MongoDB URI not provided in environment variables.");
+    console.error("MongoDB URI not provided in environment variables.");
     return;
   }
 
@@ -53,5 +50,3 @@ const mongoClient = async () => {
     process.exit(0);
   });
 };
-
-export default mongoClient;
