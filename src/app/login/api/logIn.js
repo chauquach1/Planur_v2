@@ -1,4 +1,4 @@
-import mongoClient from "../../libs/mongo/mongodb.js";
+import {mongoClient} from "../../libs/mongo/mongodb.js";
 import User from "../../models/user";
 import { NextResponse } from "next/server";
 
@@ -36,7 +36,5 @@ export default async function POST(request) {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
-  } finally {
-    client.close();
   }
 }

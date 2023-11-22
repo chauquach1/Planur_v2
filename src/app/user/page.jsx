@@ -4,6 +4,18 @@ import NewTripForm from "../components/form-components/NewTripForm";
 import { redirect } from 'next/navigation'
 
 
+const fetchUserData = async (userEmail) => {
+  const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
+  const data = await response.json();
+  if (!response.ok) {
+    console.error("fetchUserData error", data);
+    redirect('/login')
+  }
+  else {
+    return data;
+  }
+}
+
 export default async function UserPage() {
   const cookieStore = cookies();
   const supabase = createServerClient(
@@ -23,20 +35,7 @@ export default async function UserPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    console.log("No user found");
     redirect('/login');
-  }
-
-  console.log("user", user);
-
-  const fetchUserData = async (userEmail) => {
-    const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
-    const data = await response.json();
-    if (!response.ok) {
-      console.error("fetchUserData error", data);
-      redirect('/login')
-    }
-    return data;
   }
 
   const userData = await fetchUserData(user.email);
@@ -47,6 +46,7 @@ export default async function UserPage() {
   }
 
   return (
+
     <div className="bg-slate-600 h-full rounded-xl container text-center">
       <div
         id="new-trip-form-container"
