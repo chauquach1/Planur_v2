@@ -2,7 +2,7 @@ import AccomsPanel from "./AccomsPanel"
 import StopsPanel from "./StopsPanel"
 import PackListsPanel from "./PackListPanel"
 
-export default function PanelContainer({ currCardData, currCardType, uuid, tripId, handleUpdateForm, getAccoms, getTripStops }) {
+export default function PanelContainer({ currCardData, currCardType, uuid, tripId, handleUpdateForm, getAccoms, getTripStops, setCurrCardData }) {
   const data = currCardData;
   if (data === undefined || data === null) {
     return <></>;
@@ -12,7 +12,7 @@ export default function PanelContainer({ currCardData, currCardType, uuid, tripI
     );
   } else if (currCardType === 'stops') {
     return (
-      <StopsPanel currCardData={currCardData} currCardType={currCardType} getTripStops={getTripStops} />
+      <StopsPanel currCardData={currCardData} currCardType={currCardType} getTripStops={getTripStops} setCurrCardData={setCurrCardData} />
     );
   } else if (currCardType === 'packLists') {
     return (

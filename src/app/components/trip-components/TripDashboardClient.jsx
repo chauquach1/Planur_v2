@@ -9,8 +9,9 @@ import AccommodationsTab from "./AccommodationsTab";
 import PanelContainer from "../panel-components/PanelContainer";
 import StopsTab from "./StopsTab";
 import PackListsTab from "./PackListsTab";
+import TripBanner from "./TripBanner";
 
-export default function TripDashboardClient({ uuid, tripId }) {
+export default function TripDashboardClient({ uuid, tripId, trip }) {
   const [activeTab, setActiveTab] = useState("accommodations");
   const [currCardData, setCurrCardData] = useState(null);
   const [currCardType, setCurrCardType] = useState(null);
@@ -135,12 +136,13 @@ export default function TripDashboardClient({ uuid, tripId }) {
     <>
       <div
         id="trip-controller-container"
-        className="w-full shadow-2xl bg-gradient-to-tl bg-gray-600 rounded-xl row columns-2 flex justify-start items-star h-[800px] my-5"
+        className="container shadow-2xl bg-gray-600 rounded-xl row columns-2 flex justify-start items-star h-[800px] my-5"
       >
         <div
           id="details-tabs"
           className="w-full sm:max-w-xs columns-1 rounded-l-lg flex flex-col justify-start text-start max-h-fit overflow-scroll items-center h-full"
         >
+          <TripBanner uuid={uuid} trip={trip} tripId={tripId} />
           <div
             className="p-3 h-12 w-full sm:w-[300px] md:w-[400px] flex justify-between flex-wrap"
             aria-label="Dynamic tabs"
@@ -234,6 +236,7 @@ export default function TripDashboardClient({ uuid, tripId }) {
               handleUpdateForm={handleUpdateForm}
               getTripStops={getTripStops}
               getAccoms={getAccoms}
+              setCurrCardData={setCurrCardData}
             />
           </div>
         </div>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "install": "node-gyp-build"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -15,23 +16,24 @@
     "@supabase/auth-ui-react": "^0.4.6",
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.6",
-    "@supabase/supabase-js": "^2.38.4",
+    "@supabase/supabase-js": "^2.38.5",
     "aws4": "^1.12.0",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.5",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.2.0",
-    "mongoose": "^8.0.0",
-    "next": "^14.0.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.1",
+    "next": "^14.0.3",
+    "node-gyp-build": "4.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.12.0"
   },
   "devDependencies": {
     "@types/react": "18.2.34",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "eslint-config-next": "14.0.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5"

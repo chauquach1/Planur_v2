@@ -12,6 +12,8 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { NextResponse } from "next/server";
+import SelectStopType from "../form-components/SelectStopType";
+import SelectStopInterest from "../form-components/SelectStopInterest";
 
 export default function AddStopBtn({ uuid, tripId, getTripStops }) {
   const [stopName, setStopName] = useState("");
@@ -124,34 +126,16 @@ export default function AddStopBtn({ uuid, tripId, getTripStops }) {
                 <Input
                   autoFocus={true}
                   label="Stop Name"
-                  placeholder="Grandmas House, Disneyland, etc."
+                  placeholder="e.g Golden Gate Bridge"
                   value={stopName}
                   onChange={(e) => setStopName(e.target.value)}
                   isRequired
                   autoComplete="off"
                   variant="faded"
-                  className="col-span-3"
-                />
-                <Input
-                  label="Category"
-                  placeholder={"Restaurant, Landmark, Family, etc."}
-                  value={stopType}
-                  onChange={(e) => setStopType(e.target.value)}
-                  isRequired
-                  autoComplete="off"
-                  variant="faded"
-                  className="col-span-1"
-                />
-                <Input
-                  label="Interest"
-                  placeholder={"Must-Go, High, Indifferent, etc."}
-                  value={stopInterest}
-                  onChange={(e) => setStopInterest(e.target.value)}
-                  isRequired
-                  autoComplete="off"
-                  variant="faded"
                   className="col-span-2"
                 />
+                <SelectStopType setStopType={setStopType} />
+                <SelectStopInterest setStopInterest={setStopInterest} />
                 <Input
                   label="Arrival Date"
                   type="date"

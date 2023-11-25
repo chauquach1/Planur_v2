@@ -1,23 +1,13 @@
 "use client";
-import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
-import { useState, useContext } from "react";
 
-export default function LogOutBtn() {
+export default function LogOutBtn({ supabase, setUserSignedIn }) {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
-  
     const { error } = await supabase.auth.signOut();
-  
-    if (error) {
-      // console.log("Error logging out:", error.message);
-    }
+    setUserSignedIn(false);
     router.push("/");
   };
 

@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const { user, ...tripDetails } = await request.json();
-  console.log('request', user, tripDetails);
   const client = await mongoClient();
 
   try {
@@ -36,7 +35,6 @@ export async function POST(request) {
       tripStartDate: tripDetails.startDate,
       tripEndDate: tripDetails.endDate,
       tripGuests: tripDetails.guests,
-      tripAccommodation: tripDetails.accommodation,
       tripReason: tripDetails.reason,
       tripTransportation: tripDetails.transportation,
     });
