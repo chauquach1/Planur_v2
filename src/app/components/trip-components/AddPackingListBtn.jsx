@@ -159,7 +159,7 @@ export default function AddPackingListBtn({ uuid, tripId }) {
     };
 
     try {
-      const response = await fetch(`https://planur-v2.vercel.app/api/packlist`, {
+      const response = await fetch(`http://localhost:3000/api/packlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

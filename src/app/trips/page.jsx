@@ -7,7 +7,7 @@ const fetchTrips = async (userEmail) => {
     console.error("no userEmail");
     return <div>no userEmail</div>;
   }
-  const response = await fetch(`https://planur-v2.vercel.app/api/tripsindex/${userEmail}`);
+  const response = await fetch(`http://localhost:3000/api/tripsindex/${userEmail}`);
 
   if (!response.ok) {
     console.error("response not ok");
@@ -55,7 +55,7 @@ export default async function TripsIndex() {
   return (
     <div className="container flex flex-col justify-center items-center h-full bg-slate-600 pt-6 gap-4">
       <h1 className="text-white text-6xl">Trips Index</h1>
-      <div className="container flex flex-row justify-center flex-wrap gap-2 p-6 h-full shadow-xl">
+      <div className="container flex flex-row justify-center flex-wrap gap-2 p-6 h-[1000px] shadow-xl">
         {tripsArray ? (
           <>
             {tripsArray.map((trip) => (

@@ -2,18 +2,10 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import signUp from "./api/signUp";
-// import {logIn} from "./api/logIn";
-import { is } from "date-fns/locale";
-
-const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 const newMongoUser = async (data) => {
   try {
-    const response = await fetch("https://planur-v2.vercel.app/api/user", {
+    const response = await fetch("http://localhost:3000/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +29,10 @@ const newMongoUser = async (data) => {
 };
 
 export default function Login() {
-  // const secretKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
   const [isSignIn, setIsSignIn] = useState(true); // Default to login mode
   const router = useRouter();
   const [formData, setFormData] = useState({

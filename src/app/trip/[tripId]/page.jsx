@@ -27,10 +27,8 @@ export default async function TripDashboardPage({ params }) {
     return <div className="flex gap-4 items-center">Not logged in</div>;
   }
 
-
-
   const fetchTrip = async () => {
-    const response = await fetch(`https://planur-v2.vercel.app/api/trip/${tripId}`);
+    const response = await fetch(`http://localhost:3000/api/trip/${tripId}`);
     if (!response.ok) {
       console.error("Response not ok, status:", response.status);
       return null; // Or handle error appropriately
@@ -41,12 +39,8 @@ export default async function TripDashboardPage({ params }) {
   const tripData = await fetchTrip();
 
   return (
-    <>
-      <TripBanner trip={tripData} />
-      <TripDashboardClient
-        uuid={user.id}
-        tripId={tripId}
-      />
-    </>
+    <div className="w-full flex flex-col items-center justify-center">
+      <TripDashboardClient uuid={user.id} tripId={tripId} trip={tripData} />
+    </div>
   );
 }

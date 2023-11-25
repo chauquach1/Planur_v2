@@ -13,7 +13,7 @@ export default function AccomsPanel({ currCardData, getAccoms }) {
     // console.log(accomId);
     try {
       const response = await fetch(
-        `https://planur-v2.vercel.app/api/accommodations?accomId=${accomId}`,
+        `http://localhost:3000/api/accommodations?accomId=${accomId}`,
         {
           method: "DELETE",
           headers: {

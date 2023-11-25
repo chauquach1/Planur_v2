@@ -1,59 +1,57 @@
 "use client";
-import React, { use, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
   NavbarItem,
   Link,
   Button,
 } from "@nextui-org/react";
 import LogOutBtn from "./auth-components/LogOutBtn";
-import {createBrowserClient} from '@supabase/ssr';
+import { createBrowserClient } from "@supabase/ssr";
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function NavNextUI() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [user, setUser] = useState(null);
+  const [userSignedIn, setUserSignedIn] = useState(false);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  useEffect(() => {
+    // Function to fetch the current user
+    const getCurrentUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data) {
+        return null;
+      } else if (data.session) {
+        console.log("data @ getCurrentUser:", data.session.user);
+        return data.session.user;
+      }
+    };
 
-  const getUser = async () => {
-    const { data, error } = await supabase.auth.getSession()
-    // console.log("data:", data);
-    // console.log("error:", error);
-  }
+    // Check if a user is authenticated
+    const checkAuthentication = async () => {
+      const currentUser = await getCurrentUser();
+      if (currentUser) {
+        setUser(currentUser); // Set the user if authenticated
+        setUserSignedIn(true);
+      }
+    };
 
-  
+    checkAuthentication(); // Check user authentication status on component mount
+  }, []);
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-  
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar shouldHideOnScroll>
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
         <NavbarBrand>
           <p className="font-bold text-inherit">Planur</p>
         </NavbarBrand>
       </NavbarContent>
+      {userSignedIn ? (
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/">
@@ -71,44 +69,26 @@ export default function NavNextUI() {
             </Link>
           </NavbarItem>
         </NavbarContent>
+      ) : null}
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={Link}
-            color="primary"
-            href="/login"
-            variant="flat"
-            size="sm"
-          >
-            Sign Up/Log In
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <LogOutBtn />
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
+        {userSignedIn ? (
+          <NavbarItem>
+            <LogOutBtn supabase={supabase} setUserSignedIn={setUserSignedIn} />
+          </NavbarItem>
+        ) : (
+          <NavbarItem>
+            <Button
+              as={Link}
+              color="primary"
+              href="/login"
+              variant="flat"
+              size="sm"
             >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+              Sign Up/Log In
+            </Button>
+          </NavbarItem>
+        )}
+      </NavbarContent>
     </Navbar>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
+import SelectReason from "../form-components/SelectReason";
 
 export default function NewTripForm({ user }) {
   const [tripName, setTripName] = useState("");
@@ -11,7 +12,6 @@ export default function NewTripForm({ user }) {
   const [reason, setReason] = useState("");
   const [transportation, setTransportation] = useState("");
   const [accommodation, setAccommodation] = useState("");
-  const [address, setAddress] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
@@ -33,9 +33,8 @@ export default function NewTripForm({ user }) {
       transportation,
       accommodation,
     };
-
     try {
-      const response = await fetch("https://planur-v2.vercel.app/api/trip", {
+      const response = await fetch("http://localhost:3000/api/trip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +78,7 @@ export default function NewTripForm({ user }) {
         <div className="row w-full flex flex-row gap-2 flex-wrap md:flex-nowrap justify-between">
           <Input
             label="Trip Name"
-            placeholder="ex. Mexico 2023"
+            placeholder="ex. Japan 2023"
             value={tripName}
             onChange={(event) => setTripName(event.target.value)}
             size="sm"
@@ -89,7 +88,7 @@ export default function NewTripForm({ user }) {
           />
           <Input
             label="Destination"
-            placeholder="ex. Tijuana"
+            placeholder="ex. Tokyo"
             value={destination}
             onChange={(event) => setDestination(event.target.value)}
             size="sm"
@@ -117,13 +116,7 @@ export default function NewTripForm({ user }) {
           />
         </div>
         <div className="row w-full flex flex-row gap-2 justify-between">
-          <Input
-            label="Reason"
-            placeholder=""
-            value={reason}
-            onChange={(event) => setReason(event.target.value)}
-            size="sm"
-          />
+          <SelectReason setReason={setReason}/>
           <Input
             label="Travelers"
             placeholder=""
