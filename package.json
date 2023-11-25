@@ -13,8 +13,6 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@nextui-org/react": "^2.2.9",
-    "@supabase/auth-ui-react": "^0.4.6",
-    "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.6",
     "@supabase/supabase-js": "^2.38.5",
     "aws4": "^1.12.0",
