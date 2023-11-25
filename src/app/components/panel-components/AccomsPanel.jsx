@@ -26,7 +26,7 @@ export default function AccomsPanel({ currCardData, getAccoms }) {
       }
       getAccoms();
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }
 

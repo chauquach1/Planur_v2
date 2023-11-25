@@ -67,7 +67,7 @@ export async function DELETE(request, { params }) {
 
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
-      console.log("Trip not found");
+      // console.log("Trip not found");
       return NextResponse.json({ error: "Trip not found" }, { status: 403 });
     }
 
@@ -93,7 +93,7 @@ export async function GET(request, { params }) {
 
     return NextResponse.json(trip, { status: 200 });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

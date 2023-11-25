@@ -23,7 +23,7 @@ const newMongoUser = async (data) => {
     const result = await response.json();
     // console.log("result from POST request @ login:", result);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     // Handle the error, e.g., display an error message to the user
   }
 };
@@ -87,6 +87,7 @@ export default function Login() {
       if (data) {
         // console.log("signUpWithEmail:", data);
         newMongoUser(data);
+        router.push('/confirm', { scroll: false })
       }
       if (error) {
         // console.log("signUpWithEmail:", error);

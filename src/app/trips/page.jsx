@@ -4,7 +4,7 @@ import TripIndexCard from "../components/trip-components/TripCard.jsx";
 
 const fetchTrips = async (userEmail) => {
   if (!userEmail) {
-    console.error("no userEmail");
+    // console.error("no userEmail");
     return <div>no userEmail</div>;
   }
   const response = await fetch(
@@ -12,7 +12,7 @@ const fetchTrips = async (userEmail) => {
   );
 
   if (!response.ok) {
-    console.error("response not ok");
+    // console.error("response not ok");
   }
   const data = await response.json();
   return data;

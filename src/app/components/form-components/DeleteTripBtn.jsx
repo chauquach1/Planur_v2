@@ -19,7 +19,7 @@ export default function DeleteTripBtn({ tripId }) {
       }
       router.push("/trips");
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

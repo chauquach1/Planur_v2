@@ -56,7 +56,7 @@ export default function AddAccommodationsBtn({ uuid, tripId, getAccoms }) {
       accomEmail,
       accomResNum,
     };
-    console.log(accomDetails);
+    // console.log(accomDetails);
 
     try {
       // Send the form data to the serverless function

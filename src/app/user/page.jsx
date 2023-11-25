@@ -8,7 +8,7 @@ const fetchUserData = async (userEmail) => {
   const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
   const data = await response.json();
   if (!response.ok) {
-    console.error("fetchUserData error", data);
+    // console.error("fetchUserData error", data);
     redirect('/login')
   }
   else {
@@ -41,7 +41,7 @@ export default async function UserPage() {
   const userData = await fetchUserData(user.email);
 
   if (!userData) {
-    console.error("!userData", error);
+    // console.error("!userData", error);
     redirect('/login')
   }
 

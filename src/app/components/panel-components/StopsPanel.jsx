@@ -26,7 +26,7 @@ export default function StopsPanel({ currCardData, getTripStops, tripId }) {
       }
       getTripStops();
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 

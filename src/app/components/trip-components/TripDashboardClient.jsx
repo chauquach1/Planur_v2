@@ -34,7 +34,7 @@ export default function TripDashboardClient({ uuid, tripId, trip }) {
       }
       setAccommodations(data);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }, [tripId]);
 
@@ -50,7 +50,7 @@ export default function TripDashboardClient({ uuid, tripId, trip }) {
       }
       setStops(data);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }, [tripId]);
 
@@ -66,7 +66,7 @@ export default function TripDashboardClient({ uuid, tripId, trip }) {
       }
       setPackList(data);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }, [tripId]);
 

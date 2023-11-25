@@ -8,7 +8,7 @@ export async function mongoClient () {
 
   // Check if MongoDB URI is provided
   if (!mongoURI) {
-    console.error("MongoDB URI not provided in environment variables.");
+    // console.error("MongoDB URI not provided in environment variables.");
     return;
   }
 
@@ -28,12 +28,12 @@ export async function mongoClient () {
     // console.log("Creating a new MongoDB connection.");
     return mongoose.connection.getClient();
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    // console.error("MongoDB connection error:", error);
     throw error;
   }
 
   mongoose.connection.on("error", (err) => {
-    console.error("MongoDB connection error:", err);
+    // console.error("MongoDB connection error:", err);
     if (!isConnectedBefore) {
       process.exit(1);
     }

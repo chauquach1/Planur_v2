@@ -62,7 +62,7 @@ export default function EditTripForm({ uuid, trip, tripId }) {
     };
 
     try {
-      console.log("tripdetails from edittripform", tripDetails);
+      // console.log("tripdetails from edittripform", tripDetails);
       const response = await fetch(`https://planur-v2.vercel.app/api/trip/${tripId}`, {
         method: "PUT",
         headers: {
