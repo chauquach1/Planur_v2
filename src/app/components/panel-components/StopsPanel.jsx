@@ -3,8 +3,7 @@ import { Button } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 
 export default function StopsPanel({ currCardData, getTripStops, tripId }) {
-  // const data = currCardData;
-  const [data, setData] = useState(null);
+  const data = currCardData;
   const arrival = format(new Date(data.stopArrival), "PP");
   const departure = format(new Date(data.stopDeparture), "PP");
 
