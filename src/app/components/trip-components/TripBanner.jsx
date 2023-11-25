@@ -4,7 +4,6 @@ import {
 } from "@nextui-org/react";
 import { format } from "date-fns";
 import EditTripForm from "../form-components/EditTripForm";
-import DeleteTripBtn from "../form-components/DeleteTripBtn";
 
 export default function TripBanner({ uuid, tripId, trip }) {
   const arrivalDate = format(new Date(trip.tripStartDate), "PP");
@@ -16,8 +15,6 @@ export default function TripBanner({ uuid, tripId, trip }) {
         <AccordionItem
           key="1"
           aria-label="Accordion 1"
-          // title={trip.tripName}
-          // subtitle={`${arrivalDate} - ${departureDate}`}
           className="text-start"
           startContent={
             <div className="text-start pb-0">
