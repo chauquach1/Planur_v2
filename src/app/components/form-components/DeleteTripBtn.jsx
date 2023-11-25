@@ -8,7 +8,7 @@ export default function DeleteTripBtn({ tripId }) {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
+      const response = await fetch(`https://planur-v2.vercel.app/api/trip/${tripId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

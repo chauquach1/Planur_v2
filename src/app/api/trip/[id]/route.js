@@ -6,8 +6,6 @@ import { NextResponse } from "next/server";
 export async function PUT(request, { params }) {
   const tripId = params.id;
   const { uuid, ...tripDetails } = await request.json();
-  console.log(tripDetails);
-  console.log(uuid);
 
   try {
     const client = await mongoClient();
@@ -32,17 +30,16 @@ export async function PUT(request, { params }) {
     }
 
     // update trip
-    const tripToUpdate = await Stop.findByIdAndUpdate(
+    const tripToUpdate = await Trip.findByIdAndUpdate(
       { _id: new ObjectId(tripId) },
       {
-        startDate: tripDetails.startDate,
-        endDate: tripDetails.endDate,
+        tripStartDate: tripDetails.startDate,
+        tripEndDate: tripDetails.endDate,
         tripName: tripDetails.tripName,
-        destination: tripDetails.destination,
-        guests: tripDetails.guests,
-        reason: tripDetails.reason,
-        transportation: tripDetails.transportation,
-        accommodation: tripDetails.accommodation,
+        tripDestination: tripDetails.destination,
+        tripGuests: tripDetails.guests,
+        tripReason: tripDetails.reason,
+        tripTransportation: tripDetails.transportation,
       },
       { new: true } // This option returns the updated document
     );
@@ -70,6 +67,7 @@ export async function DELETE(request, { params }) {
 
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
+      console.log("Trip not found");
       return NextResponse.json({ error: "Trip not found" }, { status: 403 });
     }
 

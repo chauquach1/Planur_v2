@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import SelectReason from "../form-components/SelectReason";
+import { useRouter } from "next/navigation";
 
 export default function NewTripForm({ user }) {
   const [tripName, setTripName] = useState("");
@@ -11,10 +12,10 @@ export default function NewTripForm({ user }) {
   const [guests, setGuests] = useState("");
   const [reason, setReason] = useState("");
   const [transportation, setTransportation] = useState("");
-  const [accommodation, setAccommodation] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,10 +32,9 @@ export default function NewTripForm({ user }) {
       guests,
       reason,
       transportation,
-      accommodation,
     };
     try {
-      const response = await fetch("http://localhost:3000/api/trip", {
+      const response = await fetch("https://planur-v2.vercel.app/api/trip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,6 +49,7 @@ export default function NewTripForm({ user }) {
 
       const result = await response.json();
 
+
       // Process the response here
       setMessage('Trip successfully created!');
       
@@ -60,8 +61,7 @@ export default function NewTripForm({ user }) {
       setGuests('');
       setReason('');
       setTransportation('');
-      setAccommodation('');
-      
+      router.push(`/trip/${result._id}`);
     } catch (error) {
       setMessage('Failed to create trip: ' + error.message);
     } finally {
@@ -128,19 +128,11 @@ export default function NewTripForm({ user }) {
         <div className="row w-full flex flex-row gap-2 justify-between">
           <Input
             label="Transportation"
-            placeholder=""
+            placeholder="Airplane, Car, etc."
             value={transportation}
             onChange={(event) => setTransportation(event.target.value)}
             size="sm"
           />
-          <Input
-            label="Accommodation"
-            placeholder=""
-            value={accommodation}
-            onChange={(event) => setAccommodation(event.target.value)}
-            size="sm"
-          />
-        </div>
         <div>
           <Button
             color="success"
@@ -152,6 +144,7 @@ export default function NewTripForm({ user }) {
           >
             Generate Itinerary
           </Button>
+        </div>
         </div>
       </form>
     </>

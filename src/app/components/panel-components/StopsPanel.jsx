@@ -13,7 +13,7 @@ export default function StopsPanel({ currCardData, getTripStops, tripId }) {
     // console.log(stopId);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/stops?stopId=${stopId}`,
+        `https://planur-v2.vercel.app/api/stops?stopId=${stopId}`,
         {
           method: "DELETE",
           headers: {

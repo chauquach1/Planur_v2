@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Modal,
   ModalContent,
@@ -6,27 +6,43 @@ import {
   ModalBody,
   useDisclosure,
   Button,
-  Input
+  Input,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectReason from "../form-components/SelectReason";
 import DeleteTripBtn from "../form-components/DeleteTripBtn";
+import { format, parseISO, set } from "date-fns";
+import { useRouter } from "next/navigation";
 
-export default function EditTripForm(uuid, trip, tripId) {
-  console.log('trip from edittripform',trip);
-  console.log('tripId from edittripform',tripId);
-  console.log('uuid from edittripform',uuid);
+export default function EditTripForm({ uuid, trip, tripId }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [tripName, setTripName] = useState(trip.tripName);
-  const [destination, setDestination] = useState(trip.tripDestination);
-  const [startDate, setStartDate] = useState(trip.tripStartDate);
-  const [endDate, setEndDate] = useState(trip.tripEndDate);
-  const [guests, setGuests] = useState(trip.tripGuests);
-  const [reason, setReason] = useState(trip.tripReason);
-  const [transportation, setTransportation] = useState(trip.tripTransportation);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [tripName, setTripName] = useState("");
+  const [destination, setDestination] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [guests, setGuests] = useState("");
+  const [reason, setReason] = useState("");
+  const [transportation, setTransportation] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState("");
   const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const currTripStartDate = trip.tripStartDate;
+  const currTripEndDate = trip.tripEndDate;
+  const parsedStartDate = parseISO(currTripStartDate);
+  const parsedEndDate = parseISO(currTripEndDate);
+  const formattedStartDate = format(parsedStartDate, "yyyy-MM-dd");
+  const formattedEndDate = format(parsedEndDate, "yyyy-MM-dd");
+
+  useEffect(() => {
+    setStartDate(formattedStartDate);
+    setEndDate(formattedEndDate);
+    setTripName(trip.tripName);
+    setDestination(trip.tripDestination);
+    setGuests(trip.tripGuests);
+    setReason(trip.tripReason);
+    setTransportation(trip.tripTransportation);
+  }, [trip]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,18 +52,18 @@ export default function EditTripForm(uuid, trip, tripId) {
     // Construct the form data object
     const tripDetails = {
       uuid,
-      startDate, // JavaScript Date object
-      endDate, // Timezone offset in minutes
+      startDate,
+      endDate,
       tripName,
       destination,
       guests,
       reason,
       transportation,
     };
-    
+
     try {
-      console.log('tripdetails from edittripform',tripDetails);
-      const response = await fetch(`http://localhost:3000/api/trip/${tripId}`, {
+      console.log("tripdetails from edittripform", tripDetails);
+      const response = await fetch(`https://planur-v2.vercel.app/api/trip/${tripId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -73,17 +89,21 @@ export default function EditTripForm(uuid, trip, tripId) {
       setGuests("");
       setReason("");
       setTransportation("");
-      setAccommodation("");
     } catch (error) {
       setMessage("Failed to create trip: " + error.message);
     } finally {
       setIsSubmitting(false);
+      router.refresh();
     }
   };
 
   return (
     <div className="flex flex-row justify-end gap-2">
-      <Button onPress={onOpen} size="sm" className="max-w-fit bg-transparent text-blue-400 self-end">
+      <Button
+        onPress={onOpen}
+        size="sm"
+        className="max-w-fit bg-transparent text-blue-400 self-end"
+      >
         Edit Trip
       </Button>
       <DeleteTripBtn tripId={tripId} />

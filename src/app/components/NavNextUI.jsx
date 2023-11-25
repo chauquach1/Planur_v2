@@ -27,7 +27,6 @@ export default function NavNextUI() {
       if (error || !data) {
         return null;
       } else if (data.session) {
-        console.log("data @ getCurrentUser:", data.session.user);
         return data.session.user;
       }
     };

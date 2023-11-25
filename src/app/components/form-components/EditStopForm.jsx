@@ -97,7 +97,7 @@ export default function EditStopsForm({
     try {
       // Send the form data to the serverless function
       const response = await fetch(
-        `http://localhost:3000/api/stops?tripId=${tripId}`,
+        `https://planur-v2.vercel.app/api/stops?tripId=${tripId}`,
         {
           method: "PUT",
           headers: {

@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 
 const fetchUserData = async (userEmail) => {
-  const response = await fetch(`http://localhost:3000/api/user/${userEmail}`);
+  const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
   const data = await response.json();
   if (!response.ok) {
     console.error("fetchUserData error", data);
