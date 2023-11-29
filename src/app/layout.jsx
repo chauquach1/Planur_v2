@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex min-h-screen min-w-full flex-col items-center">
+        <main className="flex bg-bismark min-h-screen min-w-full flex-col items-center">
           <NavNextUI />
           {children}
         </main>

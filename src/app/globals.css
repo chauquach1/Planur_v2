@@ -3,23 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 146, 156, 153;
-  --background-start-rgb: 146, 156, 153;
-  --background-end-rgb: 146, 156, 153;
+  --foreground-hsl: 162, 5%, 59%;
+  --background-start-hsl: 206, 37%, 96%;
+  --background-end-hsl: 211, 21%, 24%;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
-
 html, body {
-  color: rgb(var(--background-start-rgb));
-  color: rgb(var(--background-start-rgb));
-  background: rgb(var(--background-start-rgb));
+  color: hsl(var(--background-end-hsl));
+  color: hsl(var(--background-end-hsl));
+  background: hsl(var(--background-end-hsl));
 }
 
 .fade-enter {
