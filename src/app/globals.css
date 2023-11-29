@@ -12,7 +12,7 @@ html, body {
   color: hsl(var(--background-end-hsl));
   color: hsl(var(--background-end-hsl));
   background: hsl(var(--background-end-hsl));
-}
+} 
 
 .fade-enter {
   opacity: 0;
