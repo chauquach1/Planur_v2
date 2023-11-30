@@ -6,12 +6,12 @@
   --foreground-hsl: 162, 5%, 59%;
   --background-start-hsl: 206, 37%, 96%;
   --background-end-hsl: 211, 21%, 24%;
+  --background-white-hsl: 0, 0%, 100%;
 }
 
 html, body {
+  background: hsl(var(--background-white-hsl));
   color: hsl(var(--background-end-hsl));
-  color: hsl(var(--background-end-hsl));
-  background: hsl(var(--background-end-hsl));
 } 
 
 .fade-enter {

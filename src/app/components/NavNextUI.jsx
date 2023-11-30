@@ -44,7 +44,7 @@ export default function NavNextUI() {
   }, []);
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar position="static" className="mb-3">
       <NavbarContent>
         <NavbarBrand>
           <p className="font-bold text-inherit">Planur</p>
