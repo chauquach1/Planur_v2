@@ -1,8 +1,9 @@
 import Traveler from "../../assets/traveler.svg"
-import TravelSmart from "../../assets/travelsmart.svg";
-import Checklist from "../../assets/checklist.svg";
-import Dashboard from "../../assets/dashboard.svg";
-import LocationSearch from "../../assets/locationsearch.svg";
+import TravelSmart from "../../public/travelsmart.svg"
+import Checklist from "../../public/checklist.svg";
+import Dashboard from "../../public/dashboard.svg";
+import LocationSearch from "../../public/locationsearch.svg";
+import Airplane from "../../public/3918989.jpg"
 import Image from "next/image";
 export default function HeroSection() {
   return (
