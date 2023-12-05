@@ -3,18 +3,12 @@ export default function SignUpBanner() {
   return (
     <div
       id="sign-up-banner"
-      className="container flex flex-row justify-center align-center items-center bg-slate-200 border border-black h-16"
+      className="w-full flex flex-row justify-center gap-4 items-center bg-slate-200 h-16 mb-12"
     >
-      <div className="flex flex-col flex-grow">
-        <h1>Ready To Get</h1>
-        <h1>Sign Up Banner</h1>
-      </div>
-      <div className="flex flex-col flex-grow">
-        <Button
-          size="md"
-          color="primary"
-        >Sign Up</Button>
-      </div>
+        <h1>Got a Trip in Mind?</h1>
+        <Button size="md" radius="full" className="bg-peach-400 text-white">
+          Sign Up
+        </Button>
     </div>
   );
 }

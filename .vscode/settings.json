@@ -5,6 +5,7 @@
     "Hoverable",
     "Planur",
     "Pressable",
+    "Storyset",
     "accom",
     "accoms",
     "bismark",
@@ -15,6 +16,7 @@
     "fullname",
     "garmentbag",
     "lastname",
+    "locationsearch",
     "mongodata",
     "nextjs",
     "nextui",
@@ -29,6 +31,7 @@
     "supabase",
     "supbasecontext",
     "tailwindcss",
+    "travelsmart",
     "tripid",
     "tripsindex",
     "userAccoms"

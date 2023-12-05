@@ -1,4 +1,8 @@
 import Traveler from "../../assets/traveler.svg"
+import TravelSmart from "../../assets/travelsmart.svg";
+import Checklist from "../../assets/checklist.svg";
+import Dashboard from "../../assets/dashboard.svg";
+import LocationSearch from "../../assets/locationsearch.svg";
 import Image from "next/image";
 export default function HeroSection() {
   return (
@@ -27,6 +31,7 @@ export default function HeroSection() {
             height={400}
             alt="Airplanes"
             style={{ objectFit: "contain" }}
+            priority={true}
           />
         </div>
         <p className="block sm:hidden">
@@ -41,6 +46,7 @@ export default function HeroSection() {
           height={400}
           alt="Airplanes"
           style={{ objectFit: "contain" }}
+          priority={true}
         />
       </div>
     </div>
