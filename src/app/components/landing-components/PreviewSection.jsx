@@ -7,7 +7,7 @@ import Dashboard from "../../public/dashboard.svg";
 
 const previewCardDetails = [
   {
-    title: "Trip Dashboard",
+    title: "Organize Trips",
     description:
       "Create, track and manage multiple trips seamlessly, all in one place.",
     imgSrc: Dashboard,
@@ -19,13 +19,13 @@ const previewCardDetails = [
     imgSrc: TravelSmart,
   },
   {
-    title: "Journey Planner",
+    title: "Build Adventures",
     description:
       "Craft itineraries that fit your style, perfect for every type of traveler.",
     imgSrc: LocationSearch,
   },
   {
-    title: "Packing List",
+    title: "Pack Smartly",
     description:
       "Quickly create personalized packing lists, from essentials to extras.",
     imgSrc: Checklist,
