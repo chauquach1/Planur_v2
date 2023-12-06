@@ -8,6 +8,7 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
+import SignUpBtn from "./auth-components/SignUpBtn";
 import LogOutBtn from "./auth-components/LogOutBtn";
 import { createBrowserClient } from "@supabase/ssr";
 
@@ -83,7 +84,7 @@ export default function NavNextUI() {
               variant="flat"
               size="sm"
             >
-              Sign Up/Log In
+              Sign Up | Log In
             </Button>
           </NavbarItem>
         )}

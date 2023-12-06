@@ -24,11 +24,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={rubik.className}>
-        <main className="flex min-h-screen min-w-full flex-col items-center">
+        <main className="flex h-auto min-w-full flex-col justify-start items-center">
           <NavNextUI />
           {children}
-          <Footer />
         </main>
+        <Footer />
       </body>
     </html>
   );

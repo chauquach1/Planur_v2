@@ -17,6 +17,7 @@ export default function PreviewCard({ title, description, imgSrc }) {
           src={imgSrc}
           width={270}
           height={270}
+          priority='true'
         />
         <CardFooter className="hidden sm:hidden py-0 px-4 flex-col">
           <h4 className="font-bold text-md">{title}</h4>

@@ -25,7 +25,7 @@ const previewCardDetails = [
     imgSrc: LocationSearch,
   },
   {
-    title: "Pack Smartly",
+    title: "Pack Easily",
     description:
       "Quickly create personalized packing lists, from essentials to extras.",
     imgSrc: Checklist,
