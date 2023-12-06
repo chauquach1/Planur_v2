@@ -1,10 +1,11 @@
-import mongoClient from "../../libs/mongo/mongodb";
+import {mongoClient} from "../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 import PackList from "../../models/PackList";
 
 export async function POST(request) {
   const { tripId, uuid, ...packListDetails } = await request.json();
+  // console.log('POST PACKLIST ROUTE HIT', tripId, uuid, packListDetails);
 
   try {
     const client = await mongoClient();
@@ -40,7 +41,7 @@ export async function POST(request) {
     try {
       await newPackList.save();
     } catch (error) {
-      console.error("Error saving packList:", error);
+      // console.error("Error saving packList:", error);
     }
   
 

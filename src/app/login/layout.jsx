@@ -1,3 +1,4 @@
+
 export const metadata = {
   title: "Login/SignUp Page",
   description: "The fastest way to build apps with Next.js and Supabase",

@@ -1,10 +1,11 @@
-import mongoClient from "../../libs/mongo/mongodb";
+import {mongoClient} from "../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const {tripId, uuid, ...accomDetails} = await request.json();
+  // console.log('POST ACCOM ROUTE HIT', tripId, uuid, accomDetails);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
@@ -103,6 +104,26 @@ export async function PUT(request) {
     }
 
     return NextResponse.json(accomToUpdate, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+
+  const accomId = request.nextUrl.searchParams.get('accomId')
+  // console.log('DELETE ACCOM ROUTE HIT', accomId);
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const accomsCollections = db.collection("accommodations");
+
+    const accommodation = await accomsCollections.findOneAndDelete({ _id: new ObjectId(accomId) });
+    if (!accommodation) {
+      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    }
+
+    return NextResponse.json({ message: "Accom deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

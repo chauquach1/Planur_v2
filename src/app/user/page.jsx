@@ -1,9 +1,20 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { Link } from "@nextui-org/react";
 import NewTripForm from "../components/form-components/NewTripForm";
-import NextTripBanner from "../components/trip-components/NextTripBanner";
+import { redirect } from 'next/navigation'
 
+
+const fetchUserData = async (userEmail) => {
+  const response = await fetch(`https://planur-v2.vercel.app/api/user/${userEmail}`);
+  const data = await response.json();
+  if (!response.ok) {
+    // console.error("fetchUserData error", data);
+    redirect('/login')
+  }
+  else {
+    return data;
+  }
+}
 
 export default async function UserPage() {
   const cookieStore = cookies();
@@ -23,44 +34,33 @@ export default async function UserPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-
   if (!user) {
-    return <div>User not found in Supabase</div>;
-  }
-
-  const fetchUserData = async (userEmail) => {
-    const response = await fetch(`http://localhost:3000/api/user/${userEmail}`);
-    const data = await response.json();
-    if (!response.ok) {
-      console.error("response not ok");
-    }
-    return data;
+    redirect('/login');
   }
 
   const userData = await fetchUserData(user.email);
 
   if (!userData) {
-    console.error("!userData", error);
-    return <div>Error fetching user data from MongoDB</div>;
+    // console.error("!userData", error);
+    redirect('/login')
   }
 
   return (
-    <>
+
+    <div className="bg-slate-600 h-full rounded-xl container text-center">
       <div
         id="new-trip-form-container"
-        className="container rounded-lg bg-neutral-600 text-white text-center p-2 my-5 bg-info"
+        className="container text-white text-center p-2 bg-info"
       >
-        <div className="container text-center">
+        <div className="container bg- text-center">
           <h1 className="my-0">Hello {userData.firstName}</h1>
           <h6>Where to Next?</h6>
         </div>
       </div>
 
-      <NextTripBanner tripid={2} />
-      <Link className="text-white hover:text-black" href={`/trips`}>Trips Index</Link>
-      <div className="columns-1 bg-neutral-600 rounded-large flex flex-col w-5/6 sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/2 p-2 m-2 justify-center items-center">
-        <NewTripForm uuid={user.id} user={userData} />
+      <div className="container rounded-large flex flex-col p-2 m-2 justify-center items-center">
+        <NewTripForm user={userData} />
       </div>
-    </>
+    </div>
   );
 }

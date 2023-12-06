@@ -1,11 +1,12 @@
 import React from "react";
-import { Providers } from "./providers";
 import { Inter } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 import NavNextUI from "./components/NavNextUI";
-import AuthModal from "./components/AuthModal";
+import Footer from "./components/landing-components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+const rubik = Rubik({ subsets: ["latin"], display: "swap" });
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -17,19 +18,17 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
+
 export default async function RootLayout({ children }) {
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <main className="flex min-h-screen min-w-full flex-col items-center">
-            <NavNextUI />
-            <div className="row flex flex-row w-1/3 justify-around">
-              {/* <AuthModal /> */}
-            </div>
-            {children}
-          </main>
-        </Providers>
+      <body className={rubik.className}>
+        <main className="flex h-auto min-w-full flex-col justify-start items-center">
+          <NavNextUI />
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

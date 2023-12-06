@@ -12,8 +12,10 @@ import {
   Input,
 } from "@nextui-org/react";
 import { useState, useEffect } from "react";
+import { get } from "mongoose";
+import SelectAccom from "../form-components/SelectAccom";
 
-export default function AddAccommodationsBtn({ uuid, tripId }) {
+export default function AddAccommodationsBtn({ uuid, tripId, getAccoms }) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
   const [accomCheckIn, setAccomCheckIn] = useState("");
@@ -54,12 +56,11 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
       accomEmail,
       accomResNum,
     };
-
-    // Log the form data to ensure it's collected correctly
+    // console.log(accomDetails);
 
     try {
       // Send the form data to the serverless function
-      const response = await fetch("/api/accommodations", {
+      const response = await fetch("https://planur-v2.vercel.app/api/accommodations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +73,7 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
       }
   
       const result = await response.json();
-      setMessage("Accommodation successfully created!");
+      getAccoms();
       // Reset form fields
       setAccomName("");
       setAccomType("");
@@ -129,16 +130,7 @@ export default function AddAccommodationsBtn({ uuid, tripId }) {
                   className="col-span-3"
                   variant="faded"
                 />
-                <Input
-                  label="Accommodation Type"
-                  placeholder="Hotel, Hostel, Airbnb, etc."
-                  value={accomType}
-                  onChange={(event) => setAccomType(event.target.value)}
-                  isRequired
-                  autoComplete="off"
-                  className="col-span-3"
-                  variant="faded"
-                />
+                <SelectAccom className="col-span-3" setAccomType={setAccomType} />
                 <Input
                   label="Check-In Date"
                   type="date"

@@ -3,15 +3,45 @@ import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+const newMongoUser = async (data) => {
+  try {
+    const response = await fetch("https://planur-v2.vercel.app/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(
+        `Error creating new user: ${response.status} - ${errorMessage}`
+      );
+    }
+
+    const result = await response.json();
+    // console.log("result from POST request @ login:", result);
+  } catch (error) {
+    // console.error(error);
+    // Handle the error, e.g., display an error message to the user
+  }
+};
+
 export default function Login() {
-  const router = useRouter()
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  const [isSignIn, setIsSignIn] = useState(true); // Default to login mode
+  const router = useRouter();
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
 
-  const [isLogin, setIsLogin] = useState(true); // Default to login mode
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -22,42 +52,48 @@ export default function Login() {
 
   const toggleLoginMode = () => {
     setFormData({ email: "", password: "" }); // Reset form data
-    setIsLogin((prevIsLogin) => !prevIsLogin); // Toggle between login and signup
+    setIsSignIn((prevIsLogin) => !prevIsLogin); // Toggle between login and signup
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
 
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
+    if (isSignIn) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
 
-    if (isLogin) {
-      // Handle login
-      const { data, error } = await supabase.auth.signInWithPassword(formData);
-
-
-      if (error) {
+      if (data) {
+        // console.log('data @ login:', data);
+        router.push("/user", { scroll: false });
+      } if (error) {
+        // console.log("signInWIthEmailError:", error);
         router.refresh();
-      } else {
-        router.replace('/user', { scroll: false })
       }
+      
     } else {
       // Handle sign up
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
-          emailRedirectTo: `${origin}/auth/callback`,
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          },
         },
       });
-
-      if (error) {
-        router.refresh();
-      } else {
-        router.replace('/user', { scroll: false })
+      if (data) {
+        // console.log("signUpWithEmail:", data);
+        newMongoUser(data);
+        router.push('/confirm', { scroll: false })
       }
+      if (error) {
+        // console.log("signUpWithEmail:", error);
+        router.refresh();
+      }
+      router.refresh();
     }
   };
 
@@ -67,7 +103,41 @@ export default function Login() {
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-left text-foreground"
         onSubmit={handleSubmit}
       >
-        <label className="text-md" htmlFor="email">
+        {!isSignIn ? (
+          <div className="flex flex-col">
+            <label
+              id="firstName"
+              className="text-md col-span-1"
+              htmlFor="firstName"
+            >
+              First Name
+            </label>
+            <input
+              className="rounded-md px-4 py-2 bg-inherit border mb-6 col-span-1"
+              name="firstName"
+              autoComplete="firstName"
+              required
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <label
+              id="lastName"
+              className="text-md col-span-1"
+              htmlFor="lastName"
+            >
+              Last Name
+            </label>
+            <input
+              className="rounded-md px-4 py-2 bg-inherit border mb-6 col-span-1"
+              name="lastName"
+              autoComplete="lastName"
+              required
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+          </div>
+        ) : null}
+        <label id="email" className="text-md" htmlFor="email">
           Email
         </label>
         <input
@@ -79,7 +149,7 @@ export default function Login() {
           value={formData.email}
           onChange={handleChange}
         />
-        <label className="text-md" htmlFor="password">
+        <label id="password" className="text-md" htmlFor="password">
           Password
         </label>
         <input
@@ -87,7 +157,6 @@ export default function Login() {
           type="password"
           name="password"
           placeholder="password"
-          autoComplete="password"
           required
           value={formData.password}
           onChange={handleChange}
@@ -98,11 +167,14 @@ export default function Login() {
           type="submit"
           className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
         >
-          {isLogin ? "Log In" : "Sign Up"}
+          {isSignIn ? "Log In" : "Sign Up"}
         </button>
       </form>
-      <button onClick={toggleLoginMode} className="text-sm my-0 text-foreground">
-        {isLogin ? "Switch to Sign Up" : "Switch to Log In"}
+      <button
+        onClick={toggleLoginMode}
+        className="text-sm my-0 text-foreground"
+      >
+        {isSignIn ? "Switch to Sign Up" : "Switch to Log In"}
       </button>
     </div>
   );

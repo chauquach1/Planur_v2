@@ -1,95 +1,97 @@
-'use client'
-import React from "react";
+"use client";
+import { useState, useEffect } from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
   NavbarItem,
   Link,
   Button,
 } from "@nextui-org/react";
+import SignUpBtn from "./auth-components/SignUpBtn";
+import LogInBtn from "./auth-components/LogInBtn";
 import LogOutBtn from "./auth-components/LogOutBtn";
+import { createBrowserClient } from "@supabase/ssr";
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function NavNextUI() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [user, setUser] = useState(null);
+  const [userSignedIn, setUserSignedIn] = useState(false);
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  useEffect(() => {
+    // Function to fetch the current user
+    const getCurrentUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data) {
+        return null;
+      } else if (data.session) {
+        return data.session.user;
+      }
+    };
+
+    // Check if a user is authenticated
+    const checkAuthentication = async () => {
+      const currentUser = await getCurrentUser();
+      if (currentUser) {
+        setUser(currentUser); // Set the user if authenticated
+        setUserSignedIn(true);
+      }
+    };
+
+    checkAuthentication(); // Check user authentication status on component mount
+  }, []);
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <Navbar position="static" className="mb-3">
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
         <NavbarBrand>
           <p className="font-bold text-inherit">Planur</p>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/">
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem >
-          <Link color="foreground" href="/user">
-            User
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/trips">
-            Trips
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="/login">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="/login" variant="flat" size="sm">
-            Sign Up
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <LogOutBtn />
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
+      {userSignedIn ? (
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link color="foreground" href="/">
+              Home
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/user">
+              User
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/trips">
+              Trips
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+      ) : null}
+      <NavbarContent justify="end">
+        {userSignedIn ? (
+          <NavbarItem>
+            <LogOutBtn supabase={supabase} setUserSignedIn={setUserSignedIn} />
+          </NavbarItem>
+        ) : (
+          <NavbarItem>
+            {/* <Button
+              as={Link}
+              color="primary"
+              href="/login"
+              variant="flat"
+              size="sm"
+            >
+              Sign Up | Log In
+            </Button> */}
+            <LogInBtn />
+            <SignUpBtn variant="light" size="sm" />
+          </NavbarItem>
+        )}
+      </NavbarContent>
     </Navbar>
   );
 }
