@@ -13,14 +13,14 @@ import { AiFillEye } from "react-icons/ai";
 
 import { useState } from "react";
 
-export default function SignUpModal({isOpen, onOpenChange}) {
+export default function LogInModal({isOpen, onOpenChange}) {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
     <>
       <Modal
-        id="sign-up-modal"
+        id="log-in-modal"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="center"
@@ -30,20 +30,9 @@ export default function SignUpModal({isOpen, onOpenChange}) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 text-center">
-                Sign Up for Planur
+                Welcome Back!
               </ModalHeader>
               <ModalBody className="gap-4">
-                <Input
-                  autoFocus
-                  label="First Name"
-                  variant="bordered"
-                  size="sm"
-                />
-                <Input
-                  label="Last Name"
-                  variant="bordered"
-                  size="sm"
-                />
                 <Input
                   label="Email"
                   variant="bordered"
@@ -80,7 +69,7 @@ export default function SignUpModal({isOpen, onOpenChange}) {
                   Close
                 </Button>
                 <Button color="primary" onPress={onClose} size="sm">
-                  Sign Up
+                  Log In
                 </Button>
               </ModalFooter>
             </>
