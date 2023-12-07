@@ -13,7 +13,7 @@ export default function SignUpBtn() {
       <Button
         onPress={onOpen}
         variant="light"
-        className="font-semibold"
+        className="font-semibold min-w-fit p-0 mx-3"
       >
         Log In
       </Button>

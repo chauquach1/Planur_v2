@@ -10,10 +10,13 @@ import {
 } from "@nextui-org/react";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
-
-import { useState } from "react";
+import { use, useState } from "react";
+import { useFormStatus, useFormState } from "react-dom";
+import { LogIn } from "../../actions/authactions";
 
 export default function LogInModal({isOpen, onOpenChange}) {
+  const [logInData, formAction] = useFormState(LogIn, null);
+  const { pending } = useFormStatus();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -28,7 +31,7 @@ export default function LogInModal({isOpen, onOpenChange}) {
       >
         <ModalContent>
           {(onClose) => (
-            <>
+            <form action={formAction}>
               <ModalHeader className="flex flex-col gap-1 text-center">
                 Welcome Back!
               </ModalHeader>
@@ -37,11 +40,13 @@ export default function LogInModal({isOpen, onOpenChange}) {
                   label="Email"
                   variant="bordered"
                   size="sm"
+                  name="email"
                 />
                 <Input
                   label="Password"
                   variant="bordered"
                   size="sm"
+                  name="password"
                   endContent={
                     <button
                       className="focus:outline-none self-center"
@@ -68,11 +73,17 @@ export default function LogInModal({isOpen, onOpenChange}) {
                 >
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose} size="sm">
+                <Button
+                  color="primary"
+                  onPress={onClose}
+                  size="sm"
+                  type="submit"
+                  isDisabled={pending}
+                >
                   Log In
                 </Button>
               </ModalFooter>
-            </>
+            </form>
           )}
         </ModalContent>
       </Modal>
