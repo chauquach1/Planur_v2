@@ -6,7 +6,7 @@ export default function UserDashboard({ userData }) {
         id="content-navigation"
         className="container flex flex-col basis-1/4 h-full rounded-l-none rounded-xl bg-gray-300"
       >
-        <div className="container text-center text-xl  h-[100px] ">
+        <div className="container text-center text-xl h-[100px] ">
           <h1>
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
