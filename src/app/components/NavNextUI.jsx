@@ -78,15 +78,6 @@ export default function NavNextUI() {
           </NavbarItem>
         ) : (
           <NavbarItem>
-            {/* <Button
-              as={Link}
-              color="primary"
-              href="/login"
-              variant="flat"
-              size="sm"
-            >
-              Sign Up | Log In
-            </Button> */}
             <LogInBtn />
             <SignUpBtn variant="light" size="sm" />
           </NavbarItem>

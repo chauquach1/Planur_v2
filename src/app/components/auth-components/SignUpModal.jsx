@@ -33,22 +33,16 @@ export default function SignUpModal({isOpen, onOpenChange}) {
                 Sign Up for Planur
               </ModalHeader>
               <ModalBody className="gap-4">
-                <Input
-                  autoFocus
-                  label="First Name"
-                  variant="bordered"
-                  size="sm"
-                />
-                <Input
-                  label="Last Name"
-                  variant="bordered"
-                  size="sm"
-                />
-                <Input
-                  label="Email"
-                  variant="bordered"
-                  size="sm"
-                />
+                <div className="inline-flex flex-wrap sm:flex-nowrap gap-4">
+                  <Input
+                    autoFocus
+                    label="First Name"
+                    variant="bordered"
+                    size="sm"
+                  />
+                  <Input label="Last Name" variant="bordered" size="sm" />
+                </div>
+                <Input label="Email" variant="bordered" size="sm" />
                 <Input
                   label="Password"
                   variant="bordered"
