@@ -1,3 +1,4 @@
+import ContentNavContainer from "./content-nav-components/ContentNavContainer";
 export default function UserDashboard({ userData }) {
   return (
     <div className="flex flex-row w-full h-full gap-1 bg-slate-400">
@@ -10,6 +11,7 @@ export default function UserDashboard({ userData }) {
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
         </div>
+        <ContentNavContainer />
       </div>
       <div
         id="content-container"
