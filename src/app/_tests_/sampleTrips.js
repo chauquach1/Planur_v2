@@ -22,7 +22,7 @@ let sampleTrips = [
     ],
     tripReason: "Vacation",
     tripTransportation: "Car",
-    tripName: "JAPAN",
+    tripName: "Mexico",
     packList: null,
     createdAt: "2023-11-25T05:51:49.166Z",
     updatedAt: "2023-11-25T05:52:30.524Z",
@@ -124,7 +124,7 @@ let sampleTrips = [
     stops: [],
     tripReason: "",
     tripTransportation: "",
-    tripName: "Test",
+    tripName: "Europe",
     packList: {
       oid: "6562a1a9bbdd858829876f09",
     },
