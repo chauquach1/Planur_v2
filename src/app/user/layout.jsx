@@ -1,6 +1,5 @@
-import { createServerClient } from "@supabase/ssr";
+import UserDashboard from "../components/user-dashboard-components/UserDashboard";
 import { cookies } from "next/headers";
-import NewTripForm from "../components/form-components/NewTripForm";
 import { redirect } from 'next/navigation'
 
 
@@ -27,23 +26,8 @@ export default async function UserLayout() {
   }
 
   return (
-    <main className="container flex flex-row bg-slate-600 h-screen min-w-full justify-center">
-      <div className="h-full rounded-xl container text-center">
-        <div
-          id="new-trip-form-container"
-          className="container text-white text-center p-2 bg-info"
-        >
-          <div className="container bg- text-center">
-            <h1 className="my-0">Hello {userData.firstName}</h1>
-            <h6>Where to Next?</h6>
-          </div>
-        </div>
-
-        <div className="container rounded-large flex flex-col p-2 m-2 justify-center items-center">
-          {/* <NewTripForm user={userData} /> */}
-          <NewTripForm />
-        </div>
-      </div>
+    <main className="container flex flex-row h-screen min-w-full justify-center">
+      <UserDashboard userData={userData} />
     </main>
   );
 }
