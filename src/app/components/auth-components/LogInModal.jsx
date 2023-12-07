@@ -16,7 +16,7 @@ import { LogIn } from "../../actions/authactions";
 
 export default function LogInModal({isOpen, onOpenChange}) {
   const [logInData, formAction] = useFormState(LogIn, null);
-  const { pending } = useFormStatus();
+  const formStatus = useFormStatus();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -78,7 +78,7 @@ export default function LogInModal({isOpen, onOpenChange}) {
                   onPress={onClose}
                   size="sm"
                   type="submit"
-                  isDisabled={pending}
+                  isDisabled={formStatus.pending}
                 >
                   Log In
                 </Button>
