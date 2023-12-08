@@ -1,7 +1,7 @@
 import ContentController from "../components/user-dashboard-components/content-nav-components/ContentController";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import Loading from "./loading";
 export const metadata = {
   title: "User's Page",
   description: "The fastest way to build apps with Next.js and Supabase",
@@ -25,12 +25,13 @@ export default async function UserLayout() {
 
   return (
     <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-400 justify-center">
-      <div
+      {/* <div
         id="content-navigation"
         className=" flex flex-col h-full rounded-l-none rounded-xl w-full bg-gray-300"
       >
         <ContentController userData={userData} />
-      </div>
+      </div> */}
+      <Loading />
     </main>
   );
 }
