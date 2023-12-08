@@ -1,5 +1,6 @@
 "use client";
 import ContentNavCard from "./ContentNavCard";
+import TripDisplay from "../../trip-components/TripDisplay";
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
@@ -25,7 +26,13 @@ export default function ContentController({ userData }) {
           className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
         >
           {sampleTrips.map((trip) => {
-            return <ContentNavCard trip={trip} key={trip._id.oid} setSelectedTrip={setSelectedTrip}/>;
+            return (
+              <ContentNavCard
+                trip={trip}
+                key={trip._id.oid}
+                setSelectedTrip={setSelectedTrip}
+              />
+            );
           })}
         </div>
       </div>
@@ -39,10 +46,17 @@ export default function ContentController({ userData }) {
           className="flex flex-row w-full h-[100px] bg-peach-500 rounded-tl-xl"
         ></div>
         <div id="content-body" className="flex flex-row w-full h-full ">
-          <div
-            id="content-panel-main"
-            className="w-full md:basis-3/4 h-full"
-          ></div>
+          <div id="content-panel-main" className="w-full md:basis-3/4 h-full">
+            {sampleTrips.map((trip) => {
+              return (
+                <TripDisplay
+                  trip={trip}
+                  key={trip._id.oid}
+                  selectedTrip={selectedTrip}
+                />
+              );
+            })}
+          </div>
           <div
             id="content-panel-side"
             className="hidden md:block md:basis-1/4 col-span-1 h-full bg-bismark-600"
