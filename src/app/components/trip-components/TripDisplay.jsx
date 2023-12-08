@@ -9,24 +9,16 @@ export default function TripDisplay({ trip }) {
   const tripEndDate = normalDateFormat(trip.tripEndDate);
 
   return (
-    <Card id={trip._id.oid} className="max-w-[400px] max-h-40">
-      <CardHeader className="flex gap-3 font-bold">
+    <div id={trip._id.oid} className="max-w-[400px] max-h-40">
         <div className="flex flex-col">
           <p className="text-md">{trip.tripName}</p>
         </div>
-      </CardHeader>
-      <Divider />
-      <CardBody>
         <p>
           {tripStartDate} - {tripEndDate}
         </p>
-      </CardBody>
-      <Divider />
-      <CardFooter className="justify-end">
         <Link isExternal showAnchorIcon href={`/trip/${trip._id.oid}`}>
           Edit / View
         </Link>
-      </CardFooter>
-    </Card>
+    </div>
   );
 }

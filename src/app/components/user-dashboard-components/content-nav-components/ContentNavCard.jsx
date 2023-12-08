@@ -13,7 +13,7 @@ export default function ContentNavCard({ trip, setSelectedTrip }) {
       className="my-3 bg-bismark-300 w-full max-w-xs mx-auto shadow-md 
       hover:bg-peach-200 active:bg-peach-200 focus:outline-none focus:bg-peach-300"
       isPressable
-      onPress={() => setSelectedTrip(trip._id.oid)}
+      onPress={() => setSelectedTrip(trip)}
     >
       <CardHeader className="pb-0">
         <h1 className="font-semibold text-lg">{trip.tripName}</h1>

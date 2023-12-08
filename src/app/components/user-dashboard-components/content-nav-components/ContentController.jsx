@@ -1,6 +1,7 @@
 "use client";
 import ContentNavCard from "./ContentNavCard";
 import TripDisplay from "../../trip-components/TripDisplay";
+import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab"
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
@@ -21,41 +22,34 @@ export default function ContentController({ userData }) {
           </h1>
         </div>
         <h1 className="ml-3">Trips:</h1>
-        <div
-          id="trip-cards-container"
-          className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
-        >
-          {sampleTrips.map((trip) => {
-            return (
-              <ContentNavCard
-                trip={trip}
-                key={trip._id.oid}
-                setSelectedTrip={setSelectedTrip}
-              />
-            );
-          })}
-        </div>
+        <AllTripsTab
+          sampleTrips={sampleTrips}
+          setSelectedTrip={setSelectedTrip}
+        />
       </div>
 
       <div
         id="content-container"
-        className="column flex flex-col w-screen h-full rounded-r-none rounded-xl bg-gray-300"
+        className="column flex flex-col w-screen h-full rounded-r-none rounded-xl bg-gray-300 overscroll-y-hidden"
       >
         <div
           id="content-header"
-          className="flex flex-row w-full h-[100px] bg-peach-500 rounded-tl-xl"
-        ></div>
-        <div id="content-body" className="flex flex-row w-full h-full ">
-          <div id="content-panel-main" className="w-full md:basis-3/4 h-full">
-            {sampleTrips.map((trip) => {
-              return (
-                <TripDisplay
-                  trip={trip}
-                  key={trip._id.oid}
-                  selectedTrip={selectedTrip}
-                />
-              );
-            })}
+          className="flex-row w-full h-16 bg-peach-500 rounded-tl-xl"
+        >
+          <h1>header</h1>
+        </div>
+        <div
+          id="content-body"
+          className="inline-flex flex-row h-full w-full overflow-y-hidden"
+        >
+          <div
+            id="content-panel-main"
+            className="grid-flow-col w-full md:basis-3/4 h-auto overflow-y-auto p-4"
+          >
+            <TripDisplay
+              trip={selectedTrip}
+              key={selectedTrip._id.oid}
+            />
           </div>
           <div
             id="content-panel-side"
