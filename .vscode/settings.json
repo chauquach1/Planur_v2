@@ -2,7 +2,10 @@
   "cSpell.ignoreWords": [
     "CHAUTEAU",
     "Cháuteau",
+    "Colada",
     "Hoverable",
+    "Pina",
+    "PinaColada",
     "Planur",
     "Pressable",
     "Storyset",
@@ -18,6 +21,7 @@
     "fullname",
     "garmentbag",
     "lastname",
+    "loadingdrinks",
     "locationsearch",
     "mongodata",
     "nextjs",
