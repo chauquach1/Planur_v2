@@ -4,10 +4,10 @@ export default function UserDashboard({ userData }) {
     <div className="flex flex-row w-full h-full gap-1 bg-slate-400">
       <div
         id="content-navigation"
-        className="container flex flex-col basis-1/4 h-full rounded-l-none rounded-xl bg-gray-300"
+        className="container flex flex-col basis-1/4 h-full rounded-l-none rounded-xl bg-gray-300 px-2"
       >
-        <div className="container text-center text-xl h-[100px] ">
-          <h1>
+        <div className="container text-center text-xl h-[100px] p-2">
+          <h1 className="leading-tight">
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
         </div>
