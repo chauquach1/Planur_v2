@@ -15,13 +15,14 @@ export default async function UserLayout() {
     redirect("/login");
   }
   const data = JSON.parse(session.value);
-  const userContactInfo = data.user;
+  const userInfo = data.user;
   const userFullName = data.user.user_metadata;
   const userData = {
+    uuid: userInfo.id,
     firstName: userFullName.firstName,
     lastName: userFullName.lastName,
-    email: userContactInfo.email,
-    phone: userContactInfo.phone,
+    email: userInfo.email,
+    phone: userInfo.phone,
   };
 
   return (

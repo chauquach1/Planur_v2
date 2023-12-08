@@ -1,6 +1,9 @@
+'use client';
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import normalDateFormat from "../../../_utils/normalDateFormat";
-export default function ContentNavCard({ trip }) {
+import { useState } from "react";
+export default function ContentNavCard({ trip, setSelectedTrip }) {
+  
   const tripStartDate = normalDateFormat(trip.tripStartDate);
   const tripEndDate = normalDateFormat(trip.tripEndDate);
 
@@ -9,6 +12,8 @@ export default function ContentNavCard({ trip }) {
       id="content-nav-card"
       className="my-3 bg-bismark-300 w-full max-w-xs mx-auto shadow-md 
       hover:bg-peach-200 active:bg-peach-200 focus:outline-none focus:bg-peach-300"
+      isPressable
+      onPress={() => setSelectedTrip(trip._id.oid)}
     >
       <CardHeader className="pb-0">
         <h1 className="font-semibold text-lg">{trip.tripName}</h1>

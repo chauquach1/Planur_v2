@@ -1,7 +1,16 @@
+"use client";
 import ContentNavCard from "./ContentNavCard";
 import sampleTrips from "../../../_tests_/sampleTrips";
+import { useState, useEffect } from "react";
 
 export default function ContentController({ userData }) {
+  const [selectedTrip, setSelectedTrip] = useState(sampleTrips[0] || null);
+  useEffect(() => {
+    console.log(selectedTrip);
+  }
+  , [selectedTrip]);
+
+
   return (
     <div className="flex flex-row gap-2 h-screen bg-black">
       <div className="flex flex-col w-[380px] bg-slate-200 rounded-r-xl">
@@ -16,7 +25,7 @@ export default function ContentController({ userData }) {
           className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
         >
           {sampleTrips.map((trip) => {
-            return <ContentNavCard trip={trip} key={trip._id.oid} />;
+            return <ContentNavCard trip={trip} key={trip._id.oid} setSelectedTrip={setSelectedTrip}/>;
           })}
         </div>
       </div>
