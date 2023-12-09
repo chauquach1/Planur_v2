@@ -1,6 +1,7 @@
 "use client";
 import TripDisplay from "../../trip-components/TripDisplay";
 import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
+import TripTab from "../dashboard-nav-tabs/TripTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
@@ -21,7 +22,11 @@ export default function ContentController({ userData }) {
           id="trip-cards-container"
           className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
         >
-          <AllTripsTab
+          {/* <AllTripsTab
+            sampleTrips={sampleTrips}
+            setSelectedTrip={setSelectedTrip}
+          /> */}
+          <TripTab
             sampleTrips={sampleTrips}
             setSelectedTrip={setSelectedTrip}
           />
