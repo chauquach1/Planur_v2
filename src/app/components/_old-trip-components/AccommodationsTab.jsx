@@ -1,5 +1,5 @@
 "use client";
-import AccommodationsCard from "../../components/trip-components/AccommodationsCard";
+import AccommodationsCard from "./AccommodationsCard";
 
 export default function AccommodationsTab({ accommodations, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 

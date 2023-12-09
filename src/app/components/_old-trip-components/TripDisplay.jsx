@@ -1,9 +1,8 @@
 'use client';
 import React from "react";
+import { format, parseISO } from 'date-fns';
 import normalDateFormat from "../../_utils/normalDateFormat";
-import sampleAccoms from "../../_tests_/sampleAccoms";
-import sampleStops from "../../_tests_/sampleStops";
-import samplePackList from "../../_tests_/samplePackList";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 
 export default function TripDisplay({ trip }) {
   const tripStartDate = normalDateFormat(trip.tripStartDate);
@@ -17,6 +16,9 @@ export default function TripDisplay({ trip }) {
         <p>
           {tripStartDate} - {tripEndDate}
         </p>
+        <Link isExternal showAnchorIcon href={`/trip/${trip._id.oid}`}>
+          Edit / View
+        </Link>
     </div>
   );
 }

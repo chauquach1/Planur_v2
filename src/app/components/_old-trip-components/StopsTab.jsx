@@ -1,5 +1,5 @@
 "use client";
-import StopsCard from "../../components/trip-components/StopsCard";
+import StopsCard from "./StopsCard";
 
 export default function StopsTab({ stops, currCardData, currCardType, prevCardData, prevCardType, handleCardPress }) {
 
