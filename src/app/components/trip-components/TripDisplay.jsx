@@ -1,6 +1,7 @@
-'use client';
+"use client";
 import React from "react";
 import normalDateFormat from "../../_utils/normalDateFormat";
+import SectionContainer from "./SectionContainer";
 import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PackListSection";
@@ -22,9 +23,15 @@ export default function TripDisplay({ trip }) {
           {tripStartDate} - {tripEndDate}
         </p>
       </div>
-      <AccomsSection accommodations={sampleAccoms} />
-      <StopsSection stops={sampleStops} />
-      <PackListSection packList={samplePackList} />
+      <SectionContainer category="Accommodations">
+        <AccomsSection accommodations={sampleAccoms} />
+      </SectionContainer>
+      <SectionContainer category="Stops">
+        <StopsSection stops={sampleStops} />
+      </SectionContainer>
+      <SectionContainer category="Packlist">
+        <PackListSection packList={samplePackList} />
+      </SectionContainer>
     </>
   );
 }
