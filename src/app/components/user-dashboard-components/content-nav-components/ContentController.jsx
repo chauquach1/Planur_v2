@@ -2,6 +2,7 @@
 import TripDisplay from "../../trip-components/TripDisplay";
 import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
 import TabsContainer from "../dashboard-nav-tabs/TabsContainer"
+import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer"
 import TabBtn from "../dashboard-nav-tabs/TabBtn";
 import TripTab from "../dashboard-nav-tabs/TripTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
@@ -24,24 +25,12 @@ export default function ContentController({ userData }) {
           </h1>
         </div>
         <TabsContainer setActiveTab={setActiveTab} />
-        <div
-          id="trip-cards-container"
-          className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3 pt-0 justify-start"
-        >
-          {activeTab === "tripsindex" ? (
-            <AllTripsTab
-              sampleTrips={sampleTrips}
-              setActiveTab={setActiveTab}
-              setSelectedTrip={setSelectedTrip}
-            />
-          ) : (
-            <TripTab
-              sampleTrips={sampleTrips}
-              setActiveTab={setActiveTab}
-              trip={selectedTrip}
-            />
-          )}
-        </div>
+        <TripTabsContainer
+          activeTab={activeTab}
+          setSelectedTrip={setSelectedTrip}
+          sampleTrips={sampleTrips}
+          trip={selectedTrip}
+        />
       </div>
 
       <div
