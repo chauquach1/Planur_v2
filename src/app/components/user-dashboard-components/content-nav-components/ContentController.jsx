@@ -1,6 +1,7 @@
 "use client";
 import TripDisplay from "../../trip-components/TripDisplay";
 import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
+import TabsContainer from "../dashboard-nav-tabs/TabsContainer"
 import TabBtn from "../dashboard-nav-tabs/TabBtn";
 import TripTab from "../dashboard-nav-tabs/TripTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
@@ -22,21 +23,7 @@ export default function ContentController({ userData }) {
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
         </div>
-        <div
-          id="tabs-container"
-          className="flex flex-row justify-around pb-3 border-b-2 border-black"
-        >
-          <TabBtn
-            category="tripsindex"
-            innerText="All Trips"
-            setActiveTab={setActiveTab}
-          />
-          <TabBtn
-            category="tripcontrol"
-            innerText="Trip Details"
-            setActiveTab={setActiveTab}
-          />
-        </div>
+        <TabsContainer setActiveTab={setActiveTab} />
         <div
           id="trip-cards-container"
           className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3 pt-0 justify-start"
