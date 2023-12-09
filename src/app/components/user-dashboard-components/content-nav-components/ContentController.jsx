@@ -1,17 +1,12 @@
 "use client";
-import ContentNavCard from "./ContentNavCard";
 import TripDisplay from "../../trip-components/TripDisplay";
-import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab"
+import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
 export default function ContentController({ userData }) {
   const [selectedTrip, setSelectedTrip] = useState(sampleTrips[0] || null);
-  useEffect(() => {
-    console.log(selectedTrip);
-  }
-  , [selectedTrip]);
-
+  const [selectedTab, setSelectedTab] = useState("allTrips");
 
   return (
     <div className="flex flex-row gap-2 h-screen bg-black">
@@ -22,10 +17,15 @@ export default function ContentController({ userData }) {
           </h1>
         </div>
         <h1 className="ml-3">Trips:</h1>
-        <AllTripsTab
-          sampleTrips={sampleTrips}
-          setSelectedTrip={setSelectedTrip}
-        />
+        <div
+          id="trip-cards-container"
+          className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
+        >
+          <AllTripsTab
+            sampleTrips={sampleTrips}
+            setSelectedTrip={setSelectedTrip}
+          />
+        </div>
       </div>
 
       <div
@@ -46,10 +46,7 @@ export default function ContentController({ userData }) {
             id="content-panel-main"
             className="grid-flow-col w-full md:basis-3/4 h-auto overflow-y-auto p-4"
           >
-            <TripDisplay
-              trip={selectedTrip}
-              key={selectedTrip._id.oid}
-            />
+            <TripDisplay trip={selectedTrip} key={selectedTrip._id.oid} />
           </div>
           <div
             id="content-panel-side"
