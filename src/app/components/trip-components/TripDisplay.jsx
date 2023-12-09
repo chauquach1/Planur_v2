@@ -1,7 +1,7 @@
-"use client";
 import React from "react";
-import normalDateFormat from "../../_utils/normalDateFormat";
-import SectionContainer from "./SectionContainer";
+import { Suspense } from "react";
+import LoadingTripDisplay from "./LoadingTripDisplay";
+import SummaryContainer from "./SummaryContainer";
 import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PackListSection";
@@ -10,28 +10,13 @@ import sampleStops from "../../_tests_/sampleStops";
 import samplePackList from "../../_tests_/samplePackList";
 
 export default function TripDisplay({ trip }) {
-  const tripStartDate = normalDateFormat(trip.tripStartDate);
-  const tripEndDate = normalDateFormat(trip.tripEndDate);
 
   return (
-    <>
-      <div id={trip._id.oid} className="max-w-[400px] max-h-40">
-        <div className="flex flex-col">
-          <p className="text-md">{trip.tripName}</p>
-        </div>
-        <p>
-          {tripStartDate} - {tripEndDate}
-        </p>
-      </div>
-      <SectionContainer category="Accommodations">
-        <AccomsSection accommodations={sampleAccoms} />
-      </SectionContainer>
-      <SectionContainer category="Stops">
-        <StopsSection stops={sampleStops} />
-      </SectionContainer>
-      <SectionContainer category="Packlist">
-        <PackListSection packList={samplePackList} />
-      </SectionContainer>
-    </>
+    <Suspense fallback={<LoadingTripDisplay />}>
+      <SummaryContainer trip={trip} />
+      <AccomsSection accoms={sampleAccoms} />
+      <StopsSection stops={sampleStops} />
+      <PackListSection packList={samplePackList} />
+    </Suspense>
   );
 }

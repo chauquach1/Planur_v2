@@ -11,7 +11,7 @@ let sampleTrips = [
         oid: "656194d480a30371da4df135",
       },
     ],
-    tripDestination: "Tokyo",
+    tripDestination: "Rosarito",
     tripStartDate: "2024-01-01T00:00:00Z",
     tripEndDate: "2024-02-01T00:00:00Z",
     tripGuests: 2,
