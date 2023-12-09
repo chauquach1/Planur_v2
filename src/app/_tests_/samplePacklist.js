@@ -29,8 +29,8 @@ let samplePacklist = {
     medication: false,
   },
   emergencyContact: {
-    firstName: "Test",
-    lastName: "TEst",
+    firstName: "Erin",
+    lastName: "Pizarro",
     relationship: "test",
     phoneNumber: "777-777-7777",
     email: "test@gmail.com",
