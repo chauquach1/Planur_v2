@@ -1,5 +1,4 @@
-import TripBanner from "../../components/trip-components/TripBanner";
-import TripDashboardClient from "../../components/trip-components/TripDashboardClient";
+import TripDashboardClient from "../../components/_old-components/_old-trip-components/TripDashboardClient"
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 

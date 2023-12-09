@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import TripIndexCard from "../components/trip-components/TripCard.jsx";
+import TripIndexCard from "../components/_old-components/_old-trip-components/TripCard"
 
 const fetchTrips = async (userEmail) => {
   if (!userEmail) {

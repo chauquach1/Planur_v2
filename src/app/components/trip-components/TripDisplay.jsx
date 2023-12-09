@@ -4,7 +4,7 @@ import LoadingTripDisplay from "./LoadingTripDisplay";
 import SummaryContainer from "./SummaryContainer";
 import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
-import PackListSection from "../packlist/PackListSection";
+import PackListSection from "../packlist/PacklistSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
 import samplePackList from "../../_tests_/samplePackList";
