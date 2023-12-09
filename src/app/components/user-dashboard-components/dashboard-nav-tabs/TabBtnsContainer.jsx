@@ -1,5 +1,5 @@
 import TabBtn from "./TabBtn"
-export default function TabsContainer({ setActiveTab }) {
+export default function TabBtnsContainer({ setActiveTab }) {
   return (
     <div
       id="tabs-container"

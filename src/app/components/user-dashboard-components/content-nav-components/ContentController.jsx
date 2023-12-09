@@ -1,10 +1,7 @@
 "use client";
 import TripDisplay from "../../trip-components/TripDisplay";
-import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
-import TabsContainer from "../dashboard-nav-tabs/TabsContainer"
+import TabsContainer from "../dashboard-nav-tabs/TabBtnsContainer"
 import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer"
-import TabBtn from "../dashboard-nav-tabs/TabBtn";
-import TripTab from "../dashboard-nav-tabs/TripTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
