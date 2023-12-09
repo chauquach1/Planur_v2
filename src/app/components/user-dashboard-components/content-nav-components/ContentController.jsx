@@ -1,35 +1,51 @@
 "use client";
 import TripDisplay from "../../trip-components/TripDisplay";
 import AllTripsTab from "../dashboard-nav-tabs/AllTripsTab";
+import TabBtn from "../dashboard-nav-tabs/TabBtn";
 import TripTab from "../dashboard-nav-tabs/TripTab";
 import sampleTrips from "../../../_tests_/sampleTrips";
 import { useState, useEffect } from "react";
 
 export default function ContentController({ userData }) {
   const [selectedTrip, setSelectedTrip] = useState(sampleTrips[0] || null);
-  const [selectedTab, setSelectedTab] = useState("allTrips");
+  const [activeTab, setActiveTab] = useState("tripsindex");
 
   return (
     <div className="flex flex-row gap-2 h-screen bg-black">
       <div className="flex flex-col w-[380px] bg-slate-200 rounded-r-xl">
-        <div className=" text-center text-xl h-[100px] p-2">
+        <div className=" text-center text-xl min-h-[100px] p-2">
           <h1 className="leading-tight">
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
         </div>
-        <h1 className="ml-3">Trips:</h1>
+        <div id="tabs-container" className="flex flex-row justify-around px-3 mb-1">
+          <TabBtn
+            category="tripsindex"
+            innerText="All Trips"
+            setActiveTab={setActiveTab}
+          />
+          <TabBtn
+            category="tripcontrol"
+            innerText="Trip Details"
+            setActiveTab={setActiveTab}
+          />
+        </div>
         <div
           id="trip-cards-container"
-          className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3"
+          className="grid-flow-col mb-3 gap-2 overflow-y-scroll p-3 pt-0 justify-start"
         >
-          {/* <AllTripsTab
-            sampleTrips={sampleTrips}
-            setSelectedTrip={setSelectedTrip}
-          /> */}
-          <TripTab
-            sampleTrips={sampleTrips}
-            setSelectedTrip={setSelectedTrip}
-          />
+          {activeTab === "tripsindex" ? (
+            <AllTripsTab
+              sampleTrips={sampleTrips}
+              setActiveTab={setActiveTab}
+              setSelectedTrip={setSelectedTrip}
+            />
+          ) : (
+            <TripTab
+              sampleTrips={sampleTrips}
+              setActiveTab={setActiveTab}
+            />
+          )}
         </div>
       </div>
 
