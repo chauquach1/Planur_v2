@@ -10,15 +10,22 @@ export default function ContentController({ userData }) {
   const [selectedTrip, setSelectedTrip] = useState(sampleTrips[0] || null);
   const [activeTab, setActiveTab] = useState("tripsindex");
 
+  useEffect(() => {
+    console.log("selectedTrip: ", selectedTrip);
+  }, [selectedTrip]);
+
   return (
     <div className="flex flex-row gap-2 h-screen bg-black">
-      <div className="flex flex-col w-[380px] bg-slate-200 rounded-r-xl">
+      <div className="flex flex-col w-[400px] bg-slate-200 rounded-r-xl">
         <div className=" text-center text-xl min-h-[100px] p-2">
           <h1 className="leading-tight">
             {userData.firstName} {userData.lastName}'s Planur
           </h1>
         </div>
-        <div id="tabs-container" className="flex flex-row justify-around px-3 mb-1">
+        <div
+          id="tabs-container"
+          className="flex flex-row justify-around pb-3 border-b-2 border-black"
+        >
           <TabBtn
             category="tripsindex"
             innerText="All Trips"
@@ -44,6 +51,7 @@ export default function ContentController({ userData }) {
             <TripTab
               sampleTrips={sampleTrips}
               setActiveTab={setActiveTab}
+              trip={selectedTrip}
             />
           )}
         </div>
