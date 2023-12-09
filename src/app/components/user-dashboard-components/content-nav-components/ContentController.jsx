@@ -1,5 +1,5 @@
 "use client";
-import TripDisplay from "../../trip-components/TripDisplay";
+import TripDisplay from "../../trip-components/TripDisplay"
 import TabsContainer from "../dashboard-nav-tabs/TabBtnsContainer"
 import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer"
 import sampleTrips from "../../../_tests_/sampleTrips";

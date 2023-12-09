@@ -1,7 +1,7 @@
 'use client';
 import React from "react";
 import { format, parseISO } from 'date-fns';
-import normalDateFormat from "../../_utils/normalDateFormat";
+import normalDateFormat from "../../../_utils/normalDateFormat";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 
 export default function TripDisplay({ trip }) {
