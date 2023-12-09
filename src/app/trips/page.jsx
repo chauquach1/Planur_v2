@@ -18,57 +18,57 @@
 //   return data;
 // };
 
-// export default async function TripsIndex() {
-//   const cookieStore = cookies();
-//   const supabase = createServerClient(
-//     process.env.NEXT_PUBLIC_SUPABASE_URL,
-//     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-//     {
-//       cookies: {
-//         get(name) {
-//           return cookieStore.get(name)?.value;
-//         },
-//       },
-//     }
-//   );
+export default async function TripsIndex() {
+  // const cookieStore = cookies();
+  // const supabase = createServerClient(
+  //   process.env.NEXT_PUBLIC_SUPABASE_URL,
+  //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  //   {
+  //     cookies: {
+  //       get(name) {
+  //         return cookieStore.get(name)?.value;
+  //       },
+  //     },
+  //   }
+  // );
 
-//   // Use Supabase to get the current user
-//   const {
-//     data: { user },
-//   } = await supabase.auth.getUser();
+  // Use Supabase to get the current user
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-//   if (!user) {
-//     return <div className="flex gap-4 items-center">Not logged in</div>;
-//   }
+  // if (!user) {
+  //   return <div className="flex gap-4 items-center">Not logged in</div>;
+  // }
 
-//   const tripsArray = await fetchTrips(user.email);
+  // const tripsArray = await fetchTrips(user.email);
 
-//   return (
-//     <div className="container flex flex-col justify-center items-center h-full bg-slate-600 pt-6 gap-4">
-//       <h1 className="text-white text-6xl">Trips Index</h1>
-//       <div className="container flex flex-row justify-center flex-wrap gap-2 p-6 h-[1000px] shadow-xl">
-//         {tripsArray.length > 0 ? (
-//           <>
-//             {tripsArray.map((trip) => (
-//               <TripIndexCard
-//                 tripId={trip._id}
-//                 tripName={trip.tripName}
-//                 tripStartDate={trip.tripStartDate}
-//                 tripEndDate={trip.tripEndDate}
-//                 key={trip._id}
-//               />
-//             ))}
-//           </>
-//         ) : (
-//           <>
-//             <h1>
-//               <a href="/user">
-//                 Looks like you need a vacation. Time to Plan One!
-//               </a>
-//             </h1>
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div className="container flex flex-col justify-center items-center h-full bg-slate-600 pt-6 gap-4">
+      <h1 className="text-white text-6xl">Trips Index</h1>
+      <div className="container flex flex-row justify-center flex-wrap gap-2 p-6 h-[1000px] shadow-xl">
+        {/* {tripsArray.length > 0 ? (
+          <>
+            {tripsArray.map((trip) => (
+              <TripIndexCard
+                tripId={trip._id}
+                tripName={trip.tripName}
+                tripStartDate={trip.tripStartDate}
+                tripEndDate={trip.tripEndDate}
+                key={trip._id}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <h1>
+              <a href="/user">
+                Looks like you need a vacation. Time to Plan One!
+              </a>
+            </h1>
+          </>
+        )} */}
+      </div>
+    </div>
+  );
+}
