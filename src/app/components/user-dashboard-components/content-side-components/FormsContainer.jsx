@@ -3,8 +3,8 @@ import NewStopForm from "../../stops/NewStopForm";
 export default function FormsContainer() {
   return (
     <>
-      <NewStopForm />
-      {/* <NewAccomsForm /> */}
+      {/* <NewStopForm /> */}
+      <NewAccomsForm />
     </>
   );
 }

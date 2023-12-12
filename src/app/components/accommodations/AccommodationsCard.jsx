@@ -5,8 +5,6 @@ export default function AccommodationsCard({
   accom,
   // handleCardPress,
 }) {
-  // const checkInDate = format(new Date(accom.accomCheckIn), "PP");
-  // const checkOutDate = format(new Date(accom.accomCheckOut), "PP");
   let address = accom.accomAddress;
   const checkInDate = normalDateFormat(accom.accomCheckIn);
   const checkOutDate = normalDateFormat(accom.accomCheckOut);
@@ -39,11 +37,14 @@ export default function AccommodationsCard({
             className="flex flex-row flex-wrap font-light gap-2"
           >
             <h1 className="font-normal">Email:</h1>
-            <h1 className="">{address.email || "-"}</h1>
+            <h1 className="">{accom.accomEmail || "-"}</h1>
             <h1 className="font-normal">Phone Number:</h1>
-            <h1 className="">{address.accomPhoneNumber  || "-"}</h1>
+            <h1 className="">{accom.accomPhoneNumber || "-"}</h1>
           </div>
-          <h1 className="font-normal">Confirmation: <span className="font-light">{accom.accomResNum}</span></h1>
+          <h1 className="font-normal">
+            Confirmation:{" "}
+            <span className="font-light">{accom.accomResNum}</span>
+          </h1>
           <div
             id="accom-address"
             className="flex flex-row flex-wrap font-light gap-2"
