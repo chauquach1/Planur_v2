@@ -31,7 +31,6 @@ export default function UserDashboard({ userData, trips }) {
           id="content-header"
           className="flex-row w-full h-16 bg-peach-500 rounded-tl-xl"
         >
-          <h1>header</h1>
         </div>
         <div
           id="content-body"
