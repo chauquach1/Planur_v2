@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Loading from "./loading";
 import { Suspense } from "react";
-import fetchTrips from "../_utils/getAllTrips";
+import fetchTrips from "../_utils/fetchAllTrips";
 export const metadata = {
   title: "User's Page",
   description: "The fastest way to build apps with Next.js and Supabase",
