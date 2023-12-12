@@ -1,7 +1,7 @@
 export default function SectionContainer({children, category}) {
   return (
-    <div>
-      <h1>{category}</h1>
+    <div id={`${category}-section`}>
+      <h1 className="font-bold">{category}</h1>
       {children}
     </div>
   );
