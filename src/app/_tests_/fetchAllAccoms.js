@@ -1,4 +1,4 @@
-const getStops = async (tripId) => {
+const getAccoms = async (tripId) => {
   try {
     const response = await fetch(
       `http://localhost:3000/api/stops/?tripId=${tripId}`
@@ -14,7 +14,7 @@ const getStops = async (tripId) => {
   }
 };
 
-export default async function fetchStops (tripId) {
-  const stopsData = await getStops(tripId);
-  return stopsData;
+export default async function fetchAccoms (tripId) {
+  const accomsData = await getAccoms(tripId);
+  return accomsData;
 };
