@@ -1,7 +1,7 @@
 "use client";
 import { Button, Input } from "@nextui-org/react";
 import AccomInput from "./AccomInputField";
-import { useRouter } from "next/navigation";
+import SelectAccom from "../form-components/SelectAccom";
 import { useState } from "react";
 
 export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
@@ -95,7 +95,7 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
           value={accomName}
           onChange={(event) => setAccomName(event.target.value)}
         />
-        {/* <SelectAccom className="col-span-3" setAccomType={setAccomType} /> */}
+        <SelectAccom className="col-span-3" setAccomType={setAccomType} />
         <AccomInput
           label="Check-In Date"
           type="date"

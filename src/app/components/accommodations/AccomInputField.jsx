@@ -11,7 +11,6 @@ export default function AccomInput(props) {
       variant="faded"
       size="sm"
       labelPlacement="outside"
-      // className=
     />
   );
 }

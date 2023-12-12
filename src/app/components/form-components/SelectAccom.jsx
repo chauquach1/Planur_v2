@@ -13,9 +13,10 @@ export default function SelectAccom({ setAccomType }) {
   return (
       <Select
         label="Accommodation Type"
+        labelPlacement="outside"
         placeholder="Select an Accommodation"
         className="col-span-3"
-        size="md"
+        size="sm"
         variant="faded"
         onChange={(event) => setAccomType(event.target.value)}
       >
