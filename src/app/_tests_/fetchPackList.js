@@ -1,7 +1,7 @@
-const getAccoms = async (tripId) => {
+const getPackList = async (tripId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/accommodations/?tripId=${tripId}`
+      `http://localhost:3000/api/packlist/?tripId=${tripId}`
     );
     const data = await response.json();
 
@@ -14,7 +14,7 @@ const getAccoms = async (tripId) => {
   }
 };
 
-export default async function fetchAccoms (tripId) {
-  const accomsData = await getAccoms(tripId);
+export default async function fetchPackList (tripId) {
+  const accomsData = await getPackList(tripId);
   return accomsData;
 };
