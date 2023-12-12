@@ -25,7 +25,7 @@ export default function UserDashboard({ userData, trips }) {
 
       <div
         id="content-container"
-        className="column flex flex-col w-screen h-full rounded-r-none rounded-xl bg-gray-300 overscroll-y-hidden"
+        className="column flex flex-col w-screen h-full rounded-r-none rounded-xl bg-gray-300 overflow-y-hidden"
       >
         <div
           id="content-header"
@@ -35,7 +35,7 @@ export default function UserDashboard({ userData, trips }) {
         </div>
         <div
           id="content-body"
-          className="inline-flex flex-row h-full w-full overflow-y-hidden"
+          className="flex flex-row w-full h-full justify-between overflow-y-hidden"
         >
           <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
           <SideContainer trip={selectedTrip}/>

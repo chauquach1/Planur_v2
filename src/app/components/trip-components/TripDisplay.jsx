@@ -13,7 +13,7 @@ export default function TripDisplay({ trip }) {
   return (
     <div
       id="content-panel-main"
-      className="grid-flow-col w-full md:basis-3/4 h-auto overflow-y-auto p-4"
+      className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={trip} />

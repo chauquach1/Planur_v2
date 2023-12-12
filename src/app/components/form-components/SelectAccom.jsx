@@ -12,9 +12,9 @@ const accoms = [
 export default function SelectAccom({ setAccomType }) {
   return (
       <Select
-        label="Accommodation Type"
+        label="Accommodation"
         labelPlacement="outside"
-        placeholder="Select an Accommodation"
+        placeholder="Type"
         className="col-span-3"
         size="sm"
         variant="faded"

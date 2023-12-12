@@ -3,8 +3,8 @@ export default function SummaryContainer({ trip }) {
   const tripStartDate = normalDateFormat(trip.tripStartDate);
   const tripEndDate = normalDateFormat(trip.tripEndDate);
   return (
-    <div id={trip._id.oid} className="max-w-[400px] max-h-40">
-      <div className="flex flex-col">
+    <div id={trip._id.oid} className="flex flex-col max-w-[400px] max-h-40">
+      <div className="flex flex-col flex-wrap">
         <p className="text-md">{trip.tripName}</p>
       </div>
       <p>
