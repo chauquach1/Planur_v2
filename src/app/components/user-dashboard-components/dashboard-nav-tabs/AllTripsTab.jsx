@@ -1,16 +1,24 @@
 import ContentNavCard from "../content-nav-components/ContentNavCard";
-export default function AllTripsTab({ sampleTrips, setSelectedTrip }) {
+import { Suspense } from "react";
+import LoadingTrips from "../suspense-components/LoadingTrips";
+
+export default function AllTripsTab({
+  trips,
+  setSelectedTrip,
+  user,
+}) {
   return (
-    <>
-      {sampleTrips.map((trip) => {
+    <Suspense fallback={<LoadingTrips />}>
+      {trips.map((trip) => {
         return (
           <ContentNavCard
             trip={trip}
-            key={trip._id.oid}
+            key={trip._id}
             setSelectedTrip={setSelectedTrip}
+            user={user}
           />
         );
       })}
-    </>
+    </Suspense>
   );
 }

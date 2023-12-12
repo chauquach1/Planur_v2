@@ -1,8 +1,10 @@
 import ContentController from "../components/user-dashboard-components/content-nav-components/ContentController";
+import UserDashboard from "../components/user-dashboard-components/UserDashboard"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Loading from "./loading";
 import { Suspense } from "react";
+import fetchTrips from "../_tests_/getAllTrips";
 export const metadata = {
   title: "User's Page",
   description: "The fastest way to build apps with Next.js and Supabase",
@@ -25,6 +27,8 @@ export default async function UserLayout() {
     phone: userInfo.phone,
   };
 
+  const trips = await fetchTrips(userData);
+
   return (
     <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-400 justify-center">
       <Suspense fallback={<Loading />}>
@@ -32,7 +36,7 @@ export default async function UserLayout() {
           id="content-navigation"
           className=" flex flex-col h-full rounded-l-none rounded-xl w-full bg-gray-300"
         >
-          <ContentController userData={userData} />
+          <UserDashboard userData={userData} trips={trips}/>
         </div>
       </Suspense>
     </main>
