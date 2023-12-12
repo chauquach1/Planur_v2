@@ -10,6 +10,7 @@ import sampleStops from "../../_tests_/sampleStops";
 import samplePacklist from "../../_tests_/samplePacklist";
 
 export default function TripDisplay({ trip }) {
+  console.log('accoms', sampleAccoms);
   return (
     <div
       id="content-panel-main"

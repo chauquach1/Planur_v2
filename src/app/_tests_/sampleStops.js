@@ -69,3 +69,5 @@ let sampleStops = [
     "__v": 0
   }
 ]
+
+export default sampleStops;

@@ -50,3 +50,5 @@ let samplePacklist = {
   },
   __v: 0,
 };
+
+export default samplePacklist;

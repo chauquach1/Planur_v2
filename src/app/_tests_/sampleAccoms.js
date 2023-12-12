@@ -1,3 +1,5 @@
+import { defaultConfig } from "next/dist/server/config-shared"
+
 let sampleAccoms = [
   {
     "_id": "65619150f0a35c213aeda7db",
@@ -140,3 +142,5 @@ let sampleAccoms = [
     "__v": 0
   }
 ]
+
+export default sampleAccoms;
