@@ -15,10 +15,11 @@ export default function SelectReason({ setStopType }) {
   return (
       <Select
         label="Stop Type"
+        labelPlacement="outside"
         placeholder="Restaurant, Family, etc."
         className="col-span-2"
         variant="faded"
-        size="md"
+        size="sm"
         onChange={(event) => setStopType(event.target.value)}
       >
         {reasons.map((reason) => (

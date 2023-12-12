@@ -1,6 +1,6 @@
 "use client";
-import { Button, Input } from "@nextui-org/react";
-import AccomInput from "./AccomInputField";
+import { Button } from "@nextui-org/react";
+import Input from "../form-components/Input";
 import SelectAccom from "../form-components/SelectAccom";
 import { useState } from "react";
 
@@ -93,7 +93,7 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
           className="flex flex-col gap-3"
         >
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
-            <AccomInput
+            <Input
               autoFocus={true}
               label="Accommodation"
               placeholder="Name"
@@ -104,95 +104,65 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
             <SelectAccom className="col-span-3" setAccomType={setAccomType} />
           </div>
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
-            <AccomInput
+            <Input
               label="Check-In Date"
               type="date"
               placeholder="mm/dd/yyyy"
               value={accomCheckIn}
               onChange={(event) => setAccomCheckIn(event.target.value)}
               isRequired
-              autoComplete="off"
-              variant="faded"
             />
-            <AccomInput
+            <Input
               label="Check-Out Date"
               type="date"
               placeholder="mm/dd/yyyy"
               value={accomCheckOut}
               onChange={(event) => setAccomCheckOut(event.target.value)}
               isRequired
-              autoComplete="off"
-              variant="faded"
             />
           </div>
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
-            <AccomInput
+            <Input
               label="Phone Number"
               value={accomPhoneNumber}
               onChange={(event) => setAccomPhoneNumber(event.target.value)}
-              autoComplete="off"
-              variant="faded"
-              size="sm"
             />
-            <AccomInput
+            <Input
               label="Email"
               value={accomEmail}
               onChange={(event) => setAccomEmail(event.target.value)}
-              autoComplete="off"
-              variant="faded"
-              size="sm"
             />
           </div>
-          <AccomInput
+          <Input
             label="Reservation Number"
             placeholder=" "
             value={accomResNum}
             onChange={(event) => setAccomResNum(event.target.value)}
-            autoComplete="off"
-            variant="faded"
           />
-          <AccomInput
+          <Input
             label="Street"
-            placeholder=" "
             value={street}
             onChange={(event) => setStreet(event.target.value)}
-            autoComplete="off"
-            variant="faded"
-            size="sm"
           />
-          <AccomInput
+          <Input
             label="City"
-            placeholder=" "
             value={city}
             onChange={(event) => setCity(event.target.value)}
-            autoComplete="off"
-            variant="faded"
-            size="sm"
           />
-          <AccomInput
+          <Input
             label="State/Province"
-            placeholder=" "
             value={state}
             onChange={(event) => setState(event.target.value)}
-            autoComplete="off"
-            variant="faded"
-            size="sm"
           />
-          <AccomInput
+          <Input
             label="Zip/Postal Code"
             value={zip}
             onChange={(event) => setZip(event.target.value)}
-            autoComplete="off"
-            variant="faded"
-            size="sm"
           />
-          <AccomInput
+          <Input
             label="Country/Region"
             value={country}
             onChange={(event) => setCountry(event.target.value)}
-            autoComplete="off"
-            variant="faded"
-            size="sm"
           />
           <Button
             color="success"
