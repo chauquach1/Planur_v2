@@ -1,11 +1,13 @@
 import SectionContainer from "../trip-components/SectionContainer";
+import AccommodationsCard from "./AccommodationsCard";
 export default function AccomsSection({ accoms }) {
   let accom = accoms[0];
   console.log("accom: ", accom);
   let address = accom.accomAddress;
   return (
     <SectionContainer category="Accommodations">
-      <h1>{accom.accomName}</h1>
+      <AccommodationsCard accom={accom} />
+      {/* <h1>{accom.accomName}</h1>
       <h1>{accom.accomCheckIn}</h1>
       <h1>{accom.accomCheckOut}</h1>
       <h1>{accom.accomType}</h1>
@@ -16,7 +18,7 @@ export default function AccomsSection({ accoms }) {
       <h1>{address.accomCity}</h1>
       <h1>{address.accomState}</h1>
       <h1>{address.accomZip}</h1>
-      <h1>{address.accomCountry}</h1>
+      <h1>{address.accomCountry}</h1> */}
     </SectionContainer>
   );
 }
