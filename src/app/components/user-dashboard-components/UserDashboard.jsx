@@ -1,6 +1,7 @@
 "use client";
 import ContentController from "./content-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
+import SideContainer from "./content-side-components/SideContainer";
 import { useState, useEffect } from "react";
 
 export default function UserDashboard({ userData, trips }) {
@@ -36,16 +37,8 @@ export default function UserDashboard({ userData, trips }) {
           id="content-body"
           className="inline-flex flex-row h-full w-full overflow-y-hidden"
         >
-          <div
-            id="content-panel-main"
-            className="grid-flow-col w-full md:basis-3/4 h-auto overflow-y-auto p-4"
-          >
-            <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
-          </div>
-          <div
-            id="content-panel-side"
-            className="hidden md:block md:basis-1/4 col-span-1 h-full bg-bismark-600"
-          ></div>
+          <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
+          <SideContainer trip={selectedTrip}/>
         </div>
       </div>
     </div>
