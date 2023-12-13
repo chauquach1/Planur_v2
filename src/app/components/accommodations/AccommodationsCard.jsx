@@ -1,5 +1,5 @@
 import { MdLocalHotel } from "react-icons/md";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import normalDateFormat from "../../_utils/normalDateFormat";
 
 export default function AccommodationsCard({
@@ -13,51 +13,47 @@ export default function AccommodationsCard({
   return (
     <Card
       isHoverable
-      // isPressable
+      isPressable
       // isBlurred
-      className=" w-full border my-1 shadow-lg bg-white"
+      className=" w-full border shadow-none bg-white "
       // onPress={() =>
       //   handleCardPress(data, "accommodations")
       // }
     >
-      <CardBody>
-        <div className="flex flex-col">
-          <div className="row flex flex-row flex-wrap justify-start items-center gap-3 text-lg">
-            <MdLocalHotel />
-            <p className="inline-block align-baseline">
-              {accom.accomName}
-            </p>
-          </div>
-          <p className="text-default-500">
-            {checkInDate} - {checkOutDate}
+      <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-0">
+        <div className="flex flex-row items-center gap-2 me-4 min-w-[280px] max-w-[400px]">
+          <MdLocalHotel />
+          <p className="inline-block">{accom.accomName}</p>
+        </div>
+      </CardHeader>
+      <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">
+        <div className="border-l-2 px-2">
+          <p className="text-default-500 ms-auto">
+            Check In: {checkInDate} - Check Out: {checkOutDate}
           </p>
-          <p className="text-small text-default-500 align-baseline">
-            {accom.accomType}
+        </div>
+        <p className="border-l-2 px-2">
+          Address:{" "}
+          <span className="font-light">
+            {address.street} {address.city}, {address.state} {address.zip},{" "}
+            {address.country}
+          </span>
+        </p>
+        <div className="hidden 2xl:block border-l-2 px-2">
+          <p className="text-small align-baseline">
+            Type: <span className="font-light">{accom.accomType}</span>
           </p>
-          <div
-            id="accom-contact-info"
-            className="flex flex-row flex-wrap font-light gap-2"
-          >
-            <h1 className="font-normal">Email:</h1>
-            <h1 className="">{accom.accomEmail || "-"}</h1>
-            <h1 className="font-normal">Phone Number:</h1>
-            <h1 className="">{accom.accomPhoneNumber || "-"}</h1>
-          </div>
-          <h1 className="font-normal">
+          <p>
+            Email: <span className="font-light">{accom.accomEmail || "-"}</span>
+          </p>
+          <p>
+            Phone Number:{" "}
+            <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
+          </p>
+          <p>
             Confirmation:{" "}
             <span className="font-light">{accom.accomResNum}</span>
-          </h1>
-          <div
-            id="accom-address"
-            className="flex flex-row flex-wrap font-light gap-2"
-          >
-            <h1 className="font-normal">Address:</h1>
-            <h1 className="col-span-3">{address.street}</h1>
-            <h1 className="col-span-3">{address.city},</h1>
-            <h1 className="col-span-2">{address.state}</h1>
-            <h1 className="col-span-2">{address.zip},</h1>
-            <h1 className="col-span-2">{address.country}</h1>
-          </div>
+          </p>
         </div>
       </CardBody>
     </Card>

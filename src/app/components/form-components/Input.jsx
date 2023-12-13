@@ -10,7 +10,7 @@ export default function CustomInput(props) {
         autoComplete="off"
         variant="faded"
         size="sm"
-        labelPlacement={props.labelPlacement || "outside"}
+        labelPlacement={props.labelPlacement || "inside"}
         className={props.className}
       />
   );

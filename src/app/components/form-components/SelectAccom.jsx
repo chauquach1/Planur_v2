@@ -14,7 +14,7 @@ export default function SelectAccom({ setAccomType }) {
   return (
       <Select
         label="Accommodation"
-        labelPlacement="outside"
+        labelPlacement="inside"
         placeholder="Type"
         className="col-span-3"
         size="sm"

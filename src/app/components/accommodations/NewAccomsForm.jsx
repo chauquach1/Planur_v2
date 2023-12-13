@@ -88,10 +88,7 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
     <>
       <h1 className="text-center my-3">Add New Accommodation</h1>
       <div className="h-full overflow-y-scroll p-3 pt-0">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-3"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
             <Input
               autoFocus={true}
@@ -103,27 +100,25 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
             />
             <SelectAccom className="col-span-3" setAccomType={setAccomType} />
           </div>
+          <Input
+            label="Check-In Date"
+            type="date"
+            placeholder="mm/dd/yyyy"
+            value={accomCheckIn}
+            onChange={(event) => setAccomCheckIn(event.target.value)}
+            isRequired
+          />
+          <Input
+            label="Check-Out Date"
+            type="date"
+            placeholder="mm/dd/yyyy"
+            value={accomCheckOut}
+            onChange={(event) => setAccomCheckOut(event.target.value)}
+            isRequired
+          />
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
             <Input
-              label="Check-In Date"
-              type="date"
-              placeholder="mm/dd/yyyy"
-              value={accomCheckIn}
-              onChange={(event) => setAccomCheckIn(event.target.value)}
-              isRequired
-            />
-            <Input
-              label="Check-Out Date"
-              type="date"
-              placeholder="mm/dd/yyyy"
-              value={accomCheckOut}
-              onChange={(event) => setAccomCheckOut(event.target.value)}
-              isRequired
-            />
-          </div>
-          <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
-            <Input
-              label="Phone Number"
+              label="Phone"
               value={accomPhoneNumber}
               onChange={(event) => setAccomPhoneNumber(event.target.value)}
             />
@@ -170,6 +165,7 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
             className="text-white"
             type="submit"
             disabled={isSubmitting}
+            size="sm"
           >
             Add Accommodation
           </Button>
