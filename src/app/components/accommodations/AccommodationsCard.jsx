@@ -1,3 +1,4 @@
+import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody } from "@nextui-org/react";
 import normalDateFormat from "../../_utils/normalDateFormat";
 
@@ -21,12 +22,13 @@ export default function AccommodationsCard({
     >
       <CardBody>
         <div className="flex flex-col">
-          <div className="row flex flex-row flex-wrap justify-between items-baseline">
-            <p className="text-lg inline-block align-baseline">
+          <div className="row flex flex-row flex-wrap justify-start items-center gap-3 text-lg">
+            <MdLocalHotel />
+            <p className="inline-block align-baseline">
               {accom.accomName}
             </p>
           </div>
-          <p className="text-small text-default-500">
+          <p className="text-default-500">
             {checkInDate} - {checkOutDate}
           </p>
           <p className="text-small text-default-500 align-baseline">

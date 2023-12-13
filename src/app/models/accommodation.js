@@ -4,7 +4,7 @@ const accommodationSchema = new mongoose.Schema({
   accomName: String,
   accomType: {
     type: String, // Example: "hotel", "bnb", "resort", etc.
-    enum: ["Hotel", "Vacation Rental", "Resort", "Hostel", "Other"], // Define valid types
+    enum: ["Hotel", "Vacation Rental", "Resort", "Hostel", "Friends/Family", "Other"], // Define valid types
   },
   accomCheckIn: Date, // Use Date for date/time fields
   accomCheckOut: Date,

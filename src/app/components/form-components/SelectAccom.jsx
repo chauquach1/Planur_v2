@@ -3,8 +3,9 @@ import { Select, SelectItem } from "@nextui-org/react";
 
 const accoms = [
   { label: "Hotel", value: "Hotel" },
-  { label: "Vacation Rental", value: "Vacation Rental" },
   { label: "Resort", value: "Resort" },
+  { label: "Vacation Rental", value: "Vacation Rental" },
+  { label: "Friends/Family", value: "Friends/Family"},
   { label: "Hostel", value: "Hostel" },
   { label: "Other", value: "Other" },
 ];
