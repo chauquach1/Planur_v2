@@ -29,7 +29,10 @@ export default function AccommodationsCard({
       <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">
         <div className="border-l-2 px-2">
           <p className="text-default-500 ms-auto">
-            Check In: {checkInDate} - Check Out: {checkOutDate}
+            Check In: {checkInDate}
+          </p>
+          <p className="text-default-500 ms-auto">
+            Check Out: {checkOutDate}
           </p>
         </div>
         <p className="border-l-2 px-2">
