@@ -1,78 +1,3 @@
-import { faker } from '@faker-js/faker';
-
-
-// let sampleStops = [
-//   {
-//     "_id": "65619185f0a35c213aeda7df",
-//     "stopName": "Shibuya",
-//     "stopAddress": {
-//       "street": "717 Merit Dr",
-//       "city": "San Marcos",
-//       "state": "California",
-//       "zip": "92078",
-//       "country": "United States"
-//     },
-//     "stopArrival": "2024-01-03T00:00:00Z",
-//     "stopDeparture": "2024-01-04T00:00:00Z",
-//     "stopType": "Landmark",
-//     "stopTransportation": "Car",
-//     "stopInterest": "Must-Go",
-//     "stopResNum": "",
-//     "stopNotes": "",
-//     "stopPhoneNumber": "8589223709",
-//     "stopEmail": "chau268@gmail.com",
-//     "createdAt": "2023-11-25T06:17:41.832Z",
-//     "updatedAt": "2023-11-25T06:17:41.832Z",
-//     "__v": 0
-//   },
-//   {
-//     "_id": "656194a0637a2dfcc1a182d3",
-//     "stopName": "Some Place",
-//     "stopAddress": {
-//       "street": "717 Merit Dr",
-//       "city": "San Marcos",
-//       "state": "California",
-//       "zip": "92078",
-//       "country": "United States"
-//     },
-//     "stopArrival": "2024-01-02T00:00:00Z",
-//     "stopDeparture": "2024-01-05T00:00:00Z",
-//     "stopType": "Landmark",
-//     "stopTransportation": "Car",
-//     "stopInterest": "High",
-//     "stopResNum": "",
-//     "stopNotes": "",
-//     "stopPhoneNumber": "8589223709",
-//     "stopEmail": "chau268@gmail.com",
-//     "createdAt": "2023-11-25T06:30:56.927Z",
-//     "updatedAt": "2023-11-25T06:30:56.927Z",
-//     "__v": 0
-//   },
-//   {
-//     "_id": "6562a32efee4f47764f27099",
-//     "stopName": "tgestsets",
-//     "stopAddress": {
-//       "street": "",
-//       "city": "",
-//       "state": "",
-//       "zip": "",
-//       "country": ""
-//     },
-//     "stopArrival": "2023-12-09T00:00:00Z",
-//     "stopDeparture": "2023-12-28T00:00:00Z",
-//     "stopType": "Restaurant",
-//     "stopTransportation": "",
-//     "stopInterest": "Must-Go",
-//     "stopResNum": "",
-//     "stopNotes": "",
-//     "stopPhoneNumber": "",
-//     "stopEmail": "",
-//     "createdAt": "2023-11-26T01:45:18.829Z",
-//     "updatedAt": "2023-11-26T01:45:18.829Z",
-//     "__v": 0
-//   }
-// ]
-
 const sampleStops = [
   {
     stopName: 'Golden Gate Bridge',
@@ -88,7 +13,10 @@ const sampleStops = [
     stopType: 'Landmark',
     stopTransportation: 'Bus',
     stopInterest: 'Must-Go',
-    stopNotes: 'Iconic bridge in San Francisco'
+    stopNotes: 'Iconic bridge in San Francisco',
+    stopEmail: 'example1@gmail.com',
+    stopResNum: 918048814,
+    stopPhoneNumber: '+1 (123) 456-7890'
   },
   {
     stopName: 'Joe\'s Restaurant',
@@ -104,7 +32,10 @@ const sampleStops = [
     stopType: 'Restaurant',
     stopTransportation: 'Taxi',
     stopInterest: 'High',
-    stopNotes: 'Famous local restaurant'
+    stopNotes: 'Famous local restaurant',
+    stopEmail: 'example2@gmail.com',
+    stopResNum: 771140811,
+    stopPhoneNumber: '+1 (234) 567-8901'
   },
   {
     stopName: 'Grand Canyon',
@@ -120,7 +51,10 @@ const sampleStops = [
     stopType: 'Attractions',
     stopTransportation: 'Flight',
     stopInterest: 'Must-Go',
-    stopNotes: 'Natural wonder of the world'
+    stopNotes: 'Natural wonder of the world',
+    stopEmail: 'example3@gmail.com',
+    stopResNum: 655487264,
+    stopPhoneNumber: '+1 (345) 678-9012'
   },
   {
     stopName: 'Smithsonian Museum',
@@ -136,7 +70,10 @@ const sampleStops = [
     stopType: 'Museum',
     stopTransportation: 'Ride Share',
     stopInterest: 'High',
-    stopNotes: 'World-renowned museum'
+    stopNotes: 'World-renowned museum',
+    stopEmail: 'example4@gmail.com',
+    stopResNum: 709678731,
+    stopPhoneNumber: '+1 (456) 789-0123'
   },
   {
     stopName: 'Friend\'s House',
@@ -152,7 +89,10 @@ const sampleStops = [
     stopType: 'Friends',
     stopTransportation: 'Ride Share',
     stopInterest: 'Medium',
-    stopNotes: 'Visit a friend in Tomasport'
+    stopNotes: 'Visit a friend in Tomasport',
+    stopEmail: 'example5@gmail.com',
+    stopResNum: 710758275,
+    stopPhoneNumber: '+1 (567) 890-1234'
   },
   {
     stopName: 'Colosseum',
@@ -168,7 +108,10 @@ const sampleStops = [
     stopType: 'Landmark',
     stopTransportation: 'Taxi',
     stopInterest: 'Must-Go',
-    stopNotes: 'Historical Roman amphitheater'
+    stopNotes: 'Historical Roman amphitheater',
+    stopEmail: 'example6@gmail.com',
+    stopResNum: 600247708,
+    stopPhoneNumber: '+1 (678) 901-2345'
   },
   {
     stopName: 'Local Diner',
@@ -184,7 +127,10 @@ const sampleStops = [
     stopType: 'Restaurant',
     stopTransportation: 'Bus',
     stopInterest: 'Medium',
-    stopNotes: 'Try local cuisine'
+    stopNotes: 'Try local cuisine',
+    stopEmail: 'example7@gmail.com',
+    stopResNum: 954147490,
+    stopPhoneNumber: '+1 (789) 012-3456'
   },
   {
     stopName: 'National Park',
@@ -200,7 +146,10 @@ const sampleStops = [
     stopType: 'Attractions',
     stopTransportation: 'Flight',
     stopInterest: 'High',
-    stopNotes: 'Explore the national park'
+    stopNotes: 'Explore the national park',
+    stopEmail: 'example8@gmail.com',
+    stopResNum: 309318781,
+    stopPhoneNumber: '+1 (890) 123-4567'
   },
   {
     stopName: 'Beach Resort',
@@ -216,7 +165,10 @@ const sampleStops = [
     stopType: 'Attractions',
     stopTransportation: 'Boat',
     stopInterest: 'High',
-    stopNotes: 'Relax at the beach resort'
+    stopNotes: 'Relax at the beach resort',
+    stopEmail: 'example9@gmail.com',
+    stopResNum: 196630456,
+    stopPhoneNumber: '+1 (234) 567-8901'
   },
   {
     stopName: 'Local Cafe',
@@ -232,9 +184,14 @@ const sampleStops = [
     stopType: 'Restaurant',
     stopTransportation: 'Ride Share',
     stopInterest: 'Medium',
-    stopNotes: 'Try local coffee shop'
+    stopNotes: 'Try local coffee shop',
+    stopEmail: 'example10@gmail.com',
+    stopResNum: 524594667,
+    stopPhoneNumber: '+1 (345) 678-9012'
   }
 ];
+
+
 
 
 console.log('sampleStops: ', sampleStops);
