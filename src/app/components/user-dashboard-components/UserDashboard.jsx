@@ -13,7 +13,7 @@ export default function UserDashboard({ userData, trips }) {
   }, [selectedTrip]);
 
   return (
-    <div className="flex flex-row gap-2 h-screen bg-black">
+    <div className="flex flex-row h-screen ">
       <ContentController
         userData={userData}
         activeTab={activeTab}
@@ -25,11 +25,11 @@ export default function UserDashboard({ userData, trips }) {
 
       <div
         id="content-container"
-        className="column flex flex-col w-screen h-full rounded-r-none rounded-xl bg-gray-300 overflow-y-hidden"
+        className="column flex flex-col w-screen h-full bg-gray-300 overflow-y-hidden"
       >
         <div
           id="content-header"
-          className="flex-row w-full h-8 bg-peach-500 rounded-tl-xl"
+          className="flex-row w-full h-8 bg-peach-500"
         >
         </div>
         <div
