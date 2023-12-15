@@ -7,7 +7,6 @@ import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PacklistSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
-import samplePacklist from "../../_tests_/samplePacklist";
 
 export default function TripDisplay({ trip }) {
   return (
@@ -17,9 +16,9 @@ export default function TripDisplay({ trip }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={trip} />
-        <AccomsSection accoms={sampleAccoms} />
-        <StopsSection stops={sampleStops} />
-        <PackListSection packList={samplePacklist} />
+        {/* <AccomsSection accoms={sampleAccoms} /> */}
+        {/* <StopsSection stops={sampleStops} /> */}
+        <PackListSection />
       </Suspense>
     </div>
   );
