@@ -88,8 +88,6 @@ export default function PackListPanel({
       dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
     };
 
-  // Item categories
-
   // Function to render checkboxes for a category
   const renderCheckboxGroup = (category, items) => {
     return (
@@ -119,33 +117,19 @@ export default function PackListPanel({
       <form className="flex flex-col h-full w-full">
         <div
           id="accordion-container"
-          className="grow bg-white/60 rounded-xl overflow-scroll "
+          className="grow bg-white/60 rounded-xl p-3"
         >
-          <div
-            id="accordion-container"
-            className="grow rounded-xl overflow-scroll p-2"
-          >
-            <Accordion isCompact selectionMode="multiple">
-              {Object.entries(packListItems).map(
-                ([category, items], index) => (
-                  <AccordionItem
-                    key={index}
-                    aria-label={category}
-                    title={category.charAt(0).toUpperCase() + category.slice(1)}
-                  >
-                    {renderCheckboxGroup(category, items)}
-                  </AccordionItem>
-                )
-              )}
+          <Accordion isCompact selectionMode="multiple">
+            {Object.entries(packListItems).map(([category, items], index) => (
               <AccordionItem
-                key="5"
-                aria-label="Emergency Contact"
-                title="Emergency Contact"
+                key={index}
+                aria-label={category}
+                title={category.charAt(0).toUpperCase() + category.slice(1)}
               >
-                <EmergencyContactCard handleChange={handleChange} />
+                {renderCheckboxGroup(category, items)}
               </AccordionItem>
-            </Accordion>
-          </div>
+            ))}
+          </Accordion>
         </div>
         <div
           id="submit-btn-container"

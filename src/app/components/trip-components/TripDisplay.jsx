@@ -5,8 +5,10 @@ import SummaryContainer from "./SummaryContainer";
 import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PacklistSection";
+import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
+import emergencyContacts from "../../_tests_/sampleEmergencyContacts";
 
 export default function TripDisplay({ trip }) {
   return (
@@ -18,7 +20,8 @@ export default function TripDisplay({ trip }) {
         <SummaryContainer trip={trip} />
         {/* <AccomsSection accoms={sampleAccoms} /> */}
         {/* <StopsSection stops={sampleStops} /> */}
-        <PackListSection />
+        {/* <PackListSection contacts={emergencyContacts}/> */}
+        <EmergencyContactSection contacts={emergencyContacts}/>
       </Suspense>
     </div>
   );

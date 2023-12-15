@@ -191,9 +191,4 @@ const sampleStops = [
   }
 ];
 
-
-
-
-console.log('sampleStops: ', sampleStops);
-
 export default sampleStops;
