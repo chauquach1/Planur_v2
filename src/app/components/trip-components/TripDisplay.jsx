@@ -20,7 +20,7 @@ export default function TripDisplay({ trip }) {
         <AccomsSection accoms={sampleAccoms} />
         <StopsSection stops={sampleStops} />
         {/* <PackListSection /> */}
-        <EmergencyContactSection />
+        <EmergencyContactSection category='Emergency Contacts' />
       </Suspense>
     </div>
   );

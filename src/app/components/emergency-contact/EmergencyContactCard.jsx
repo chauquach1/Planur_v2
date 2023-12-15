@@ -6,7 +6,7 @@ export default function EmergencyContactCard({ contact }) {
   return (
     <div
       id="emergency-contact-card"
-      className="flex flex-col p-3 rounded-xl w-full 2xl:max-w-[450px] gap-1 bg-white text-sm break-words"
+      className="flex flex-col p-3 rounded-xl w-full gap-1 bg-white text-sm break-words"
     >
       <p className="text-medium font-semibold flex flex-row flex-wrap items-center break-words xs:gap-2">
         <MdContactPhone className="hidden xs:block" />
