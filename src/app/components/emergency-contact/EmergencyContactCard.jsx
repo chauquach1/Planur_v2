@@ -1,108 +1,29 @@
-import { Input } from "@nextui-org/react";
+import { MdContactPhone } from "react-icons/md";
+
 export default function EmergencyContactCard({ contact }) {
   const address = contact.address;
+  const detailClass = "border-l-2 ms-2 ps-2 border-default-400 flex-wrap";
   return (
-    <div id="emergency-contact-group" className="grid grid-cols-8 p-1 gap-1">
-      <Input
-        key="firstName"
-        label="First Name"
-        value={contact.firstName}
-        // onChange={handleChange("firstName")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-3"
-      />
-      <Input
-        key="lastName"
-        label="Last Name"
-        value={contact.lastName}
-        // onChange={handleChange("lastName")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-3"
-      />
-      <Input
-        key="relationship"
-        label="Relationship"
-        value={contact.relationship}
-        // onChange={handleChange("relationship")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-2"
-      />
-      <Input
-        key="phoneNumber"
-        label="Phone Number"
-        value={contact.phoneNumber}
-        // onChange={handleChange("phoneNumber")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-4"
-      />
-      <Input
-        key="email"
-        label="Email"
-        value={contact.email}
-        // onChange={handleChange("email")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-4"
-      />
-      <Input
-        key="street"
-        label="Street"
-        value={address.street}
-        // onChange={handleChange("street")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-5"
-      />
-      <Input
-        key="city"
-        label="City"
-        value={address.city}
-        // onChange={handleChange("city")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-3"
-      />
-      <Input
-        key="state"
-        label="State"
-        value={address.state}
-        // onChange={handleChange("state")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-2"
-      />
-      <Input
-        key="zip"
-        label="Zip"
-        value={address.zip}
-        // onChange={handleChange("zip")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-3"
-      />
-      <Input
-        key="country"
-        label="Country"
-        value={address.country}
-        // onChange={handleChange("country")}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        className="col-span-3"
-      />
+    <div
+      id="emergency-contact-card"
+      className="flex flex-col p-3 rounded-xl w-full 2xl:max-w-[450px] gap-1 bg-white text-sm break-words"
+    >
+      <p className="text-medium font-semibold flex flex-row flex-wrap items-center break-words xs:gap-2">
+        <MdContactPhone className="hidden xs:block" />
+        {contact.firstName} {contact.lastName}
+        <span className="hidden sm:block text-default-400 text-sm font-normal break-words">
+          ({contact.relationship})
+        </span>
+      </p>
+      <p className={detailClass}>{contact.phoneNumber || 'Add Phone Number'}</p>
+      <p className={detailClass}>
+        {address.street}, {address.city} <br></br>
+        {address.state} {address.zip}, {address.country}
+      </p>
+      <a type="email" href={`mailto:${contact.email}`} className={`${detailClass} text-blue-400`}>{contact.email}</a>
+      <p label="First Name" className={`block sm:hidden ${detailClass}`}>
+        {contact.relationship}
+      </p>
     </div>
   );
 }

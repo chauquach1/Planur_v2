@@ -8,7 +8,6 @@ import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
-import emergencyContacts from "../../_tests_/sampleEmergencyContacts";
 
 export default function TripDisplay({ trip }) {
   return (
@@ -18,10 +17,10 @@ export default function TripDisplay({ trip }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={trip} />
-        {/* <AccomsSection accoms={sampleAccoms} /> */}
-        {/* <StopsSection stops={sampleStops} /> */}
-        {/* <PackListSection contacts={emergencyContacts}/> */}
-        <EmergencyContactSection contacts={emergencyContacts}/>
+        <AccomsSection accoms={sampleAccoms} />
+        <StopsSection stops={sampleStops} />
+        {/* <PackListSection /> */}
+        <EmergencyContactSection />
       </Suspense>
     </div>
   );
