@@ -1,6 +1,7 @@
 import AccomsBtn from "../content-nav-components/AccomsBtn";
 import StopsBtn from "../content-nav-components/StopsBtn";
 import PackListBtn from "../content-nav-components/PackListBtn";
+import EmergencyContactsBtn from "../content-nav-components/EmergencyContactsBtn";
 
 export default function TripTab({trip}) {
   return (
@@ -11,6 +12,7 @@ export default function TripTab({trip}) {
       <AccomsBtn />
       <StopsBtn />
       <PackListBtn />
+      <EmergencyContactsBtn />
     </div>
   );
 }
