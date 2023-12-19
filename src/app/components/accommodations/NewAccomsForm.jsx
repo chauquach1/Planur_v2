@@ -86,7 +86,7 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
 
   return (
     <>
-      <h1 className="text-center my-3">Add New Accommodation</h1>
+      {/* <h1 className="text-center my-3">Add New Accommodation</h1> */}
       <div className="h-full overflow-y-scroll p-3 pt-0">
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
