@@ -1,3 +1,4 @@
+import { LuMapPin } from "react-icons/lu";
 import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import normalDateFormat from "../../_utils/normalDateFormat";
@@ -12,8 +13,8 @@ export default function AccommodationsCard({
 
   return (
     <Card
-      isHoverable
-      isPressable
+      // isHoverable
+      // isPressable
       // isBlurred
       className=" w-full border shadow-none bg-white "
       // onPress={() =>
@@ -26,32 +27,29 @@ export default function AccommodationsCard({
           <p className="inline-block">{accom.accomName}</p>
         </div>
       </CardHeader>
-      <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">
-        <div className="border-l-2 px-2">
-          <p className="text-default-500 ms-auto">
-            Check In: {checkInDate}
-          </p>
-          <p className="text-default-500 ms-auto">
-            Check Out: {checkOutDate}
-          </p>
+      <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
+        <div className="flex flex-col 2xl:flex-row gap-2">
+          <div className="border-l-2 px-2 min-w-[250px]">
+            <p className="text-default-500 ms-auto">Check In: {checkInDate}</p>
+            <p className="text-default-500 ms-auto">
+              Check Out: {checkOutDate}
+            </p>
+          </div>
+          <div className="border-l-2 px-2 min-w-[250px] font-light inline-flex  gap-2">
+            {address.street}, {address.city} <br></br>
+            {address.state} {address.zip}, {address.country}
+          </div>
         </div>
-        <p className="border-l-2 px-2">
-          Address:{" "}
-          <span className="font-light">
-            {address.street} {address.city}, {address.state} {address.zip},{" "}
-            {address.country}
-          </span>
-        </p>
         <div className="hidden 2xl:block border-l-2 px-2">
           <p className="text-small align-baseline">
             Type: <span className="font-light">{accom.accomType}</span>
           </p>
           <p>
-            Email: <span className="font-light">{accom.accomEmail || "-"}</span>
-          </p>
-          <p>
             Phone Number:{" "}
             <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
+          </p>
+          <p>
+            Email: <a type="email" href={`mailto:${accom.accomEmail}`}  className="font-light hover:text-blue-500">{accom.accomEmail || "-"}</a>
           </p>
           <p>
             Confirmation:{" "}
