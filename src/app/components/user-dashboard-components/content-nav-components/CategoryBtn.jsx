@@ -2,8 +2,8 @@ import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nex
 
 export default function CategoryBtn({children}) {
   return (
-    <div className="w-full h-fit bg-white rounded-xl text-xs text-center">
+    <button className=" bg-white py-1 px-2 rounded-xl text-xs text-center">
       {children}
-    </div>
+    </button>
   );
 }
