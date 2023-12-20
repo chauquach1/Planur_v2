@@ -86,13 +86,13 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms, activeForm }) {
 
   return (
     <>
-      {/* <h1 className="text-center my-3">Add New Accommodation</h1> */}
-      <div
+      <form
+        onSubmit={handleSubmit}
         className={`${
           activeForm === "accommodation" ? "block" : "hidden"
-        } h-full overflow-y-scroll`}
+        } h-full overflow-y-scroll flex flex-col`}
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <div className=" flex flex-col gap-2 rounded-xl bg-white p-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
             <Input
               autoFocus={true}
@@ -163,6 +163,11 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms, activeForm }) {
             value={country}
             onChange={(event) => setCountry(event.target.value)}
           />
+        </div>
+        <div
+          id="submit-btn-container"
+          className="flex flex-row mt-2 w-full justify-center pt-2"
+        >
           <Button
             color="success"
             radius="full"
@@ -173,8 +178,8 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms, activeForm }) {
           >
             Add Accommodation
           </Button>
-        </form>
-      </div>
+        </div>
+      </form>
     </>
   );
 }

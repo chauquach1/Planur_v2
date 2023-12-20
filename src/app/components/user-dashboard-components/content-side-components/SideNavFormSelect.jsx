@@ -7,7 +7,7 @@ export default function SideNavFormSelect({ setActiveForm }) {
     { label: "Update Packing List", value: "packList" },
   ]
   return (
-    <div className="flex flex-row gap-3 whitespace-nowrap text-center text-lg text-gray-600 items-center pb-4 border-b-2">
+    <div className="flex flex-row gap-3 whitespace-nowrap text-center text-lg text-gray-600 items-center border-b-2 pb-4">
       <Select
         aria-label="Add New Item"
         className=""

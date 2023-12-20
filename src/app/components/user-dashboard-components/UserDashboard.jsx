@@ -28,16 +28,11 @@ export default function UserDashboard({ userData, trips }) {
         className="column flex flex-col w-screen h-full bg-gray-300 overflow-y-hidden"
       >
         <div
-          id="content-header"
-          className="flex-row w-full h-8 bg-peach-500"
-        >
-        </div>
-        <div
           id="content-body"
           className="flex flex-row w-full h-full justify-between overflow-y-hidden"
         >
           <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
-          <SideContainer trip={selectedTrip}/>
+          <SideContainer trip={selectedTrip} />
         </div>
       </div>
     </div>

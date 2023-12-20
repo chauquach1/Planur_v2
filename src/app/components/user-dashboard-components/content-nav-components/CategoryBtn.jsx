@@ -2,7 +2,7 @@ import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nex
 
 export default function CategoryBtn({children}) {
   return (
-    <div className="w-full h-fit p-2 bg-white rounded-xl">
+    <div className="w-full h-fit bg-white rounded-xl text-xs text-center">
       {children}
     </div>
   );
