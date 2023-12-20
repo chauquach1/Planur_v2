@@ -22,7 +22,7 @@ export default function TripDisplay({ trip }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={trip} />
-        <div id="content-header" className="flex flex-row w-full h-max gap-8">
+        <div id="content-header" className="flex flex-row w-full h-max gap-5">
           <FullTripDetailsBtn />
           <AccomsBtn />
           <StopsBtn />
