@@ -1,31 +1,34 @@
-import { Select, SelectSection, SelectItem } from "@nextui-org/react";
-import { set } from "date-fns";
-import { useState } from "react";
-import React from "react";
-export default function SideNavFormSelect({ activeForm, setActiveForm }) {
+import { Select, SelectItem } from "@nextui-org/react";
+export default function SideNavFormSelect({ setActiveForm }) {
   const forms = [
-    { label: "Accommodation", value: "accommodation" },
-    { label: "Stop", value: "stop" },
-    { label: "Emergency Contact", value: "emergencyContact" },
+    { label: "Add Accommodation", value: "accommodation" },
+    { label: "Add Stop", value: "stop" },
+    { label: "Add Emergency Contact", value: "emergencyContact" },
   ]
-  const [value, setValue] = useState(forms.value);
   return (
-    <Select
-      label="Add New Item"
-      className="text-center border-b-0"
-      size="sm"
-      variant="underlined"
-      radius="lg"
-      defaultSelectedKeys={["accommodation"]}
-      selectionMode="single"
-      autoFocus={true}
-      disallowEmptySelection={true}
-    >
-      {forms.map((form) => (
-        <SelectItem key={form.value} value={form.value} onPress={() => setActiveForm(form.value)}>
-          {form.label}
-        </SelectItem>
-      ))}
-    </Select>
+    <div className="flex flex-row gap-3 whitespace-nowrap text-center text-lg text-gray-600 items-center pb-4 border-b-2">
+      <Select
+        aria-label="Add New Item"
+        className=""
+        size="sm"
+        variant="flat"
+        defaultSelectedKeys={["accommodation"]}
+        selectionMode="single"
+        radius="full"
+        autoFocus={true}
+        disallowEmptySelection={true}
+
+      >
+        {forms.map((form) => (
+          <SelectItem
+            key={form.value}
+            value={form.value}
+            onPress={() => setActiveForm(form.value)}
+          >
+            {form.label}
+          </SelectItem>
+        ))}
+      </Select>
+    </div>
   );
 }

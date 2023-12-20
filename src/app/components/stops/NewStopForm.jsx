@@ -6,7 +6,7 @@ import SelectStopInterest from "../form-components/SelectStopInterest";
 import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 
-export default function NewStopForm() {
+export default function NewStopForm({ activeForm }) {
   const [stopName, setStopName] = useState("");
   const [stopType, setStopType] = useState("");
   const [stopArrival, setStopArrival] = useState("");
@@ -88,8 +88,12 @@ export default function NewStopForm() {
 
   return (
     <>
-      <h1 className="text-center my-3">Add New Stop</h1>
-      <div className="h-full overflow-y-scroll p-3 pt-0">
+      {/* <h1 className="text-center my-3">Add New Stop</h1> */}
+      <div
+        className={`${
+          activeForm === "stop" ? "block" : "hidden"
+        } h-full overflow-y-scroll`}
+      >
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <Input
             autoFocus={true}
@@ -134,7 +138,7 @@ export default function NewStopForm() {
               value={street}
               onChange={(e) => setStreet(e.target.value)}
               autoComplete="off"
-              className="col-span-3" 
+              className="col-span-3"
             />
             <Input
               label="City"
@@ -142,28 +146,28 @@ export default function NewStopForm() {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               autoComplete="off"
-              className="col-span-3" 
+              className="col-span-3"
             />
             <Input
               label="State/Province"
               value={state}
               onChange={(e) => setState(e.target.value)}
               autoComplete="off"
-              className="col-span-2" 
+              className="col-span-2"
             />
             <Input
-              label="Zip/Postal Code"
+              label="Zip/Postal"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
               autoComplete="off"
-              className="col-span-2 " 
+              className="col-span-2 "
             />
             <Input
               label="Country/Region"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               autoComplete="off"
-              className="col-span-2" 
+              className="col-span-2"
             />
           </div>
           <Input
@@ -175,7 +179,6 @@ export default function NewStopForm() {
           <Input
             label="Reservation/Confirmation"
             value={stopResNum}
-            placeholder="e.g 1234567890"
             onChange={(e) => setStopResNum(e.target.value)}
             autoComplete="off"
           />

@@ -4,7 +4,7 @@ import Input from "../form-components/Input";
 import SelectAccom from "../form-components/SelectAccom";
 import { useState } from "react";
 
-export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
+export default function NewAccomsForm({ uuid, tripId, getAccoms, activeForm }) {
   const [accomName, setAccomName] = useState("");
   const [accomType, setAccomType] = useState("");
   const [accomCheckIn, setAccomCheckIn] = useState("");
@@ -87,7 +87,11 @@ export default function NewAccomsForm({ uuid, tripId, getAccoms }) {
   return (
     <>
       {/* <h1 className="text-center my-3">Add New Accommodation</h1> */}
-      <div className="h-full overflow-y-scroll p-3 pt-0">
+      <div
+        className={`${
+          activeForm === "accommodation" ? "block" : "hidden"
+        } h-full overflow-y-scroll`}
+      >
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
             <Input

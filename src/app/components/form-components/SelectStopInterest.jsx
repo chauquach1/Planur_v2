@@ -13,7 +13,6 @@ export default function SelectReason({ setStopInterest }) {
   return (
       <Select
         label="Interest Level"
-        labelPlacement="outside"
         placeholder="Must-go, High, etc."
         className="col-span-2"
         variant="faded"
