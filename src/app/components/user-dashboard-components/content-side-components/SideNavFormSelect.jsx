@@ -4,6 +4,7 @@ export default function SideNavFormSelect({ setActiveForm }) {
     { label: "Add Accommodation", value: "accommodation" },
     { label: "Add Stop", value: "stop" },
     { label: "Add Emergency Contact", value: "emergencyContact" },
+    { label: "Update Packing List", value: "packList" },
   ]
   return (
     <div className="flex flex-row gap-3 whitespace-nowrap text-center text-lg text-gray-600 items-center pb-4 border-b-2">
