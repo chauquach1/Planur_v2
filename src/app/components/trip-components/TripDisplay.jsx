@@ -8,13 +8,11 @@ import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
-import AccomsBtn from "../user-dashboard-components/panel-nav-components/AccomsBtn";  
-import StopsBtn from "../user-dashboard-components/panel-nav-components/StopsBtn";
-import PackListBtn from "../user-dashboard-components/panel-nav-components/PackListBtn";
-import EmergencyContactsBtn from "../user-dashboard-components/panel-nav-components/EmergencyContactsBtn";
-import FullTripDetailsBtn from "../user-dashboard-components/panel-nav-components/FullTripDetailsBtn";
+import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
+import { useState } from "react";
 
 export default function TripDisplay({ trip }) {
+  const [activeTab, setActiveTab] = useState("summary");
   return (
     <div
       id="content-panel-main"
@@ -22,17 +20,11 @@ export default function TripDisplay({ trip }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={trip} />
-        <div id="content-header" className="flex flex-row w-full h-max gap-5">
-          <FullTripDetailsBtn />
-          <AccomsBtn />
-          <StopsBtn />
-          <PackListBtn />
-          <EmergencyContactsBtn />
-        </div>
-        <AccomsSection accoms={sampleAccoms} />
-        <StopsSection stops={sampleStops} />
-        <PackListSection />
-        <EmergencyContactSection category="Emergency Contacts" />
+        <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
+        <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/>
+        <StopsSection stops={sampleStops} activeTab={activeTab}/>
+        <PackListSection activeTab={activeTab}/>
+        <EmergencyContactSection category="Emergency Contacts" activeTab={activeTab}/>
       </Suspense>
     </div>
   );

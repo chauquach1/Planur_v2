@@ -9,10 +9,10 @@ export default function TripTab({trip}) {
       <div className="text-center font-semibold text-2xl">
         <h1>{trip.tripName}</h1>
       </div>
-      <AccomsBtn />
+      {/* <AccomsBtn />
       <StopsBtn />
       <PackListBtn />
-      <EmergencyContactsBtn />
+      <EmergencyContactsBtn /> */}
     </div>
   );
 }

@@ -1,16 +1,11 @@
-import FullTripDetailsBtn from "./FullTripDetailsBtn";
-import AccomsBtn from "./AccomsBtn";
-import StopsBtn from "./StopsBtn";
-import PackListBtn from "./PackListBtn";
-import EmergencyContactsBtn from "./EmergencyContactsBtn";
-export default function PanelNavContainer() {
+import CategoryBtn from "./CategoryBtn";
+export default function PanelNavContainer(props) {
+  const categories = ["Full Details", "Accommodations", "Stops", "Packing List", "Emergency Contacts"];
   return (
     <div id="content-header" className="flex flex-row w-full h-max gap-5">
-      <FullTripDetailsBtn />
-      <AccomsBtn />
-      <StopsBtn />
-      <PackListBtn />
-      <EmergencyContactsBtn />
+      {categories.map((category) => {
+        return <CategoryBtn key={`${category} Btn`} {...props} category={category} />;
+      })}
     </div>
   );
 }
