@@ -1,4 +1,4 @@
-import ContentNavCard from "../content-nav-components/ContentNavCard";
+import ContentNavCard from "../panel-nav-components/ContentNavCard";
 import { Suspense } from "react";
 import LoadingTrips from "../suspense-components/LoadingTrips";
 

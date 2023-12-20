@@ -1,7 +1,7 @@
-import AccomsBtn from "../content-nav-components/AccomsBtn";
-import StopsBtn from "../content-nav-components/StopsBtn";
-import PackListBtn from "../content-nav-components/PackListBtn";
-import EmergencyContactsBtn from "../content-nav-components/EmergencyContactsBtn";
+import AccomsBtn from "../panel-nav-components/AccomsBtn";
+import StopsBtn from "../panel-nav-components/StopsBtn";
+import PackListBtn from "../panel-nav-components/PackListBtn";
+import EmergencyContactsBtn from "../panel-nav-components/EmergencyContactsBtn";
 
 export default function TripTab({trip}) {
   return (

@@ -8,11 +8,11 @@ import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
-import AccomsBtn from "../user-dashboard-components/content-nav-components/AccomsBtn";  
-import StopsBtn from "../user-dashboard-components/content-nav-components/StopsBtn";
-import PackListBtn from "../user-dashboard-components/content-nav-components/PackListBtn";
-import EmergencyContactsBtn from "../user-dashboard-components/content-nav-components/EmergencyContactsBtn";
-import FullTripDetailsBtn from "../user-dashboard-components/content-nav-components/FullTripDetailsBtn";
+import AccomsBtn from "../user-dashboard-components/panel-nav-components/AccomsBtn";  
+import StopsBtn from "../user-dashboard-components/panel-nav-components/StopsBtn";
+import PackListBtn from "../user-dashboard-components/panel-nav-components/PackListBtn";
+import EmergencyContactsBtn from "../user-dashboard-components/panel-nav-components/EmergencyContactsBtn";
+import FullTripDetailsBtn from "../user-dashboard-components/panel-nav-components/FullTripDetailsBtn";
 
 export default function TripDisplay({ trip }) {
   return (

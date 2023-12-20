@@ -1,4 +1,4 @@
-import ContentController from "../components/user-dashboard-components/content-nav-components/ContentController";
+import ContentController from "../components/user-dashboard-components/panel-nav-components/ContentController";
 import UserDashboard from "../components/user-dashboard-components/UserDashboard"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

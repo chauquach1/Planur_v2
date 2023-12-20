@@ -1,5 +1,5 @@
 "use client";
-import ContentController from "./content-nav-components/ContentController";
+import ContentController from "./panel-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
 import SideContainer from "./content-side-components/SideContainer";
 import { useState, useEffect } from "react";
