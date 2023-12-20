@@ -88,13 +88,13 @@ export default function NewStopForm({ activeForm }) {
 
   return (
     <>
-      {/* <h1 className="text-center my-3">Add New Stop</h1> */}
-      <div
+      <form
+        onSubmit={handleSubmit}
         className={`${
           activeForm === "stop" ? "block" : "hidden"
-        } h-full overflow-y-scroll`}
+        } h-full overflow-y-scroll flex flex-col`}
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 rounded-xl bg-white p-2">
           <Input
             autoFocus={true}
             label="Stop Name"
@@ -103,11 +103,11 @@ export default function NewStopForm({ activeForm }) {
             onChange={(e) => setStopName(e.target.value)}
             isRequired
           />
-          <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
+          <div className="grid grid-cols-4 flex-wrap xl:flex-nowrap gap-2">
             <SelectStopType setStopType={setStopType} />
             <SelectStopInterest setStopInterest={setStopInterest} />
           </div>
-          <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
+          <div className="flex flex-row flex-wrap xl:flex-nowrap gap-2">
             <Input
               label="Arrival Date"
               type="date"
@@ -131,14 +131,14 @@ export default function NewStopForm({ activeForm }) {
             value={stopTransportation}
             onChange={(e) => setStopTransportation(e.target.value)}
           />
-          <div className="flex flex-col lg:grid lg:grid-cols-6 md:grid-rows-2 gap-3">
+          <div className="flex flex-col lg:grid lg:grid-cols-6 md:grid-rows-2 gap-2">
             <Input
               label="Street"
               placeholder="e.g 123 Main St"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
               autoComplete="off"
-              className="col-span-3"
+              className="col-span-6"
             />
             <Input
               label="City"
@@ -153,21 +153,21 @@ export default function NewStopForm({ activeForm }) {
               value={state}
               onChange={(e) => setState(e.target.value)}
               autoComplete="off"
-              className="col-span-2"
+              className="col-span-3"
             />
             <Input
               label="Zip/Postal"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
               autoComplete="off"
-              className="col-span-2 "
+              className="col-span-3 "
             />
             <Input
               label="Country/Region"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               autoComplete="off"
-              className="col-span-2"
+              className="col-span-3"
             />
           </div>
           <Input
@@ -195,7 +195,11 @@ export default function NewStopForm({ activeForm }) {
             value={stopNotes}
             label="Notes"
           ></Input>
-
+        </div>
+        <div
+          id="submit-btn-container"
+          className="flex flex-row mt-2 w-full justify-center pt-2"
+        >
           <Button
             size="md"
             type="submit"
@@ -205,8 +209,8 @@ export default function NewStopForm({ activeForm }) {
           >
             Add Stop
           </Button>
-        </form>
-      </div>
+        </div>
+      </form>
     </>
   );
 }
