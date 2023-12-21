@@ -119,7 +119,7 @@ export default function PackListPanel({
     return null;
   } else {
     return (
-      <SectionContainer category="Packlist">
+      <SectionContainer category="Packing List">
         <form className="flex flex-col h-full w-full">
           <div
             id="accordion-container"
