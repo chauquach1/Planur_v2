@@ -7,12 +7,7 @@ export default function TabBtnsContainer({ setActiveTab }) {
     >
       <TabBtn
         category="tripsindex"
-        innerText="All Trips"
-        setActiveTab={setActiveTab}
-      />
-      <TabBtn
-        category="tripcontrol"
-        innerText="Trip Details"
+        innerText="My Trips"
         setActiveTab={setActiveTab}
       />
     </div>
