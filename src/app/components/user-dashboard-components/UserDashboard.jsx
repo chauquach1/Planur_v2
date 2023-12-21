@@ -8,9 +8,9 @@ export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
   const [activeTab, setActiveTab] = useState("tripsindex");
 
-  useEffect(() => {
-    console.log("selectedTrip: ", selectedTrip);
-  }, [selectedTrip]);
+  // useEffect(() => {
+  //   console.log("selectedTrip: ", selectedTrip);
+  // }, [selectedTrip]);
 
   return (
     <div className="flex flex-row h-screen ">

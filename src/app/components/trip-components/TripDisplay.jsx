@@ -12,7 +12,7 @@ import PanelNavContainer from "../user-dashboard-components/panel-nav-components
 import { useState } from "react";
 
 export default function TripDisplay({ trip }) {
-  const [activeTab, setActiveTab] = useState("summary");
+  const [activeTab, setActiveTab] = useState("Full Details");
   return (
     <div
       id="content-panel-main"
@@ -22,9 +22,6 @@ export default function TripDisplay({ trip }) {
         <SummaryContainer trip={trip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
         <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/>
-        <StopsSection stops={sampleStops} activeTab={activeTab}/>
-        <PackListSection activeTab={activeTab}/>
-        <EmergencyContactSection category="Emergency Contacts" activeTab={activeTab}/>
       </Suspense>
     </div>
   );

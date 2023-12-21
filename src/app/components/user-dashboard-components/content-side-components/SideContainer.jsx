@@ -3,9 +3,9 @@ import SideNavFormSelect from "./SideNavFormSelect";
 import { useEffect, useState } from "react";
 export default function SideContainer() {
   const [activeForm, setActiveForm] = useState('accommodation');
-  useEffect(() => {
-    console.log("activeForm: ", activeForm);
-  }, [activeForm]);
+  // useEffect(() => {
+  //   console.log("activeForm: ", activeForm);
+  // }, [activeForm]);
   return (
     <div
       id="content-panel-side"
