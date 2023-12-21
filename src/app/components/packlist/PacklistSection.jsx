@@ -28,6 +28,7 @@ export default function PackListPanel({
   tripId,
   packList,
   handleUpdateForm,
+  ...props
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -111,41 +112,47 @@ export default function PackListPanel({
       </div>
     );
   };
-
-  return (
-    <SectionContainer category="Packlist">
-      <form className="flex flex-col h-full w-full">
-        <div
-          id="accordion-container"
-          className="grow bg-white/60 rounded-xl p-3"
-        >
-          <Accordion isCompact selectionMode="multiple">
-            {Object.entries(packListItems).map(([category, items], index) => (
-              <AccordionItem
-                key={index}
-                aria-label={category}
-                title={category.charAt(0).toUpperCase() + category.slice(1)}
-              >
-                {renderCheckboxGroup(category, items)}
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-        <div
-          id="submit-btn-container"
-          className="flex flex-row justify-end mt-2 w-full"
-        >
-          <Button
-            isDisabled={!isSubmitting}
-            size="sm"
-            variant={isSubmitting ? "solid" : "default"}
-            color="primary"
-            // onPress={handleSubmit}
+  if (
+    props.activeTab !== "Packing List" &&
+    props.activeTab !== "Full Details"
+  ) {
+    return null;
+  } else {
+    return (
+      <SectionContainer category="Packlist">
+        <form className="flex flex-col h-full w-full">
+          <div
+            id="accordion-container"
+            className="grow bg-white/60 rounded-xl p-3"
           >
-            {isSubmitting ? "Submit" : null}
-          </Button>
-        </div>
-      </form>
-    </SectionContainer>
-  );
+            <Accordion isCompact selectionMode="multiple">
+              {Object.entries(packListItems).map(([category, items], index) => (
+                <AccordionItem
+                  key={index}
+                  aria-label={category}
+                  title={category.charAt(0).toUpperCase() + category.slice(1)}
+                >
+                  {renderCheckboxGroup(category, items)}
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+          <div
+            id="submit-btn-container"
+            className="flex flex-row justify-end mt-2 w-full"
+          >
+            <Button
+              isDisabled={!isSubmitting}
+              size="sm"
+              variant={isSubmitting ? "solid" : "default"}
+              color="primary"
+              // onPress={handleSubmit}
+            >
+              {isSubmitting ? "Submit" : null}
+            </Button>
+          </div>
+        </form>
+      </SectionContainer>
+    );
+  }
 }

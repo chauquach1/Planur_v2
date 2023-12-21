@@ -22,6 +22,9 @@ export default function TripDisplay({ trip }) {
         <SummaryContainer trip={trip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
         <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/>
+        <StopsSection stops={sampleStops} activeTab={activeTab}/>
+        <PackListSection activeTab={activeTab}/>
+        <EmergencyContactSection activeTab={activeTab}/>
       </Suspense>
     </div>
   );
