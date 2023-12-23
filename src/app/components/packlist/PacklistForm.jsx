@@ -1,6 +1,6 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
-import packListItems from "../../libs/packListItems";
+import packListItems from "../../libs/completePackList";
 import { set } from "date-fns";
 import { useState, useReducer } from "react";
 import {
