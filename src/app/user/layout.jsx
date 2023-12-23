@@ -1,49 +1,44 @@
-import { createServerClient } from "@supabase/ssr";
+import ContentController from "../components/user-dashboard-components/panel-nav-components/ContentController";
+import UserDashboard from "../components/user-dashboard-components/UserDashboard"
 import { cookies } from "next/headers";
-import NewTripForm from "../components/form-components/NewTripForm";
-import { redirect } from 'next/navigation'
-
-
+import { redirect } from "next/navigation";
+import Loading from "./loading";
+import { Suspense } from "react";
+import fetchTrips from "../_utils/fetchAllTrips";
 export const metadata = {
   title: "User's Page",
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
-
 export default async function UserLayout() {
   const cookieStore = cookies();
-  const session = cookieStore.get('sb-xpkreccdqramgzjkzjui-auth-token')
+  const session = cookieStore.get("sb-xpkreccdqramgzjkzjui-auth-token");
   if (!session) {
-    redirect('/login');
+    redirect("/login");
   }
   const data = JSON.parse(session.value);
-  const userContactInfo = data.user
-  const userFullName = data.user.user_metadata
+  const userInfo = data.user;
+  const userFullName = data.user.user_metadata;
   const userData = {
+    uuid: userInfo.id,
     firstName: userFullName.firstName,
     lastName: userFullName.lastName,
-    email: userContactInfo.email,
-    phone: userContactInfo.phone
-  }
+    email: userInfo.email,
+    phone: userInfo.phone,
+  };
+
+  const trips = await fetchTrips(userData);
 
   return (
-    <main className="container flex flex-row bg-slate-600 h-screen min-w-full justify-center">
-      <div className="h-full rounded-xl container text-center">
+    <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-400 justify-center">
+      <Suspense fallback={<Loading />}>
         <div
-          id="new-trip-form-container"
-          className="container text-white text-center p-2 bg-info"
+          id="content-navigation"
+          className=" flex flex-col h-full rounded-l-none rounded-xl w-full bg-gray-300"
         >
-          <div className="container bg- text-center">
-            <h1 className="my-0">Hello {userData.firstName}</h1>
-            <h6>Where to Next?</h6>
-          </div>
+          <UserDashboard userData={userData} trips={trips}/>
         </div>
-
-        <div className="container rounded-large flex flex-col p-2 m-2 justify-center items-center">
-          {/* <NewTripForm user={userData} /> */}
-          <NewTripForm />
-        </div>
-      </div>
+      </Suspense>
     </main>
   );
 }

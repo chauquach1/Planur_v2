@@ -3,8 +3,9 @@ import { Select, SelectItem } from "@nextui-org/react";
 
 const accoms = [
   { label: "Hotel", value: "Hotel" },
-  { label: "Vacation Rental", value: "Vacation Rental" },
   { label: "Resort", value: "Resort" },
+  { label: "Vacation Rental", value: "Vacation Rental" },
+  { label: "Friends/Family", value: "Friends/Family"},
   { label: "Hostel", value: "Hostel" },
   { label: "Other", value: "Other" },
 ];
@@ -12,10 +13,11 @@ const accoms = [
 export default function SelectAccom({ setAccomType }) {
   return (
       <Select
-        label="Accommodation Type"
-        placeholder="Select an Accommodation"
+        label="Accommodation"
+        labelPlacement="inside"
+        placeholder="Type"
         className="col-span-3"
-        size="md"
+        size="sm"
         variant="faded"
         onChange={(event) => setAccomType(event.target.value)}
       >

@@ -1,5 +1,5 @@
 'use client'
-import TabButton from "../../components/trip-components/TabButton";
+import TabButton from "./TabButton";
 
 export default function TabButtonsContainer({activeTab, handleTabClick}) {
 

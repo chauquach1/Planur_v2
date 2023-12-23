@@ -34,3 +34,27 @@ html, body {
   opacity: 0;
   display: none; /* hide the content */
 }
+
+
+.arrow {
+  color: hsl(var(--background-white-hsl));
+  animation-name: revealsection;
+  animation-fill-mode: forwards;
+  animation: revealsection 1s linear 0s 1 forwards;
+}
+
+@keyframes revealsection {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(180deg);}
+}
+
+
+.arrowup {
+  transform: rotate(0deg);
+  transition: transform .10s linear;
+}
+
+.arrowup.revealed {
+  transform: rotate(90deg);
+  transition: transform .10s linear;
+}

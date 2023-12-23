@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import StopsCard from "../../components/trip-components/StopsCard";
+import StopsCard from "./StopsCard";
 import { Card, CardBody } from "@nextui-org/react";
 
 

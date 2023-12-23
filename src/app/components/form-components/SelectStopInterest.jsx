@@ -16,7 +16,7 @@ export default function SelectReason({ setStopInterest }) {
         placeholder="Must-go, High, etc."
         className="col-span-2"
         variant="faded"
-        size="md"
+        size="sm"
         onChange={(event) => setStopInterest(event.target.value)}
       >
         {levels.map((level) => (
