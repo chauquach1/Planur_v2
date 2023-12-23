@@ -48,20 +48,6 @@ let samplePacklist = {
     sunglasses: false, // new key
     notebook: true, // new key
   },
-  emergencyContact: {
-    firstName: "Erin",
-    lastName: "Pizarro",
-    relationship: "test",
-    phoneNumber: "777-777-7777",
-    email: "test@gmail.com",
-    address: {
-      street: "180 Sabin Way",
-      city: "Lochbuie",
-      state: "CO",
-      zip: "80603",
-      country: "USA",
-    },
-  },
   createdAt: {
     $date: "2023-11-26T01:22:06.002Z",
   },

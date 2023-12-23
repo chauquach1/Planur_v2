@@ -5,7 +5,7 @@ import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer";
 export default function ContentController({ userData, activeTab, setActiveTab, setSelectedTrip, trips, selectedTrip }) {
 
   return (
-    <div className="flex flex-col w-[400px] bg-slate-200">
+    <div className="flex flex-col w-full max-w-[350px] bg-slate-200">
       <div className=" text-center text-xl min-h-[100px] p-2">
         <h1 className="leading-tight">
           {userData.firstName} {userData.lastName}'s Planur

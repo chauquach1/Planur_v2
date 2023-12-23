@@ -1,7 +1,6 @@
 import SectionContainer from "../trip-components/SectionContainer";
-import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
 import packListItems from "../../libs/packListItems";
-import { set } from "date-fns";
+import samplePacklist from "../../_tests_/samplePacklist";
 import { useState, useReducer } from "react";
 import {
   Button,
@@ -120,38 +119,12 @@ export default function PackListPanel({
   } else {
     return (
       <SectionContainer category="Packing List">
-        <form className="flex flex-col h-full w-full">
           <div
             id="accordion-container"
             className="grow bg-white/60 rounded-xl p-3"
           >
-            <Accordion isCompact selectionMode="multiple">
-              {Object.entries(packListItems).map(([category, items], index) => (
-                <AccordionItem
-                  key={index}
-                  aria-label={category}
-                  title={category.charAt(0).toUpperCase() + category.slice(1)}
-                >
-                  {renderCheckboxGroup(category, items)}
-                </AccordionItem>
-              ))}
-            </Accordion>
+            
           </div>
-          <div
-            id="submit-btn-container"
-            className="flex flex-row justify-end mt-2 w-full"
-          >
-            <Button
-              isDisabled={!isSubmitting}
-              size="sm"
-              variant={isSubmitting ? "solid" : "default"}
-              color="primary"
-              // onPress={handleSubmit}
-            >
-              {isSubmitting ? "Submit" : null}
-            </Button>
-          </div>
-        </form>
       </SectionContainer>
     );
   }
