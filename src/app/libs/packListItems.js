@@ -69,7 +69,7 @@ const packListItems = {
     "Tylenol",
     "Wipes",
   ],
-  BackpackCarryOn: [
+  Backpack: [
     "Blanket",
     "Book",
     "Camera",
