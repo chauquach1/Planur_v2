@@ -1,8 +1,9 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
 import packListItems from "../../libs/completePackList";
-import { set } from "date-fns";
-import { useState, useReducer } from "react";
+import updatePackList from "../../_tests_/updatePackList"
+import samplePacklist from "../../_tests_/samplePacklist";
+import { useState, useReducer, useFormState, useEffect } from "react";
 import {
   Button,
   useDisclosure,
@@ -30,9 +31,119 @@ export default function PackListForm({
   handleUpdateForm,
   activeForm
 }) {
+  // const [formState, dispatch] = useReducer(formReducer, initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [initialState, setInitialState] = useState(samplePacklist);
   const [message, setMessage] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isChecked, setIsChecked] = useState(false);
+  const [itemsArray, setItemsArray] = useState([]);
+
+  useEffect(() => {
+    console.log('samplePacklist: ', samplePacklist);
+    updatePackList(initialState);
+  }, [initialState]);
+
+  const isDefaultSelected = (category, item) => {
+    if (initialState[category] && initialState[category][item] && initialState[category][item] === true) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleChange = (category, item, isCheckbox = false) => (e) => {
+    const value = isCheckbox ? e.target.checked : e.target.value;
+    setInitialState(initialState => ({
+      ...initialState,
+      [category]: {
+        ...initialState[category],
+        [item]: value
+      }
+    }));
+    setIsChecked(value);
+    console.log(`upon change ${category + item}`, initialState[category][item]);
+  };
+
+  const handleSubmit = (formData) => {
+    // for (const value of formData.values()) {
+    //   console.log(value);
+    // }
+    console.log("initialState submit: ", initialState.Essentials.Cash ? "true" : "false");
+  }
+
+  
+  const renderCheckboxGroup = (category, items) => {
+    return (
+      <div
+        id={`${category}-checkbox-group`}
+        className="ps-2 grid grid-flow-row gap-2"
+      >
+        {items.map((item) => (
+          <Checkbox
+            key={item}
+            size="sm"
+            name={item}
+            value={item} 
+            defaultSelected={isDefaultSelected(category, item)} 
+            onChange={handleChange(category, item, true)}
+            // onValueChange={() => setIsSubmitting(true)}
+          >
+            {item.charAt(0).toUpperCase() + item.slice(1)}
+          </Checkbox>
+        ))}
+      </div>
+    );
+  };
+
+
+  return (
+    <form
+      className={`${
+        activeForm === "packList" ? "block" : "hidden"
+      } flex flex-col overflow-y-scroll`}
+      action={handleSubmit}
+    >
+      <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
+        <Accordion isCompact selectionMode="multiple">
+          {Object.entries(packListItems).map(([category, items], index) => (
+            <AccordionItem
+              key={index}
+              aria-label={category}
+              title={category.charAt(0).toUpperCase() + category.slice(1)}
+            >
+              {renderCheckboxGroup(category, items)}
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+      <div
+        id="submit-btn-container"
+        className="flex flex-row mt-2 w-full justify-center pt-2"
+      >
+        <Button
+          color="success"
+          radius="full"
+          className="text-white"
+          type="submit"
+          disabled={isSubmitting}
+          size="sm"
+        >
+          Update Packing List
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+
+
+  // const handleChange =
+  //   (fieldName, isCheckbox = false) =>
+  //   (e) => {
+  //     const value = isCheckbox ? e.target.checked : e.target.value;
+  //     dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
+  //   };
 
   // const initialState = {
   //   // uuid: uuid,
@@ -69,84 +180,3 @@ export default function PackListForm({
   //   zip: packList.emergencyContact.address.zip,
   //   country: packList.emergencyContact.address.country,
   // };
-
-  const initialState = null;
-  const formReducer = (state, action) => {
-    switch (action.type) {
-      case "UPDATE_FIELD":
-        return { ...state, [action.fieldName]: action.payload };
-      case "RESET_FIELDS":
-        return initialState;
-      default:
-        return state;
-    }
-  };
-
-  const handleChange =
-    (fieldName, isCheckbox = false) =>
-    (e) => {
-      const value = isCheckbox ? e.target.checked : e.target.value;
-      dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
-    };
-
-  // Function to render checkboxes for a category
-  const renderCheckboxGroup = (category, items) => {
-    return (
-      <div
-        id={`${category}-checkbox-group`}
-        className="ps-2 grid grid-flow-row gap-2"
-      >
-        {items.map((item) => (
-          <Checkbox
-            key={item}
-            size="sm"
-            name={item}
-            value={item} // Use the item itself as the value
-            // isSelected={formState[item]} // Use the state to determine if it's checked
-            onChange={handleChange(item, true)}
-            onValueChange={() => setIsSubmitting(true)}
-          >
-            {item.charAt(0).toUpperCase() + item.slice(1)}
-          </Checkbox>
-        ))}
-      </div>
-    );
-  };
-
-  return (
-    <form
-      className={`${
-        activeForm === "packList" ? "block" : "hidden"
-      } flex flex-col overflow-y-scroll`}
-    >
-      <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
-        <Accordion isCompact selectionMode="multiple">
-          {Object.entries(packListItems).map(([category, items], index) => (
-            <AccordionItem
-              key={index}
-              aria-label={category}
-              title={category.charAt(0).toUpperCase() + category.slice(1)}
-            >
-              {renderCheckboxGroup(category, items)}
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-      <div
-        id="submit-btn-container"
-        className="flex flex-row mt-2 w-full justify-center pt-2"
-      >
-        <Button
-          color="success"
-          radius="full"
-          className="text-white"
-          type="submit"
-          disabled={isSubmitting}
-          size="sm"
-        >
-          Update Packing List
-        </Button>
-      </div>
-    </form>
-  );
-}

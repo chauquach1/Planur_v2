@@ -13,7 +13,7 @@ export default function SideNavFormSelect({ setActiveForm }) {
         className=""
         size="sm"
         variant="flat"
-        defaultSelectedKeys={["accommodation"]}
+        defaultSelectedKeys={["packList"]}
         selectionMode="single"
         radius="full"
         autoFocus={true}

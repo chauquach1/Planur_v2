@@ -18,11 +18,9 @@ const packListItems = {
   ],
   Accessories: [
     "Bag",
-    "Batteries",
     "Beach bag",
     "Belt",
     "Bracelets",
-    "Chargers",
     "Earrings",
     "Glasses",
     "Hair ties",
@@ -34,7 +32,6 @@ const packListItems = {
     "Rings",
     "Scarves",
     "Sunglasses",
-    "Tripod",
     "Watch",
   ],
   Baby: [
