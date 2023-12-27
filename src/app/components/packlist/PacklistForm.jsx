@@ -40,9 +40,14 @@ export default function PackListForm({
   const [itemsArray, setItemsArray] = useState([]);
 
   useEffect(() => {
-    console.log('samplePacklist: ', samplePacklist);
     updatePackList(initialState);
   }, [initialState]);
+
+  const checkBoxValue = (category, item) => {
+    if (initialState[category] && initialState[category][item] && initialState[category][item] === true) {
+      return {itemName: item, packed: null};
+    }
+  };
 
   const isDefaultSelected = (category, item) => {
     if (initialState[category] && initialState[category][item] && initialState[category][item] === true) {
@@ -52,27 +57,22 @@ export default function PackListForm({
     }
   };
 
-  const handleChange = (category, item, isCheckbox = false) => (e) => {
-    const value = isCheckbox ? e.target.checked : e.target.value;
-    setInitialState(initialState => ({
-      ...initialState,
-      [category]: {
-        ...initialState[category],
-        [item]: value
+  const handleChange = (category, item) => (e) => {
+    setInitialState((prevState) => {
+      const newState = { ...prevState };
+  
+      if (e.target.checked) {
+        newState[category] = { ...newState[category], [item]: true };
+      } else {
+        // Assuming you want to remove the item from the state when unchecked
+        const { [item]: _, ...rest } = newState[category];
+        newState[category] = rest;
       }
-    }));
-    setIsChecked(value);
-    console.log(`upon change ${category + item}`, initialState[category][item]);
+  
+      return newState;
+    });
   };
 
-  const handleSubmit = (formData) => {
-    // for (const value of formData.values()) {
-    //   console.log(value);
-    // }
-    console.log("initialState submit: ", initialState.Essentials.Cash ? "true" : "false");
-  }
-
-  
   const renderCheckboxGroup = (category, items) => {
     return (
       <div
@@ -84,10 +84,9 @@ export default function PackListForm({
             key={item}
             size="sm"
             name={item}
-            value={item} 
+            value={checkBoxValue(category, item)} 
             defaultSelected={isDefaultSelected(category, item)} 
             onChange={handleChange(category, item, true)}
-            // onValueChange={() => setIsSubmitting(true)}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </Checkbox>
@@ -102,7 +101,7 @@ export default function PackListForm({
       className={`${
         activeForm === "packList" ? "block" : "hidden"
       } flex flex-col overflow-y-scroll`}
-      action={handleSubmit}
+      // action={updatePackList}
     >
       <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
         <Accordion isCompact selectionMode="multiple">
