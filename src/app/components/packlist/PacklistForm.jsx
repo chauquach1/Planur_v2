@@ -1,7 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
 import packListItems from "../../libs/completePackList";
-import updatePackList from "../../_tests_/updatePackList"
+import updatePackList from "../../_tests_/updatePackList";
 import samplePacklist from "../../_tests_/samplePacklist";
 import { useState, useReducer, useFormState, useEffect } from "react";
 import {
@@ -26,10 +26,10 @@ const formReducer = (state, action) => {
 
 export default function PackListForm({
   uuid,
-  tripId,
   packList,
   handleUpdateForm,
-  activeForm
+  tripId,
+  ...props
 }) {
   // const [formState, dispatch] = useReducer(formReducer, initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,35 +40,57 @@ export default function PackListForm({
   const [itemsArray, setItemsArray] = useState([]);
 
   useEffect(() => {
-    updatePackList(initialState);
+    updatePackList({ tripId, ...initialState });
   }, [initialState]);
 
-  const checkBoxValue = (category, item) => {
-    if (initialState[category] && initialState[category][item] && initialState[category][item] === true) {
-      return {itemName: item, packed: null};
+  const checkBoxValue = (category, item, index) => {
+    if (
+      initialState[category] &&
+      initialState[category][index] &&
+      initialState[category][index].itemName === item
+    ) {
+      return { itemName: item, packed: null };
     }
   };
 
   const isDefaultSelected = (category, item) => {
-    if (initialState[category] && initialState[category][item] && initialState[category][item] === true) {
-      return true;
-    } else {
-      return false;
+    if (Array.isArray(initialState[category])) {
+      const itemObj = initialState[category].find((i) => i.itemName === item);
+      return itemObj ? true : false;
     }
+    return false;
   };
 
-  const handleChange = (category, item) => (e) => {
+
+  const handleChange = (category, item, index) => (e) => {
     setInitialState((prevState) => {
+      // Copy the existing state
       const newState = { ...prevState };
-  
-      if (e.target.checked) {
-        newState[category] = { ...newState[category], [item]: true };
-      } else {
-        // Assuming you want to remove the item from the state when unchecked
-        const { [item]: _, ...rest } = newState[category];
-        newState[category] = rest;
+
+      // Check if the category already exists in the state
+      if (!newState[category]) {
+        newState[category] = [];
       }
-  
+
+      // Find the index of the item in the category array
+      const itemIndex = newState[category].findIndex(
+        (i) => i.itemName === item
+      );
+
+      if (e.target.checked) {
+        // If the checkbox is checked and the item does not exist, add it
+        if (itemIndex === -1) {
+          newState[category].unshift({ itemName: item, packed: null });
+        } else {
+          // If the item already exists, update its 'packed' property
+          newState[category][itemIndex].packed = null;
+        }
+      } else {
+        // If the checkbox is unchecked, remove the item from the array
+        if (itemIndex !== -1) {
+          newState[category].splice(itemIndex, 1);
+        }
+      }
       return newState;
     });
   };
@@ -79,14 +101,14 @@ export default function PackListForm({
         id={`${category}-checkbox-group`}
         className="ps-2 grid grid-flow-row gap-2"
       >
-        {items.map((item) => (
+        {items.map((item, index) => (
           <Checkbox
             key={item}
             size="sm"
             name={item}
-            value={checkBoxValue(category, item)} 
-            defaultSelected={isDefaultSelected(category, item)} 
-            onChange={handleChange(category, item, true)}
+            value={checkBoxValue(category, item, index)}
+            defaultSelected={isDefaultSelected(category, item)}
+            onChange={handleChange(category, item, index)}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </Checkbox>
@@ -95,13 +117,11 @@ export default function PackListForm({
     );
   };
 
-
   return (
     <form
       className={`${
-        activeForm === "packList" ? "block" : "hidden"
+        props.activeForm === "packList" ? "block" : "hidden"
       } flex flex-col overflow-y-scroll`}
-      // action={updatePackList}
     >
       <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
         <Accordion isCompact selectionMode="multiple">
@@ -116,66 +136,49 @@ export default function PackListForm({
           ))}
         </Accordion>
       </div>
-      <div
-        id="submit-btn-container"
-        className="flex flex-row mt-2 w-full justify-center pt-2"
-      >
-        <Button
-          color="success"
-          radius="full"
-          className="text-white"
-          type="submit"
-          disabled={isSubmitting}
-          size="sm"
-        >
-          Update Packing List
-        </Button>
-      </div>
     </form>
   );
 }
 
+// const handleChange =
+//   (fieldName, isCheckbox = false) =>
+//   (e) => {
+//     const value = isCheckbox ? e.target.checked : e.target.value;
+//     dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
+//   };
 
-
-  // const handleChange =
-  //   (fieldName, isCheckbox = false) =>
-  //   (e) => {
-  //     const value = isCheckbox ? e.target.checked : e.target.value;
-  //     dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
-  //   };
-
-  // const initialState = {
-  //   // uuid: uuid,
-  //   // tripId: tripId,
-  //   stopId: packList._id,
-  //   shirts: packList.clothes.shirts,
-  //   pants: packList.clothes.pants,
-  //   shorts: packList.clothes.shorts,
-  //   sweater: packList.clothes.sweater,
-  //   underwear: packList.clothes.underwear,
-  //   backpack: packList.luggage.backpack,
-  //   carryon: packList.luggage.carryon,
-  //   dufflebag: packList.luggage.dufflebag,
-  //   suitcase: packList.luggage.suitcase,
-  //   garmentbag: packList.luggage.garmentbag,
-  //   toothbrush: packList.toiletries.toothbrush,
-  //   toothpaste: packList.toiletries.toothpaste,
-  //   shampoo: packList.toiletries.shampoo,
-  //   conditioner: packList.toiletries.conditioner,
-  //   sunscreen: packList.toiletries.sunscreen,
-  //   cellphone: packList.miscellaneous.cellphone,
-  //   laptop: packList.miscellaneous.laptop,
-  //   tablet: packList.miscellaneous.tablet,
-  //   passport: packList.miscellaneous.passport,
-  //   medication: packList.miscellaneous.medication,
-  //   firstName: packList.emergencyContact.firstName,
-  //   lastName: packList.emergencyContact.lastName,
-  //   relationship: packList.emergencyContact.relationship,
-  //   phoneNumber: packList.emergencyContact.phoneNumber,
-  //   email: packList.emergencyContact.email,
-  //   street: packList.emergencyContact.address.street,
-  //   city: packList.emergencyContact.address.city,
-  //   state: packList.emergencyContact.address.state,
-  //   zip: packList.emergencyContact.address.zip,
-  //   country: packList.emergencyContact.address.country,
-  // };
+// const initialState = {
+//   // uuid: uuid,
+//   // tripId: tripId,
+//   stopId: packList._id,
+//   shirts: packList.clothes.shirts,
+//   pants: packList.clothes.pants,
+//   shorts: packList.clothes.shorts,
+//   sweater: packList.clothes.sweater,
+//   underwear: packList.clothes.underwear,
+//   backpack: packList.luggage.backpack,
+//   carryon: packList.luggage.carryon,
+//   dufflebag: packList.luggage.dufflebag,
+//   suitcase: packList.luggage.suitcase,
+//   garmentbag: packList.luggage.garmentbag,
+//   toothbrush: packList.toiletries.toothbrush,
+//   toothpaste: packList.toiletries.toothpaste,
+//   shampoo: packList.toiletries.shampoo,
+//   conditioner: packList.toiletries.conditioner,
+//   sunscreen: packList.toiletries.sunscreen,
+//   cellphone: packList.miscellaneous.cellphone,
+//   laptop: packList.miscellaneous.laptop,
+//   tablet: packList.miscellaneous.tablet,
+//   passport: packList.miscellaneous.passport,
+//   medication: packList.miscellaneous.medication,
+//   firstName: packList.emergencyContact.firstName,
+//   lastName: packList.emergencyContact.lastName,
+//   relationship: packList.emergencyContact.relationship,
+//   phoneNumber: packList.emergencyContact.phoneNumber,
+//   email: packList.emergencyContact.email,
+//   street: packList.emergencyContact.address.street,
+//   city: packList.emergencyContact.address.city,
+//   state: packList.emergencyContact.address.state,
+//   zip: packList.emergencyContact.address.zip,
+//   country: packList.emergencyContact.address.country,
+// };

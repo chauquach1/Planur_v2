@@ -1,5 +1,5 @@
 const packListItems = {
-  Essentials: [
+  essentials: [
     "Backpack",
     "Boarding pass",
     "Cash",
@@ -16,7 +16,7 @@ const packListItems = {
     "Visa",
     "Wallet",
   ],
-  Accessories: [
+  accessories: [
     "Bag",
     "Beach bag",
     "Belt",
@@ -34,7 +34,7 @@ const packListItems = {
     "Sunglasses",
     "Watch",
   ],
-  Baby: [
+  baby: [
     "Bassinet",
     "Beanie",
     "Bib",
@@ -66,7 +66,7 @@ const packListItems = {
     "Tylenol",
     "Wipes",
   ],
-  Backpack: [
+  backpack: [
     "Blanket",
     "Book",
     "Camera",
@@ -99,7 +99,7 @@ const packListItems = {
     "Wallet",
     "Water bottle",
   ],
-  Beach: [
+  beach: [
     "Bathing suit",
     "Beach bag",
     "Beach towel",
@@ -113,7 +113,7 @@ const packListItems = {
     "Swimsuit",
     "Towel",
   ],
-  Biking: [
+  biking: [
     "Allen keys",
     "Bike lock",
     "Bike shoes",
@@ -137,7 +137,7 @@ const packListItems = {
     "Tubes",
     "Valve adapter",
   ],
-  Camping: [
+  camping: [
     "Air bed",
     "Blanket",
     "Boots",
@@ -161,7 +161,7 @@ const packListItems = {
     "Towel",
     "Water container",
   ],
-  Clothing: [
+  clothing: [
     "Bathing suit",
     "Belt",
     "Boots",
@@ -204,7 +204,7 @@ const packListItems = {
     "Trousers",
     "Underwear",
   ],
-  Electronics: [
+  electronics: [
     "Camera",
     "Camera charger",
     "Headphones",
@@ -224,7 +224,7 @@ const packListItems = {
     "Watch",
     "Watch charger",
   ],
-  Food: [
+  food: [
     "Apples",
     "Bacon",
     "Beans",
@@ -265,7 +265,7 @@ const packListItems = {
     "Wine",
     "Yogurt",
   ],
-  Gym: [
+  gym: [
     "Gym shoes",
     "Gym shorts",
     "Gym socks",
@@ -276,7 +276,7 @@ const packListItems = {
     "Sports bra",
     "Water bottle",
   ],
-  Healthcare: [
+  healthcare: [
     "Allergy medicine",
     "Antibiotics",
     "Antihistamine",
@@ -300,7 +300,7 @@ const packListItems = {
     "Prescription medications",
     "Vitamins",
   ],
-  Hiking: [
+  hiking: [
     "Bug spray",
     "Compass",
     "First aid kit",
@@ -317,7 +317,7 @@ const packListItems = {
     "Sunscreen",
     "Water bottle",
   ],
-  Kitchen: [
+  kitchen: [
     "Bin bags",
     "Bottle opener",
     "Bowls",
@@ -355,7 +355,7 @@ const packListItems = {
     "Vegetable peeler",
     "Whisk",
   ],
-  Makeup: [
+  makeup: [
   "Beauty blender",
   "Blush",
   "Blush brush",
@@ -389,7 +389,7 @@ const packListItems = {
   "Sponge",
   "Tweezers",
 ],
-Photography: [
+photography: [
   "Batteries",
   "Battery charger",
   "Camera",
@@ -403,7 +403,7 @@ Photography: [
   "Monopod",
   "Tripod",
 ],
-Running: [
+running: [
   "Arm band",
   "Buff",
   "Camelback",
@@ -419,7 +419,7 @@ Running: [
   "Water bottle",
   "Watch",
 ],
-Shoes: [
+shoes: [
   "Black boots",
   "Black flats",
   "Black sandals",
@@ -441,7 +441,7 @@ Shoes: [
   "Water shoes",
   "Wedges",
 ],
-"Snow Sports": [
+snow: [
   "Base layers",
   "Beacon",
   "Buff",
@@ -465,7 +465,7 @@ Shoes: [
   "Sunglasses",
   "Sunscreen",
 ],
-Swimming: [
+swimming: [
   "Ear plugs",
   "Flip flops",
   "Fins",
@@ -478,7 +478,7 @@ Swimming: [
   "Swimwear",
   "Timer",
 ],
-Toiletries: [
+toiletries: [
   "Body lotion",
   "Body wash",
   "Brush",
@@ -512,7 +512,7 @@ Toiletries: [
   "Towel",
   "Tweezers",
 ],
-Work: [
+work: [
   "Business cards",
   "Keyfob",
   "Laptop",

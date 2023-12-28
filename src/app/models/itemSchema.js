@@ -1,16 +1,10 @@
 import mongoose from "mongoose";
-const itemSchema = new mongoose.Schema({
-  itemName: {
-    type: String,
-    required: true
+const itemSchema = new mongoose.Schema(
+  {
+    itemName: String,
+    packed: Boolean,
   },
-  packed: {
-    type: Boolean,
-    required: true,
-    default: false
-  }
-}, { timestamps: true });
+  { timestamps: true }
+);
 
-const Item = mongoose.models.Item || mongoose.model("Item", itemSchema);
-
-export default Item;
+export default itemSchema;

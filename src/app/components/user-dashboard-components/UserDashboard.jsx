@@ -9,7 +9,7 @@ export default function UserDashboard({ userData, trips }) {
   const [activeTab, setActiveTab] = useState("tripsindex");
 
   // useEffect(() => {
-  //   console.log("selectedTrip: ", selectedTrip);
+    // console.log("selectedTrip: ", selectedTrip);
   // }, [selectedTrip]);
 
   return (

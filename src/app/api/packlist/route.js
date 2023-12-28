@@ -6,54 +6,50 @@ import PackList from "../../models/PackList";
 export async function POST(request) {
   // const { tripId, uuid, ...packListDetails } = await request.json();
   console.log('POST PACKLIST ROUTE HIT');
-  const  updatedPackList  = await request.json();
+  const  {tripId, ...updatedPackList}   = await request.json();
   console.log('updatedPackList', updatedPackList);
+  console.log('tripId', tripId);
+
+  // const entries = Object.entries(updatedPackList);
+  // const keys = Object.keys(updatedPackList);
+  // const values = Object.values(updatedPackList);
+  // console.log('updatedPackList', Object.entries(updatedPackList));
 
 
   try {
-  //   const client = await mongoClient();
-  //   const db = client.db("planur_v2");
-  //   const userCollection = db.collection("users");
-  //   const tripCollection = db.collection("trips");
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const tripCollection = db.collection("trips");
 
-  //   if (!tripId) {
-  //     return NextResponse.json(
-  //       { error: "Trip ID parameter is missing" },
-  //       { status: 400 }
-  //     );
-  //   }
-  //   const user = await userCollection.findOne({ uuid: uuid });
-  //   const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+    if (!tripId) {
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
 
-  //   if (!user) {
-  //     return NextResponse.json({ error: "User not found" }, { status: 401 });
-  //   }
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
 
-  //   if (!trip) {
-  //     return NextResponse.json({ error: "Trip not found" }, { status: 402 });
-  //   }
+    const newPackList = new PackList({
+      ...updatedPackList
+    });
 
-  //   const newPackList = new PackList({
-  //     clothes: packListDetails.clothes,
-  //     luggage: packListDetails.luggage,
-  //     toiletries: packListDetails.toiletries,
-  //     miscellaneous: packListDetails.miscellaneous,
-  //     emergencyContact: packListDetails.emergencyContact,
-  //   });
-
-  //   try {
-  //     await newPackList.save();
-  //   } catch (error) {
-  //     // console.error("Error saving packList:", error);
-  //   }
+    try {
+      await newPackList.save();
+    } catch (error) {
+      console.error("Error saving packList:", error);
+    }
   
 
-  //   await tripCollection.updateOne(
-  //     { _id: new ObjectId(tripId) },
-  //     { $set : {packList: newPackList._id} }
-  //   );
+    await tripCollection.updateOne(
+      { _id: new ObjectId(tripId) },
+      { $set : {packList: newPackList._id} }
+    );
 
-    return NextResponse.json( updatedPackList , { status: 200 });
+    return NextResponse.json( {newPackList} , { status: 200 });
   } catch {
     return NextResponse.json(
       { error: "Something went wrong" },

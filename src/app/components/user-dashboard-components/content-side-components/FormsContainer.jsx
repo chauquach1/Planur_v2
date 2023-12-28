@@ -1,12 +1,12 @@
 import PackListForm from "../../packlist/PacklistForm"
 import NewAccomsForm from "../../accommodations/NewAccomsForm";
 import NewStopForm from "../../stops/NewStopForm";
-export default function FormsContainer({ activeForm }) {
+export default function FormsContainer({ ...props }) {
   return (
     <>
-      <PackListForm activeForm={activeForm}/>
-      <NewStopForm activeForm={activeForm}/>
-      <NewAccomsForm activeForm={activeForm}/>
+      <PackListForm {...props}/>
+      {/* <NewStopForm activeForm={activeForm}/> */}
+      {/* <NewAccomsForm activeForm={activeForm}/> */}
     </>
   );
 }
