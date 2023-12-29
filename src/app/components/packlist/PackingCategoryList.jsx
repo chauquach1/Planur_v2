@@ -15,7 +15,7 @@ export default function PackingCategoryList({...props}) {
               // value={checkBoxValue(category, item, index)}
               defaultSelected={item["packed"]=== true ? true : false}
               // onChange={handleChange(category, item, index)}
-              className="bg-slate-100 border-1 rounded-xl m-1 p-2"
+              className="bg-white border-1 rounded-xl m-1 p-2"
             >
               {item["itemName"]}
             </Checkbox>

@@ -19,9 +19,9 @@ export default function EmergencyContactSection({ category, id, ...props }) {
     return null;
   } else {
     return (
-      <>
-        <div className="flex flex-row w-full justify-between border-y-2 py-2 pe-10">
-          <h1 className="font-bold text-lg">Emergency Contacts</h1>
+      <div className="flex flex-col bg-peach-300 rounded-xl">
+        <div className="flex flex-row w-full justify-between p-2 pe-10">
+          <h1 className="font-bold text-lg text-white">Emergency Contacts</h1>
           <RevealSectionBtn buttonClicked={buttonClicked} arrowUp={arrowUp} />
         </div>
         <div
@@ -29,8 +29,8 @@ export default function EmergencyContactSection({ category, id, ...props }) {
           category="Emergency Contacts"
           className={`${
             showCategory ? "grid" : "hidden"
-          } gap-1 xl:px-2 justify-start
-          grid-cols-1 2xl:grid-cols-2
+          } gap-1 p-4 justify-start
+          grid-cols-1 2xl:grid-cols-2 bg-slate-100 rounded-b-xl
         
         `}
         >
@@ -43,7 +43,7 @@ export default function EmergencyContactSection({ category, id, ...props }) {
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }
