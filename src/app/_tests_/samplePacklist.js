@@ -1,15 +1,15 @@
 let samplePacklist = {
   // Essentials
   essentials: [
-    { itemName: "Credit and debit cards", packed: null },
-    { itemName: "Cash", packed: null },
-    { itemName: "Boarding pass", packed: null },
+    { itemName: "Credit and debit cards", packed: true },
+    { itemName: "Cash", packed: true },
+    { itemName: "Boarding pass", packed: true },
     { itemName: "Backpack", packed: null },
   ],
 
   // Accessories
   accessories: [
-    { itemName: "Hat", packed: null },
+    { itemName: "Hat", packed: true },
     { itemName: "Hair ties", packed: null },
     { itemName: "Beach bag", packed: null },
     { itemName: "Bag", packed: null },
@@ -19,8 +19,8 @@ let samplePacklist = {
   toiletries: [
     { itemName: "Deodorant", packed: null },
     { itemName: "Hair brush", packed: null },
-    { itemName: "Razor", packed: null },
-    { itemName: "Toothbrush", packed: null },
+    { itemName: "Razor", packed: true },
+    { itemName: "Toothbrush", packed: true },
   ],
 };
 

@@ -3,7 +3,7 @@ import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
 import packListItems from "../../libs/completePackList";
 import updatePackList from "../../_tests_/updatePackList";
 import samplePacklist from "../../_tests_/samplePacklist";
-import { useState, useReducer, useFormState, useEffect } from "react";
+import { useState, useReducer, useCallback, useEffect, useRef } from "react";
 import {
   Button,
   useDisclosure,
@@ -38,13 +38,22 @@ export default function PackListForm({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isChecked, setIsChecked] = useState(false);
   const [itemsArray, setItemsArray] = useState([]);
+  const initialRender = useRef(true);
 
   useEffect(() => {
+    if(initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
+    console.log('updatePackList called');
     updatePackList({ tripId, ...initialState });
   }, [initialState]);
+  
 
   const checkBoxValue = (category, item, index) => {
+
     if (
+      initialState &&
       initialState[category] &&
       initialState[category][index] &&
       initialState[category][index].itemName === item
@@ -54,7 +63,7 @@ export default function PackListForm({
   };
 
   const isDefaultSelected = (category, item) => {
-    if (Array.isArray(initialState[category])) {
+    if (initialState && Array.isArray(initialState[category])) {
       const itemObj = initialState[category].find((i) => i.itemName === item);
       return itemObj ? true : false;
     }
@@ -139,46 +148,3 @@ export default function PackListForm({
     </form>
   );
 }
-
-// const handleChange =
-//   (fieldName, isCheckbox = false) =>
-//   (e) => {
-//     const value = isCheckbox ? e.target.checked : e.target.value;
-//     dispatch({ type: "UPDATE_FIELD", fieldName, payload: value });
-//   };
-
-// const initialState = {
-//   // uuid: uuid,
-//   // tripId: tripId,
-//   stopId: packList._id,
-//   shirts: packList.clothes.shirts,
-//   pants: packList.clothes.pants,
-//   shorts: packList.clothes.shorts,
-//   sweater: packList.clothes.sweater,
-//   underwear: packList.clothes.underwear,
-//   backpack: packList.luggage.backpack,
-//   carryon: packList.luggage.carryon,
-//   dufflebag: packList.luggage.dufflebag,
-//   suitcase: packList.luggage.suitcase,
-//   garmentbag: packList.luggage.garmentbag,
-//   toothbrush: packList.toiletries.toothbrush,
-//   toothpaste: packList.toiletries.toothpaste,
-//   shampoo: packList.toiletries.shampoo,
-//   conditioner: packList.toiletries.conditioner,
-//   sunscreen: packList.toiletries.sunscreen,
-//   cellphone: packList.miscellaneous.cellphone,
-//   laptop: packList.miscellaneous.laptop,
-//   tablet: packList.miscellaneous.tablet,
-//   passport: packList.miscellaneous.passport,
-//   medication: packList.miscellaneous.medication,
-//   firstName: packList.emergencyContact.firstName,
-//   lastName: packList.emergencyContact.lastName,
-//   relationship: packList.emergencyContact.relationship,
-//   phoneNumber: packList.emergencyContact.phoneNumber,
-//   email: packList.emergencyContact.email,
-//   street: packList.emergencyContact.address.street,
-//   city: packList.emergencyContact.address.city,
-//   state: packList.emergencyContact.address.state,
-//   zip: packList.emergencyContact.address.zip,
-//   country: packList.emergencyContact.address.country,
-// };

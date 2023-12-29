@@ -1,5 +1,4 @@
 import { useState } from "react";
-import checkPackedItems from "../../_utils/checkPackingList";
 import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
@@ -19,7 +18,8 @@ export default function PackListPanel({
     setArrow(!arrowUp);
   };
 
-  const packList = checkPackedItems(props.samplePacklist);
+  const packList = props.samplePacklist
+  console.log("packList: ", packList);
   
 
   if (
@@ -38,9 +38,9 @@ export default function PackListPanel({
           id={`packing-list-section`}
           className={`${
             showCategory ? null : "hidden"
-          } flex gap-1 xl:px-2 flex-row flex-wrap`}
+          } flex gap-1 xl:px-2 flex-row flex-wrap bg-white rounded-xl`}
         >
-          {Object.entries(packList).map(([category, items]) => {
+          {Object.entries(props.samplePacklist).map(([category, items]) => {
             return (
               <PackingCategoryList
                 key={category}
