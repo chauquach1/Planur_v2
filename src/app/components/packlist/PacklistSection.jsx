@@ -70,6 +70,8 @@ export default function PackListPanel({
                   category={category}
                   items={items}
                   packListId={packListId}
+                  setPackList={setPackList}
+                  packList={packList}
                 />
               );
             })
