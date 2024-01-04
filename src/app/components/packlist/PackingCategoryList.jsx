@@ -1,6 +1,6 @@
 import { Checkbox } from "@nextui-org/react";
+import changePackStatus from "../../_utils/changePackStatus"
 export default function PackingCategoryList({...props}) {
-
 
   return (
     <div id={`${props.category}-list`} className="flex flex-col gap-2 p-3 w-full border-b-1">
@@ -14,7 +14,7 @@ export default function PackingCategoryList({...props}) {
               name={item["itemName"]}
               // value={checkBoxValue(category, item, index)}
               defaultSelected={item["packed"]=== true ? true : false}
-              onChange={() => handleChange(props.category, item)}
+              onChange={() => changePackStatus(props.category, item, props.packListId)}
               className="bg-white border-1 rounded-xl m-1 p-2"
             >
               {item["itemName"]}

@@ -24,7 +24,7 @@ export default function TripDisplay({ trip }) {
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
         {/* <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/> */}
         {/* <StopsSection stops={sampleStops} activeTab={activeTab}/> */}
-        <PackListSection activeTab={activeTab} samplePacklist={samplePacklist}/>
+        <PackListSection activeTab={activeTab} packListId={trip.packList}/>
         {/* <EmergencyContactSection activeTab={activeTab}/> */}
       </Suspense>
     </div>

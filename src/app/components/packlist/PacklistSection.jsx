@@ -1,26 +1,42 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
+import fetchPackList from "../../_utils/fetchPackList";
 import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
+import { set } from "date-fns";
 
 
 export default function PackListPanel({
   uuid,
   tripId,
   handleUpdateForm,
+  packListId,
   ...props
 }) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(true);
+  const [packList, setPackList] = useState(null);
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
     setArrow(!arrowUp);
   };
 
-  const packList = props.samplePacklist
-  console.log("packList: ", packList);
+  useEffect(() => {
+    // Define an async function inside useEffect
+    const fetchData = async () => {
+      try {
+        let fetchedPackList = await fetchPackList(packListId);
+        setPackList(fetchedPackList);
+        console.log('packList', fetchedPackList);
+      } catch (error) {
+        console.error('Error fetching pack list:', error);
+      }
+    };
   
+    // Call the async function
+    fetchData();
+  }, [packListId]);
 
   if (
     props.activeTab !== "Packing List" &&
@@ -40,15 +56,24 @@ export default function PackListPanel({
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {Object.entries(props.samplePacklist).map(([category, items]) => {
-            return (
-              <PackingCategoryList
-                key={category}
-                category={category}
-                items={items}
-              />
-            );
-          })}
+          {/* {packList !== null ? 'packList' : 'no packList'} */}
+          {packList === null ? (
+            null
+          ) : (
+            Object.entries(packList).map(([category, items]) => {
+              if (items.length === 0 || typeof items !== "object") {
+                return null;
+              }
+              return (
+                <PackingCategoryList
+                  key={category}
+                  category={category}
+                  items={items}
+                  packListId={packListId}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     );
