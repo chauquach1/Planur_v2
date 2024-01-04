@@ -1,7 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import EmergencyContactCard from "../emergency-contact/EmergencyContactCard";
 import packListItems from "../../libs/completePackList";
-import updatePackList from "../../_tests_/updatePackList";
+import updatePackList from "../../_utils/updatePackList";
 import samplePacklist from "../../_tests_/samplePacklist";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
 import {
