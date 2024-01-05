@@ -11,10 +11,7 @@ export default function SectionContainer({ children, category, id }) {
   };
   return (
     <div className="flex flex-col bg-peach-300 rounded-xl">
-      <div className="flex flex-row w-full justify-between p-2 pe-10">
-        <h1 className="font-bold text-lg text-white">{category}</h1>
-        <RevealSectionBtn buttonClicked={buttonClicked} arrowUp={arrowUp} />
-      </div>
+      <RevealSectionBtn category={category} buttonClicked={buttonClicked} arrowUp={arrowUp} />
       <div
         id={`${id}-section`}
         className={`${

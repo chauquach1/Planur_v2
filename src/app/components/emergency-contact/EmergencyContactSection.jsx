@@ -20,10 +20,7 @@ export default function EmergencyContactSection({ category, id, ...props }) {
   } else {
     return (
       <div className="flex flex-col bg-peach-300 rounded-xl">
-        <div className="flex flex-row w-full justify-between p-2 pe-10">
-          <h1 className="font-bold text-lg text-white">Emergency Contacts</h1>
-          <RevealSectionBtn buttonClicked={buttonClicked} arrowUp={arrowUp} />
-        </div>
+        <RevealSectionBtn category={"Emergency Contacts"} buttonClicked={buttonClicked} arrowUp={arrowUp} />
         <div
           id="emergency-contact-section"
           category="Emergency Contacts"

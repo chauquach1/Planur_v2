@@ -46,35 +46,30 @@ export default function PackListPanel({
   } else {
     return (
       <div className="flex flex-col bg-peach-300 rounded-xl">
-        <div className="flex flex-row w-full justify-between p-2 pe-10">
-          <h1 className="font-bold text-lg text-white">Packing List</h1>
-          <RevealSectionBtn buttonClicked={buttonClicked} arrowUp={arrowUp} />
-        </div>
+        <RevealSectionBtn category={"Packing List"} buttonClicked={buttonClicked} arrowUp={arrowUp} />
         <div
           id={`packing-list-section`}
           className={`${
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {packList === null ? (
-            null
-          ) : (
-            Object.entries(packList).map(([category, items]) => {
-              if (items.length === 0 || typeof items !== "object") {
-                return null;
-              }
-              return (
-                <PackingCategoryList
-                  key={category}
-                  category={category}
-                  items={items}
-                  packListId={packListId}
-                  setPackList={setPackList}
-                  packList={packList}
-                />
-              );
-            })
-          )}
+          {packList === null
+            ? null
+            : Object.entries(packList).map(([category, items]) => {
+                if (items.length === 0 || typeof items !== "object") {
+                  return null;
+                }
+                return (
+                  <PackingCategoryList
+                    key={category}
+                    category={category}
+                    items={items}
+                    packListId={packListId}
+                    setPackList={setPackList}
+                    packList={packList}
+                  />
+                );
+              })}
         </div>
       </div>
     );
