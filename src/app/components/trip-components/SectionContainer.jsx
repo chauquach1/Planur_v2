@@ -1,21 +1,13 @@
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 import { useState } from "react";
-export default function SectionContainer({ children, category, id }) {
-  const [showCategory, setShowCategory] = useState(true);
-  const [btnText, setBtnText] = useState(true);
-  const [arrowUp, setArrow] = useState(true);
-  const buttonClicked = () => {
-    setBtnText(!btnText);
-    setShowCategory(!showCategory);
-    setArrow(!arrowUp);
-  };
+export default function SectionContainer({ children, ...props}) {
   return (
     <div className="flex flex-col bg-peach-300 rounded-xl">
-      <RevealSectionBtn category={category} buttonClicked={buttonClicked} arrowUp={arrowUp} />
+      <RevealSectionBtn category={props.category} buttonClicked={props.buttonClicked} arrowUp={props.arrowUp} />
       <div
-        id={`${id}-section`}
+        id={`${props.category}-section`}
         className={`${
-          showCategory ? null : "hidden"
+          props.showCategory ? null : "hidden"
         } flex gap-1 p-4 bg-gray-100 rounded-b-xl flex-col`}
       >
         {children}

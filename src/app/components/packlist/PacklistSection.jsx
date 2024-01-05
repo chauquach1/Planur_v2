@@ -2,7 +2,6 @@ import { use, useEffect, useState } from "react";
 import fetchPackList from "../../_utils/fetchPackList";
 import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
-import { set } from "date-fns";
 
 
 export default function PackListPanel({
