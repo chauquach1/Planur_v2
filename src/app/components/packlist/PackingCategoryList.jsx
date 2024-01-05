@@ -14,6 +14,7 @@ export default function PackingCategoryList({...props}) {
 
     props.setPackList(updatedPackList);
     updatePackList(updatedPackList);
+    console.log(props.packList);
   };
 
 

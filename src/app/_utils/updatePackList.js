@@ -1,3 +1,4 @@
+'use server';
 const updatePackList = async (packList) => {
   const response = await fetch("http://localhost:3000/api/packlist", {
     method: 'PUT',
