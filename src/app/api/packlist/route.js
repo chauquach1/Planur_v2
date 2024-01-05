@@ -60,57 +60,36 @@ export async function POST(request) {
 
 export async function PUT(request) {
   console.log("PACKLIST PUT ROUTE HIT");
-  const { category, item } = await request.json();
-  console.log('category, item: ', category, item);
+  const {_id, ...updatedPackList} = await request.json();
+  const packListId = _id;
+  console.log('_id: ', _id);
+  console.log('updatedPackList: ', updatedPackList);
 
-  // try {
-  //   const client = await mongoClient();
-  //   const db = client.db("planur_v2");
-  //   const userCollection = db.collection("users");
-  //   const tripCollection = db.collection("trips");
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const packListsCollection = db.collection("packListsCollection");
+    const tripCollection = db.collection("trips");
 
-  //   if (!tripId) {
-  //     return NextResponse.json(
-  //       { error: "Trip ID parameter is missing" },
-  //       { status: 400 }
-  //     );
-  //   }
-  //   const user = await userCollection.findOne({ uuid: uuid });
-  //   if (!user) {
-  //     return NextResponse.json({ error: "User not found" }, { status: 401 });
-  //   }
-  //   const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-  //   if (!trip) {
-  //     return NextResponse.json({ error: "Trip not found" }, { status: 402 });
-  //   }
+    const packListToUpdate = await PackList.findByIdAndUpdate(
+      { _id: new ObjectId(packListId) },
+      { $set: updatedPackList },
+      { new: true } // This option returns the updated document
+    );
 
-
-
-  //   const packListToUpdate = await PackList.findByIdAndUpdate(
-  //     { _id: new ObjectId(packListId) },
-  //     { 
-  //       clothes: updatedPackListDetails.clothes,
-  //       luggage: updatedPackListDetails.luggage,
-  //       toiletries: updatedPackListDetails.toiletries,
-  //       miscellaneous: updatedPackListDetails.miscellaneous,
-  //       emergencyContact: updatedPackListDetails.emergencyContact,
-  //     },
-  //     { new: true } // This option returns the updated document
-  //   );
-
-  //   if (!packListToUpdate) {
-  //     return NextResponse.json(
-  //       { error: "PackList not found or update failed" },
-  //       { status: 404 }
-  //     );
-  //   }
-    return NextResponse.json( item, { status: 200 });
-  // } catch {
-  //   return NextResponse.json(
-  //     { error: "Something went wrong" },
-  //     { status: 500 }
-  //   );
-  // }
+    if (!packListToUpdate) {
+      return NextResponse.json(
+        { error: "PackList not found or update failed" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json( updatedPackList, { status: 200 });
+  } catch {
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET(request) {

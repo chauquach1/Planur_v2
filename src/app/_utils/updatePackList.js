@@ -1,6 +1,6 @@
 const updatePackList = async (packList) => {
   const response = await fetch("http://localhost:3000/api/packlist", {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },

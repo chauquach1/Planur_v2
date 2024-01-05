@@ -1,3 +1,4 @@
+import updatePackList from "../../_utils/updatePackList";
 import { Checkbox } from "@nextui-org/react";
 export default function PackingCategoryList({...props}) {
 
@@ -12,7 +13,7 @@ export default function PackingCategoryList({...props}) {
     }
 
     props.setPackList(updatedPackList);
-    console.log('category', updatedPackList);
+    updatePackList(updatedPackList);
   };
 
 

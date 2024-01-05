@@ -56,7 +56,6 @@ export default function PackListPanel({
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {/* {packList !== null ? 'packList' : 'no packList'} */}
           {packList === null ? (
             null
           ) : (
