@@ -32,12 +32,7 @@ export default function PackListForm({
   ...props
 }) {
   // const [formState, dispatch] = useReducer(formReducer, initialState);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [initialState, setInitialState] = useState(samplePacklist);
-  const [message, setMessage] = useState("");
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [isChecked, setIsChecked] = useState(false);
-  const [itemsArray, setItemsArray] = useState([]);
+  const [initialState, setInitialState] = useState({...packList});
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -45,12 +40,14 @@ export default function PackListForm({
       initialRender.current = false;
       return;
     }
-    console.log('updatePackList called');
+    console.log('initialState changed', initialState);
     // updatePackList({ tripId, ...initialState });
   }, [initialState]);
   
-  const showProps = () => {
-    console.log('packList', packList);
+  const showPropsPackList = () => {
+    // console.log('props: ', props);
+    console.log('props.packList: ', packList);
+    console.log('initialState: ', initialState);
   }
 
   const checkBoxValue = (category, item, index) => {
@@ -65,19 +62,65 @@ export default function PackListForm({
     }
   };
 
-  const isDefaultSelected = (category, item) => {
-    if (initialState && Array.isArray(initialState[category])) {
+  const isDefaultSelected = (category, item, index) => {
+    if (
+      initialState &&
+      Array.isArray(initialState[category]) &&
+      initialState[category].length > 0
+    ) {
       const itemObj = initialState[category].find((i) => i.itemName === item);
-      return itemObj ? true : false;
+      if (itemObj && itemObj.included === true) {
+        console.log("item included?: ", itemObj.itemName, itemObj.included);
+        return true;
+      }
     }
     return false;
   };
 
 
+  // const handleChange = (category, item, index) => (e) => {
+  //   showPropsPackList();
+  //   setInitialState((prevState) => {
+  //     // Copy the existing state
+  //     const newState = { ...prevState };
+  //     console.log('newState: ', newState);
+
+  //     // Check if the category already exists in the state
+  //     if (!newState[category]) {
+  //       newState[category] = [];
+  //     }
+
+  //     // Find the index of the item in the category array
+  //     const itemIndex = newState[category].findIndex(
+  //       (i) => i.itemName === item
+  //     );
+
+  //     if (e.target.checked) {
+  //       // If the checkbox is checked and the item does not exist, add it
+  //       if (itemIndex === -1) {
+  //         newState[category].unshift({ itemName: item, packed: false, included: true });
+  //       } else {
+  //         // If the item already exists, update its 'packed' property
+  //         newState[category][itemIndex].packed = false;
+
+  //         // If the item already exists, update its 'included' property
+  //         newState[category][itemIndex].included = true;
+
+  //       }
+  //     } else {
+  //       // If the checkbox is unchecked, set 'included' property to false
+  //       if (itemIndex !== -1) {
+  //         newState[category][itemIndex].included = false;
+  //       }
+  //     }
+  //     return newState;
+  //   });
+  // };
+
   const handleChange = (category, item, index) => (e) => {
-    setInitialState((prevState) => {
+    setInitialState(() => {
       // Copy the existing state
-      const newState = { ...prevState };
+      let newState = {...packList};
 
       // Check if the category already exists in the state
       if (!newState[category]) {
@@ -92,15 +135,19 @@ export default function PackListForm({
       if (e.target.checked) {
         // If the checkbox is checked and the item does not exist, add it
         if (itemIndex === -1) {
-          newState[category].unshift({ itemName: item, packed: null });
+          newState[category].unshift({ itemName: item, packed: false, included: true });
         } else {
           // If the item already exists, update its 'packed' property
-          newState[category][itemIndex].packed = null;
+          newState[category][itemIndex].packed = false;
+
+          // If the item already exists, update its 'included' property
+          newState[category][itemIndex].included = true;
+
         }
       } else {
-        // If the checkbox is unchecked, remove the item from the array
+        // If the checkbox is unchecked, set 'included' property to false
         if (itemIndex !== -1) {
-          newState[category].splice(itemIndex, 1);
+          newState[category][itemIndex].included = false;
         }
       }
       return newState;
@@ -118,10 +165,8 @@ export default function PackListForm({
             key={item}
             size="sm"
             name={item}
-            // value={checkBoxValue(category, item, index)}
-            // defaultSelected={isDefaultSelected(category, item)}
-            // onChange={handleChange(category, item, index)}
-            onChange={showProps}
+            defaultSelected={isDefaultSelected(category, item, index)}
+            onChange={handleChange(category, item, index)}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </Checkbox>
