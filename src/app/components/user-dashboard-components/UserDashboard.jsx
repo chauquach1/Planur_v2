@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
   const [activeTab, setActiveTab] = useState("tripsindex");
-  const [currPacklist, setCurrPacklist] = useState(selectedTrip.packList || null);
+  const [packList, setPackList] = useState(null);
 
   return (
     <div className="flex flex-row h-screen ">
@@ -20,8 +20,8 @@ export default function UserDashboard({ userData, trips }) {
         trips={trips}
         selectedTrip={selectedTrip}
       />
-      <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
-      <SideContainer trip={selectedTrip} />
+      <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} packList={packList} setPackList={setPackList}/>
+      <SideContainer trip={selectedTrip} packList={packList} setPackList={setPackList} />
     </div>
   );
 }

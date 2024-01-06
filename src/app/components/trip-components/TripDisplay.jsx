@@ -12,7 +12,7 @@ import samplePacklist from "../../_tests_/samplePacklist";
 import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
 import { useState } from "react";
 
-export default function TripDisplay({ trip }) {
+export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
   return (
     <div
@@ -20,11 +20,11 @@ export default function TripDisplay({ trip }) {
       className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200 rounded-t-xl"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
-        <SummaryContainer trip={trip} />
+        <SummaryContainer trip={props.trip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
         <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/>
         <StopsSection stops={sampleStops} activeTab={activeTab}/>
-        <PackListSection activeTab={activeTab} packListId={trip.packList}/>
+        <PackListSection activeTab={activeTab} {...props}/>
         <EmergencyContactSection activeTab={activeTab}/>
       </Suspense>
     </div>

@@ -26,9 +26,9 @@ const formReducer = (state, action) => {
 
 export default function PackListForm({
   uuid,
-  packList,
   handleUpdateForm,
   tripId,
+  packList,
   ...props
 }) {
   // const [formState, dispatch] = useReducer(formReducer, initialState);
@@ -46,9 +46,12 @@ export default function PackListForm({
       return;
     }
     console.log('updatePackList called');
-    updatePackList({ tripId, ...initialState });
+    // updatePackList({ tripId, ...initialState });
   }, [initialState]);
   
+  const showProps = () => {
+    console.log('packList', packList);
+  }
 
   const checkBoxValue = (category, item, index) => {
 
@@ -115,9 +118,10 @@ export default function PackListForm({
             key={item}
             size="sm"
             name={item}
-            value={checkBoxValue(category, item, index)}
-            defaultSelected={isDefaultSelected(category, item)}
-            onChange={handleChange(category, item, index)}
+            // value={checkBoxValue(category, item, index)}
+            // defaultSelected={isDefaultSelected(category, item)}
+            // onChange={handleChange(category, item, index)}
+            onChange={showProps}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </Checkbox>

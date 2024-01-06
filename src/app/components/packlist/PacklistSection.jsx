@@ -4,17 +4,10 @@ import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 
-export default function PackListPanel({
-  uuid,
-  tripId,
-  handleUpdateForm,
-  packListId,
-  ...props
-}) {
+export default function PackListPanel({ ...props }) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(true);
-  const [packList, setPackList] = useState(null);
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
@@ -25,17 +18,17 @@ export default function PackListPanel({
     // Define an async function inside useEffect
     const fetchData = async () => {
       try {
-        let fetchedPackList = await fetchPackList(packListId);
-        setPackList(fetchedPackList);
-        console.log('packList', fetchedPackList);
+        let fetchedPackList = await fetchPackList(props.trip.packList);
+        props.setPackList(fetchedPackList);
+        console.log("packList", fetchedPackList);
       } catch (error) {
-        console.error('Error fetching pack list:', error);
+        console.error("Error fetching pack list:", error);
       }
     };
-  
+
     // Call the async function
     fetchData();
-  }, [packListId]);
+  }, [props.trip.packList]);
 
   if (
     props.activeTab !== "Packing List" &&
@@ -45,16 +38,20 @@ export default function PackListPanel({
   } else {
     return (
       <div className="flex flex-col bg-peach-300 rounded-xl">
-        <RevealSectionBtn category={"Packing List"} buttonClicked={buttonClicked} arrowUp={arrowUp} />
+        <RevealSectionBtn
+          category={"Packing List"}
+          buttonClicked={buttonClicked}
+          arrowUp={arrowUp}
+        />
         <div
           id={`packing-list-section`}
           className={`${
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {packList === null
+          {props.packList === null
             ? null
-            : Object.entries(packList).map(([category, items]) => {
+            : Object.entries(props.packList).map(([category, items]) => {
                 if (items.length === 0 || typeof items !== "object") {
                   return null;
                 }
@@ -63,9 +60,7 @@ export default function PackListPanel({
                     key={category}
                     category={category}
                     items={items}
-                    packListId={packListId}
-                    setPackList={setPackList}
-                    packList={packList}
+                    {...props}
                   />
                 );
               })}

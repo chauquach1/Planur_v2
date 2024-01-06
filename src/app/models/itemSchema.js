@@ -3,6 +3,7 @@ const itemSchema = new mongoose.Schema(
   {
     itemName: String,
     packed: Boolean,
+    included: Boolean
   },
   { timestamps: true }
 );
