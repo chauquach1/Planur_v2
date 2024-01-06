@@ -28,13 +28,14 @@ export default async function UserLayout() {
   };
 
   const trips = await fetchTrips(userData);
+  console.log(trips);
 
   return (
-    <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-400 justify-center">
+    <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-600 justify-center">
       <Suspense fallback={<Loading />}>
         <div
           id="content-navigation"
-          className=" flex flex-col h-full rounded-l-none rounded-xl w-full bg-gray-300"
+          className=" flex flex-col h-full w-full"
         >
           <UserDashboard userData={userData} trips={trips}/>
         </div>

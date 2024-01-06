@@ -1,11 +1,12 @@
 
-export default function TabBtn({ category, innerText, setActiveTab }) {
+export default function TabBtn({ ...props }) {
   return (
     <button
-      onClick={() => setActiveTab(category)}
-      className="font-light text-bismark-700 text-start"
+      onClick={() => props.setActiveTab(props.category)}
+      className="font-light text-bismark-400 text-start w-full flex flex-row items-center gap-2"
     >
-      {innerText}
+      {props.icon}
+      {props.innerText}
     </button>
   );
 }

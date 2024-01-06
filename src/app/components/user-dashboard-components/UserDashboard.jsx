@@ -21,7 +21,7 @@ export default function UserDashboard({ userData, trips }) {
         selectedTrip={selectedTrip}
       />
       <TripDisplay trip={selectedTrip} key={selectedTrip._id || 0} />
-      {/* <SideContainer trip={selectedTrip} /> */}
+      <SideContainer trip={selectedTrip} />
     </div>
   );
 }
