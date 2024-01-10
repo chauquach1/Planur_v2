@@ -32,7 +32,7 @@ export default function PackListForm({
   ...props
 }) {
   // const [formState, dispatch] = useReducer(formReducer, initialState);
-  const [initialState, setInitialState] = useState({...packList});
+  const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function PackListForm({
       return;
     }
     console.log('initialState changed', initialState);
-    // updatePackList({ tripId, ...initialState });
+    // updatePackList(initialState);
   }, [initialState]);
   
   const showPropsPackList = () => {
@@ -62,13 +62,13 @@ export default function PackListForm({
     }
   };
 
-  const isDefaultSelected = (category, item, index) => {
+  const isDefaultSelected = (category, item) => {
     if (
-      initialState &&
-      Array.isArray(initialState[category]) &&
-      initialState[category].length > 0
+      packList &&
+      Array.isArray(packList[category]) &&
+      packList[category].length > 0
     ) {
-      const itemObj = initialState[category].find((i) => i.itemName === item);
+      const itemObj = packList[category].find((i) => i.itemName === item);
       if (itemObj && itemObj.included === true) {
         console.log("item included?: ", itemObj.itemName, itemObj.included);
         return true;
@@ -117,7 +117,7 @@ export default function PackListForm({
   //   });
   // };
 
-  const handleChange = (category, item, index) => (e) => {
+  const handleChange = (category, item) => (e) => {
     setInitialState(() => {
       // Copy the existing state
       let newState = {...packList};
@@ -165,7 +165,7 @@ export default function PackListForm({
             key={item}
             size="sm"
             name={item}
-            defaultSelected={isDefaultSelected(category, item, index)}
+            defaultSelected={isDefaultSelected(category, item)}
             onChange={handleChange(category, item, index)}
           >
             {item.charAt(0).toUpperCase() + item.slice(1)}
