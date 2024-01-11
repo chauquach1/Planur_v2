@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from "react";
-import fetchPackList from "../../_utils/fetchPackList";
+import { fetchPackList } from "../../_utils/packListRequests";
 import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
@@ -26,8 +26,7 @@ export default function PackListPanel({ ...props }) {
       }
     };
 
-    // Call the async function
-    fetchData();
+    packListId ? fetchData() : null;
   }, [packListId]);
 
   if (
@@ -49,21 +48,24 @@ export default function PackListPanel({ ...props }) {
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {props.packList === null
-            ? null
-            : Object.entries(props.packList).map(([category, items]) => {
-                if (items.length === 0 || typeof items !== "object") {
-                  return null;
-                }
-                return (
-                  <PackingCategoryList
-                    key={category}
-                    category={category}
-                    items={items}
-                    {...props}
-                  />
-                );
-              })}
+          {props.packList
+            ?  Object.entries(props.packList).map(([category, items]) => {
+              if (items.length === 0 || typeof items !== "object") {
+                return null;
+              }
+              return (
+                <PackingCategoryList
+                  key={category}
+                  category={category}
+                  items={items}
+                  {...props}
+                />
+              );
+            })
+            : 
+            <button className="m-auto">Create Packing List</button>
+            }
+
         </div>
       </div>
     );

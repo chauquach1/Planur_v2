@@ -1,5 +1,5 @@
 import packListItems from "../../libs/completePackList";
-import putPackList from "../../_utils/putPackList";
+import { putPackList } from "../../_utils/packListRequests";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
 import {
   Accordion,
@@ -78,7 +78,10 @@ export default function PackListForm({
           newState[category].splice(itemIndex, 1);
         }
       }
-      putPackList(newState);
+      // putPackList(newState);
+      console.log("packList", packList);
+      console.log("newState", newState);
+      packList ? putPackList(newState) : null;
       return newState;
     });
   };
