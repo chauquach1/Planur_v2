@@ -1,9 +1,8 @@
 "use client";
-import fetchPackList from "../../_utils/fetchPackList";
 import ContentController from "./panel-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
 import SideContainer from "./content-side-components/SideContainer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);

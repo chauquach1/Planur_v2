@@ -28,7 +28,6 @@ export default async function UserLayout() {
   };
 
   const trips = await fetchTrips(userData);
-  console.log(trips);
 
   return (
     <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-600 justify-center">

@@ -8,6 +8,7 @@ export default function PackListPanel({ ...props }) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(true);
+  const packListId = props.trip.packList;
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
@@ -15,12 +16,11 @@ export default function PackListPanel({ ...props }) {
   };
 
   useEffect(() => {
-    // Define an async function inside useEffect
     const fetchData = async () => {
       try {
-        let fetchedPackList = await fetchPackList(props.trip.packList);
+        let fetchedPackList = await fetchPackList(packListId);
         props.setPackList(fetchedPackList);
-        console.log("packList", fetchedPackList);
+        console.log("packList from fetch PacklistSection", fetchedPackList);
       } catch (error) {
         console.error("Error fetching pack list:", error);
       }
@@ -28,7 +28,7 @@ export default function PackListPanel({ ...props }) {
 
     // Call the async function
     fetchData();
-  }, [props.trip.packList]);
+  }, [packListId]);
 
   if (
     props.activeTab !== "Packing List" &&

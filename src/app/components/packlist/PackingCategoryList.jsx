@@ -1,4 +1,4 @@
-import updatePackList from "../../_utils/updatePackList";
+import putPackList from "../../_utils/putPackList";
 import { Checkbox } from "@nextui-org/react";
 export default function PackingCategoryList({...props}) {
 
@@ -13,8 +13,8 @@ export default function PackingCategoryList({...props}) {
     }
 
     props.setPackList(updatedPackList);
-    updatePackList(updatedPackList);
-    console.log(props.packList);
+    putPackList(updatedPackList);
+    console.log('handleChange PackingCategoryList',props.packList);
   };
 
   return (
@@ -22,6 +22,7 @@ export default function PackingCategoryList({...props}) {
       <h1 className="font-semibold underline underline-offset-2">{props.category[0].toUpperCase() + props.category.substring(1)}</h1>
       <div className="flex flex-row flex-wrap m-1">
         {props.items.map((item) => {
+          if (item["included"] === false) return null;
           return (
             <Checkbox
               key={item["itemName"]}
