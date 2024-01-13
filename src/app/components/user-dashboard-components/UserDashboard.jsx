@@ -10,10 +10,6 @@ export default function UserDashboard({ userData, trips }) {
   const [packList, setPackList] = useState(null);
   const [activeAccom, setActiveAccom] = useState(null);
 
-  useEffect(() => {
-    console.log('activeAccom', activeAccom);
-  }, [activeAccom]);
-
   return (
     <div className="flex flex-row h-screen ">
       <ContentController

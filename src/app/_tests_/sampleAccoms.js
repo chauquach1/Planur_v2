@@ -93,7 +93,7 @@ const sampleAccoms = [
     },
     accomCheckIn: "2024-01-29T12:00:00.000Z",
     accomCheckOut: "2024-02-04T12:00:00.000Z",
-    accomType: "BnB",
+    accomType: "Vacation Rental",
   },
   {
     accomName: "Royal Palace Hotel",
