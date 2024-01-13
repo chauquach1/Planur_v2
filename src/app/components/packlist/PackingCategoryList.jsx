@@ -1,4 +1,4 @@
-import { putPackList } from "../../_utils/packListRequests";
+import { putPackList } from "../../_utils/packListRequestsIndex";
 import { Checkbox } from "@nextui-org/react";
 export default function PackingCategoryList({...props}) {
 

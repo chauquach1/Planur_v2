@@ -17,7 +17,7 @@ export default function AccomsSection({ ...props }) {
     return (
       <SectionContainer category="Accommodations" showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={arrowUp} {...props}>
         {props.accoms.map((accom) => {
-          return <AccommodationsCard key={accom.accomName} accom={accom} />;
+          return <AccommodationsCard key={accom.accomName} accom={accom} {...props}/>;
         })}
       </SectionContainer>
     );

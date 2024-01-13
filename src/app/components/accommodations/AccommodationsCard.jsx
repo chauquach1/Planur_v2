@@ -3,23 +3,20 @@ import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import normalDateFormat from "../../_utils/normalDateFormat";
 
-export default function AccommodationsCard({
-  accom,
-  // handleCardPress,
-}) {
+export default function AccommodationsCard({ accom, ...props }) {
   let address = accom.accomAddress;
   const checkInDate = normalDateFormat(accom.accomCheckIn);
   const checkOutDate = normalDateFormat(accom.accomCheckOut);
 
   return (
     <Card
-      // isHoverable
-      // isPressable
+      isHoverable
+      isPressable
       // isBlurred
       className=" w-full border shadow-none bg-white "
-      // onPress={() =>
-      //   handleCardPress(data, "accommodations")
-      // }
+      onPress={() =>
+        props.setActiveAccom(accom)
+      }
     >
       <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-0">
         <div className="flex flex-row items-center gap-2 me-4 min-w-[280px] max-w-[400px]">

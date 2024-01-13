@@ -1,5 +1,5 @@
 import packListItems from "../../libs/completePackList";
-import { putPackList, postPackList } from "../../_utils/packListRequests";
+import { putPackList, postPackList } from "../../_utils/packListRequestsIndex";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
 import {
   Accordion,
@@ -78,10 +78,7 @@ export default function PackListForm({
           newState[category].splice(itemIndex, 1);
         }
       }
-      // putPackList(newState);
-      console.log("props", props);
-      console.log("packList", packList);
-      console.log("newState", newState);
+      // If packList exists, update it, otherwise create it
       packList ? putPackList(newState) : postPackList(props.trip._id, newState);
       return newState;
     });
