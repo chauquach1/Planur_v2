@@ -30,8 +30,8 @@ export async function putPackList (packList) {
 }
 
 // POST /api/packlist
-export async function postPackList (packList) {
-  const response = await fetch("http://localhost:3000/api/packlist", {
+export async function postPackList (tripId, packList) {
+  const response = await fetch(`http://localhost:3000/api/packlist?tripId=${tripId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -6,11 +6,11 @@ import PackList from "../../models/PackList";
 import { use } from "react";
 
 export async function POST(request) {
-  // const { tripId, uuid, ...packListDetails } = await request.json();
   console.log('POST PACKLIST ROUTE HIT');
-  const  {tripId, ...updatedPackList}   = await request.json();
-  // console.log('updatedPackList', updatedPackList);
+  const tripId = request.nextUrl.searchParams.get('tripId');
+  const  updatedPackList   = await request.json();
   // console.log('tripId', tripId);
+  // console.log('updatedPackList', updatedPackList);
 
   // const entries = Object.entries(updatedPackList);
   // const keys = Object.keys(updatedPackList);
@@ -18,46 +18,46 @@ export async function POST(request) {
   // console.log('updatedPackList', Object.entries(updatedPackList));
 
 
-  // try {
-    // const client = await mongoClient();
-    // const db = client.db("planur_v2");
-    // const tripCollection = db.collection("trips");
+  try {
+    const client = await mongoClient();
+    const db = client.db("planur_v2");
+    const tripCollection = db.collection("trips");
 
-    // if (!tripId) {
-    //   return NextResponse.json(
-    //     { error: "Trip ID parameter is missing" },
-    //     { status: 400 }
-    //   );
-    // }
+    if (!tripId) {
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
 
-    // const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-    // if (!trip) {
-    //   return NextResponse.json({ error: "Trip not found" }, { status: 402 });
-    // }
+    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
 
-    // const newPackList = new PackList({
-    //   ...updatedPackList
-    // });
+    const newPackList = new PackList({
+      ...updatedPackList
+    });
 
-    // try {
-    //   await newPackList.save();
-    // } catch (error) {
-    //   console.error("Error saving packList:", error);
-    // }
+    try {
+      await newPackList.save();
+    } catch (error) {
+      console.error("Error saving packList:", error);
+    }
   
 
-    // await tripCollection.updateOne(
-    //   { _id: new ObjectId(tripId) },
-    //   { $set : {packList: newPackList._id} }
-    // );
+    await tripCollection.updateOne(
+      { _id: new ObjectId(tripId) },
+      { $set : {packList: newPackList._id} }
+    );
 
     return NextResponse.json( {updatedPackList} , { status: 200 });
-  // } catch {
-  //   return NextResponse.json(
-  //     { error: "Something went wrong" },
-  //     { status: 500 }
-  //   );
-  // }
+  } catch {
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function PUT(request) {

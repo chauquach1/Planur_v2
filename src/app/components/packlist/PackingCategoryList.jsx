@@ -18,7 +18,7 @@ export default function PackingCategoryList({...props}) {
   };
 
   return (
-    <div id={`${props.category}-list`} className="flex flex-col gap-2 p-3 w-full border-b-1">
+    <div id={`${props.category}-list`} className="flex flex-col gap-2 p-3 w-full">
       <h1 className="font-semibold underline underline-offset-2">{props.category[0].toUpperCase() + props.category.substring(1)}</h1>
       <div className="flex flex-row flex-wrap m-1">
         {props.items.map((item) => {

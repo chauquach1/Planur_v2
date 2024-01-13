@@ -8,7 +8,6 @@ import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
-import samplePacklist from "../../_tests_/samplePacklist";
 import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
 import { useState } from "react";
 
@@ -22,10 +21,10 @@ export default function TripDisplay({ ...props }) {
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={props.trip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
-        {/* <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/> */}
-        {/* <StopsSection stops={sampleStops} activeTab={activeTab}/> */}
+        <AccomsSection accoms={sampleAccoms} activeTab={activeTab}/>
+        <StopsSection stops={sampleStops} activeTab={activeTab}/>
         <PackListSection activeTab={activeTab} {...props}/>
-        {/* <EmergencyContactSection activeTab={activeTab}/> */}
+        <EmergencyContactSection activeTab={activeTab}/>
       </Suspense>
     </div>
   );
