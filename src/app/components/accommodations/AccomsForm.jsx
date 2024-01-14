@@ -4,11 +4,15 @@ import Input from "../form-components/Input";
 import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
-import { submitAccomForm } from "../../_utils/submitAccomForm";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
 
 export default function AccomsForm({ ...props }) {
-
+  const formMethods = {
+    'GET': 'get',
+    'POST': 'post',
+    'PUT': 'put',
+    'DELETE': 'delete'
+  }
   const [accomType, setAccomType] = useState('');
   const [initialState, setInitialState] = useState({});
   const tripId = props.trip._id;
