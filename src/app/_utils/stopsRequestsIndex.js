@@ -42,3 +42,17 @@ export async function postStop (tripId, stop) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 }
+
+// DELETE /api/stops
+export async function deleteStop (stop) {
+  const response = await fetch(`http://localhost:3000/api/stops`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(stop)
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+}
