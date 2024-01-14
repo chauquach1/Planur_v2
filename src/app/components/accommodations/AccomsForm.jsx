@@ -5,6 +5,7 @@ import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
+import { postAccom } from "../../_utils/accomsRequestsIndex";
 
 export default function AccomsForm({ ...props }) {
   const formMethods = {
@@ -19,6 +20,7 @@ export default function AccomsForm({ ...props }) {
 
   
   useEffect(() => {
+    console.log("props", props);
     console.log("props.activeAccom", props.activeAccom);
     if (props.activeAccom) {
       setInitialState(props.activeAccom);
@@ -51,7 +53,7 @@ export default function AccomsForm({ ...props }) {
   return (
     <>
       <form
-        action={submitAccomForm}
+        action={postAccom}
         className={`${
           props.activeForm === "accommodation" ? "block" : "hidden"
         } h-full overflow-y-scroll flex flex-col`}

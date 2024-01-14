@@ -1,12 +1,12 @@
 import { LuMapPin } from "react-icons/lu";
 import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import normalDateFormat from "../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 
 export default function AccommodationsCard({ accom, ...props }) {
   let address = accom.accomAddress;
-  const checkInDate = normalDateFormat(accom.accomCheckIn);
-  const checkOutDate = normalDateFormat(accom.accomCheckOut);
+  const checkInDate = calendarDateFormat(accom.accomCheckIn);
+  const checkOutDate = calendarDateFormat(accom.accomCheckOut);
 
   return (
     <Card

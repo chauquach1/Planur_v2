@@ -1,14 +1,14 @@
 import { MdLocationPin } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import normalDateFormat from "../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 
 export default function StopCard({
   stop,
   // handleCardPress,
 }) {
   let address = stop.stopAddress;
-  const arrival = normalDateFormat(stop.stopArrival);
-  const departure = normalDateFormat(stop.stopDeparture);
+  const arrival = calendarDateFormat(stop.stopArrival);
+  const departure = calendarDateFormat(stop.stopDeparture);
 
   return (
     <Card
