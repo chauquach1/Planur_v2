@@ -11,6 +11,8 @@ export default function AccomsSection({ ...props }) {
     setShowCategory(!showCategory);
     setArrow(!arrowUp);
   };
+  
+
   if (props.activeTab !== "Accommodations" && props.activeTab !== "Full Details") {
     return null;
   } else {

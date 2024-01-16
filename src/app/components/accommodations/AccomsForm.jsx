@@ -34,8 +34,6 @@ export default function AccomsForm({ ...props }) {
   };
 
   useEffect(() => {
-    console.log("props", props);
-    console.log("tripId", tripId);
     if (props.activeAccom) {
       setInitialState(props.activeAccom);
       if (props.activeAccom.accomType) {

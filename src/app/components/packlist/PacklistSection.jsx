@@ -20,7 +20,6 @@ export default function PackListPanel({ ...props }) {
       try {
         let fetchedPackList = await fetchPackList(packListId);
         props.setPackList(fetchedPackList);
-        console.log("packList from fetch PacklistSection", fetchedPackList);
       } catch (error) {
         console.error("Error fetching pack list:", error);
       }
