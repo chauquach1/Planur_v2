@@ -41,6 +41,7 @@ export async function POST(request) {
         zip: rawFormData.accomAddress.zip,
         country: rawFormData.accomAddress.country,
       },
+      accomResNum: rawFormData.accomResNum,
       accomPhoneNumber: rawFormData.accomPhoneNumber,
       accomEmail: rawFormData.accomEmail,
     });
