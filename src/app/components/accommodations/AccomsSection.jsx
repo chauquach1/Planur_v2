@@ -3,15 +3,14 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import { useState } from "react";
 export default function AccomsSection({ ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
+  const [showCategory, setShowCategory] = useState(false);
   const [btnText, setBtnText] = useState(true);
-  const [arrowUp, setArrow] = useState(true);
+  const [arrowUp, setArrow] = useState(false);
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
     setArrow(!arrowUp);
   };
-  
 
   if (props.activeTab !== "Accommodations" && props.activeTab !== "Full Details") {
     return null;

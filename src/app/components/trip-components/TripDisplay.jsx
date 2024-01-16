@@ -13,6 +13,7 @@ import { useState } from "react";
 
 export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
+  
   return (
     <div
       id="content-panel-main"
@@ -30,6 +31,7 @@ export default function TripDisplay({ ...props }) {
           setAccomsIndex={props.setAccomsIndex}
           activeAccom={props.activeAccom}
           setActiveAccom={props.setActiveAccom}
+          tripId={props.trip._id}
         />
         <StopsSection stops={sampleStops} activeTab={activeTab} />
         <PackListSection activeTab={activeTab} {...props} />

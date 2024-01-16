@@ -5,9 +5,9 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 
 export default function PackListPanel({ ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
+  const [showCategory, setShowCategory] = useState(false);
   const [btnText, setBtnText] = useState(true);
-  const [arrowUp, setArrow] = useState(true);
+  const [arrowUp, setArrow] = useState(false);
   const packListId = props.trip.packList;
   const buttonClicked = () => {
     setBtnText(!btnText);

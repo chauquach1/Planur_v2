@@ -3,8 +3,8 @@ import EmergencyContactCard from "./EmergencyContactCard";
 import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 export default function EmergencyContactSection({ category, id, ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
-  const [arrowUp, setArrow] = useState(true);
+  const [showCategory, setShowCategory] = useState(false);
+  const [arrowUp, setArrow] = useState(false);
   const [btnText, setBtnText] = useState(true);
   const buttonClicked = () => {
     setBtnText(!btnText);
