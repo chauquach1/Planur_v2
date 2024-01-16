@@ -3,42 +3,46 @@ import { ObjectId } from "mongodb";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 
+export async function accomsFetch(request){
+  const rawFormData = await request.json();
+  console.log('ACCOMS FETCH accommodation', rawFormData);
+}
+
 export async function POST(request) {
-  const {tripId, uuid, ...accomDetails} = await request.json();
-  // console.log('POST ACCOM ROUTE HIT', tripId, uuid, accomDetails);
+  console.log('POST ACCOM ROUTE HIT');
+  const tripId = request.nextUrl.searchParams.get('tripId')
+  const rawFormData = await request.json();
+
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
     
   
     if (!tripId) {
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
-    const user = await userCollection.findOne({ uuid: uuid });
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
 
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
-
-
     // Create a new accommodation
-    const newAccommodation = new Accommodation({ 
-      accomName: accomDetails.accomName,
-      accomType: accomDetails.accomType,
-      accomCheckIn: accomDetails.accomCheckIn,
-      accomCheckOut: accomDetails.accomCheckOut,
-      accomAddress: accomDetails.accomAddress,
-      accomPhoneNumber: accomDetails.accomPhoneNumber,
-      accomEmail: accomDetails.accomEmail,
-      accomResNum: accomDetails.accomResNum,
+    const newAccommodation = new Accommodation({
+      accomName: rawFormData.accomName,
+      accomType: rawFormData.accomType,
+      accomCheckIn: rawFormData.accomCheckIn,
+      accomCheckOut: rawFormData.accomCheckOut,
+      accomAddress: {
+        street: rawFormData.accomAddress.street,
+        city: rawFormData.accomAddress.city,
+        state: rawFormData.accomAddress.state,
+        zip: rawFormData.accomAddress.zip,
+        country: rawFormData.accomAddress.country,
+      },
+      accomPhoneNumber: rawFormData.accomPhoneNumber,
+      accomEmail: rawFormData.accomEmail,
     });
     await newAccommodation.save();
 
@@ -47,7 +51,7 @@ export async function POST(request) {
       { $push: { accommodations: newAccommodation._id } }
     );
     
-    // // Return the accommodation
+    // Return the accommodation
     return NextResponse.json({ newAccommodation }, { status: 200 });
 
   } catch (error) {

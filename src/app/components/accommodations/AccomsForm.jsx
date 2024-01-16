@@ -3,25 +3,39 @@ import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
-import { postAccom } from "../../_utils/accomsRequestsIndex";
+import { getAccom, postAccom, putAccom, deleteAccom  } from "../../_utils/accomsRequestsIndex";
 
 export default function AccomsForm({ ...props }) {
-  const formMethods = {
-    'GET': 'get',
-    'POST': 'post',
-    'PUT': 'put',
-    'DELETE': 'delete'
-  }
   const [accomType, setAccomType] = useState('');
   const [initialState, setInitialState] = useState({});
+  const [requestType, setRequestType] = useState("POST");
   const tripId = props.trip._id;
+  const postAccomWithTripId = postAccom.bind(null, tripId)
 
-  
+  const handleSubmit = () => {
+    // event.preventDefault(); // Prevent default form submission behavior
+    switch (requestType) {
+      case "POST":
+        postAccomWithTripId(initialState, tripId)
+        break;
+      case "PUT":
+        putAccom(initialState);
+        break;
+      case "DELETE":
+        deleteAccom(initialState);
+        break;
+      case "GET":
+        getAccom(initialState);
+        break;
+      default:
+        console.log("Request type not found");
+    }
+  };
+
   useEffect(() => {
     console.log("props", props);
-    console.log("props.activeAccom", props.activeAccom);
+    console.log("tripId", tripId);
     if (props.activeAccom) {
       setInitialState(props.activeAccom);
       if (props.activeAccom.accomType) {
@@ -53,7 +67,7 @@ export default function AccomsForm({ ...props }) {
   return (
     <>
       <form
-        action={postAccom}
+        action={handleSubmit}
         className={`${
           props.activeForm === "accommodation" ? "block" : "hidden"
         } h-full overflow-y-scroll flex flex-col`}

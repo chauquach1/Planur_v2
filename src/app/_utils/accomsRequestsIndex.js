@@ -1,5 +1,5 @@
 // GET /api/accommodations?accomId=123
-export async function fetchAccom (accomId) {
+export async function getAccom (accomId) {
   try {
     const response = await fetch(
       `http://localhost:3000/api/accommodations?accomId=${accomId}`
@@ -30,13 +30,18 @@ export async function putAccom (accommodation) {
 }
 
 // POST /api/accommodations
-export async function postAccom (tripId, accommodation) {
+export async function postAccom (tripId, accomFormData) {
+  // const rawFormData = Object.fromEntries(accomFormData.entries())
+  // console.log('rawFormData', rawFormData);
+  console.log('POST ACCOM accomFormData', accomFormData);
+  console.log('POST ACCOM tripId', tripId);
+  
   const response = await fetch(`http://localhost:3000/api/accommodations?tripId=${tripId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(accommodation)
+    body: JSON.stringify(accomFormData)
   });
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
