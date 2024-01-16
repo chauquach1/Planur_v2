@@ -3,10 +3,12 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
+import { get } from "mongoose";
 export default function AccomsSection({ ...props }) {
   const [showCategory, setShowCategory] = useState(false);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(false);
+  const [accomsArray, setAccomsArray] = useState([]);
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
@@ -15,8 +17,9 @@ export default function AccomsSection({ ...props }) {
 
   useEffect(() => {
     const getAccoms = async () => {
-      const accoms = await fetchAllAccoms(props.tripId);
-      console.log('accoms', accoms);
+      const accoms = await fetchAllAccoms(props.tripId)
+      props.setAccomsIndex(accoms);
+      console.log("accoms", accoms);
     }
     getAccoms();
   } , [props.tripId]);

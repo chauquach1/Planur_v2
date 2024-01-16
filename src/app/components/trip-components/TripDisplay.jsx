@@ -23,7 +23,7 @@ export default function TripDisplay({ ...props }) {
         <SummaryContainer trip={props.trip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
         <AccomsSection
-          accoms={sampleAccoms}
+          accoms={props.accomsIndex}
           activeTab={activeTab}
           accomsIdIndex={props.accomsIdIndex}
           setAccomsIdIndex={props.setAccomsIdIndex}
