@@ -11,17 +11,17 @@ export default function AccommodationsCard({ accom, ...props }) {
   return (
     <Card
       isHoverable
-      isPressable
+      // isPressable
       // isBlurred
       className=" w-full border shadow-none bg-white "
-      onPress={() =>
-        props.setActiveAccom(accom)
-      }
     >
-      <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-0">
+      <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-1">
         <div className="flex flex-row items-center gap-2 me-4 min-w-[280px] max-w-[400px]">
           <MdLocalHotel />
           <p className="inline-block">{accom.accomName}</p>
+        </div>
+        <div className="ms-auto text-sm">
+        <button onClick={() => props.setRequestType("PUT")}>Edit</button> | <button onClick={() => props.setRequestType("DELETE")}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
@@ -46,7 +46,14 @@ export default function AccommodationsCard({ accom, ...props }) {
             <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
           </p>
           <p>
-            Email: <a type="email" href={`mailto:${accom.accomEmail}`}  className="font-light hover:text-blue-500">{accom.accomEmail || "-"}</a>
+            Email:{" "}
+            <a
+              type="email"
+              href={`mailto:${accom.accomEmail}`}
+              className="font-light hover:text-blue-500"
+            >
+              {accom.accomEmail || "-"}
+            </a>
           </p>
           <p>
             Confirmation:{" "}

@@ -5,17 +5,18 @@ import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState } from "react";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
 import { getAccom, postAccom, putAccom, deleteAccom  } from "../../_utils/accomsRequestsIndex";
+import { set } from "date-fns";
 
 export default function AccomsForm({ ...props }) {
   const [accomType, setAccomType] = useState('');
   const [initialState, setInitialState] = useState({});
-  const [requestType, setRequestType] = useState("POST");
+  const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
   const tripId = props.trip._id;
   const postAccomWithTripId = postAccom.bind(null, tripId)
 
   const handleSubmit = () => {
     // event.preventDefault(); // Prevent default form submission behavior
-    switch (requestType) {
+    switch (props.requestType) {
       case "POST":
         postAccomWithTripId(initialState, tripId)
         break;
@@ -25,13 +26,30 @@ export default function AccomsForm({ ...props }) {
       case "DELETE":
         deleteAccom(initialState);
         break;
-      case "GET":
-        getAccom(initialState);
-        break;
       default:
         console.log("Request type not found");
     }
   };
+
+  useEffect(() => {
+    switch (props.requestType) {
+      case "POST":
+        setAccomRequestType("POST");
+        break;
+      case "PUT":
+        setAccomRequestType("PUT");
+        break;
+      case "DELETE":
+        setAccomRequestType("DELETE");
+        break;
+      default:
+        console.log("Request type not found");
+    }
+  } , [props.requestType]);
+
+  useEffect(() => {
+    console.log('accom form request type', accomRequestType);
+  } , [accomRequestType]);
 
   useEffect(() => {
     if (props.activeAccom) {
@@ -165,7 +183,7 @@ export default function AccomsForm({ ...props }) {
             // disabled={isSubmitting}
             size="sm"
           >
-            Add Accommodation
+            {props.requestType === "POST" ? "Add Accommodation" : "Update Accommodation"}
           </Button>
         </div>
       </form>

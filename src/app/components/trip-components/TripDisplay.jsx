@@ -6,7 +6,6 @@ import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
-import sampleAccoms from "../../_tests_/sampleAccoms";
 import sampleStops from "../../_tests_/sampleStops";
 import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
 import { useState } from "react";
@@ -25,6 +24,8 @@ export default function TripDisplay({ ...props }) {
         <AccomsSection
           accoms={props.accomsIndex}
           activeTab={activeTab}
+          requestType={props.requestType}
+          setRequestType={props.setRequestType}
           accomsIdIndex={props.accomsIdIndex}
           setAccomsIdIndex={props.setAccomsIdIndex}
           accomsIndex={props.accomsIndex}

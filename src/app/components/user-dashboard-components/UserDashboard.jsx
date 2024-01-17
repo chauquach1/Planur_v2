@@ -2,22 +2,15 @@
 import ContentController from "./panel-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
 import SideContainer from "./content-side-components/SideContainer";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, use } from "react";
 
 export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
   const [activeTab, setActiveTab] = useState("tripsindex");
-  const [accomsIdIndex, setAccomsIdIndex] = useState([]);
+  const [requestType, setRequestType] = useState("POST");
   const [accomsIndex, setAccomsIndex] = useState([]);
-  const [packList, setPackList] = useState(null);
   const [activeAccom, setActiveAccom] = useState(null);
-  
-  useEffect(() => {
-    if (selectedTrip && selectedTrip.accommodations && selectedTrip.accommodations.length > 0) {
-      console.log("selectedTrip.accommodations", selectedTrip.accommodations);
-      setAccomsIdIndex(selectedTrip.accommodations);
-    }
-  }, [selectedTrip]);
+  const [packList, setPackList] = useState(null);
 
   return (
     <div className="flex flex-row h-screen ">
@@ -32,10 +25,10 @@ export default function UserDashboard({ userData, trips }) {
       <TripDisplay
         trip={selectedTrip}
         key={selectedTrip._id || 0}
+        requestType={requestType}
+        setRequestType={setRequestType}
         packList={packList}
         setPackList={setPackList}
-        accomsIdIndex={accomsIdIndex}
-        setAccomsIdIndex={setAccomsIdIndex}
         accomsIndex={accomsIndex}
         setAccomsIndex={setAccomsIndex}
         activeAccom={activeAccom}
@@ -43,6 +36,7 @@ export default function UserDashboard({ userData, trips }) {
       />
       <SideContainer
         trip={selectedTrip}
+        requestType={requestType}
         packList={packList}
         setPackList={setPackList}
         activeAccom={activeAccom}
