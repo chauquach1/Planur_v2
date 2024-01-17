@@ -2,6 +2,8 @@ import { LuMapPin } from "react-icons/lu";
 import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
+import { deleteAccom } from "../../_utils/accomsRequestsIndex";
+
 
 export default function AccommodationsCard({ accom, ...props }) {
   let address = accom.accomAddress;
@@ -21,7 +23,7 @@ export default function AccommodationsCard({ accom, ...props }) {
           <p className="inline-block">{accom.accomName}</p>
         </div>
         <div className="ms-auto text-sm">
-        <button onClick={() => {props.setRequestType("PUT"), props.setActiveAccom(accom)}}>Edit</button> | <button onClick={() => props.setRequestType("DELETE")}>Delete</button>
+        <button onClick={() => {props.setRequestType("PUT"), props.setActiveAccom(accom)}}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">

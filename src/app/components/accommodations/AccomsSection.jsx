@@ -3,7 +3,7 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
-export default function AccomsSection({ ...props }) {
+export default function AccomsSection({ ...props }) { 
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(true);

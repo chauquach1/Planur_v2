@@ -49,13 +49,12 @@ export async function postAccom (tripId, accomFormData) {
 }
 
 // DELETE /api/accommodations
-export async function deleteAccom (accommodation) {
-  const response = await fetch(`http://localhost:3000/api/accommodations`, {
+export async function deleteAccom (accomId) {
+  const response = await fetch(`http://localhost:3000/api/accommodations?accomId=${accomId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(accommodation)
   });
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);

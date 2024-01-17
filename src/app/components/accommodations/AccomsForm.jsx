@@ -4,7 +4,7 @@ import Input from "../form-components/Input";
 import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState } from "react";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
-import { getAccom, postAccom, putAccom, deleteAccom  } from "../../_utils/accomsRequestsIndex";
+import { postAccom, putAccom  } from "../../_utils/accomsRequestsIndex";
 import { set } from "date-fns";
 
 export default function AccomsForm({ ...props }) {
@@ -22,9 +22,6 @@ export default function AccomsForm({ ...props }) {
         break;
       case "PUT":
         putAccom(initialState);
-        break;
-      case "DELETE":
-        deleteAccom(initialState);
         break;
       default:
         console.log("Request type not found");
