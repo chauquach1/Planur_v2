@@ -31,8 +31,6 @@ export async function putAccom (accommodation) {
 
 // POST /api/accommodations
 export async function postAccom (tripId, accomFormData) {
-  // const rawFormData = Object.fromEntries(accomFormData.entries())
-  // console.log('rawFormData', rawFormData);
   console.log('POST ACCOM accomFormData', accomFormData);
   console.log('POST ACCOM tripId', tripId);
   

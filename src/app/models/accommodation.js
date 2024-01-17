@@ -9,11 +9,11 @@ const accommodationSchema = new mongoose.Schema({
   accomCheckIn: Date, // Use Date for date/time fields
   accomCheckOut: Date,
   accomAddress: {
-    street: String,
-    city: String,
-    state: String,
-    zip: String,
-    country: String,
+    street: {type: String, default: undefined},
+    city: {type: String, default: undefined},
+    state: {type: String, default: undefined},
+    zip: {type: String, default: undefined},
+    country: {type: String, default: undefined},
   },
   accomPhoneNumber: String, // Consider using String for flexibility
   accomEmail: String,

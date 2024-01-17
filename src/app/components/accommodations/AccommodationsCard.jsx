@@ -4,9 +4,17 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
 
+export function TextSpace ({category, value}) {
+  return (
+    <>
+      {category && category[value] ? category[value] : <span className="italic text-slate-500">{value.charAt(0).toUpperCase() + value.slice(1)}</span>}
+      </>
+  )
+}
 
 export default function AccommodationsCard({ accom, ...props }) {
   let address = accom.accomAddress;
+  console.log('address', address);
   const checkInDate = calendarDateFormat(accom.accomCheckIn);
   const checkOutDate = calendarDateFormat(accom.accomCheckOut);
 
@@ -35,17 +43,16 @@ export default function AccommodationsCard({ accom, ...props }) {
             </p>
           </div>
           <div className="border-l-2 px-2 min-w-[250px] font-light inline-flex  gap-2">
-            {address.street}, {address.city} <br></br>
-            {address.state} {address.zip}, {address.country}
+            <p><TextSpace category={address} value="street"/>, <TextSpace category={address} value="city" /><br></br>
+            <TextSpace category={address} value="state" /> <TextSpace category={address} value="zip" />, <TextSpace category={address} value="country" /></p>
           </div>
         </div>
         <div className="hidden 2xl:block border-l-2 px-2">
           <p className="text-small align-baseline">
-            Type: <span className="font-light">{accom.accomType}</span>
+            Type: <span className="font-light">{accom.accomType || "-"}</span>
           </p>
           <p>
-            Phone Number:{" "}
-            <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
+            Phone Number: <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
           </p>
           <p>
             Email:{" "}
@@ -59,7 +66,7 @@ export default function AccommodationsCard({ accom, ...props }) {
           </p>
           <p>
             Confirmation:{" "}
-            <span className="font-light">{accom.accomResNum}</span>
+            <span className="font-light">{accom.accomResNum || "-"}</span>
           </p>
         </div>
       </CardBody>

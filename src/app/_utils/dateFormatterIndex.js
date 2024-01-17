@@ -2,6 +2,9 @@ import {format, parseISO} from "date-fns";
 
 // 	Apr 29, 1453
 export function calendarDateFormat(date) {
+  if (!date) {
+    return null;
+  }
   const parsedDate = parseISO(date);
   const formattedDate = format(new Date(parsedDate), "PP");
   return formattedDate;
