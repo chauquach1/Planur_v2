@@ -62,32 +62,27 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
-  const { uuid, tripId, ...updatedAccom } = await request.json();
+  console.log('PUT ACCOM ROUTE HIT');
+  const  updatedAccom  = await request.json();
+  const accomId = updatedAccom._id;
+  console.log('accomId', accomId);
+  console.log('updatedAccom', updatedAccom);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
-    const tripCollection = db.collection("trips");
-
-    if (!tripId) {
-      return NextResponse.json(
-        { error: "Trip ID parameter is missing" },
-        { status: 400 }
-      );
-    }
-    const user = await userCollection.findOne({ uuid: uuid });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
+    const accomCollection = db.collection("accommodations");
     
-    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-    if (!trip) {
+    const accom = await accomCollection.findOne({ _id: new ObjectId(accomId) });
+    if (!accom) {
+      console.log('accom not found', accom);
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    } else {
+      console.log('accom found', accom);
     }
 
     // Create a new accommodation
     const accomToUpdate = await Accommodation.findByIdAndUpdate(
-      { _id: new ObjectId(updatedAccom.accomId) },
+      { _id: new ObjectId(accomId) },
       {
         accomName: updatedAccom.accomName,
         accomType: updatedAccom.accomType,
@@ -108,7 +103,7 @@ export async function PUT(request) {
       );
     }
 
-    return NextResponse.json(accomToUpdate, { status: 200 });
+    return NextResponse.json(updatedAccom, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
