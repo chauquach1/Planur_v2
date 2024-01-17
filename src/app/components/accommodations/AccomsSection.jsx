@@ -3,7 +3,6 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
-import { get } from "mongoose";
 export default function AccomsSection({ ...props }) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
@@ -28,7 +27,7 @@ export default function AccomsSection({ ...props }) {
   } else {
     return (
       <SectionContainer category="Accommodations" showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={arrowUp} {...props}>
-        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={() => props.setRequestType("POST")}>Add New Accommodation</button>
+        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={() => {props.setRequestType("POST"), props.setActiveAccom({})}}>Add New Accommodation</button>
         {props.accoms.map((accom) => {
           return <AccommodationsCard key={accom.accomName} accom={accom} {...props}/>;
         })}

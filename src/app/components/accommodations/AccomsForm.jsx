@@ -9,7 +9,7 @@ import { set } from "date-fns";
 
 export default function AccomsForm({ ...props }) {
   const [accomType, setAccomType] = useState('');
-  const [initialState, setInitialState] = useState({});
+  const [initialState, setInitialState] = useState(props.activeAccom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
   const tripId = props.trip._id;
   const postAccomWithTripId = postAccom.bind(null, tripId)

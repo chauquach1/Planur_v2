@@ -21,7 +21,7 @@ export default function AccommodationsCard({ accom, ...props }) {
           <p className="inline-block">{accom.accomName}</p>
         </div>
         <div className="ms-auto text-sm">
-        <button onClick={() => props.setRequestType("PUT")}>Edit</button> | <button onClick={() => props.setRequestType("DELETE")}>Delete</button>
+        <button onClick={() => {props.setRequestType("PUT"), props.setActiveAccom(accom)}}>Edit</button> | <button onClick={() => props.setRequestType("DELETE")}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
