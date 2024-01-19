@@ -3,6 +3,8 @@ import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
+import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
+import { useState, useEffect } from "react";
 
 export function TextSpace ({category, value}) {
   return (
@@ -13,12 +15,18 @@ export function TextSpace ({category, value}) {
 }
 
 export default function AccommodationsCard({ accom, ...props }) {
+  const [showForm, setShowForm] = useState(false);
   let address = accom.accomAddress;
-  console.log('address', address);
+  // console.log('address', address);
   const checkInDate = calendarDateFormat(accom.accomCheckIn);
   const checkOutDate = calendarDateFormat(accom.accomCheckOut);
 
+  useEffect(() => {
+    console.log('showForm', showForm);
+  }), [showForm]
+
   return (
+    <>
     <Card
       isHoverable
       // isPressable
@@ -31,7 +39,12 @@ export default function AccommodationsCard({ accom, ...props }) {
           <p className="inline-block">{accom.accomName}</p>
         </div>
         <div className="ms-auto text-sm">
+        {/* Original form rendering buttons:
         <button onClick={() => {props.setRequestType("PUT"), props.setActiveAccom(accom)}}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
+         */}
+
+        {/* New form rendering buttons: */}
+        <button onClick={()=> setShowForm(!showForm)}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
@@ -71,5 +84,7 @@ export default function AccommodationsCard({ accom, ...props }) {
         </div>
       </CardBody>
     </Card>
+    <SlideOutForm showForm={showForm} setShowForm={setShowForm}/>
+    </>
   );
 }
