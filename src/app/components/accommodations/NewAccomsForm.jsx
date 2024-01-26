@@ -10,7 +10,7 @@ import SlideOutForm from "../user-dashboard-components/content-side-components/S
 import { set } from "date-fns";
 
 export default function NewAccomsForm({ ...props }) {
-  const [accomType, setAccomType] = useState(props.accom.accomType || '');
+  const [accomType, setAccomType] = useState(props.accom?.accomType || '');
   const [initialState, setInitialState] = useState(props.accom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
   const tripId = props.tripId;
