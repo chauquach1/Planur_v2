@@ -9,8 +9,12 @@ export default function UserDashboard({ userData, trips }) {
   const [activeTab, setActiveTab] = useState("tripsindex");
   const [requestType, setRequestType] = useState("POST");
   const [accomsIndex, setAccomsIndex] = useState([]);
-  const [activeAccom, setActiveAccom] = useState(null);
+  const [activeAccom, setActiveAccom] = useState({});
   const [packList, setPackList] = useState(null);
+
+  useEffect(() => {
+    console.log('activeAccom', activeAccom);
+  }), [activeAccom]
 
   return (
     <div className="flex flex-row h-screen ">

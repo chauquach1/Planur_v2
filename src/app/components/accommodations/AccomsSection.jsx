@@ -13,6 +13,11 @@ export default function AccomsSection({ ...props }) {
     setArrow(!arrowUp);
   };
 
+  const addNewAccom = () => {
+    props.setRequestType("POST");
+    props.setActiveAccom({});
+  }
+
   useEffect(() => {
     const getAccoms = async () => {
       const accoms = await fetchAllAccoms(props.tripId)
@@ -27,9 +32,9 @@ export default function AccomsSection({ ...props }) {
   } else {
     return (
       <SectionContainer category="Accommodations" showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={arrowUp} {...props}>
-        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={() => {props.setRequestType("POST"), props.setActiveAccom({})}}>Add New Accommodation</button>
+        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewAccom}>Add New Accommodation</button>
         {props.accoms.map((accom) => {
-          return <AccommodationsCard key={accom.accomName} accom={accom} {...props}/>;
+          return <AccommodationsCard key={accom.accomName} fetchedAccom={accom} {...props}/>;
         })}
       </SectionContainer>
     );

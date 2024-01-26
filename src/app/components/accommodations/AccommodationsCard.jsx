@@ -4,31 +4,41 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
 import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
-import { useState, useEffect } from "react";
+import NewAccomsForm from "./NewAccomsForm";
+import { useState, useEffect, useRef } from "react";
+import { set } from "date-fns";
 
 export function TextSpace ({category, value}) {
   return (
     <>
-      {category && category[value] ? category[value] : <span className="italic text-slate-500">{value.charAt(0).toUpperCase() + value.slice(1)}</span>}
-      </>
-  )
+      {category && category[value] ? (
+        category[value]
+      ) : (
+        <span className="italic text-slate-500">
+          {value.charAt(0).toUpperCase() + value.slice(1)}
+        </span>
+      )}
+    </>
+  );
 }
 
-export default function AccommodationsCard({ accom, ...props }) {
+export default function AccommodationsCard({ fetchedAccom, ...props }) {
+  const [accom, setAccom] = useState(fetchedAccom);
   const [showForm, setShowForm] = useState(false);
+  const updateAccom =() => {
+    props.setRequestType("PUT");
+    props.setActiveAccom(accom);
+    setShowForm(true);
+  }
   let address = accom.accomAddress;
-  // console.log('address', address);
+  // let formRef = useRef();
   const checkInDate = calendarDateFormat(accom.accomCheckIn);
   const checkOutDate = calendarDateFormat(accom.accomCheckOut);
-
-  useEffect(() => {
-    console.log('showForm', showForm);
-  }), [showForm]
 
   return (
     <>
     <Card
-      isHoverable
+      // isHoverable
       // isPressable
       // isBlurred
       className=" w-full border shadow-none bg-white "
@@ -44,7 +54,7 @@ export default function AccommodationsCard({ accom, ...props }) {
          */}
 
         {/* New form rendering buttons: */}
-        <button onClick={()=> setShowForm(!showForm)}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
+        <button onClick={updateAccom}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
@@ -84,7 +94,7 @@ export default function AccommodationsCard({ accom, ...props }) {
         </div>
       </CardBody>
     </Card>
-    <SlideOutForm showForm={showForm} setShowForm={setShowForm}/>
+    <NewAccomsForm accom={accom} setAccom={setAccom} showForm={showForm} setShowForm={setShowForm} {...props}/>
     </>
   );
 }
