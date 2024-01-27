@@ -9,7 +9,6 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
-    setArrow(!arrowUp);
   };
 
   const addNewAccom = () => {

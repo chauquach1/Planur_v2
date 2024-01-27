@@ -4,11 +4,11 @@ import PackingCategoryList from "./PackingCategoryList";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 
-export default function PackListPanel({ ...props }) {
+export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(false);
-  const packListId = props.trip.packList;
+  // const packListId = props.trip.packList;
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
@@ -16,21 +16,25 @@ export default function PackListPanel({ ...props }) {
   };
 
   useEffect(() => {
+    console.log('PackListPanel packListProps', packListProps);
+  } ,[]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        let fetchedPackList = await fetchPackList(packListId);
-        props.setPackList(fetchedPackList);
+        let fetchedPackList = await fetchPackList(packListProps.packListId);
+        packListProps.setPackList(fetchedPackList);
       } catch (error) {
         console.error("Error fetching pack list:", error);
       }
     };
 
-    packListId ? fetchData() : null;
-  }, [packListId]);
+    packListProps.packListId ? fetchData() : null;
+  }, [packListProps.packListId]);
 
   if (
-    props.activeTab !== "Packing List" &&
-    props.activeTab !== "Full Details"
+    displayProps.tripDisplayTab !== "Packing List" &&
+    displayProps.tripDisplayTab !== "Full Details"
   ) {
     return null;
   } else {
@@ -47,8 +51,8 @@ export default function PackListPanel({ ...props }) {
             showCategory ? null : "hidden"
           } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
         >
-          {props.packList
-            ?  Object.entries(props.packList).map(([category, items]) => {
+          {packListProps.packList
+            ?  Object.entries(packListProps.packList).map(([category, items]) => {
               if (items.length === 0 || typeof items !== "object") {
                 return null;
               }
@@ -57,7 +61,8 @@ export default function PackListPanel({ ...props }) {
                   key={category}
                   category={category}
                   items={items}
-                  {...props}
+                  packList={packListProps.packList}
+                  setPackList={packListProps.setPackList}
                 />
               );
             })

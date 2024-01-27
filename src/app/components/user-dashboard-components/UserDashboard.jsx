@@ -44,6 +44,7 @@ export default function UserDashboard({ userData, trips }) {
   };
 
   const packListProps = {
+    packListId: selectedTrip.packList,
     packList: packList,
     setPackList: setPackList,
   };

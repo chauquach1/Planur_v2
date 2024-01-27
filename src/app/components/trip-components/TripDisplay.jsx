@@ -24,17 +24,27 @@ export default function TripDisplay({ ...props }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={props.tripProps.selectedTrip} />
-        <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} displayProps={props.displayProps} />
+        <PanelNavContainer
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          displayProps={props.displayProps}
+        />
         <AccomsSection
+          tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
-          tripProps={props.tripProps}
           requestProps={props.requestProps}
           accomProps={props.accomProps}
         />
-        {/* <StopsSection stops={sampleStops} activeTab={activeTab} />
-        <PackListSection activeTab={activeTab} {...props} />
-        <EmergencyContactSection activeTab={activeTab} /> */}
+        {/* <StopsSection stops={sampleStops} activeTab={activeTab} /> */}
+        <PackListSection
+          tripProps={props.tripProps}
+          tripId={props.tripProps.selectedTrip._id}
+          displayProps={props.displayProps}
+          requestProps={props.requestProps}
+          packListProps={props.packListProps}
+        />
+        {/* <EmergencyContactSection activeTab={activeTab} /> */}
       </Suspense>
     </div>
   );

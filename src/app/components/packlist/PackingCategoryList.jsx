@@ -1,9 +1,9 @@
 import { putPackList } from "../../_utils/packListRequestsIndex";
 import { Checkbox } from "@nextui-org/react";
-export default function PackingCategoryList({...props}) {
+export default function PackingCategoryList({category, items, packList, setPackList}) {
 
   const handleChange = (category, itemId, isChecked) => {
-    const updatedPackList = { ...props.packList };
+    const updatedPackList =  packList ;
 
     const itemIndex = updatedPackList[category].findIndex(
       (item) => item._id === itemId
@@ -12,16 +12,16 @@ export default function PackingCategoryList({...props}) {
       updatedPackList[category][itemIndex].packed = isChecked;
     }
 
-    props.setPackList(updatedPackList);
+    setPackList(updatedPackList);
     putPackList(updatedPackList);
-    console.log('handleChange PackingCategoryList',props.packList);
+    console.log('handleChange PackingCategoryList', packList);
   };
 
   return (
-    <div id={`${props.category}-list`} className="flex flex-col gap-2 p-3 w-full">
-      <h1 className="font-semibold underline underline-offset-2">{props.category[0].toUpperCase() + props.category.substring(1)}</h1>
+    <div id={`${category}-list`} className="flex flex-col gap-2 p-3 w-full">
+      <h1 className="font-semibold underline underline-offset-2">{category[0].toUpperCase() + category.substring(1)}</h1>
       <div className="flex flex-row flex-wrap m-1">
-        {props.items.map((item) => {
+        {items.map((item) => {
           if (item["included"] === false) return null;
           return (
             <Checkbox
@@ -30,7 +30,8 @@ export default function PackingCategoryList({...props}) {
               name={item["itemName"]}
               // value={checkBoxValue(category, item, index)}
               defaultSelected={item["packed"]=== true ? true : false}
-              onChange={(e) => handleChange(props.category, item["_id"], e.target.checked)}
+              onChange={(e) => handleChange(category, item["_id"], e.target.checked)}
+              // onChange={handleChange}
               className="bg-white border-1 rounded-xl m-1 p-2"
             >
               {item["itemName"]}
