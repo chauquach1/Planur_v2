@@ -20,45 +20,72 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     setInitialState(accomProps.activeAccom);
   }, [accomProps.activeAccom]);
 
-  // useEffect(() => {
-  //   console.log('NewAccomsForm accomProps', accomProps);
-  // }, []);
-
   const handleCloseAccomForm = () => {
     // accomProps.setActiveAccom({});
     accomProps.setShowAccomForm(false);
   };
 
 
-  const handleSubmit = () => {
-    // event.preventDefault(); // Prevent default form submission behavior
-    switch (requestProps.requestType) {
-      case "POST":
-        postAccomWithTripId(initialState, tripId)
-        break;
-      case "PUT":
-        putAccom(initialState);
-        break;
-      default:
-        console.log("Request type not found");
+
+  // const handleSubmit = () => {
+  //   // event.preventDefault(); // Prevent default form submission behavior
+  //   switch (requestProps.requestType) {
+  //     case "POST":
+  //       postAccomWithTripId(initialState, tripId)
+  //       break;
+  //     case "PUT":
+  //       putAccom(initialState);
+  //       break;
+  //     default:
+  //       console.log("Request type not found");
+  //   }
+  // };
+
+  const updateAccomIndex = (accomId, initialState) => {
+    const newAccomIndex = accomProps.accomsIndex.map((accom) => {
+      if (accom._id === accomId) {
+        return initialState;
+      } else {
+        return accom;
+      }
+    });
+    accomProps.setAccomsIndex(newAccomIndex);
+  };
+
+  const updateAccom = async () => {
+    try {
+      const updatedAccom = await putAccom(initialState);
+      updateAccomIndex(initialState._id, updatedAccom);
+      setInitialState(updatedAccom);
+    }
+    catch (err) {
+      console.log(err);
     }
   };
 
-  useEffect(() => {
-    switch (requestProps.requestType) {
-      case "POST":
-        setAccomRequestType("POST");
-        break;
-      case "PUT":
-        setAccomRequestType("PUT");
-        break;
-      case "DELETE":
-        setAccomRequestType("DELETE");
-        break;
-      default:
-        console.log("Request type not found");
-    }
-  } , [requestProps.requestType]);
+  const handleSubmit = () => {
+    console.log('NewAccomsForm accomProps', accomProps);
+    let accomsIndex = accomProps.accomsIndex;
+    const originalAccom = accomsIndex.find(accom => accom._id === initialState._id);
+    console.log('initialState', initialState);
+    console.log('originalAccom', originalAccom);
+  };
+
+  // useEffect(() => {
+  //   switch (requestProps.requestType) {
+  //     case "POST":
+  //       setAccomRequestType("POST");
+  //       break;
+  //     case "PUT":
+  //       setAccomRequestType("PUT");
+  //       break;
+  //     case "DELETE":
+  //       setAccomRequestType("DELETE");
+  //       break;
+  //     default:
+  //       console.log("Request type not found");
+  //   }
+  // } , [requestProps.requestType]);
 
 
   const handleInputChange = (key, value) => {
@@ -89,7 +116,7 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
       <button className="self-end text-red-500" onClick={handleCloseAccomForm}>x Close</button>
       <form
-        // action={handleSubmit}
+        action={updateAccom}
         className={` h-full overflow-y-scroll flex-col`}
       >
         <div className=" flex flex-col gap-2 rounded-xl bg-white p-2">

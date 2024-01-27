@@ -26,6 +26,10 @@ export async function putAccom (accommodation) {
   });
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
+  } 
+  else {
+    const data = await response.json();
+    return data;
   }
 }
 
