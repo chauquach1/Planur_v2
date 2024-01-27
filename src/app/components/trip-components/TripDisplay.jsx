@@ -36,14 +36,14 @@ export default function TripDisplay({ ...props }) {
           requestProps={props.requestProps}
           accomProps={props.accomProps}
         />
-        {/* <StopsSection stops={sampleStops} activeTab={activeTab} /> */}
-        <PackListSection
+        {/* <StopsSection stops={sampleStops} displayProps={props.displayProps} /> */}
+        {/* <PackListSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
           packListProps={props.packListProps}
-        />
+        /> */}
         {/* <EmergencyContactSection activeTab={activeTab} /> */}
       </Suspense>
     </div>

@@ -1,7 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import StopsCard from "./StopsCard";
 import { useState } from "react";
-export default function StopsSection({...props}) {
+export default function StopsSection({displayProps, ...props}) {
   const [showCategory, setShowCategory] = useState(false);
   const [btnText, setBtnText] = useState(true);
   const [arrowUp, setArrow] = useState(false);
@@ -10,7 +10,7 @@ export default function StopsSection({...props}) {
     setShowCategory(!showCategory);
     setArrow(!arrowUp);
   };
-  if (props.activeTab !== "Stops" && props.activeTab !== "Full Details") {
+  if (displayProps.tripDisplayTab !== "Stops" && displayProps.tripDisplayTab !== "Full Details") {
     return null;
   } else {
     return (
