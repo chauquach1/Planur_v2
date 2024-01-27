@@ -6,22 +6,58 @@ import { useState, useEffect, useCallback, use } from "react";
 
 export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
-  const [activeTab, setActiveTab] = useState("tripsindex");
+  const [controllerTab, setControllerTab] = useState("tripsindex");
+  const [tripDisplayTab, setTripDisplayTab] = useState("Full Details");
   const [requestType, setRequestType] = useState("POST");
   const [accomsIndex, setAccomsIndex] = useState([]);
   const [activeAccom, setActiveAccom] = useState({});
+  const [showAccomForm, setShowAccomForm] = useState(false);
   const [packList, setPackList] = useState(null);
 
-  useEffect(() => {
-    console.log('activeAccom', activeAccom);
-  }), [activeAccom]
+  const displayProps = {
+    controllerTab: controllerTab,
+    setControllerTab: setControllerTab,
+    tripDisplayTab: tripDisplayTab,
+    setTripDisplayTab: setTripDisplayTab,
+    showAccomForm: showAccomForm,
+    setShowAccomForm: setShowAccomForm,
+  };
+
+  const tripProps = {
+    trip: selectedTrip,
+    setTrip: setSelectedTrip, // Assuming you have a setter for selectedTrip
+    trips: trips,
+  };
+
+  const requestProps = {
+    requestType: requestType,
+    setRequestType: setRequestType,
+  };
+
+  const accomProps = {
+    accomsIndex: accomsIndex,
+    setAccomsIndex: setAccomsIndex,
+    activeAccom: activeAccom,
+    setActiveAccom: setActiveAccom,
+    showAccomForm: showAccomForm,
+    setShowAccomForm: setShowAccomForm,
+  };
+
+  const packListProps = {
+    packList: packList,
+    setPackList: setPackList,
+  };
+
+  // useEffect(() => {
+  //   console.log('TripDisplay activeAccom', activeAccom);
+  // }, [activeAccom]);
 
   return (
     <div className="flex flex-row h-screen ">
       <ContentController
         userData={userData}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        controllerTab={controllerTab}
+        setControllerTab={setControllerTab}
         setSelectedTrip={setSelectedTrip}
         trips={trips}
         selectedTrip={selectedTrip}
@@ -37,13 +73,20 @@ export default function UserDashboard({ userData, trips }) {
         setAccomsIndex={setAccomsIndex}
         activeAccom={activeAccom}
         setActiveAccom={setActiveAccom}
+
+        
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        accomProps={accomProps}
+        packListProps={packListProps}
       />
       <SideContainer
-        trip={selectedTrip}
-        requestType={requestType}
-        packList={packList}
-        setPackList={setPackList}
-        activeAccom={activeAccom}
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        accomProps={accomProps}
+        packListProps={packListProps}
       />
     </div>
   );

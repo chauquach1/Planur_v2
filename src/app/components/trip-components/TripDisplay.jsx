@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import { Suspense } from "react";
 import LoadingTripDisplay from "./LoadingTripDisplay";
 import SummaryContainer from "./SummaryContainer";
@@ -8,11 +8,15 @@ import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
 import sampleStops from "../../_tests_/sampleStops";
 import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
-  
+
+  // useEffect(() => {
+  //   console.log('TripDisplay props', props);
+  // }, []);
+
   return (
     <div
       id="content-panel-main"
@@ -20,7 +24,7 @@ export default function TripDisplay({ ...props }) {
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={props.trip} />
-        <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} />
+        <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} displayProps={props.displayProps} />
         <AccomsSection
           accoms={props.accomsIndex}
           activeTab={activeTab}
@@ -33,10 +37,15 @@ export default function TripDisplay({ ...props }) {
           activeAccom={props.activeAccom}
           setActiveAccom={props.setActiveAccom}
           tripId={props.trip._id}
+
+          displayProps={props.displayProps}
+          tripProps={props.tripProps}
+          requestProps={props.requestProps}
+          accomProps={props.accomProps}
         />
-        <StopsSection stops={sampleStops} activeTab={activeTab} />
+        {/* <StopsSection stops={sampleStops} activeTab={activeTab} />
         <PackListSection activeTab={activeTab} {...props} />
-        <EmergencyContactSection activeTab={activeTab} />
+        <EmergencyContactSection activeTab={activeTab} /> */}
       </Suspense>
     </div>
   );

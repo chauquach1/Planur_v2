@@ -22,13 +22,13 @@ export function TextSpace ({category, value}) {
   );
 }
 
-export default function AccommodationsCard({ fetchedAccom, ...props }) {
+export default function AccommodationsCard({ fetchedAccom, displayProps, tripProps, requestProps, accomProps, ...props }) {
   const [accom, setAccom] = useState(fetchedAccom);
-  const [showForm, setShowForm] = useState(false);
   const updateAccom =() => {
-    props.setRequestType("PUT");
-    props.setActiveAccom(accom);
-    setShowForm(true);
+    requestProps.setRequestType("PUT");
+    accomProps.setActiveAccom(accom);
+    accomProps.setShowAccomForm(true);
+    console.log('AccommodationsCard accomProps', accomProps);
   }
   let address = accom.accomAddress;
   // let formRef = useRef();
@@ -94,7 +94,6 @@ export default function AccommodationsCard({ fetchedAccom, ...props }) {
         </div>
       </CardBody>
     </Card>
-    <NewAccomsForm accom={accom} setAccom={setAccom} showForm={showForm} setShowForm={setShowForm} {...props}/>
     </>
   );
 }

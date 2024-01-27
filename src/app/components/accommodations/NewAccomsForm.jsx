@@ -9,21 +9,30 @@ import SideContainer from "../user-dashboard-components/content-side-components/
 import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
 import { set } from "date-fns";
 
-export default function NewAccomsForm({ ...props }) {
-  const [accomType, setAccomType] = useState(props.accom?.accomType || '');
-  const [initialState, setInitialState] = useState(props.accom || {});
+export default function NewAccomsForm({displayProps, tripProps, requestProps, accomProps }) {
+  const [accomType, setAccomType] = useState(accomProps.activeAccom?.accomType || '');
+  const [initialState, setInitialState] = useState(accomProps.activeAccom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
-  const tripId = props.tripId;
+  const tripId = tripProps.tripId;
   const postAccomWithTripId = postAccom.bind(null, tripId)
 
   useEffect(() => {
-    setInitialState(props.accom);
-  }, [props.accom]);
+    setInitialState(accomProps.activeAccom);
+  }, [accomProps.activeAccom]);
+
+  // useEffect(() => {
+  //   console.log('NewAccomsForm accomProps', accomProps);
+  // }, []);
+
+  const handleCloseAccomForm = () => {
+    // accomProps.setActiveAccom({});
+    accomProps.setShowAccomForm(false);
+  };
 
 
   const handleSubmit = () => {
     // event.preventDefault(); // Prevent default form submission behavior
-    switch (props.requestType) {
+    switch (requestProps.requestType) {
       case "POST":
         postAccomWithTripId(initialState, tripId)
         break;
@@ -36,7 +45,7 @@ export default function NewAccomsForm({ ...props }) {
   };
 
   useEffect(() => {
-    switch (props.requestType) {
+    switch (requestProps.requestType) {
       case "POST":
         setAccomRequestType("POST");
         break;
@@ -49,7 +58,7 @@ export default function NewAccomsForm({ ...props }) {
       default:
         console.log("Request type not found");
     }
-  } , [props.requestType]);
+  } , [requestProps.requestType]);
 
 
   const handleInputChange = (key, value) => {
@@ -72,13 +81,13 @@ export default function NewAccomsForm({ ...props }) {
   // showForm functions and variables
 
 
-  const isVisible = props.showForm ? "fixed flex" : "hidden";
+  const isVisible = accomProps.showAccomForm ? "fixed flex" : "hidden";
   
 
   return (
     <div className={`${isVisible} right-0 top-0 mx-auto
     flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
-      <button className="self-end text-red-500" onClick={() => props.setShowForm(false)}>x Close</button>
+      <button className="self-end text-red-500" onClick={handleCloseAccomForm}>x Close</button>
       <form
         // action={handleSubmit}
         className={` h-full overflow-y-scroll flex-col`}
@@ -222,7 +231,7 @@ export default function NewAccomsForm({ ...props }) {
             // disabled={isSubmitting}
             size="sm"
           >
-            {props.requestType === "POST"
+            {requestProps.requestType === "POST"
               ? "Add Accommodation"
               : "Update Accommodation"}
           </Button>
