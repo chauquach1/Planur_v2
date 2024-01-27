@@ -16,17 +16,17 @@ export default function UserDashboard({ userData, trips }) {
 
   const displayProps = {
     controllerTab: controllerTab,
-    setControllerTab: setControllerTab,
     tripDisplayTab: tripDisplayTab,
-    setTripDisplayTab: setTripDisplayTab,
     showAccomForm: showAccomForm,
+    setControllerTab: setControllerTab,
+    setTripDisplayTab: setTripDisplayTab,
     setShowAccomForm: setShowAccomForm,
   };
 
   const tripProps = {
-    trip: selectedTrip,
-    setTrip: setSelectedTrip, // Assuming you have a setter for selectedTrip
+    selectedTrip: selectedTrip,
     trips: trips,
+    setSelectedTrip: setSelectedTrip, // Assuming you have a setter for selectedTrip
   };
 
   const requestProps = {
@@ -36,10 +36,10 @@ export default function UserDashboard({ userData, trips }) {
 
   const accomProps = {
     accomsIndex: accomsIndex,
-    setAccomsIndex: setAccomsIndex,
     activeAccom: activeAccom,
-    setActiveAccom: setActiveAccom,
     showAccomForm: showAccomForm,
+    setAccomsIndex: setAccomsIndex,
+    setActiveAccom: setActiveAccom,
     setShowAccomForm: setShowAccomForm,
   };
 
@@ -63,18 +63,6 @@ export default function UserDashboard({ userData, trips }) {
         selectedTrip={selectedTrip}
       />
       <TripDisplay
-        trip={selectedTrip}
-        key={selectedTrip._id || 0}
-        requestType={requestType}
-        setRequestType={setRequestType}
-        packList={packList}
-        setPackList={setPackList}
-        accomsIndex={accomsIndex}
-        setAccomsIndex={setAccomsIndex}
-        activeAccom={activeAccom}
-        setActiveAccom={setActiveAccom}
-
-        
         displayProps={displayProps}
         tripProps={tripProps}
         requestProps={requestProps}

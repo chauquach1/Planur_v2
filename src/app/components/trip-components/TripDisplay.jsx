@@ -23,21 +23,10 @@ export default function TripDisplay({ ...props }) {
       className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200 rounded-t-xl"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
-        <SummaryContainer trip={props.trip} />
+        <SummaryContainer trip={props.tripProps.selectedTrip} />
         <PanelNavContainer activeTab={activeTab} setActiveTab={setActiveTab} displayProps={props.displayProps} />
         <AccomsSection
-          accoms={props.accomsIndex}
-          activeTab={activeTab}
-          requestType={props.requestType}
-          setRequestType={props.setRequestType}
-          accomsIdIndex={props.accomsIdIndex}
-          setAccomsIdIndex={props.setAccomsIdIndex}
-          accomsIndex={props.accomsIndex}
-          setAccomsIndex={props.setAccomsIndex}
-          activeAccom={props.activeAccom}
-          setActiveAccom={props.setActiveAccom}
-          tripId={props.trip._id}
-
+          tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
           tripProps={props.tripProps}
           requestProps={props.requestProps}

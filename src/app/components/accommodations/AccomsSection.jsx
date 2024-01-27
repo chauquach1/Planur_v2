@@ -1,14 +1,11 @@
 import { button } from "@nextui-org/react";
 import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
-import NewAccomsForm from "../accommodations/NewAccomsForm"
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
 export default function AccomsSection({ displayProps, tripProps, requestProps, accomProps, ...props }) { 
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
-  const [arrowUp, setArrow] = useState(true);
-  const [showForm, setShowForm] = useState(false);
   const buttonClicked = () => {
     setBtnText(!btnText);
     setShowCategory(!showCategory);
@@ -30,11 +27,11 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
   } , [props.tripId]);
 
 
-  useEffect(() => {
-    console.log('AccomsSection displayProps', displayProps);
-    console.log('AccomsSection accomProps', accomProps);
-    console.log('AccomsSection tripProps', tripProps);
-  }, []);
+  // useEffect(() => {
+  //   console.log('AccomsSection displayProps', displayProps);
+  //   console.log('AccomsSection accomProps', accomProps);
+  //   console.log('AccomsSection tripProps', tripProps);
+  // }, []);
 
 
   if (displayProps.tripDisplayTab !== "Accommodations" && displayProps.tripDisplayTab !== "Full Details") {
@@ -42,10 +39,20 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
   } else {
     return (
       <>
-      <SectionContainer category="Accommodations" showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={arrowUp} {...props}>
+      <SectionContainer category="Accommodations" showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={showCategory} {...props}>
         <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewAccom}>Add New Accommodation</button>
         {accomProps.accomsIndex.map((accom) => {
-          return <AccommodationsCard key={accom.accomName} fetchedAccom={accom} displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} accomProps={accomProps} {...props}/>;
+          return (
+            <AccommodationsCard
+              key={accom.accomName}
+              fetchedAccom={accom}
+              displayProps={displayProps}
+              tripProps={tripProps}
+              requestProps={requestProps}
+              accomProps={accomProps}
+              {...props}
+            />
+          );
         })}
       </SectionContainer>
       </>

@@ -28,7 +28,6 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
     requestProps.setRequestType("PUT");
     accomProps.setActiveAccom(accom);
     accomProps.setShowAccomForm(true);
-    console.log('AccommodationsCard accomProps', accomProps);
   }
   let address = accom.accomAddress;
   // let formRef = useRef();
