@@ -10,7 +10,6 @@ import SlideOutForm from "../user-dashboard-components/content-side-components/S
 import { set } from "date-fns";
 
 export default function NewAccomsForm({displayProps, tripProps, requestProps, accomProps }) {
-  const [accomType, setAccomType] = useState(accomProps.activeAccom?.accomType || '');
   const [initialState, setInitialState] = useState(accomProps.activeAccom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
   const tripId = tripProps.tripId;
@@ -55,6 +54,8 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
   const updateAccom = async () => {
     try {
       const updatedAccom = await putAccom(initialState);
+      console.log('NewAccomsForm updatedAccom', updatedAccom);
+      console.log('NewAccomsForm initialState', initialState);
       updateAccomIndex(initialState._id, updatedAccom);
       setInitialState(updatedAccom);
     }
@@ -65,11 +66,15 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
 
   const handleSubmit = () => {
     console.log('NewAccomsForm accomProps', accomProps);
-    let accomsIndex = accomProps.accomsIndex;
-    const originalAccom = accomsIndex.find(accom => accom._id === initialState._id);
+    // let accomsIndex = accomProps.accomsIndex;
+    const originalAccom = accomProps.accomsIndex.find(accom => accom._id === initialState._id);
     console.log('initialState', initialState);
     console.log('originalAccom', originalAccom);
   };
+
+  // 01/26/2024: This useEffect is not working as expected. It is only updating the accomName state upon submit. Other changes are not being reflected in the form until after accomName is updated and form is submitted
+
+  // 02/02/2024: State of accomIndex only reflects all changes to accom details when accomName is updated, then form is submitted. Other changes are not being reflected in the form until after accomName is updated, form is submitted and components are re-rendered.
 
   // useEffect(() => {
   //   switch (requestProps.requestType) {
@@ -133,7 +138,9 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
             <SelectAccom
               className="col-span-3"
               accomType={initialState.accomType || ""}
-              setAccomType={setAccomType}
+              initialState={initialState}
+              setInitialState={setInitialState}
+              handleInputChange={handleInputChange}
             />
           </div>
           <Input

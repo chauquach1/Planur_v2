@@ -11,6 +11,7 @@ const accoms = [
 ];
 
 export default function SelectAccom(props) {
+  
 
   return (
     <Select
@@ -22,7 +23,7 @@ export default function SelectAccom(props) {
       size="sm"
       variant="faded"
       selectedKeys={props.accomType ? [props.accomType] : []}
-      onChange={(event) => props.setAccomType(event.target.value)}
+      onChange={(event) => props.handleInputChange('accomType', event.target.value)}
     >
       {accoms.map((accom) => (
         <SelectItem key={accom.value} value={accom.value}>
