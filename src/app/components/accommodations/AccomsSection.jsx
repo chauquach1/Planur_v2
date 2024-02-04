@@ -1,8 +1,8 @@
-import { button } from "@nextui-org/react";
 import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
+
 export default function AccomsSection({ displayProps, tripProps, requestProps, accomProps, ...props }) { 
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
@@ -16,6 +16,10 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
     accomProps.setActiveAccom({});
     accomProps.setShowAccomForm(true);
   }
+
+  useEffect(() => {
+    console.log('accomProps.accomsIndex', accomProps.accomsIndex);
+  }), [accomProps.accomsIndex]
 
   useEffect(() => {
     const getAccoms = async () => {

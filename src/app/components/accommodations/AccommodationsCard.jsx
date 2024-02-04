@@ -24,15 +24,22 @@ export function TextSpace ({category, value}) {
 
 export default function AccommodationsCard({ fetchedAccom, displayProps, tripProps, requestProps, accomProps, ...props }) {
   const [accom, setAccom] = useState(fetchedAccom);
+  const checkInDate = calendarDateFormat(accom.accomCheckIn);
+  const checkOutDate = calendarDateFormat(accom.accomCheckOut);
+  const address = accom.accomAddress;
   const updateAccom =() => {
     requestProps.setRequestType("PUT");
     accomProps.setActiveAccom(accom);
     accomProps.setShowAccomForm(true);
   }
-  let address = accom.accomAddress;
-  // let formRef = useRef();
-  const checkInDate = calendarDateFormat(accom.accomCheckIn);
-  const checkOutDate = calendarDateFormat(accom.accomCheckOut);
+
+    const handleDeleteAccom = (deleteId) => {
+    // Use filter to return a new array excluding the item with the matching accomId
+    const updatedAccomsIndex = accomProps.accomsIndex.filter(accom => accom._id !== deleteId);
+    console.log('updatedAccomsIndex', updatedAccomsIndex);
+    accomProps.setAccomsIndex(updatedAccomsIndex);
+    deleteAccom(deleteId);
+  };
 
   useEffect(() => {
     setAccom(fetchedAccom);
@@ -57,7 +64,7 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
          */}
 
         {/* New form rendering buttons: */}
-        <button onClick={updateAccom}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
+        <button onClick={updateAccom}>Edit</button> | <button onClick={() => handleDeleteAccom(accom._id)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
