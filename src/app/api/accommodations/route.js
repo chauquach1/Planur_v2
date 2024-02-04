@@ -12,6 +12,7 @@ export async function POST(request) {
   console.log('POST ACCOM ROUTE HIT');
   const tripId = request.nextUrl.searchParams.get('tripId')
   const rawFormData = await request.json();
+  console.log('rawFormData', rawFormData);
 
   try {
     const client = await mongoClient();
@@ -34,25 +35,34 @@ export async function POST(request) {
       accomType: rawFormData.accomType,
       accomCheckIn: rawFormData.accomCheckIn,
       accomCheckOut: rawFormData.accomCheckOut,
-      accomAddress: {
-        street: rawFormData.accomAddress.street,
-        city: rawFormData.accomAddress.city,
-        state: rawFormData.accomAddress.state,
-        zip: rawFormData.accomAddress.zip,
-        country: rawFormData.accomAddress.country,
-      },
+      // Only include accomAddress if it's not undefined
+      ...(rawFormData.accomAddress && {
+        accomAddress: {
+          street: rawFormData.accomAddress.street || "",
+          city: rawFormData.accomAddress.city || "",
+          state: rawFormData.accomAddress.state || "",
+          zip: rawFormData.accomAddress.zip || "",
+          country: rawFormData.accomAddress.country || "",
+        },
+      }),
       accomResNum: rawFormData.accomResNum,
       accomPhoneNumber: rawFormData.accomPhoneNumber,
       accomEmail: rawFormData.accomEmail,
     });
+    
     await newAccommodation.save();
-
+    if (!newAccommodation) {
+      return NextResponse.json({ error: "Accommodation not created" }, { status: 403 });
+    }
+    
+    
     await tripCollection.updateOne(
       { _id: new ObjectId(tripId) },
       { $push: { accommodations: newAccommodation._id } }
-    );
+      );
     
-    // Return the accommodation
+      console.log("newAccommodation", newAccommodation);
+      // Return the accommodation
     return NextResponse.json({ newAccommodation }, { status: 200 });
 
   } catch (error) {

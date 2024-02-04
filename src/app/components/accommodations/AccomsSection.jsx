@@ -26,13 +26,6 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
   } , [props.tripId]);
 
 
-  // useEffect(() => {
-  //   console.log('AccomsSection displayProps', displayProps);
-  //   console.log('AccomsSection accomProps', accomProps);
-  //   console.log('AccomsSection tripProps', tripProps);
-  // }, []);
-
-
   if (displayProps.tripDisplayTab !== "Accommodations" && displayProps.tripDisplayTab !== "Full Details") {
     return null;
   } else {

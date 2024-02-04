@@ -13,12 +13,13 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialState, setInitialState] = useState(accomProps.activeAccom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
-  const tripId = tripProps.tripId;
-  const postAccomWithTripId = postAccom.bind(null, tripId)
+  const tripId = tripProps.selectedTrip._id;
+  const postAccomWithTripId = postAccom.bind(null, tripId);
 
   useEffect(() => {
     setInitialState(accomProps.activeAccom);
   }, [accomProps.activeAccom]);
+
 
   // UPDATE STATE ACCOM INDEX
   const updateAccomIndex = (accomId, newState) => {
@@ -32,7 +33,20 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     accomProps.setAccomsIndex(newAccomIndex);
   };
 
-  // ASYNC POST ACCOM FUNCTION
+  // ASYNC POST/PUT REQUEST FUNCTIONS
+
+  const createNewAccom = async () => {
+    try {
+      const newAccom = await postAccomWithTripId(initialState);
+      console.log(newAccom);
+      // setInitialState(newAccom);
+      // setFormSubmitted(true);
+    } catch (err) {
+      console.log(err);
+      setFormSubmitted(false);
+    }
+  };
+
   const updateAccom = async () => {
     try {
       const updatedAccom = await putAccom(initialState);
@@ -41,9 +55,22 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     }
     catch (err) {
       console.log(err);
-      setFormSubmitted(false);
     }
   };
+
+  const handleSubmit = () => {
+    switch (requestProps.requestType) {
+      case "POST":
+        createNewAccom();
+        break;
+      case "PUT":
+        updateAccom();
+        break;
+      default:
+        console.log("Request type not found");
+    }
+  };
+
 
   // FORM SUBMISSION STATE STATUS
   useEffect(() => {
@@ -81,7 +108,7 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
       <button className="self-end text-red-500" onClick={() => accomProps.setShowAccomForm(false)}>x Close</button>
       <form
-        action={updateAccom}
+        action={handleSubmit}
         className={` h-full overflow-y-scroll flex-col`}
       >
         <div className=" flex flex-col gap-2 rounded-xl bg-white p-2">

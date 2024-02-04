@@ -36,7 +36,6 @@ export async function putAccom (accommodation) {
 // POST /api/accommodations
 export async function postAccom (tripId, accomFormData) {
   console.log('POST ACCOM accomFormData', accomFormData);
-  console.log('POST ACCOM tripId', tripId);
   
   const response = await fetch(`http://localhost:3000/api/accommodations?tripId=${tripId}`, {
     method: 'POST',
