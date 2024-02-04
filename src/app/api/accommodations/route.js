@@ -65,8 +65,6 @@ export async function PUT(request) {
   console.log('PUT ACCOM ROUTE HIT');
   const  updatedAccom  = await request.json();
   const accomId = updatedAccom._id;
-  console.log('accomId', accomId);
-  console.log('updatedAccom', updatedAccom);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");

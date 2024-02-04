@@ -10,6 +10,7 @@ import SlideOutForm from "../user-dashboard-components/content-side-components/S
 import { set } from "date-fns";
 
 export default function NewAccomsForm({displayProps, tripProps, requestProps, accomProps }) {
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialState, setInitialState] = useState(accomProps.activeAccom || {});
   const [accomRequestType, setAccomRequestType] = useState("POST"); // ["POST", "PUT", "DELETE", "GET"
   const tripId = tripProps.tripId;
@@ -19,31 +20,11 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     setInitialState(accomProps.activeAccom);
   }, [accomProps.activeAccom]);
 
-  const handleCloseAccomForm = () => {
-    // accomProps.setActiveAccom({});
-    accomProps.setShowAccomForm(false);
-  };
-
-
-
-  // const handleSubmit = () => {
-  //   // event.preventDefault(); // Prevent default form submission behavior
-  //   switch (requestProps.requestType) {
-  //     case "POST":
-  //       postAccomWithTripId(initialState, tripId)
-  //       break;
-  //     case "PUT":
-  //       putAccom(initialState);
-  //       break;
-  //     default:
-  //       console.log("Request type not found");
-  //   }
-  // };
-
-  const updateAccomIndex = (accomId, initialState) => {
+  // UPDATE STATE ACCOM INDEX
+  const updateAccomIndex = (accomId, newState) => {
     const newAccomIndex = accomProps.accomsIndex.map((accom) => {
       if (accom._id === accomId) {
-        return initialState;
+        return newState;
       } else {
         return accom;
       }
@@ -51,48 +32,29 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     accomProps.setAccomsIndex(newAccomIndex);
   };
 
+  // ASYNC POST ACCOM FUNCTION
   const updateAccom = async () => {
     try {
       const updatedAccom = await putAccom(initialState);
-      console.log('NewAccomsForm updatedAccom', updatedAccom);
-      console.log('NewAccomsForm initialState', initialState);
-      updateAccomIndex(initialState._id, updatedAccom);
       setInitialState(updatedAccom);
+      setFormSubmitted(true);
     }
     catch (err) {
       console.log(err);
+      setFormSubmitted(false);
     }
   };
 
-  const handleSubmit = () => {
-    console.log('NewAccomsForm accomProps', accomProps);
-    // let accomsIndex = accomProps.accomsIndex;
-    const originalAccom = accomProps.accomsIndex.find(accom => accom._id === initialState._id);
-    console.log('initialState', initialState);
-    console.log('originalAccom', originalAccom);
-  };
-
-  // 01/26/2024: This useEffect is not working as expected. It is only updating the accomName state upon submit. Other changes are not being reflected in the form until after accomName is updated and form is submitted
-
-  // 02/02/2024: State of accomIndex only reflects all changes to accom details when accomName is updated, then form is submitted. Other changes are not being reflected in the form until after accomName is updated, form is submitted and components are re-rendered.
-
-  // useEffect(() => {
-  //   switch (requestProps.requestType) {
-  //     case "POST":
-  //       setAccomRequestType("POST");
-  //       break;
-  //     case "PUT":
-  //       setAccomRequestType("PUT");
-  //       break;
-  //     case "DELETE":
-  //       setAccomRequestType("DELETE");
-  //       break;
-  //     default:
-  //       console.log("Request type not found");
-  //   }
-  // } , [requestProps.requestType]);
+  // FORM SUBMISSION STATE STATUS
+  useEffect(() => {
+    if (formSubmitted) {
+      updateAccomIndex(initialState._id, initialState);
+      setFormSubmitted(false);
+    }
+  }, [formSubmitted]);
 
 
+  // HANDLE INPUT CHANGE FUNCTIONS
   const handleInputChange = (key, value) => {
     setInitialState(prevState => ({
       ...prevState,
@@ -110,16 +72,14 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     }));
   };
 
-  // showForm functions and variables
-
-
+  // FORM VISIBILITY CONDITIONAL
   const isVisible = accomProps.showAccomForm ? "fixed flex" : "hidden";
   
 
   return (
     <div className={`${isVisible} right-0 top-0 mx-auto
     flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
-      <button className="self-end text-red-500" onClick={handleCloseAccomForm}>x Close</button>
+      <button className="self-end text-red-500" onClick={() => accomProps.setShowAccomForm(false)}>x Close</button>
       <form
         action={updateAccom}
         className={` h-full overflow-y-scroll flex-col`}

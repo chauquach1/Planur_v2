@@ -34,6 +34,10 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
   const checkInDate = calendarDateFormat(accom.accomCheckIn);
   const checkOutDate = calendarDateFormat(accom.accomCheckOut);
 
+  useEffect(() => {
+    setAccom(fetchedAccom);
+  }, [fetchedAccom]);
+
   return (
     <>
     <Card
