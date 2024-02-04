@@ -37,15 +37,21 @@ export async function putAccom (accommodation) {
 export async function postAccom (tripId, accomFormData) {
   console.log('POST ACCOM accomFormData', accomFormData);
   
-  const response = await fetch(`http://localhost:3000/api/accommodations?tripId=${tripId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(accomFormData)
-  });
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  try {
+    const response = await fetch(`http://localhost:3000/api/accommodations?tripId=${tripId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(accomFormData)
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
   }
 }
 

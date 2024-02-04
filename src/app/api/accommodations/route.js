@@ -63,7 +63,7 @@ export async function POST(request) {
     
       console.log("newAccommodation", newAccommodation);
       // Return the accommodation
-    return NextResponse.json({ newAccommodation }, { status: 200 });
+    return NextResponse.json(newAccommodation, { status: 200 });
 
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

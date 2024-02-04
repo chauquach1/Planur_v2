@@ -23,14 +23,24 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
 
   // UPDATE STATE ACCOM INDEX
   const updateAccomIndex = (accomId, newState) => {
-    const newAccomIndex = accomProps.accomsIndex.map((accom) => {
-      if (accom._id === accomId) {
-        return newState;
-      } else {
-        return accom;
-      }
-    });
-    accomProps.setAccomsIndex(newAccomIndex);
+    // Clone the existing accomsIndex to ensure immutability
+    const updatedAccomsIndex = [...accomProps.accomsIndex];
+
+    // Find the index of the accommodation with the given accomId
+    const index = updatedAccomsIndex.findIndex(
+      (accom) => accom._id === accomId
+    );
+
+    if (index !== -1) {
+      // If the accommodation exists, update it
+      updatedAccomsIndex[index] = newState;
+    } else {
+      // If the accommodation does not exist, add it
+      updatedAccomsIndex.push(newState);
+    }
+
+    // Update the state with the new accommodations array
+    accomProps.setAccomsIndex(updatedAccomsIndex);
   };
 
   // ASYNC POST/PUT REQUEST FUNCTIONS
@@ -39,8 +49,8 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
     try {
       const newAccom = await postAccomWithTripId(initialState);
       console.log(newAccom);
-      // setInitialState(newAccom);
-      // setFormSubmitted(true);
+      setInitialState(newAccom);
+      setFormSubmitted(true);
     } catch (err) {
       console.log(err);
       setFormSubmitted(false);
