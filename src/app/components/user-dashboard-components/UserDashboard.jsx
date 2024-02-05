@@ -12,6 +12,9 @@ export default function UserDashboard({ userData, trips }) {
   const [accomsIndex, setAccomsIndex] = useState([]);
   const [activeAccom, setActiveAccom] = useState({});
   const [showAccomForm, setShowAccomForm] = useState(false);
+  const [stopsIndex, setStopsIndex] = useState([]);
+  const [activeStop, setActiveStop] = useState({});
+  const [showStopForm, setShowStopForm] = useState(false);
   const [packList, setPackList] = useState(null);
 
   const displayProps = {
@@ -43,6 +46,15 @@ export default function UserDashboard({ userData, trips }) {
     setShowAccomForm: setShowAccomForm,
   };
 
+  const stopProps = {
+    stopsIndex: stopsIndex,
+    activeStop: activeStop,
+    showStopForm: showStopForm,
+    setStopsIndex: setStopsIndex,
+    setActiveStop: setActiveStop,
+    setShowStopForm: setShowStopForm,
+  }
+
   const packListProps = {
     packListId: selectedTrip.packList,
     packList: packList,
@@ -68,6 +80,7 @@ export default function UserDashboard({ userData, trips }) {
         tripProps={tripProps}
         requestProps={requestProps}
         accomProps={accomProps}
+        stopProps={stopProps}
         packListProps={packListProps}
       />
       <SideContainer
