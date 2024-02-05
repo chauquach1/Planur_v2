@@ -88,6 +88,7 @@ export default function UserDashboard({ userData, trips }) {
         tripProps={tripProps}
         requestProps={requestProps}
         accomProps={accomProps}
+        stopProps={stopProps}
         packListProps={packListProps}
       />
     </div>

@@ -119,7 +119,7 @@ export default function NewAccomsForm({displayProps, tripProps, requestProps, ac
       <button className="self-end text-red-500" onClick={() => accomProps.setShowAccomForm(false)}>x Close</button>
       <form
         action={handleSubmit}
-        className={` h-full overflow-y-scroll flex-col`}
+        className={`h-full overflow-y-scroll flex-col`}
       >
         <div className=" flex flex-col gap-2 rounded-xl bg-white p-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">

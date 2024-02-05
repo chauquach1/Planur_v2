@@ -11,8 +11,8 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
 
   const addNewStop = () => {
     requestProps.setRequestType("POST");
-    accomProps.setActiveAccom({});
-    accomProps.setShowAccomForm(true);
+    stopProps.setActiveStop({});
+    stopProps.setShowStopForm(true);
   }
   
   if (displayProps.tripDisplayTab !== "Stops" && displayProps.tripDisplayTab !== "Full Details") {
@@ -20,7 +20,7 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
   } else {
     return (
       <SectionContainer category="Stops"  showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={showCategory} {...props}>
-        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Accommodation</button>
+        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Stop</button>
         {props.stops.map((stop) => {
           return <StopsCard key={stop.stopName} stop={stop} />;
         })}

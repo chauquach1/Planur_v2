@@ -6,7 +6,7 @@ import SelectStopInterest from "../form-components/SelectStopInterest";
 import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 
-export default function NewStopForm({ activeForm }) {
+export default function NewStopForm({ stopProps, requestProps, ...props }) {
   const [stopName, setStopName] = useState("");
   const [stopType, setStopType] = useState("");
   const [stopArrival, setStopArrival] = useState("");
@@ -86,13 +86,15 @@ export default function NewStopForm({ activeForm }) {
     } catch (error) {}
   };
 
+  const isVisible = stopProps.showStopForm ? "fixed flex" : "hidden";
+
   return (
-    <>
+    <div  className={`${isVisible} right-0 top-0 mx-auto
+    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
+      <button className="self-end text-red-500" onClick={() => stopProps.setShowStopForm(false)}>x Close</button>
       <form
         onSubmit={handleSubmit}
-        className={`${
-          activeForm === "stop" ? "block" : "hidden"
-        } h-full overflow-y-scroll flex flex-col`}
+        className={`h-full overflow-y-scroll flex-col`}
       >
         <div className="flex flex-col gap-2 rounded-xl bg-white p-2">
           <Input
@@ -201,16 +203,19 @@ export default function NewStopForm({ activeForm }) {
           className="flex flex-row mt-2 w-full justify-center pt-2"
         >
           <Button
-            size="md"
+            color="success"
+            radius="full"
+            className="text-white"
             type="submit"
-            disabled={isSubmitting}
-            color="primary"
-            onPress={handleSubmit}
+            // disabled={isSubmitting}
+            size="sm"
           >
-            Add Stop
+            {requestProps.requestType === "POST"
+              ? "Add Stop"
+              : "Update Stop"}
           </Button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
