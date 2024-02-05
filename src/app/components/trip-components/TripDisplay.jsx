@@ -36,7 +36,14 @@ export default function TripDisplay({ ...props }) {
           requestProps={props.requestProps}
           accomProps={props.accomProps}
         /> */}
-        <StopsSection stops={sampleStops} displayProps={props.displayProps} />
+        <StopsSection
+          stops={sampleStops}
+          tripProps={props.tripProps}
+          tripId={props.tripProps.selectedTrip._id}
+          stopProps={props.stopProps}
+          displayProps={props.displayProps}
+          requestProps={props.requestProps}
+        />
         {/* <PackListSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}

@@ -1,7 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import StopsCard from "./StopsCard";
 import { useState } from "react";
-export default function StopsSection({displayProps, ...props}) {
+export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
   const buttonClicked = () => {
