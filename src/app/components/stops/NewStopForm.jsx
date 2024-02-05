@@ -6,85 +6,105 @@ import SelectStopInterest from "../form-components/SelectStopInterest";
 import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 
-export default function NewStopForm({ stopProps, requestProps, ...props }) {
-  const [stopName, setStopName] = useState("");
-  const [stopType, setStopType] = useState("");
-  const [stopArrival, setStopArrival] = useState("");
-  const [stopDeparture, setStopDeparture] = useState("");
-  const [stopTransportation, setStopTransportation] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [country, setCountry] = useState("");
-  const [stopInterest, setStopInterest] = useState("");
-  const [stopResNum, setStopResNum] = useState("");
-  const [stopPhoneNumber, setStopPhoneNumber] = useState("");
-  const [stopEmail, setStopEmail] = useState("");
-  const [stopNotes, setStopNotes] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
+export default function NewStopForm({ tripProps, stopProps, requestProps, ...props }) {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [initialState, setInitialState] = useState(stopProps.activeStop || {});
+  const tripId = tripProps.selectedTrip._id;
+  const postStopWithTripId = postStop.bind(null, tripId);
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    setMessage("");
+  useEffect(() => {
+    setInitialState(stopProps.activeStop);
+  }, [stopProps.activeStop]);
 
-    // Construct the form data object
-    const stopDetails = {
-      uuid,
-      tripId,
-      stopName,
-      stopType,
-      stopArrival,
-      stopDeparture,
-      stopTransportation,
-      stopAddress: {
-        street,
-        city,
-        state,
-        zip,
-        country,
-      },
-      stopInterest,
-      stopResNum,
-      stopNotes,
-      stopPhoneNumber,
-      stopEmail,
-    };
 
-    try {
-      // Send the form data to the API
-      const createStop = await fetch("https://planur-v2.vercel.app/api/stops", {
-        method: "POST",
-        body: JSON.stringify(stopDetails),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  // UPDATE STATE ACCOM INDEX
+  const updateStopsIndex = (stopId, newState) => {
+    // Clone the existing accomsIndex to ensure immutability
+    const updatedStopsIndex = [...stopProps.stopsIndex];
 
-      // Process the response here
-      const result = await createStop.json();
+    // Find the index of the stop with the given stopId
+    const index = updatedStopsIndex.findIndex(
+      (stop) => stop._id === stopId
+    );
 
-      // Reset form fields
-      setStopName("");
-      setStopType("");
-      setStopInterest("");
-      setStopArrival("");
-      setStopDeparture("");
-      setStopPhoneNumber("");
-      setStopEmail("");
-      setStreet("");
-      setCity("");
-      setState("");
-      setZip("");
-      setCountry("");
-      setStopTransportation("");
-      setStopResNum("");
-      setStopNotes("");
-      getTripStops();
-      return new NextResponse(200, result);
-    } catch (error) {}
+    if (index !== -1) {
+      // If the stop exists, update it
+      updatedStopsIndex[index] = newState;
+    } else {
+      // If the stop does not exist, add it
+      updatedStopsIndex.push(newState);
+    }
+
+    // Update the state with the new stops array
+    accomProps.setAccomsIndex(updatedStopsIndex);
   };
+
+  // ASYNC POST/PUT REQUEST FUNCTIONS
+
+  const createNewStop = async () => {
+    try {
+      const newStop = await postStopWithTripId(initialState);
+      console.log(newStop);
+      setInitialState(newStop);
+      setFormSubmitted(true);
+    } catch (err) {
+      console.log(err);
+      setFormSubmitted(false);
+    }
+  };
+
+  const updateStop = async () => {
+    try {
+      const updatedStop = await putStop(initialState);
+      setInitialState(updatedStop);
+      setFormSubmitted(true);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSubmit = () => {
+    switch (requestProps.requestType) {
+      case "POST":
+        createNewStop();
+        break;
+      case "PUT":
+        updateStop();
+        break;
+      default:
+        console.log("Request type not found");
+    }
+  };
+
+
+  // FORM SUBMISSION STATE STATUS
+  useEffect(() => {
+    if (formSubmitted) {
+      updateStopsIndex(initialState._id, initialState);
+      setFormSubmitted(false);
+    }
+  }, [formSubmitted]);
+
+
+  // HANDLE INPUT CHANGE FUNCTIONS
+  const handleInputChange = (key, value) => {
+    setInitialState(prevState => ({
+      ...prevState,
+      [key]: value
+    }));
+  };
+
+  const handleNestedInputChange = (parentKey, childKey, value) => {
+    setInitialState(prevState => ({
+      ...prevState,
+      [parentKey]: {
+        ...prevState[parentKey],
+        [childKey]: value
+      }
+    }));
+  };
+
 
   const isVisible = stopProps.showStopForm ? "fixed flex" : "hidden";
 
