@@ -70,32 +70,27 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
-  const { uuid, tripId, ...updatedStop } = await request.json();
+  console.log('PUT STOP ROUTE HIT');
+  const updatedStop = await request.json();
+  const stopId = updatedStop._id;
+
+  console.log('updatedStop', updatedStop);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
-    const tripCollection = db.collection("trips");
-
-    if (!tripId) {
-      return NextResponse.json(
-        { error: "Trip ID parameter is missing" },
-        { status: 400 }
-      );
-    }
-    const user = await userCollection.findOne({ uuid: uuid });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
+    const stopsCollection = db.collection("stops");
     
-    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-    if (!trip) {
-      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    const stop = await stopsCollection.findOne({ _id: new ObjectId(stopId) });
+    if (!stop) {
+      console.log('stop not found', stop);
+      return NextResponse.json({ error: "Stop not found" }, { status: 402 });
+    } else {
+      console.log('stop found', stop);
     }
 
     // Create a new stop
     const stopToUpdate = await Stop.findByIdAndUpdate(
-      { _id: new ObjectId(updatedStop.stopId) },
+      { _id: new ObjectId(stopId) },
       {
         stopAddress: updatedStop.stopAddress,
         stopArrival: updatedStop.stopArrival,
@@ -108,7 +103,6 @@ export async function PUT(request) {
         stopResNum: updatedStop.stopResNum,
         stopTransportation: updatedStop.stopTransportation,
         stopType: updatedStop.stopType,
-
       },
       { new: true } // This option returns the updated document
     );

@@ -18,7 +18,7 @@ export default function SelectReason(props) {
         size="sm"
         variant="faded"
         selectedKeys={props.stopInterest ? [props.stopInterest] : []}
-        onChange={(event) => props.handleInputChange('stopType', event.target.value)}
+        onChange={(event) => props.handleInputChange('stopInterest', event.target.value)}
       >
         {levels.map((level) => (
           <SelectItem key={level.value} value={level.value}>

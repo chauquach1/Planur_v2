@@ -1,6 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import StopsCard from "./StopsCard";
 import fetchAllStops from "../../_utils/stopsRequestsIndex";
+import sampleStops from "../../_tests_/sampleStops";
 import { useState, useEffect } from "react";
 export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
   const [showCategory, setShowCategory] = useState(true);

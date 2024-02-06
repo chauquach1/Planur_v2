@@ -83,7 +83,7 @@ export async function PUT(request) {
     const accom = await accomCollection.findOne({ _id: new ObjectId(accomId) });
     if (!accom) {
       console.log('accom not found', accom);
-      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+      return NextResponse.json({ error: "Accom not found" }, { status: 402 });
     } else {
       console.log('accom found', accom);
     }

@@ -17,10 +17,14 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
     setInitialState(stopProps.activeStop);
   }, [stopProps.activeStop]);
 
+  useEffect(() => {
+    console.log('initialState', initialState);
+  }, [initialState]);
+
 
   // UPDATE STATE ACCOM INDEX
   const updateStopsIndex = (stopId, newState) => {
-    // Clone the existing accomsIndex to ensure immutability
+    // Clone the existing stopsIndex to ensure immutability
     const updatedStopsIndex = [...stopProps.stopsIndex];
 
     // Find the index of the stop with the given stopId
@@ -37,7 +41,7 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
     }
 
     // Update the state with the new stops array
-    accomProps.setAccomsIndex(updatedStopsIndex);
+    stopProps.setStopsIndex(updatedStopsIndex);
   };
 
   // ASYNC POST/PUT REQUEST FUNCTIONS
@@ -71,7 +75,7 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
         createNewStop();
         break;
       case "PUT":
-        createNewStop();
+        updateStop();
         break;
       default:
         console.log("Request type not found");
@@ -121,7 +125,7 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
         x Close
       </button>
       <form
-        onSubmit={handleSubmit}
+        action={handleSubmit}
         className={`h-full overflow-y-scroll flex-col`}
       >
         <div className="flex flex-col gap-2 rounded-xl bg-white p-2">
