@@ -29,13 +29,13 @@ export default function TripDisplay({ ...props }) {
           setActiveTab={setActiveTab}
           displayProps={props.displayProps}
         />
-        {/* <AccomsSection
+        <AccomsSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
           accomProps={props.accomProps}
-        /> */}
+        />
         <StopsSection
           stops={sampleStops}
           tripProps={props.tripProps}

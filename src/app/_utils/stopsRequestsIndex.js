@@ -49,16 +49,23 @@ export async function putStop (stop) {
 }
 
 // POST /api/stops
-export async function postStop (tripId, stop) {
-  const response = await fetch(`http://localhost:3000/api/stops?tripId=${tripId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(stop)
-  });
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+export async function postStop (tripId, stopFormData) {
+  console.log('POST STOP stopFormData', stopFormData);
+  
+  try{
+    const response = await fetch(`http://localhost:3000/api/stops?tripId=${tripId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(stopFormData)
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error);
   }
 }
 

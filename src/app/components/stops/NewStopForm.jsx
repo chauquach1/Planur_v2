@@ -13,13 +13,11 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
   const tripId = tripProps.selectedTrip._id;
   const postStopWithTripId = postStop.bind(null, tripId);
 
+  
+
   useEffect(() => {
     setInitialState(stopProps.activeStop);
   }, [stopProps.activeStop]);
-
-  useEffect(() => {
-    console.log('initialState', initialState);
-  }, [initialState]);
 
 
   // UPDATE STATE ACCOM INDEX
@@ -49,7 +47,6 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
   const createNewStop = async () => {
     try {
       const newStop = await postStopWithTripId(initialState);
-      console.log(newStop);
       setInitialState(newStop);
       setFormSubmitted(true);
     } catch (err) {
@@ -311,7 +308,6 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
             radius="full"
             className="text-white"
             type="submit"
-            // disabled={isSubmitting}
             size="sm"
           >
             {requestProps.requestType === "POST" ? "Add Stop" : "Update Stop"}

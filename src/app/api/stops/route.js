@@ -36,7 +36,7 @@ export async function POST(request) {
       stopDeparture: rawFormData.stopDeparture,
       stopTransportation: rawFormData.stopTransportation,
       // Only include stopAddress if it's not undefined
-        ...(rawFormData.stopAddress && {
+      ...(rawFormData.stopAddress && {
         stopAddress: {
           street: rawFormData.stopAddress.street || "",
           city: rawFormData.stopAddress.city || "",
@@ -61,7 +61,7 @@ export async function POST(request) {
       { _id: new ObjectId(tripId) },
       { $push: { stops: newStop._id } }
     );
-    console.log("newAccommodation", newAccommodation);
+    console.log("newStop", newStop);
 
     return NextResponse.json(newStop , { status: 200 });
   } catch (error) {
