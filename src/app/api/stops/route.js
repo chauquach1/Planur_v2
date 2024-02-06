@@ -3,23 +3,26 @@ import { ObjectId } from "mongodb";
 import Stop from "../../models/stop"
 import { NextResponse } from "next/server";
 
+export async function stopsFetch(request){
+  const rawFormData = await request.json();
+  console.log('STOPS FETCH stop', rawFormData);
+}
+
 export async function POST(request) {
-  const { tripId, uuid, ...stopDetails } = await request.json();
+  console.log('POST STOP ROUTE HIT');
+  const tripId = request.nextUrl.searchParams.get('tripId')
+  const rawFormData = await request.json();
+  console.log('rawFormData', rawFormData);
+
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
 
     if (!tripId) {
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
-    const user = await userCollection.findOne({ uuid: uuid });
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
 
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
@@ -27,27 +30,40 @@ export async function POST(request) {
 
 
     const newStop = new Stop({
-      stopName: stopDetails.stopName,
-      stopType: stopDetails.stopType,
-      stopArrival: stopDetails.stopArrival,
-      stopDeparture: stopDetails.stopDeparture,
-      stopTransportation: stopDetails.stopTransportation,
-      stopAddress: stopDetails.stopAddress,
-      stopInterest: stopDetails.stopInterest,
-      stopResNum: stopDetails.stopResNum,
-      stopNotes: stopDetails.stopNotes,
-      stopPhoneNumber: stopDetails.stopPhoneNumber,
-      stopEmail: stopDetails.stopEmail,
+      stopName: rawFormData.stopName,
+      stopType: rawFormData.stopType,
+      stopArrival: rawFormData.stopArrival,
+      stopDeparture: rawFormData.stopDeparture,
+      stopTransportation: rawFormData.stopTransportation,
+      // Only include stopAddress if it's not undefined
+        ...(rawFormData.stopAddress && {
+        stopAddress: {
+          street: rawFormData.stopAddress.street || "",
+          city: rawFormData.stopAddress.city || "",
+          state: rawFormData.stopAddress.state || "",
+          zip: rawFormData.stopAddress.zip || "",
+          country: rawFormData.stopAddress.country || "",
+        },
+      }),
+      stopInterest: rawFormData.stopInterest,
+      stopResNum: rawFormData.stopResNum,
+      stopNotes: rawFormData.stopNotes,
+      stopPhoneNumber: rawFormData.stopPhoneNumber,
+      stopEmail: rawFormData.stopEmail,
     });
 
     await newStop.save();
+    if (!newStop) {
+      return NextResponse.json({ error: "Stop not created" }, { status: 403 });
+    }
 
     await tripCollection.updateOne(
       { _id: new ObjectId(tripId) },
       { $push: { stops: newStop._id } }
     );
+    console.log("newAccommodation", newAccommodation);
 
-    return NextResponse.json({ newStop }, { status: 200 });
+    return NextResponse.json(newStop , { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

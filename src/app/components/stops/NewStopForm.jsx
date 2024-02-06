@@ -160,7 +160,6 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
                   : ""
               }
               onChange={(e) => handleInputChange("stopArrival", e.target.value)}
-              isRequired
             />
             <Input
               label="Departure Date"
@@ -174,7 +173,6 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
               onChange={(e) =>
                 handleInputChange("stopDeparture", e.target.value)
               }
-              isRequired
             />
           </div>
           <Input
