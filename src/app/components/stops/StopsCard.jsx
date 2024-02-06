@@ -2,6 +2,7 @@ import { MdLocationPin } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import AddressText from "../misc-components/AddressText"
+import { deleteStop } from "../../_utils/stopsRequestsIndex";
 import { useState, useEffect, useRef } from "react";
 
 export default function StopCard({ fetchedStop, displayProps, tripProps, requestProps, stopProps, ...props }) {
@@ -21,7 +22,7 @@ export default function StopCard({ fetchedStop, displayProps, tripProps, request
     const updatedStopsIndex = stopProps.stopsIndex.filter(stop => stop._id !== deleteId);
     console.log('updatedStopsIndex', updatedStopsIndex);
     stopProps.setStopsIndex(updatedStopsIndex);
-    deleteAccom(deleteId);
+    deleteStop(deleteId);
   };
   
     useEffect(() => {
