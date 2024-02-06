@@ -71,7 +71,7 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
         createNewStop();
         break;
       case "PUT":
-        updateStop();
+        createNewStop();
         break;
       default:
         console.log("Request type not found");
