@@ -60,8 +60,8 @@ export async function postStop (tripId, stop) {
 }
 
 // DELETE /api/stops
-export async function deleteStop (stop) {
-  const response = await fetch(`http://localhost:3000/api/stops`, {
+export async function deleteStop (stopId) {
+  const response = await fetch(`http://localhost:3000/api/stops?stopId=${stopId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-export function AddressText ({category, value}) {
+export default function AddressText ({category, value}) {
   return (
     <>
       {category && category[value] ? (

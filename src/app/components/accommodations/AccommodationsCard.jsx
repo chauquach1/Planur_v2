@@ -4,6 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
 import { useState, useEffect, useRef } from "react";
+import AddressText from "../misc-components/AddressText"
 
 export function TextSpace ({category, value}) {
   return (
@@ -30,13 +31,13 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
     accomProps.setShowAccomForm(true);
   }
 
-    const handleDeleteAccom = (deleteId) => {
-    // Use filter to return a new array excluding the item with the matching accomId
-    const updatedAccomsIndex = accomProps.accomsIndex.filter(accom => accom._id !== deleteId);
-    console.log('updatedAccomsIndex', updatedAccomsIndex);
-    accomProps.setAccomsIndex(updatedAccomsIndex);
-    deleteAccom(deleteId);
-  };
+  const handleDeleteAccom = (deleteId) => {
+  // Use filter to return a new array excluding the item with the matching accomId
+  const updatedAccomsIndex = accomProps.accomsIndex.filter(accom => accom._id !== deleteId);
+  console.log('updatedAccomsIndex', updatedAccomsIndex);
+  accomProps.setAccomsIndex(updatedAccomsIndex);
+  deleteAccom(deleteId);
+};
 
   useEffect(() => {
     setAccom(fetchedAccom);
@@ -69,8 +70,8 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
             </p>
           </div>
           <div className="border-l-2 px-2 min-w-[250px] font-light inline-flex  gap-2">
-            <p><TextSpace category={address} value="street"/>, <TextSpace category={address} value="city" /><br></br>
-            <TextSpace category={address} value="state" /> <TextSpace category={address} value="zip" />, <TextSpace category={address} value="country" /></p>
+            <p><AddressText category={address} value="street"/>, <AddressText category={address} value="city" /><br></br>
+            <AddressText category={address} value="state" /> <AddressText category={address} value="zip" />, <AddressText category={address} value="country" /></p>
           </div>
         </div>
         <div className="hidden 2xl:block border-l-2 px-2">
