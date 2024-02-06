@@ -8,6 +8,7 @@ export async function GET(request, {params}) {
   try {
     const db = client.db('planur_v2');
     const { id } = await params;
+    console.log('id', id);
 
     // Extract UUID from request
     if (!id) {
@@ -15,9 +16,9 @@ export async function GET(request, {params}) {
     }
 
     // Fetch stop by ObjectId
-    const stop = await db.collection('stops').findOne({ _id: new ObjectId(id) })
-    if (!stop) {
-      return NextResponse.json({ error: "Stop not found" }, { status: 404 });
+    const trip = await db.collection('trips').findOne({ _id: new ObjectId(id) })
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 404 });
     }
 
     // Fetch stops by ObjectId

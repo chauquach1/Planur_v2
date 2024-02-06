@@ -1,6 +1,7 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import StopsCard from "./StopsCard";
-import { useState } from "react";
+import fetchAllStops from "../../_utils/stopsRequestsIndex";
+import { useState, useEffect } from "react";
 export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
   const [showCategory, setShowCategory] = useState(true);
   const [btnText, setBtnText] = useState(true);
@@ -14,6 +15,18 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
     stopProps.setActiveStop({});
     stopProps.setShowStopForm(true);
   }
+
+  useEffect(() => {
+    console.log('stopProps.stopsIndex', stopProps.stopsIndex);
+  }), [stopProps.stopsIndex]
+
+  useEffect(() => {
+    const getStops = async () => {
+      const stops = await fetchAllStops(props.tripId)
+      stopProps.setStopsIndex(stops);
+    }
+    getStops();
+  } , [props.tripId]);
   
   if (displayProps.tripDisplayTab !== "Stops" && displayProps.tripDisplayTab !== "Full Details") {
     return null;
