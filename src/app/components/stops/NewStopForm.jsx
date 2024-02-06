@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
-import { NextResponse } from "next/server";
+import { useState, useEffect } from "react";
 import SelectStopType from "../form-components/SelectStopType";
 import SelectStopInterest from "../form-components/SelectStopInterest";
+import {numDateFormat}  from "../../_utils/dateFormatterIndex";
+import { postStop, putStop  } from "../../_utils/stopsRequestsIndex";
 import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 
@@ -109,9 +110,16 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
   const isVisible = stopProps.showStopForm ? "fixed flex" : "hidden";
 
   return (
-    <div  className={`${isVisible} right-0 top-0 mx-auto
-    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
-      <button className="self-end text-red-500" onClick={() => stopProps.setShowStopForm(false)}>x Close</button>
+    <div
+      className={`${isVisible} right-0 top-0 mx-auto
+    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}
+    >
+      <button
+        className="self-end text-red-500"
+        onClick={() => stopProps.setShowStopForm(false)}
+      >
+        x Close
+      </button>
       <form
         onSubmit={handleSubmit}
         className={`h-full overflow-y-scroll flex-col`}
@@ -121,100 +129,174 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
             autoFocus={true}
             label="Stop Name"
             placeholder="e.g Golden Gate Bridge"
-            value={stopName}
-            onChange={(e) => setStopName(e.target.value)}
+            value={initialState.stopName || ""}
+            onChange={(e) => handleInputChange("stopName", e.target.value)}
             isRequired
           />
           <div className="grid grid-cols-4 flex-wrap xl:flex-nowrap gap-2">
-            <SelectStopType setStopType={setStopType} />
-            <SelectStopInterest setStopInterest={setStopInterest} />
+            <SelectStopType
+              className="col-span-3"
+              stopType={initialState.stopType || ""}
+              initialState={initialState}
+              setInitialState={setInitialState}
+              handleInputChange={handleInputChange}
+            />
+            <SelectStopInterest
+              className="col-span-3"
+              stopInterest={initialState.stopInterest || ""}
+              initialState={initialState}
+              setInitialState={setInitialState}
+              handleInputChange={handleInputChange}
+            />
           </div>
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-2">
             <Input
               label="Arrival Date"
               type="date"
               placeholder="mm/dd/yyyy"
-              value={stopArrival}
-              onChange={(e) => setStopArrival(e.target.value)}
+              value={
+                initialState && initialState.stopArrival
+                  ? numDateFormat(initialState.stopArrival)
+                  : ""
+              }
+              onChange={(e) => handleInputChange("stopArrival", e.target.value)}
               isRequired
             />
             <Input
               label="Departure Date"
               type="date"
               placeholder="mm/dd/yyyy"
-              value={stopDeparture}
-              onChange={(e) => setStopDeparture(e.target.value)}
+              value={
+                initialState && initialState.stopDeparture
+                  ? numDateFormat(initialState.stopDeparture)
+                  : ""
+              }
+              onChange={(e) =>
+                handleInputChange("stopDeparture", e.target.value)
+              }
               isRequired
             />
           </div>
           <Input
             label="Transportation"
             placeholder="Car, Plane, Train, etc."
-            value={stopTransportation}
-            onChange={(e) => setStopTransportation(e.target.value)}
+            value={initialState.stopTransportation || ""}
+            onChange={(e) =>
+              handleInputChange("stopTransportation", e.target.value)
+            }
           />
           <div className="flex flex-col lg:grid lg:grid-cols-6 md:grid-rows-2 gap-2">
             <Input
               label="Street"
               placeholder="e.g 123 Main St"
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
+              value={
+                initialState.stopAddress
+                  ? initialState.stopAddress.street || ""
+                  : ""
+              }
+              onChange={(e) =>
+                handleNestedInputChange(
+                  "stopAddress",
+                  "street",
+                  e.target.value
+                )
+              }
               autoComplete="off"
               className="col-span-6"
             />
             <Input
               label="City"
               placeholder="e.g San Francisco"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={
+                initialState.stopAddress
+                  ? initialState.stopAddress.city || ""
+                  : ""
+              }
+              onChange={(e) =>
+                handleNestedInputChange(
+                  "stopAddress",
+                  "city",
+                  e.target.value
+                )
+              }
               autoComplete="off"
               className="col-span-3"
             />
             <Input
               label="State/Province"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              value={
+                initialState.stopAddress
+                  ? initialState.stopAddress.state || ""
+                  : ""
+              }
+              onChange={(e) =>
+                handleNestedInputChange(
+                  "stopAddress",
+                  "state",
+                  e.target.value
+                )
+              }
               autoComplete="off"
               className="col-span-3"
             />
             <Input
               label="Zip/Postal"
-              value={zip}
-              onChange={(e) => setZip(e.target.value)}
+              value={
+                initialState.stopAddress
+                  ? initialState.stopAddress.zip || ""
+                  : ""
+              }
+              onChange={(e) =>
+                handleNestedInputChange(
+                  "stopAddress",
+                  "zip",
+                  e.target.value
+                )
+              }
               autoComplete="off"
               className="col-span-3 "
             />
             <Input
               label="Country/Region"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={
+                initialState.stopAddress
+                  ? initialState.stopAddress.country || ""
+                  : ""
+              }
+              onChange={(e) =>
+                handleNestedInputChange(
+                  "stopAddress",
+                  "country",
+                  e.target.value
+                )
+              }
               autoComplete="off"
               className="col-span-3"
             />
           </div>
           <Input
             label="Email"
-            value={stopEmail}
-            onChange={(e) => setStopEmail(e.target.value)}
+            value={initialState.stopEmail || ""}
+            onChange={(e) => handleInputChange("stopEmail", e.target.value)}
             autoComplete="off"
           />
           <Input
             label="Reservation/Confirmation"
-            value={stopResNum}
-            onChange={(e) => setStopResNum(e.target.value)}
+            value={initialState.stopResNum || ""}
+            onChange={(e) => handleInputChange("stopResNum", e.target.value)}
             autoComplete="off"
           />
           <Input
             label="Phone Number"
-            value={stopPhoneNumber}
-            onChange={(e) => setStopPhoneNumber(e.target.value)}
+            value={initialState.stopPhoneNumber || ""}
+            onChange={(e) => handleInputChange("stopPhoneNumber", e.target.value)}
             autoComplete="off"
           />
           <Input
-            onChange={(e) => setStopNotes(e.target.value)}
+            onChange={(e) => handleInputChange("stopNotes", e.target.value)}
             autoComplete="off"
             maxRows={3}
-            value={stopNotes}
+            value={initialState.stopNotes || ""}
             label="Notes"
           ></Input>
         </div>
@@ -230,9 +312,7 @@ export default function NewStopForm({ tripProps, stopProps, requestProps, ...pro
             // disabled={isSubmitting}
             size="sm"
           >
-            {requestProps.requestType === "POST"
-              ? "Add Stop"
-              : "Update Stop"}
+            {requestProps.requestType === "POST" ? "Add Stop" : "Update Stop"}
           </Button>
         </div>
       </form>
