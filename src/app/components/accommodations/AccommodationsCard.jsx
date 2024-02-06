@@ -3,10 +3,7 @@ import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
-import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
-import NewAccomsForm from "./NewAccomsForm";
 import { useState, useEffect, useRef } from "react";
-import { set } from "date-fns";
 
 export function TextSpace ({category, value}) {
   return (
@@ -59,10 +56,6 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
           <p className="inline-block">{accom.accomName}</p>
         </div>
         <div className="ms-auto text-sm">
-        {/* Original form rendering buttons:
-        <button onClick={() => {props.setRequestType("PUT"), props.setActiveAccom(accom)}}>Edit</button> | <button onClick={() => deleteAccom(accom._id)}>Delete</button>
-         */}
-
         {/* New form rendering buttons: */}
         <button onClick={updateAccom}>Edit</button> | <button onClick={() => handleDeleteAccom(accom._id)}>Delete</button>
         </div>

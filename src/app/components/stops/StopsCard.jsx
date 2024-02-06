@@ -1,19 +1,22 @@
 import { MdLocationPin } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
+import { useState, useEffect, useRef } from "react";
 
-export default function StopCard({
-  stop,
-  // handleCardPress,
-}) {
+export default function StopCard({ stop, fetchedAccom, displayProps, tripProps, requestProps, stopProps, ...props }) {
+  // const [stop, setStop] = useState(stop);
   let address = stop.stopAddress;
   const arrival = calendarDateFormat(stop.stopArrival);
   const departure = calendarDateFormat(stop.stopDeparture);
 
+  const updateStop =() => {
+    requestProps.setRequestType("PUT");
+    stopProps.setActiveStop(stop);
+    stopProps.setShowStopForm(true);
+  }
+
   return (
     <Card
-      isHoverable
-      isPressable
       className=" w-full border shadow-none bg-white "
     >
       <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-0">
@@ -21,11 +24,17 @@ export default function StopCard({
           <MdLocationPin />
           <p className="inline-block">{stop.stopName}</p>
         </div>
+        <div className="ms-auto text-sm">
+        {/* New form rendering buttons: */}
+        <button onClick={updateStop}>Edit</button> | <button onClick={() => handleDeleteAccom(accom._id)}>Delete</button>
+        </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">
         <div className="border-l-2 px-2">
           <p className="text-default-500 ms-auto">Arrival: {arrival}</p>
-          {departure ? <p className="text-default-500 ms-auto"> Departure: {departure} </p> : null }
+          {departure ? (
+            <p className="text-default-500 ms-auto"> Departure: {departure} </p>
+          ) : null}
         </div>
         <p className="border-l-2 px-2">
           Address:{" "}
