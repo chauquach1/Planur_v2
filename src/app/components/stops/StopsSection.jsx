@@ -34,11 +34,11 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
     return (
       <SectionContainer category="Stops"  showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={showCategory} {...props}>
         <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Stop</button>
-        {props.stops.map((stop) => {
+        {stopProps.stopsIndex.map((stop) => {
           return (
             <StopsCard
               key={stop.stopName}
-              stop={stop}
+              fetchedStop={stop}
               displayProps={displayProps}
               tripProps={tripProps}
               requestProps={requestProps}

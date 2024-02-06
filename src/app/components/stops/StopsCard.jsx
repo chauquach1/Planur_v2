@@ -3,8 +3,8 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { useState, useEffect, useRef } from "react";
 
-export default function StopCard({ stop, fetchedAccom, displayProps, tripProps, requestProps, stopProps, ...props }) {
-  // const [stop, setStop] = useState(stop);
+export default function StopCard({ fetchedStop, displayProps, tripProps, requestProps, stopProps, ...props }) {
+  const [stop, setStop] = useState(fetchedStop);
   let address = stop.stopAddress;
   const arrival = calendarDateFormat(stop.stopArrival);
   const departure = calendarDateFormat(stop.stopDeparture);

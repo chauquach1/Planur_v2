@@ -8,7 +8,6 @@ export async function GET(request, {params}) {
   try {
     const db = client.db('planur_v2');
     const { id } = await params;
-    console.log('id', id);
 
     // Extract UUID from request
     if (!id) {
