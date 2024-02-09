@@ -38,7 +38,7 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
   } else {
     return (
       <SectionContainer category="Packing List" showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
-          <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={updatePackList}>Update Packing List</button>
+          <button className="ms-auto text-blue-500 text-sm hover:text-blue-600" onClick={updatePackList}>Add/Remove Items</button>
           {packListProps.packList
             ?  Object.entries(packListProps.packList).map(([category, items]) => {
               if (items.length === 0 || typeof items !== "object") {
