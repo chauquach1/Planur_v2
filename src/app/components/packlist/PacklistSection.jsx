@@ -5,7 +5,7 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 
 export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
-  const [showCategory, setShowCategory] = useState(false);
+  const [showCategory, setShowCategory] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
