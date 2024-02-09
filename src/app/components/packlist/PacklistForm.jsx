@@ -106,8 +106,15 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
     <div
       className={`${
         showPackListForm ? "block" : "hidden"
-      } flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl`}
+      } flex flex-col h-full w-full `}
     >
+      <button
+        className="self-end text-red-500"
+        onClick={() => setShowPackListForm(false)}
+      >
+        x Close
+      </button>
+      <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
       <Accordion isCompact selectionMode="multiple">
         {Object.entries(packListItems).map(([category, items], index) => (
           <AccordionItem
@@ -119,6 +126,7 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
           </AccordionItem>
         ))}
       </Accordion>
+      </div>
     </div>
   );
 }
