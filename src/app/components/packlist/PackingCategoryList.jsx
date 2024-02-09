@@ -18,7 +18,7 @@ export default function PackingCategoryList({category, items, packList, setPackL
   };
 
   return (
-    <div id={`${category}-list`} className="flex flex-col gap-2 p-3 w-full">
+    <div id={`${category}-list`} className="flex flex-col gap-2 pb-3 w-full">
       <h1 className="font-semibold underline underline-offset-2">{category[0].toUpperCase() + category.substring(1)}</h1>
       <div className="flex flex-row flex-wrap m-1">
         {items.map((item) => {

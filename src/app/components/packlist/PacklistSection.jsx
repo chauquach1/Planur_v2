@@ -1,3 +1,4 @@
+import SectionContainer from "../trip-components/SectionContainer";
 import { use, useEffect, useState } from "react";
 import { fetchPackList } from "../../_utils/packListRequestsIndex";
 import PackingCategoryList from "./PackingCategoryList";
@@ -6,6 +7,13 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
   const [showCategory, setShowCategory] = useState(true);
+
+  const updatePackList = () => {
+    // requestProps.setRequestType("POST");
+    // stopProps.setActiveStop({});
+    // stopProps.setShowStopForm(true);
+    console.log("Update Pack List Button Clicked");
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,19 +35,8 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
     return null;
   } else {
     return (
-      <div className="flex flex-col bg-peach-300 rounded-xl">
-        <RevealSectionBtn
-          category={"Packing List"}
-          showCategory={showCategory}
-          setShowCategory={setShowCategory}
-          arrowUp={showCategory}
-        />
-        <div
-          id={`packing-list-section`}
-          className={`${
-            showCategory ? null : "hidden"
-          } flex gap-1 flex-row flex-wrap bg-gray-100 rounded-b-xl`}
-        >
+      <SectionContainer category="Packing List" showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
+          <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={updatePackList}>Update Packing List</button>
           {packListProps.packList
             ?  Object.entries(packListProps.packList).map(([category, items]) => {
               if (items.length === 0 || typeof items !== "object") {
@@ -58,9 +55,7 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
             : 
             <button className="m-auto">Create Packing List</button>
             }
-
-        </div>
-      </div>
+      </SectionContainer>
     );
   }
 }
