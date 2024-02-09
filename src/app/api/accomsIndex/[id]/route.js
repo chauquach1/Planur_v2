@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
 export async function GET(request, {params}) {
-  console.log('fetchAllAccoms GET request');
   const client = await mongoClient();
   try {
     const db = client.db('planur_v2');

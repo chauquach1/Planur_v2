@@ -4,22 +4,13 @@ import fetchAllStops from "../../_utils/stopsRequestsIndex";
 import sampleStops from "../../_tests_/sampleStops";
 import { useState, useEffect } from "react";
 export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
-  const [showCategory, setShowCategory] = useState(true);
-  const [btnText, setBtnText] = useState(true);
-  const buttonClicked = () => {
-    setBtnText(!btnText);
-    setShowCategory(!showCategory);
-  };
+  const [showCategory, setShowCategory] = useState(false);
 
   const addNewStop = () => {
     requestProps.setRequestType("POST");
     stopProps.setActiveStop({});
     stopProps.setShowStopForm(true);
   }
-
-  useEffect(() => {
-    console.log('stopProps.stopsIndex', stopProps.stopsIndex);
-  }), [stopProps.stopsIndex]
 
   useEffect(() => {
     const getStops = async () => {
@@ -33,7 +24,7 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
     return null;
   } else {
     return (
-      <SectionContainer category="Stops"  showCategory={showCategory} buttonClicked={buttonClicked} arrowUp={showCategory} {...props}>
+      <SectionContainer category="Stops"  showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
         <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Stop</button>
         {stopProps.stopsIndex.map((stop) => {
           return (

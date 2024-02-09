@@ -95,7 +95,6 @@ export async function PUT(request) {
 }
 
 export async function GET(request) {
-  console.log('GET PACKLIST ROUTE HIT');
   const client = await mongoClient();
 
   try {

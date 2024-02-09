@@ -6,18 +6,6 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
-  const [btnText, setBtnText] = useState(true);
-  const [arrowUp, setArrow] = useState(false);
-  // const packListId = props.trip.packList;
-  const buttonClicked = () => {
-    setBtnText(!btnText);
-    setShowCategory(!showCategory);
-    setArrow(!arrowUp);
-  };
-
-  useEffect(() => {
-    console.log('PackListPanel packListProps', packListProps);
-  } ,[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +30,9 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
       <div className="flex flex-col bg-peach-300 rounded-xl">
         <RevealSectionBtn
           category={"Packing List"}
-          buttonClicked={buttonClicked}
-          arrowUp={arrowUp}
+          showCategory={showCategory}
+          setShowCategory={setShowCategory}
+          arrowUp={showCategory}
         />
         <div
           id={`packing-list-section`}

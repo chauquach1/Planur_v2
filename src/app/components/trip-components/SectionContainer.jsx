@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function SectionContainer({ children, ...props}) {
   return (
     <div className="flex flex-col bg-peach-300 rounded-xl">
-      <RevealSectionBtn category={props.category} buttonClicked={props.buttonClicked} arrowUp={props.arrowUp} />
+      <RevealSectionBtn {...props} />
       <div
         id={`${props.category}-section`}
         className={`${

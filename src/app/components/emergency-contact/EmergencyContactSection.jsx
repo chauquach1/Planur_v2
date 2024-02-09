@@ -4,13 +4,7 @@ import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 export default function EmergencyContactSection({ category, id, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
-  const [arrowUp, setArrow] = useState(false);
-  const [btnText, setBtnText] = useState(true);
-  const buttonClicked = () => {
-    setBtnText(!btnText);
-    setShowCategory(!showCategory);
-    setArrow(!arrowUp);
-  };
+
   const contacts = sampleEmergencyContacts;
   if (
     props.activeTab !== "Emergency Contacts" &&
@@ -20,7 +14,12 @@ export default function EmergencyContactSection({ category, id, ...props }) {
   } else {
     return (
       <div className="flex flex-col bg-peach-300 rounded-xl">
-        <RevealSectionBtn category={"Emergency Contacts"} buttonClicked={buttonClicked} arrowUp={arrowUp} />
+        <RevealSectionBtn
+          category={"Emergency Contacts"}
+          showCategory={showCategory}
+          setShowCategory={setShowCategory}
+          arrowUp={showCategory}
+        />
         <div
           id="emergency-contact-section"
           category="Emergency Contacts"
