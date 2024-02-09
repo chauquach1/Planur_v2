@@ -16,6 +16,7 @@ export default function UserDashboard({ userData, trips }) {
   const [activeStop, setActiveStop] = useState({});
   const [showStopForm, setShowStopForm] = useState(false);
   const [packList, setPackList] = useState(null);
+  const [showPackListForm, setShowPackListForm] = useState(false);
 
   const displayProps = {
     controllerTab: controllerTab,
@@ -59,7 +60,9 @@ export default function UserDashboard({ userData, trips }) {
   const packListProps = {
     packListId: selectedTrip.packList,
     packList: packList,
+    showPackListForm: showPackListForm,
     setPackList: setPackList,
+    setShowPackListForm: setShowPackListForm,
   };
 
   // useEffect(() => {

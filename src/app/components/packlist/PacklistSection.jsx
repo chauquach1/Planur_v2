@@ -9,11 +9,13 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
   const [showCategory, setShowCategory] = useState(true);
 
   const updatePackList = () => {
-    // requestProps.setRequestType("POST");
-    // stopProps.setActiveStop({});
-    // stopProps.setShowStopForm(true);
-    console.log("Update Pack List Button Clicked");
+    requestProps.setRequestType("POST");
+    packListProps.setShowPackListForm(!packListProps.showPackListForm);
   }
+
+  useEffect(() => {
+    console.log("PackListPanel props", props);
+  }), [packListProps.showPackListForm];
 
   useEffect(() => {
     const fetchData = async () => {
