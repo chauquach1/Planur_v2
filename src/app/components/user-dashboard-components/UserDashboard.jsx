@@ -28,6 +28,7 @@ export default function UserDashboard({ userData, trips }) {
 
   const tripProps = {
     selectedTrip: selectedTrip,
+    tripId: selectedTrip._id,
     trips: trips,
     setSelectedTrip: setSelectedTrip, // Assuming you have a setter for selectedTrip
   };

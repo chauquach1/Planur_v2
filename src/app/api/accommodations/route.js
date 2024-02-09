@@ -118,18 +118,42 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-
-  console.log('DELETE ACCOM ROUTE HIT');
-  const accomId = request.nextUrl.searchParams.get('accomId')
-  console.log('accomId', accomId);
+  console.log("DELETE ACCOM ROUTE HIT");
+  const accomId = request.nextUrl.searchParams.get("accomId");
+  const tripId = request.nextUrl.searchParams.get("tripId");
+  console.log("accomId", accomId);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const accomsCollections = db.collection("accommodations");
+    const tripsCollection = db.collection("trips");
+    const accomsCollection = db.collection("accommodations");
 
-    const accommodation = await accomsCollections.findOneAndDelete({ _id: new ObjectId(accomId) });
-    if (!accommodation) {
-      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    // Convert string IDs to ObjectId
+    const accomObjectId = new ObjectId(accomId);
+    const tripObjectId = new ObjectId(tripId);
+
+    console.log('finding trip');
+    const trip = await tripsCollection.findOne({ _id: tripObjectId });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
+
+    // Remove the accommodation ID from the trip's accommodations array
+    console.log('removing accom from trip');
+    await tripsCollection.updateOne(
+      { _id: tripObjectId },
+      { $pull: { accommodations: accomObjectId } }
+    );
+
+    // Delete the accommodation document from accommodation collection
+    console.log('deleting accommodation with _id', accomObjectId);
+    const accommodation = await accomsCollection.findOneAndDelete({
+      _id: accomObjectId,
+    });
+    
+    console.log('finding if accom still exists in accommodation collection');
+    if (!accommodation.value) {
+      return NextResponse.json({ message: "Accommodation not found in accomsCollection" }, { status: 200 });
     }
 
     return NextResponse.json({ message: "Accom deleted" }, { status: 200 });

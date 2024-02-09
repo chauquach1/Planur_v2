@@ -36,7 +36,9 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
   const updatedAccomsIndex = accomProps.accomsIndex.filter(accom => accom._id !== deleteId);
   console.log('updatedAccomsIndex', updatedAccomsIndex);
   accomProps.setAccomsIndex(updatedAccomsIndex);
-  deleteAccom(deleteId);
+  deleteAccom(deleteId, tripProps.tripId);
+  // console.log('deleteId', deleteId);
+  // console.log('tripProps.tripId', tripProps.tripId);
 };
 
   useEffect(() => {

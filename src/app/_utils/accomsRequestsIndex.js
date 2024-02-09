@@ -56,8 +56,8 @@ export async function postAccom (tripId, accomFormData) {
 }
 
 // DELETE /api/accommodations
-export async function deleteAccom (accomId) {
-  const response = await fetch(`http://localhost:3000/api/accommodations?accomId=${accomId}`, {
+export async function deleteAccom (accomId, tripId) {
+  const response = await fetch(`http://localhost:3000/api/accommodations?accomId=${accomId}&tripId=${tripId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
