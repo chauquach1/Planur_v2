@@ -7,7 +7,7 @@ import { postStop, putStop  } from "../../_utils/stopsRequestsIndex";
 import { Button } from "@nextui-org/react";
 import Input from "../form-components/Input";
 
-export default function NewStopForm({ tripProps, stopProps, requestProps, ...props }) {
+export default function StopForm({ tripProps, stopProps, requestProps, ...props }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialState, setInitialState] = useState(stopProps.activeStop || {});
   const tripId = tripProps.selectedTrip._id;

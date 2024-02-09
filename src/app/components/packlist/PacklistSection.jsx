@@ -10,7 +10,7 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
 
   const updatePackList = () => {
     requestProps.setRequestType("POST");
-    packListProps.setShowPackListForm(!packListProps.showPackListForm);
+    packListProps.setShowPackListForm(true);
   }
 
   useEffect(() => {

@@ -8,10 +8,7 @@ import {
 } from "@nextui-org/react";
 
 
-export default function PackListForm({
-  packList,
-  ...props
-}) {
+export default function PackListForm({packListProps: { packList, setPackList, showPackListForm, setShowPackListForm }, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
   const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
 
@@ -20,7 +17,7 @@ export default function PackListForm({
       initialRender.current = false;
       return;
     }
-    props.setPackList(initialState);
+    setPackList(initialState);
   }, [initialState]);
   
   const isDefaultSelected = (category, item) => {
@@ -108,7 +105,7 @@ export default function PackListForm({
   return (
     <div
       className={`${
-        props.activeForm === "packList" ? "block" : "hidden"
+        showPackListForm ? "block" : "hidden"
       } flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl`}
     >
       <Accordion isCompact selectionMode="multiple">

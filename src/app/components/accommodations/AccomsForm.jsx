@@ -9,7 +9,7 @@ import SideContainer from "../user-dashboard-components/content-side-components/
 import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
 import { set } from "date-fns";
 
-export default function NewAccomsForm({tripProps, requestProps, accomProps }) {
+export default function AccomsForm({tripProps, requestProps, accomProps }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialState, setInitialState] = useState(accomProps.activeAccom || {});
   const tripId = tripProps.selectedTrip._id;
