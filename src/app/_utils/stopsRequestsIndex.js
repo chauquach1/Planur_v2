@@ -70,8 +70,8 @@ export async function postStop (tripId, stopFormData) {
 }
 
 // DELETE /api/stops
-export async function deleteStop (stopId) {
-  const response = await fetch(`http://localhost:3000/api/stops?stopId=${stopId}`, {
+export async function deleteStop (stopId, tripId) {
+  const response = await fetch(`http://localhost:3000/api/stops?stopId=${stopId}&tripId=${tripId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

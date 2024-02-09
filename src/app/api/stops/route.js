@@ -121,20 +121,43 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-
+  console.log('DELETE STOP ROUTE HIT');
   const stopId = request.nextUrl.searchParams.get('stopId')
-  // console.log('DELETE STOP ROUTE HIT', stopId);
+  const tripId = request.nextUrl.searchParams.get("tripId");
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const stopCollection = db.collection("stops");
+    const tripsCollection = db.collection("trips");
+    const stopsCollection = db.collection("stops");
+    
+    // Convert string IDs to ObjectId
+    const tripObjectId = new ObjectId(tripId);
+    const stopObjectId = new ObjectId(stopId);
 
-    const stop = await stopCollection.findOne({ _id: new ObjectId(stopId) });
-    if (!stop) {
-      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    console.log('finding trip');
+    const trip = await tripsCollection.findOne({ _id: tripObjectId });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
-    await stopCollection.deleteOne({ _id: new ObjectId(stopId) });
+    // Remove the accommodation ID from the trip's stops array
+    console.log('removing stop from trip');
+    await tripsCollection.updateOne(
+      { _id: tripObjectId },
+      { $pull: { stops: stopObjectId } }
+    );
+
+    // Delete the stop document from stop collection
+    console.log('deleting stop with _id', stopObjectId);
+    const stop = await stopsCollection.findOneAndDelete({
+      _id: stopObjectId,
+    });
+
+    console.log('finding if stop still exists in stop collection');
+    if (!stop.value) {
+      return NextResponse.json({ message: "Stop not found in stopsCollection" }, { status: 200 });
+    }
+    
     return NextResponse.json({ message: "Stop deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

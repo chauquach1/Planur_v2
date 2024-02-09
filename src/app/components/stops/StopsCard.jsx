@@ -17,12 +17,12 @@ export default function StopCard({ fetchedStop, displayProps, tripProps, request
     stopProps.setShowStopForm(true);
   }
 
-  const handleDeleteStop = (deleteId) => {
+  const handleDeleteStop = (deleteId, tripId) => {
     // Use filter to return a new array excluding the item with the matching stopId
     const updatedStopsIndex = stopProps.stopsIndex.filter(stop => stop._id !== deleteId);
     console.log('updatedStopsIndex', updatedStopsIndex);
     stopProps.setStopsIndex(updatedStopsIndex);
-    deleteStop(deleteId);
+    deleteStop(deleteId, tripId);
   };
   
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function StopCard({ fetchedStop, displayProps, tripProps, request
         <div className="ms-auto text-sm">
           {/* New form rendering buttons: */}
           <button onClick={updateStop}>Edit</button> |{" "}
-          <button onClick={() => handleDeleteStop(stop._id)}>Delete</button>
+          <button onClick={() => handleDeleteStop(stop._id, tripProps.tripId)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">
