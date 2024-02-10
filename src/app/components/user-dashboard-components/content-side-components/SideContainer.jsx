@@ -1,8 +1,9 @@
 import AccomsForm from "../../accommodations/AccomsForm";
 import StopsForm from "../../stops/StopsForm";
 import PackListForm from "../../packlist/PackListForm";
+import EmergencyContactForm from "../../emergency-contact/EmergencyContactForm";
 import { useEffect } from "react";
-export default function SideContainer({displayProps, tripProps, stopProps, requestProps, accomProps, packListProps}) {
+export default function SideContainer({displayProps, tripProps, stopProps, requestProps, accomProps, packListProps, emergencyContactsProps}) {
   // useEffect(() => {
   //   console.log('accomProps', accomProps);
   // },[]);
@@ -16,6 +17,7 @@ export default function SideContainer({displayProps, tripProps, stopProps, reque
       <AccomsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} accomProps={accomProps} />
       <StopsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} stopProps={stopProps} />
       <PackListForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} packListProps={packListProps} />
+      <EmergencyContactForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} emergencyContactsProps={emergencyContactsProps} />
     </div>
   );
 }

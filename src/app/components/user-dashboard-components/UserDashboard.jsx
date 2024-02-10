@@ -17,6 +17,9 @@ export default function UserDashboard({ userData, trips }) {
   const [showStopForm, setShowStopForm] = useState(false);
   const [packList, setPackList] = useState(null);
   const [showPackListForm, setShowPackListForm] = useState(false);
+  const [contactsIndex, setContactsIndex] = useState([]);
+  const [activeContact, setActiveContact] = useState({});
+  const [showContactForm, setShowContactForm] = useState(false);
 
   const displayProps = {
     controllerTab: controllerTab,
@@ -65,6 +68,15 @@ export default function UserDashboard({ userData, trips }) {
     setShowPackListForm: setShowPackListForm,
   };
 
+  const emergencyContactsProps = {
+    contactsIndex: contactsIndex,
+    activeContact: activeContact,
+    showContactForm: showContactForm,
+    setContactsIndex: setContactsIndex,
+    setActiveContact: setActiveContact,
+    setShowContactForm: setShowContactForm,
+  };
+
   // useEffect(() => {
   //   console.log('TripDisplay activeAccom', activeAccom);
   // }, [activeAccom]);
@@ -86,6 +98,7 @@ export default function UserDashboard({ userData, trips }) {
         accomProps={accomProps}
         stopProps={stopProps}
         packListProps={packListProps}
+        emergencyContactsProps={emergencyContactsProps}
       />
       <SideContainer
         displayProps={displayProps}
@@ -94,6 +107,7 @@ export default function UserDashboard({ userData, trips }) {
         accomProps={accomProps}
         stopProps={stopProps}
         packListProps={packListProps}
+        emergencyContactsProps={emergencyContactsProps}
       />
     </div>
   );
