@@ -3,52 +3,67 @@ import { ObjectId } from "mongodb";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 
+export async function accomsFetch(request){
+  const rawFormData = await request.json();
+  console.log('ACCOMS FETCH accommodation', rawFormData);
+}
+
 export async function POST(request) {
-  const {tripId, uuid, ...accomDetails} = await request.json();
-  // console.log('POST ACCOM ROUTE HIT', tripId, uuid, accomDetails);
+  console.log('POST ACCOM ROUTE HIT');
+  const tripId = request.nextUrl.searchParams.get('tripId')
+  const rawFormData = await request.json();
+  console.log('rawFormData', rawFormData);
+
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
     
   
     if (!tripId) {
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
     }
-    const user = await userCollection.findOne({ uuid: uuid });
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
 
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
 
-
-
     // Create a new accommodation
-    const newAccommodation = new Accommodation({ 
-      accomName: accomDetails.accomName,
-      accomType: accomDetails.accomType,
-      accomCheckIn: accomDetails.accomCheckIn,
-      accomCheckOut: accomDetails.accomCheckOut,
-      accomAddress: accomDetails.accomAddress,
-      accomPhoneNumber: accomDetails.accomPhoneNumber,
-      accomEmail: accomDetails.accomEmail,
-      accomResNum: accomDetails.accomResNum,
+    const newAccommodation = new Accommodation({
+      accomName: rawFormData.accomName,
+      accomType: rawFormData.accomType,
+      accomCheckIn: rawFormData.accomCheckIn,
+      accomCheckOut: rawFormData.accomCheckOut,
+      // Only include accomAddress if it's not undefined
+      ...(rawFormData.accomAddress && {
+        accomAddress: {
+          street: rawFormData.accomAddress.street || "",
+          city: rawFormData.accomAddress.city || "",
+          state: rawFormData.accomAddress.state || "",
+          zip: rawFormData.accomAddress.zip || "",
+          country: rawFormData.accomAddress.country || "",
+        },
+      }),
+      accomResNum: rawFormData.accomResNum,
+      accomPhoneNumber: rawFormData.accomPhoneNumber,
+      accomEmail: rawFormData.accomEmail,
     });
+    
     await newAccommodation.save();
-
+    if (!newAccommodation) {
+      return NextResponse.json({ error: "Accommodation not created" }, { status: 403 });
+    }
+    
+    
     await tripCollection.updateOne(
       { _id: new ObjectId(tripId) },
       { $push: { accommodations: newAccommodation._id } }
-    );
+      );
     
-    // // Return the accommodation
-    return NextResponse.json({ newAccommodation }, { status: 200 });
+      console.log("newAccommodation", newAccommodation);
+      // Return the accommodation
+    return NextResponse.json(newAccommodation, { status: 200 });
 
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -57,32 +72,25 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
-  const { uuid, tripId, ...updatedAccom } = await request.json();
+  console.log('PUT ACCOM ROUTE HIT');
+  const  updatedAccom  = await request.json();
+  const accomId = updatedAccom._id;
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
-    const tripCollection = db.collection("trips");
-
-    if (!tripId) {
-      return NextResponse.json(
-        { error: "Trip ID parameter is missing" },
-        { status: 400 }
-      );
-    }
-    const user = await userCollection.findOne({ uuid: uuid });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
+    const accomCollection = db.collection("accommodations");
     
-    const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
-    if (!trip) {
-      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    const accom = await accomCollection.findOne({ _id: new ObjectId(accomId) });
+    if (!accom) {
+      console.log('accom not found', accom);
+      return NextResponse.json({ error: "Accom not found" }, { status: 402 });
+    } else {
+      console.log('accom found', accom);
     }
 
     // Create a new accommodation
     const accomToUpdate = await Accommodation.findByIdAndUpdate(
-      { _id: new ObjectId(updatedAccom.accomId) },
+      { _id: new ObjectId(accomId) },
       {
         accomName: updatedAccom.accomName,
         accomType: updatedAccom.accomType,
@@ -110,17 +118,42 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
-
-  const accomId = request.nextUrl.searchParams.get('accomId')
-  // console.log('DELETE ACCOM ROUTE HIT', accomId);
+  console.log("DELETE ACCOM ROUTE HIT");
+  const accomId = request.nextUrl.searchParams.get("accomId");
+  const tripId = request.nextUrl.searchParams.get("tripId");
+  console.log("accomId", accomId);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const accomsCollections = db.collection("accommodations");
+    const tripsCollection = db.collection("trips");
+    const accomsCollection = db.collection("accommodations");
 
-    const accommodation = await accomsCollections.findOneAndDelete({ _id: new ObjectId(accomId) });
-    if (!accommodation) {
-      return NextResponse.json({ error: "Stop not found" }, { status: 403 });
+    // Convert string IDs to ObjectId
+    const accomObjectId = new ObjectId(accomId);
+    const tripObjectId = new ObjectId(tripId);
+
+    console.log('finding trip');
+    const trip = await tripsCollection.findOne({ _id: tripObjectId });
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 402 });
+    }
+
+    // Remove the accommodation ID from the trip's accommodations array
+    console.log('removing accom from trip');
+    await tripsCollection.updateOne(
+      { _id: tripObjectId },
+      { $pull: { accommodations: accomObjectId } }
+    );
+
+    // Delete the accommodation document from accommodation collection
+    console.log('deleting accommodation with _id', accomObjectId);
+    const accommodation = await accomsCollection.findOneAndDelete({
+      _id: accomObjectId,
+    });
+    
+    console.log('finding if accom still exists in accommodation collection');
+    if (!accommodation.value) {
+      return NextResponse.json({ message: "Accommodation not found in accomsCollection" }, { status: 200 });
     }
 
     return NextResponse.json({ message: "Accom deleted" }, { status: 200 });

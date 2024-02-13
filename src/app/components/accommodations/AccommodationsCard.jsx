@@ -1,30 +1,64 @@
 import { LuMapPin } from "react-icons/lu";
 import { MdLocalHotel } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import normalDateFormat from "../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
+import { deleteAccom } from "../../_utils/accomsRequestsIndex";
+import { useState, useEffect, useRef } from "react";
+import AddressText from "../misc-components/AddressText"
 
-export default function AccommodationsCard({
-  accom,
-  // handleCardPress,
-}) {
-  let address = accom.accomAddress;
-  const checkInDate = normalDateFormat(accom.accomCheckIn);
-  const checkOutDate = normalDateFormat(accom.accomCheckOut);
+export function TextSpace ({category, value}) {
+  return (
+    <>
+      {category && category[value] ? (
+        category[value]
+      ) : (
+        <span className="italic text-slate-500">
+          {value.charAt(0).toUpperCase() + value.slice(1)}
+        </span>
+      )}
+    </>
+  );
+}
+
+export default function AccommodationsCard({ fetchedAccom, displayProps, tripProps, requestProps, accomProps, ...props }) {
+  const [accom, setAccom] = useState(fetchedAccom);
+  const checkInDate = calendarDateFormat(accom.accomCheckIn);
+  const checkOutDate = calendarDateFormat(accom.accomCheckOut);
+  const address = accom.accomAddress;
+  const updateAccom =() => {
+    requestProps.setRequestType("PUT");
+    accomProps.setActiveAccom(accom);
+    accomProps.setShowAccomForm(true);
+  }
+
+  const handleDeleteAccom = (deleteId) => {
+  // Use filter to return a new array excluding the item with the matching accomId
+  const updatedAccomsIndex = accomProps.accomsIndex.filter(accom => accom._id !== deleteId);
+  console.log('updatedAccomsIndex', updatedAccomsIndex);
+  accomProps.setAccomsIndex(updatedAccomsIndex);
+  deleteAccom(deleteId, tripProps.tripId);
+};
+
+  useEffect(() => {
+    setAccom(fetchedAccom);
+  }, [fetchedAccom]);
 
   return (
+    <>
     <Card
       // isHoverable
       // isPressable
       // isBlurred
       className=" w-full border shadow-none bg-white "
-      // onPress={() =>
-      //   handleCardPress(data, "accommodations")
-      // }
     >
-      <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-0">
+      <CardHeader className="row flex flex-row w-full flex-wrap justify-between lg:justify-start text-lg pb-1">
         <div className="flex flex-row items-center gap-2 me-4 min-w-[280px] max-w-[400px]">
           <MdLocalHotel />
           <p className="inline-block">{accom.accomName}</p>
+        </div>
+        <div className="ms-auto text-sm">
+        {/* New form rendering buttons: */}
+        <button onClick={updateAccom}>Edit</button> | <button onClick={() => handleDeleteAccom(accom._id)}>Delete</button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
@@ -36,27 +70,34 @@ export default function AccommodationsCard({
             </p>
           </div>
           <div className="border-l-2 px-2 min-w-[250px] font-light inline-flex  gap-2">
-            {address.street}, {address.city} <br></br>
-            {address.state} {address.zip}, {address.country}
+            <p><AddressText category={address} value="street"/>, <AddressText category={address} value="city" /><br></br>
+            <AddressText category={address} value="state" /> <AddressText category={address} value="zip" />, <AddressText category={address} value="country" /></p>
           </div>
         </div>
         <div className="hidden 2xl:block border-l-2 px-2">
           <p className="text-small align-baseline">
-            Type: <span className="font-light">{accom.accomType}</span>
+            Type: <span className="font-light">{accom.accomType || "-"}</span>
           </p>
           <p>
-            Phone Number:{" "}
-            <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
+            Phone Number: <span className="font-light">{accom.accomPhoneNumber || "-"}</span>
           </p>
           <p>
-            Email: <a type="email" href={`mailto:${accom.accomEmail}`}  className="font-light hover:text-blue-500">{accom.accomEmail || "-"}</a>
+            Email:{" "}
+            <a
+              type="email"
+              href={`mailto:${accom.accomEmail}`}
+              className="font-light hover:text-blue-500"
+            >
+              {accom.accomEmail || "-"}
+            </a>
           </p>
           <p>
             Confirmation:{" "}
-            <span className="font-light">{accom.accomResNum}</span>
+            <span className="font-light">{accom.accomResNum || "-"}</span>
           </p>
         </div>
       </CardBody>
     </Card>
+    </>
   );
 }

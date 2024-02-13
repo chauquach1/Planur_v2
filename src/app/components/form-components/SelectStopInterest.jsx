@@ -9,15 +9,16 @@ const levels = [
   { label: "Other", value: "Other" },
 ];
 
-export default function SelectReason({ setStopInterest }) {
+export default function SelectReason(props) {
   return (
       <Select
         label="Interest Level"
         placeholder="Must-go, High, etc."
         className="col-span-2"
-        variant="faded"
         size="sm"
-        onChange={(event) => setStopInterest(event.target.value)}
+        variant="faded"
+        selectedKeys={props.stopInterest ? [props.stopInterest] : []}
+        onChange={(event) => props.handleInputChange('stopInterest', event.target.value)}
       >
         {levels.map((level) => (
           <SelectItem key={level.value} value={level.value}>

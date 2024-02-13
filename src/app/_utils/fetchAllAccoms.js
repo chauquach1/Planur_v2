@@ -1,7 +1,7 @@
-const getPackList = async (tripId) => {
+export default async function fetchAllAccoms(tripId) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/packlist/?tripId=${tripId}`
+      `http://localhost:3000/api/accomsIndex/${tripId}`
     );
     const data = await response.json();
 
@@ -12,9 +12,4 @@ const getPackList = async (tripId) => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export default async function fetchPackList (tripId) {
-  const accomsData = await getPackList(tripId);
-  return accomsData;
 };

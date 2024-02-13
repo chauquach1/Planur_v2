@@ -1,11 +1,11 @@
 'use client';
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
-import normalDateFormat from "../../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../../_utils/dateFormatterIndex";
 import { useState } from "react";
 export default function ContentNavCard({ trip, setSelectedTrip }) {
   
-  const tripStartDate = normalDateFormat(trip.tripStartDate);
-  const tripEndDate = normalDateFormat(trip.tripEndDate);
+  const tripStartDate = calendarDateFormat(trip.tripStartDate);
+  const tripEndDate = calendarDateFormat(trip.tripEndDate);
 
   return (
     <Card

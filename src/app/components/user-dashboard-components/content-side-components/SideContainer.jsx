@@ -1,15 +1,23 @@
-import FormsContainer from "./FormsContainer"
-import SideNavFormSelect from "./SideNavFormSelect";
-import { useEffect, useState } from "react";
-export default function SideContainer() {
-  const [activeForm, setActiveForm] = useState('accommodation');
+import AccomsForm from "../../accommodations/AccomsForm";
+import StopsForm from "../../stops/StopsForm";
+import PackListForm from "../../packlist/PackListForm";
+import EmergencyContactForm from "../../emergency-contact/EmergencyContactForm";
+import { useEffect } from "react";
+export default function SideContainer({displayProps, tripProps, stopProps, requestProps, accomProps, packListProps, emergencyContactsProps}) {
+  // useEffect(() => {
+  //   console.log('accomProps', accomProps);
+  // },[]);
+
   return (
     <div
       id="content-panel-side"
-      className="hidden lg:flex flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] py-4 px-4 gap-4 justify-start bg-bismark-300"
+      className={`hidden right-0 top-0 mx-auto
+      lg:flex flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] py-4 px-4 bg-slate-300 rounded-tl-xl ms-2`}
     >
-      <SideNavFormSelect activeForm={activeForm} setActiveForm={setActiveForm}/>
-      <FormsContainer activeForm={activeForm}/>
+      <AccomsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} accomProps={accomProps} />
+      <StopsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} stopProps={stopProps} />
+      <PackListForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} packListProps={packListProps} />
+      <EmergencyContactForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} emergencyContactsProps={emergencyContactsProps} />
     </div>
   );
 }

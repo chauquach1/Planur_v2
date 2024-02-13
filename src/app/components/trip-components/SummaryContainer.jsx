@@ -1,7 +1,7 @@
-import normalDateFormat from "../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 export default function SummaryContainer({ trip }) {
-  const tripStartDate = normalDateFormat(trip.tripStartDate);
-  const tripEndDate = normalDateFormat(trip.tripEndDate);
+  const tripStartDate = calendarDateFormat(trip.tripStartDate);
+  const tripEndDate = calendarDateFormat(trip.tripEndDate);
   return (
     <div id={trip._id.oid} className="flex flex-col max-w-[400px] max-h-40">
       <div className="flex flex-col flex-wrap">

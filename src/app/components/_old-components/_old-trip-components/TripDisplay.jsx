@@ -1,12 +1,12 @@
 'use client';
 import React from "react";
 import { format, parseISO } from 'date-fns';
-import normalDateFormat from "../../../_utils/normalDateFormat";
+import {calendarDateFormat} from "../../../_utils/calendarDateFormat";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 
 export default function TripDisplay({ trip }) {
-  const tripStartDate = normalDateFormat(trip.tripStartDate);
-  const tripEndDate = normalDateFormat(trip.tripEndDate);
+  const tripStartDate = calendarDateFormat(trip.tripStartDate);
+  const tripEndDate = calendarDateFormat(trip.tripEndDate);
 
   return (
     <div id={trip._id.oid} className="max-w-[400px] max-h-40">

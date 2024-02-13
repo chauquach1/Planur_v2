@@ -11,15 +11,16 @@ const reasons = [
   { label: "Other", value: "Other" },
 ];
 
-export default function SelectReason({ setStopType }) {
+export default function SelectReason(props) {
   return (
       <Select
         label="Stop Type"
         placeholder="Restaurant, Family, etc."
         className="col-span-2"
-        variant="faded"
         size="sm"
-        onChange={(event) => setStopType(event.target.value)}
+        variant="faded"
+        selectedKeys={props.stopType ? [props.stopType] : []}
+        onChange={(event) => props.handleInputChange('stopType', event.target.value)}
       >
         {reasons.map((reason) => (
           <SelectItem key={reason.value} value={reason.value}>

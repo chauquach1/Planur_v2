@@ -1,13 +1,43 @@
 import SectionContainer from "../trip-components/SectionContainer";
 import StopsCard from "./StopsCard";
-export default function StopsSection({...props}) {
-  if (props.activeTab !== "Stops" && props.activeTab !== "Full Details") {
+import fetchAllStops from "../../_utils/stopsRequestsIndex";
+import sampleStops from "../../_tests_/sampleStops";
+import { useState, useEffect } from "react";
+export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
+  const [showCategory, setShowCategory] = useState(false);
+
+  const addNewStop = () => {
+    requestProps.setRequestType("POST");
+    stopProps.setActiveStop({});
+    stopProps.setShowStopForm(true);
+  }
+
+  useEffect(() => {
+    const getStops = async () => {
+      const stops = await fetchAllStops(props.tripId)
+      stopProps.setStopsIndex(stops);
+    }
+    getStops();
+  } , [props.tripId]);
+  
+  if (displayProps.tripDisplayTab !== "Stops" && displayProps.tripDisplayTab !== "Full Details") {
     return null;
   } else {
     return (
-      <SectionContainer category="Stops" {...props}>
-        {props.stops.map((stop) => {
-          return <StopsCard key={stop.stopName} stop={stop} />;
+      <SectionContainer category="Stops"  showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
+        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Stop</button>
+        {stopProps.stopsIndex.map((stop) => {
+          return (
+            <StopsCard
+              key={stop.stopName}
+              fetchedStop={stop}
+              displayProps={displayProps}
+              tripProps={tripProps}
+              requestProps={requestProps}
+              stopProps={stopProps}
+              {...props}
+            />
+          );
         })}
       </SectionContainer>
     );
