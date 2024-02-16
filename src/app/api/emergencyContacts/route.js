@@ -55,7 +55,7 @@ export async function POST(request) {
     
     await tripCollection.updateOne(
       { _id: new ObjectId(tripId) },
-      { $push: { contacts: newContact._id } }
+      { $push: { emergencyContacts: newContact._id } }
       );
     
       // Return the contact
