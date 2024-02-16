@@ -77,9 +77,9 @@ export default function UserDashboard({ userData, trips }) {
     setShowContactForm: setShowContactForm,
   };
 
-  // useEffect(() => {
-  //   console.log('TripDisplay activeAccom', activeAccom);
-  // }, [activeAccom]);
+  useEffect(() => {
+    console.log('TripDisplay activeContact', activeContact);
+  }, [activeContact]);
 
   return (
     <div className="flex flex-row h-screen ">

@@ -43,8 +43,8 @@ export default function TripDisplay({ ...props }) {
           stopProps={props.stopProps}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
-        />
-        <PackListSection
+        /> */}
+        {/* <PackListSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}

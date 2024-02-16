@@ -1,8 +1,15 @@
-import { MdContactPhone } from "react-icons/md";
+import { MdContactPhone, MdEdit } from "react-icons/md";
 
-export default function EmergencyContactCard({ contact }) {
+export default function EmergencyContactCard({ contact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm} }) {
   const address = contact.address;
   const detailClass = "border-l-2 ms-2 ps-2 border-default-400 flex-wrap";
+
+  const updateContact = () => {
+    console.log('updateContact btn clicked');
+    setActiveContact(contact);
+    setShowContactForm(true);
+  }
+
   return (
     <div
       id="emergency-contact-card"
@@ -14,6 +21,9 @@ export default function EmergencyContactCard({ contact }) {
         <span className="hidden sm:block text-default-400 text-sm font-normal break-words">
           ({contact.relationship})
         </span>
+        <button onClick={updateContact} className="ms-auto">
+          <MdEdit />
+        </button>
       </p>
       <p className={detailClass}>{contact.phoneNumber || 'Add Phone Number'}</p>
       <p className={detailClass}>
