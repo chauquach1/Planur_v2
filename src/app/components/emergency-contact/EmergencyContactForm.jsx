@@ -1,12 +1,18 @@
 import { Input } from "@nextui-org/react";
-export default function EmergencyContactForm({ contact }) {
-  // const address = contact.address;
+import { useState, useEffect } from "react";
+export default function EmergencyContactForm({emergencyContactsProps: {initialStatesIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}}) {
+  const [initialState, setInitialState] = useState(activeContact || {});
+
+  useEffect(() => {
+    setInitialState(activeContact);
+  }, [activeContact]);
+
   return (
-    <div id="emergency-contact-form" className="grid grid-cols-8 p-1 gap-1">
+    <div id="emergency-initialState-form" className="grid grid-cols-8 p-1 gap-1">
       <Input
         key="firstName"
         label="First Name"
-        // value={contact.firstName}
+        value={initialState.firstName || ""}
         // onChange={handleChange("firstName")}
         autoComplete="off"
         variant="faded"
@@ -16,7 +22,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="lastName"
         label="Last Name"
-        // value={contact.lastName}
+        value={initialState.lastName || ""}
         // onChange={handleChange("lastName")}
         autoComplete="off"
         variant="faded"
@@ -26,7 +32,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="relationship"
         label="Relationship"
-        // value={contact.relationship}
+        value={initialState.relationship || ""}
         // onChange={handleChange("relationship")}
         autoComplete="off"
         variant="faded"
@@ -36,7 +42,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="phoneNumber"
         label="Phone Number"
-        // value={contact.phoneNumber}
+        value={initialState.phoneNumber || ""}
         // onChange={handleChange("phoneNumber")}
         autoComplete="off"
         variant="faded"
@@ -46,7 +52,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="email"
         label="Email"
-        // value={contact.email}
+        value={initialState.email || ""}
         // onChange={handleChange("email")}
         autoComplete="off"
         variant="faded"
@@ -56,7 +62,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="street"
         label="Street"
-        // value={address.street}
+        value={initialState.address ? initialState.address.street : ""}
         // onChange={handleChange("street")}
         autoComplete="off"
         variant="faded"
@@ -66,7 +72,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="city"
         label="City"
-        // value={address.city}
+        value={initialState.address ? initialState.address.city : ""}
         // onChange={handleChange("city")}
         autoComplete="off"
         variant="faded"
@@ -76,7 +82,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="state"
         label="State"
-        // value={address.state}
+        value={initialState.address ? initialState.address.state : ""}
         // onChange={handleChange("state")}
         autoComplete="off"
         variant="faded"
@@ -86,7 +92,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="zip"
         label="Zip"
-        // value={address.zip}
+        value={initialState.address ? initialState.address.zip : ""}
         // onChange={handleChange("zip")}
         autoComplete="off"
         variant="faded"
@@ -96,7 +102,7 @@ export default function EmergencyContactForm({ contact }) {
       <Input
         key="country"
         label="Country"
-        // value={address.country}
+        value={initialState.address ? initialState.address.country : ""}
         // onChange={handleChange("country")}
         autoComplete="off"
         variant="faded"
