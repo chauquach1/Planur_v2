@@ -13,8 +13,6 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
     emergencyContactsProps.setShowContactForm(true);
     requestProps.setRequestType("POST");
   };
-  const contacts = sampleEmergencyContacts;
-
 
   useEffect(() => {
     const getEmergencyContacts = async () => {
@@ -45,7 +43,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
             className={`grid gap-1 p-0 justify-start
           grid-cols-1 2xl:grid-cols-2`}
           >
-            {contacts.map((contact) => {
+            {emergencyContactsProps.contactsIndex.map((contact) => {
               return (
                 <EmergencyContactCard
                   key={contact.firstName + contact.lastName}
