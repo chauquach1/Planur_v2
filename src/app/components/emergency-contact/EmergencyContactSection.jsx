@@ -1,9 +1,10 @@
 import SectionContainer from "../trip-components/SectionContainer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmergencyContactCard from "./EmergencyContactCard";
 import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
+import fetchAllEmergencyContacts from "../../_utils/contactsRequestsIndex";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
-export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, category, id, ...props }) {
+export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, tripProps, category, id, ...props }) {
   const [showCategory, setShowCategory] = useState(true);
 
   const addEmergencyContact = () => {
@@ -13,6 +14,16 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
     requestProps.setRequestType("POST");
   };
   const contacts = sampleEmergencyContacts;
+
+
+  useEffect(() => {
+    const getEmergencyContacts = async () => {
+      const emergencyContacts = await fetchAllEmergencyContacts(tripProps.tripId)
+      emergencyContactsProps.setContactsIndex(emergencyContacts);
+    }
+    getEmergencyContacts();
+  } , [props.tripId]);
+
   if (
     displayProps.tripDisplayTab !== "Emergency Contacts" &&
     displayProps.tripDisplayTab !== "Full Details"

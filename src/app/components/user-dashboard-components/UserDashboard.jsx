@@ -78,8 +78,8 @@ export default function UserDashboard({ userData, trips }) {
   };
 
   useEffect(() => {
-    console.log('TripDisplay activeContact', activeContact);
-  }, [activeContact]);
+    console.log('TripDisplay contactsIndex', contactsIndex);
+  }, [contactsIndex]);
 
   return (
     <div className="flex flex-row h-screen ">
