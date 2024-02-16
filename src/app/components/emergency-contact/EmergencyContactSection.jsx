@@ -3,7 +3,7 @@ import { useState } from "react";
 import EmergencyContactCard from "./EmergencyContactCard";
 import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
-export default function EmergencyContactSection({ emergencyContactsProps, displayProps, category, id, ...props }) {
+export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, category, id, ...props }) {
   const [showCategory, setShowCategory] = useState(true);
 
   const addEmergencyContact = () => {
@@ -36,6 +36,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
                 <EmergencyContactCard
                   key={contact.firstName + contact.lastName}
                   contact={contact}
+                  requestProps={requestProps}
                   emergencyContactsProps={emergencyContactsProps}
                 />
               );

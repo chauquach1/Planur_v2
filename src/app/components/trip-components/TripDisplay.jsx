@@ -55,6 +55,7 @@ export default function TripDisplay({ ...props }) {
           tripProps={props.tripProps}
           activeTab={activeTab}
           displayProps={props.displayProps}
+          requestProps={props.requestProps}
           emergencyContactsProps={props.emergencyContactsProps}
         />
       </Suspense>
