@@ -106,7 +106,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="firstName"
         label="First Name"
         value={initialState.firstName || ""}
-        // onChange={handleChange("firstName")}
+        onChange={(e) => handleInputChange("firstName", e.target.value)}  
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -116,7 +116,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="lastName"
         label="Last Name"
         value={initialState.lastName || ""}
-        // onChange={handleChange("lastName")}
+        onChange={(e) => handleInputChange("lastName", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -126,7 +126,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="relationship"
         label="Relationship"
         value={initialState.relationship || ""}
-        // onChange={handleChange("relationship")}
+        onChange={(e) => handleInputChange("relationship", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -136,7 +136,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="phoneNumber"
         label="Phone Number"
         value={initialState.phoneNumber || ""}
-        // onChange={handleChange("phoneNumber")}
+        onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -146,7 +146,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="email"
         label="Email"
         value={initialState.email || ""}
-        // onChange={handleChange("email")}
+        onChange={(e) => handleInputChange("email", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -156,7 +156,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="street"
         label="Street"
         value={initialState.address ? initialState.address.street : ""}
-        // onChange={handleChange("street")}
+        onChange={(e) => handleNestedInputChange("address", "street", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -166,7 +166,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="city"
         label="City"
         value={initialState.address ? initialState.address.city : ""}
-        // onChange={handleChange("city")}
+        onChange={(e) => handleNestedInputChange("address", "city", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -176,7 +176,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="state"
         label="State"
         value={initialState.address ? initialState.address.state : ""}
-        // onChange={handleChange("state")}
+        onChange={(e) => handleNestedInputChange("address", "state", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -186,7 +186,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="zip"
         label="Zip"
         value={initialState.address ? initialState.address.zip : ""}
-        // onChange={handleChange("zip")}
+        onChange={(e) => handleNestedInputChange("address", "zip", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
@@ -196,7 +196,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         key="country"
         label="Country"
         value={initialState.address ? initialState.address.country : ""}
-        // onChange={handleChange("country")}
+        onChange={(e) => handleNestedInputChange("address", "country", e.target.value)}
         autoComplete="off"
         variant="faded"
         size="sm"
