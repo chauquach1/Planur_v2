@@ -1,8 +1,11 @@
 import { Input, Button } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}}) {
+import { postContact, putContact } from "../../_utils/contactsRequestsIndex";
+
+export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}, tripProps: {tripId}}) {
   const [initialState, setInitialState] = useState(activeContact || {});
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const postContactWithTripId = postContact.bind(null, tripId);
 
   useEffect(() => {
     setInitialState(activeContact);
@@ -34,7 +37,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
   // ASYNC POST/PUT REQUEST FUNCTIONS
   const createNewContact = async () => {
     try {
-      const newContact = await postAccomWithTripId(initialState);
+      const newContact = await postContactWithTripId(initialState);
       console.log(newContact);
       setInitialState(newContact);
       setFormSubmitted(true);
@@ -46,7 +49,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
 
   const updateContact = async () => {
     try {
-      const updatedContact = await putAccom(initialState);
+      const updatedContact = await putContact(initialState);
       setInitialState(updatedContact);
       setFormSubmitted(true);
     }
@@ -61,7 +64,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         createNewContact();
         break;
       case "PUT":
-        updateContact();
+        createNewContact();
         break;
       default:
         console.log("Request type not found");

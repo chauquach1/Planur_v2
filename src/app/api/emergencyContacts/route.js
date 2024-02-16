@@ -1,6 +1,6 @@
 import {mongoClient} from "../../libs/mongo/mongodb";
 import { ObjectId } from "mongodb";
-import EmergencyContact from "../../models/emergencyContact";
+import EmergencyContact from "../../models/EmergencyContact";
 import { NextResponse } from "next/server";
 
 export async function contactsFetch(request){
@@ -12,13 +12,11 @@ export async function POST(request) {
   console.log('POST CONTACT ROUTE HIT');
   const tripId = request.nextUrl.searchParams.get('tripId')
   const rawFormData = await request.json();
-  console.log('rawFormData', rawFormData);
 
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const tripCollection = db.collection("emergencyContacts");
-    
+    const tripCollection = db.collection("trips");
   
     if (!tripId) {
       return NextResponse.json({ error: "Trip ID parameter is missing" }, { status: 400 });
@@ -47,19 +45,19 @@ export async function POST(request) {
         },
       }),
     });
+
     
     await newContact.save();
+
     if (!newContact) {
       return NextResponse.json({ error: "EmergencyContact not created" }, { status: 403 });
     }
-    
     
     await tripCollection.updateOne(
       { _id: new ObjectId(tripId) },
       { $push: { contacts: newContact._id } }
       );
     
-      console.log("newContact", newContact);
       // Return the contact
     return NextResponse.json(newContact, { status: 200 });
 

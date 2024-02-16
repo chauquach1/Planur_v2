@@ -11,7 +11,7 @@ const emergencyContactSchema = new mongoose.Schema(
       enum: [
         "Friend",
         "Parent",
-        "Spouse",
+        "Partner",
         "Child",
         "Family",
         "Other"
