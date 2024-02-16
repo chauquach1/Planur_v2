@@ -1,6 +1,6 @@
 import { Input, Button } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps}) {
+export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}}) {
   const [initialState, setInitialState] = useState(activeContact || {});
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -32,7 +32,6 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
   };
 
   // ASYNC POST/PUT REQUEST FUNCTIONS
-
   const createNewContact = async () => {
     try {
       const newContact = await postAccomWithTripId(initialState);
@@ -57,7 +56,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
   };
 
   const handleSubmit = () => {
-    switch (requestProps.requestType) {
+    switch (requestType) {
       case "POST":
         createNewContact();
         break;
@@ -96,9 +95,14 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
       }
     }));
   };
+  
 
-  // FORM VISIBILITY CONDITIONAL
+  // FORM VISIBILITY
   const isVisible = showContactForm ? "fixed flex" : "hidden";
+  const closeContactForm = () => {
+    setActiveContact({});
+    setShowContactForm(false);
+  }
 
   return (
     <div
@@ -107,7 +111,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
     >
       <button
         className="self-end text-red-500"
-        onClick={() => setShowContactForm(false)}
+        onClick={closeContactForm}
       >
         x Close
       </button>
@@ -240,7 +244,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
             // disabled={isSubmitting}
             size="sm"
           >
-            {requestProps.requestType === "POST"
+            {requestType === "POST"
               ? "Add Emergency Contact"
               : "Update Emergency Contact"}
           </Button>

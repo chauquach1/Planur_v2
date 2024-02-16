@@ -1,6 +1,7 @@
+import { set } from "date-fns";
 import { MdContactPhone, MdEdit } from "react-icons/md";
 
-export default function EmergencyContactCard({ contact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps }) {
+export default function EmergencyContactCard({ contact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType} }) {
   const address = contact.address;
   const detailClass = "border-l-2 ms-2 ps-2 border-default-400 flex-wrap";
 
@@ -8,6 +9,7 @@ export default function EmergencyContactCard({ contact, emergencyContactsProps: 
     console.log('updateContact btn clicked');
     setActiveContact(contact);
     setShowContactForm(true);
+    setRequestType('PUT');
   }
 
   return (

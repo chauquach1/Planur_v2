@@ -8,6 +8,9 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
 
   const addEmergencyContact = () => {
     console.log("Add Emergency Contact Button Clicked");
+    emergencyContactsProps.setActiveContact({});
+    emergencyContactsProps.setShowContactForm(true);
+    requestProps.setRequestType("POST");
   };
   const contacts = sampleEmergencyContacts;
   if (
