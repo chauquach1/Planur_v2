@@ -70,11 +70,13 @@ export async function POST(request) {
 export async function PUT(request) {
   console.log('PUT CONTACT ROUTE HIT');
   const  updatedContact  = await request.json();
+  console.log('updatedContact', updatedContact);
   const contactId = updatedContact._id;
+  console.log('contactId', contactId);
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const emergencyContactsCollection = db.collection("emergencyContacts");
+    const emergencyContactsCollection = db.collection("emergencycontacts");
     
     const contact = await emergencyContactsCollection.findOne({ _id: new ObjectId(contactId) });
     if (!contact) {

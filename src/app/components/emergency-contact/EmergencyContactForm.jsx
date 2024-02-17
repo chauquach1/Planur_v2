@@ -15,7 +15,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
   // UPDATE STATE ACCOM INDEX
   const updateContactsIndex = (contactId, newState) => {
     // Clone the existing contactsIndex to ensure immutability
-    const updatedContactsIndex = [contactsIndex];
+    const updatedContactsIndex = [...contactsIndex];
 
     // Find the index of the contact with the given accomId
     const index = updatedContactsIndex.findIndex(
@@ -64,7 +64,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
         createNewContact();
         break;
       case "PUT":
-        createNewContact();
+        updateContact();
         break;
       default:
         console.log("Request type not found");

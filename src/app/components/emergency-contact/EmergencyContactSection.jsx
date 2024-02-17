@@ -47,7 +47,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
               return (
                 <EmergencyContactCard
                   key={contact.firstName + contact.lastName}
-                  contact={contact}
+                  fetchedContact={contact}
                   requestProps={requestProps}
                   emergencyContactsProps={emergencyContactsProps}
                 />
