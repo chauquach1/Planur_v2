@@ -50,6 +50,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
                   fetchedContact={contact}
                   requestProps={requestProps}
                   emergencyContactsProps={emergencyContactsProps}
+                  tripId={tripProps.tripId}
                 />
               );
             })}

@@ -1,4 +1,4 @@
-import { MdContactPhone, MdEdit } from "react-icons/md";
+import { MdContactPhone, MdEdit, MdDelete } from "react-icons/md";
 import { useState, useEffect } from "react";
 export default function EmergencyContactCard({ fetchedContact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType} }) {
   const [contact, setContact] = useState(fetchedContact);
@@ -11,6 +11,14 @@ export default function EmergencyContactCard({ fetchedContact, emergencyContacts
     setShowContactForm(true);
     setRequestType('PUT');
   }
+
+  const handleDeleteContact = (deleteId, tripId) => {
+    // Use filter to return a new array excluding the item with the matching contactId
+    const updatedContactsIndex = contactsIndex.filter(contact => contact._id !== deleteId);
+    console.log('updatedContactsIndex', updatedContactsIndex);
+    setContactsIndex(updatedContactsIndex);
+    // deleteContact(deleteId, tripId);
+  };
 
   useEffect(() => {
     setContact(fetchedContact);
@@ -29,6 +37,9 @@ export default function EmergencyContactCard({ fetchedContact, emergencyContacts
         </span>
         <button onClick={updateContact} className="ms-auto">
           <MdEdit />
+        </button>
+        <button onClick={handleDeleteContact} className="">
+          <MdDelete />
         </button>
       </p>
       <p className={detailClass}>{contact.phoneNumber || 'Add Phone Number'}</p>
