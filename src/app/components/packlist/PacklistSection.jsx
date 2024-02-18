@@ -55,7 +55,9 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
               );
             })
             : 
-            <button className="m-auto">Create Packing List</button>
+            <div className="text-center text-slate-500 text-lg">
+              <p>No Packing List Found</p>
+            </div>
             }
       </SectionContainer>
     );
