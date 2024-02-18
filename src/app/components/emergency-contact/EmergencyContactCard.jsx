@@ -2,7 +2,7 @@ import { MdContactPhone, MdEdit } from "react-icons/md";
 import { useState, useEffect } from "react";
 export default function EmergencyContactCard({ fetchedContact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType} }) {
   const [contact, setContact] = useState(fetchedContact);
-  const [address, setAddress] = useState(fetchedContact.address || {});
+  let address = contact.address;
   const detailClass = "border-l-2 ms-2 ps-2 border-default-400 flex-wrap";
 
   const updateContact = () => {
