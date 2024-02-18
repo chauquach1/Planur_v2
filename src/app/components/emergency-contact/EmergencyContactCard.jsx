@@ -1,6 +1,7 @@
 import { MdContactPhone, MdEdit, MdDelete } from "react-icons/md";
 import { useState, useEffect } from "react";
-export default function EmergencyContactCard({ fetchedContact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType} }) {
+import { deleteContact } from "../../_utils/contactsRequestsIndex";
+export default function EmergencyContactCard({ fetchedContact, emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}, tripId }) {
   const [contact, setContact] = useState(fetchedContact);
   let address = contact.address;
   const detailClass = "border-l-2 ms-2 ps-2 border-default-400 flex-wrap";
@@ -12,12 +13,12 @@ export default function EmergencyContactCard({ fetchedContact, emergencyContacts
     setRequestType('PUT');
   }
 
-  const handleDeleteContact = (deleteId, tripId) => {
+  const handleDeleteContact = () => {
     // Use filter to return a new array excluding the item with the matching contactId
-    const updatedContactsIndex = contactsIndex.filter(contact => contact._id !== deleteId);
+    const updatedContactsIndex = contactsIndex.filter(includedContact => includedContact._id !== contact._id);
     console.log('updatedContactsIndex', updatedContactsIndex);
     setContactsIndex(updatedContactsIndex);
-    // deleteContact(deleteId, tripId);
+    deleteContact(contact._id, tripId);
   };
 
   useEffect(() => {

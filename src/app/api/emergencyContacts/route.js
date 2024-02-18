@@ -121,7 +121,7 @@ export async function DELETE(request) {
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const emergencyContactsCollection = db.collection("emergencyContacts");
+    const emergencyContactsCollection = db.collection("emergencycontacts");
     const tripsCollection = db.collection("trips");
 
     // Convert string IDs to ObjectId
@@ -147,7 +147,7 @@ export async function DELETE(request) {
       _id: accomObjectId,
     });
     
-    console.log('finding if accom still exists in contact collection');
+    console.log('finding if contact still exists in contact collection');
     if (!contact.value) {
       return NextResponse.json({ message: "EmergencyContact not found in emergencyContacts" }, { status: 200 });
     }
