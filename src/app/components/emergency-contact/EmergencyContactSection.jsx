@@ -5,7 +5,7 @@ import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
 import fetchAllEmergencyContacts from "../../_utils/contactsRequestsIndex";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, tripProps, category, id, ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
+  const [showCategory, setShowCategory] = useState(false);
 
   const addEmergencyContact = () => {
     console.log("Add Emergency Contact Button Clicked");

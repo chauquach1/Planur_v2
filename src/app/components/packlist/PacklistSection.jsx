@@ -6,7 +6,7 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 
 export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
+  const [showCategory, setShowCategory] = useState(false);
 
   const updatePackList = () => {
     requestProps.setRequestType("POST");

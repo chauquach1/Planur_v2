@@ -1,5 +1,5 @@
 import { LuMapPin } from "react-icons/lu";
-import { MdLocalHotel } from "react-icons/md";
+import { MdLocalHotel, MdEdit, MdDelete } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { deleteAccom } from "../../_utils/accomsRequestsIndex";
@@ -56,9 +56,9 @@ export default function AccommodationsCard({ fetchedAccom, displayProps, tripPro
           <MdLocalHotel />
           <p className="inline-block">{accom.accomName}</p>
         </div>
-        <div className="ms-auto text-sm">
+        <div className="flex flex-row gap-1 ms-auto text-medium">
         {/* New form rendering buttons: */}
-        <button onClick={updateAccom}>Edit</button> | <button onClick={() => handleDeleteAccom(accom._id)}>Delete</button>
+        <button onClick={updateAccom}><MdEdit /></button><button onClick={() => handleDeleteAccom(accom._id)}><MdDelete /></button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 ps-5 gap-2">
