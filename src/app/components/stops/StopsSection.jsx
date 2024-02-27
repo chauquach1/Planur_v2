@@ -41,7 +41,7 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
           stopProps.stopsIndex.map((stop) => {
             return (
               <StopsCard
-                key={stop.stopName}
+                key={stop._id}
                 fetchedStop={stop}
                 displayProps={displayProps}
                 tripProps={tripProps}
