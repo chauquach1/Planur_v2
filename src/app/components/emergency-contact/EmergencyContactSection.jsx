@@ -8,7 +8,6 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
   const [showCategory, setShowCategory] = useState(false);
 
   const addEmergencyContact = () => {
-    console.log("Add Emergency Contact Button Clicked");
     emergencyContactsProps.setActiveContact({});
     emergencyContactsProps.setShowContactForm(true);
     requestProps.setRequestType("POST");
@@ -29,31 +28,48 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
     return null;
   } else {
     return (
-      <SectionContainer category="Emergency Contacts" showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
+      <SectionContainer
+        category="Emergency Contacts"
+        showCategory={showCategory}
+        setShowCategory={setShowCategory}
+        arrowUp={showCategory}
+        {...props}
+      >
         <button
           className="ms-auto text-blue-500 text-sm hover:text-blue-600"
           onClick={addEmergencyContact}
         >
           Add New Contact
         </button>
-        <div className={`${showCategory ? null : "hidden"} bg-slate-100 rounded-b-xl`}>
+        <div
+          className={`${
+            showCategory ? null : "hidden"
+          } bg-slate-100 rounded-b-xl`}
+        >
           <div
-            id="emergency-contact-section"
-            category="Emergency Contacts"
-            className={`grid gap-1 p-0 justify-start
-          grid-cols-1 2xl:grid-cols-2`}
+            id="emergency-contacts-section"
+            className="min-h-[38px]"
           >
-            {emergencyContactsProps.contactsIndex.map((contact) => {
-              return (
-                <EmergencyContactCard
-                  key={contact.firstName + contact.lastName}
-                  fetchedContact={contact}
-                  requestProps={requestProps}
-                  emergencyContactsProps={emergencyContactsProps}
-                  tripId={tripProps.tripId}
-                />
-              );
-            })}
+            {emergencyContactsProps.contactsIndex.length > 0 ? (
+              <div
+                id="emergency-contacts-index"
+                className="grid gap-1 p-0 justify-start grid-cols-1 2xl:grid-cols-2"
+              >
+                {emergencyContactsProps.contactsIndex.map((contact) => {
+                  return (
+                    <EmergencyContactCard
+                      key={contact.firstName + contact.lastName}
+                      fetchedContact={contact}
+                      requestProps={requestProps}
+                      emergencyContactsProps={emergencyContactsProps}
+                      tripId={tripProps.tripId}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-center text-slate-500 text-lg">No contacts found</p>
+            )}
           </div>
         </div>
       </SectionContainer>
