@@ -1,15 +1,27 @@
 import SectionContainer from "../trip-components/SectionContainer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmergencyContactCard from "./EmergencyContactCard";
 import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
+import fetchAllEmergencyContacts from "../../_utils/contactsRequestsIndex";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
-export default function EmergencyContactSection({ emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, displayProps, category, id, ...props }) {
-  const [showCategory, setShowCategory] = useState(true);
+export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, tripProps, category, id, ...props }) {
+  const [showCategory, setShowCategory] = useState(false);
 
   const addEmergencyContact = () => {
     console.log("Add Emergency Contact Button Clicked");
+    emergencyContactsProps.setActiveContact({});
+    emergencyContactsProps.setShowContactForm(true);
+    requestProps.setRequestType("POST");
   };
-  const contacts = sampleEmergencyContacts;
+
+  useEffect(() => {
+    const getEmergencyContacts = async () => {
+      const emergencyContacts = await fetchAllEmergencyContacts(tripProps.tripId)
+      emergencyContactsProps.setContactsIndex(emergencyContacts);
+    }
+    getEmergencyContacts();
+  } , [props.tripId]);
+
   if (
     displayProps.tripDisplayTab !== "Emergency Contacts" &&
     displayProps.tripDisplayTab !== "Full Details"
@@ -31,11 +43,14 @@ export default function EmergencyContactSection({ emergencyContactsProps: {conta
             className={`grid gap-1 p-0 justify-start
           grid-cols-1 2xl:grid-cols-2`}
           >
-            {contacts.map((contact) => {
+            {emergencyContactsProps.contactsIndex.map((contact) => {
               return (
                 <EmergencyContactCard
                   key={contact.firstName + contact.lastName}
-                  contact={contact}
+                  fetchedContact={contact}
+                  requestProps={requestProps}
+                  emergencyContactsProps={emergencyContactsProps}
+                  tripId={tripProps.tripId}
                 />
               );
             })}

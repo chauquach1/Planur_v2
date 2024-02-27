@@ -24,21 +24,38 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
     return null;
   } else {
     return (
-      <SectionContainer category="Stops"  showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
-        <button className="me-auto text-blue-500 text-sm hover:text-blue-600" onClick={addNewStop}>Add New Stop</button>
-        {stopProps.stopsIndex.map((stop) => {
-          return (
-            <StopsCard
-              key={stop.stopName}
-              fetchedStop={stop}
-              displayProps={displayProps}
-              tripProps={tripProps}
-              requestProps={requestProps}
-              stopProps={stopProps}
-              {...props}
-            />
-          );
-        })}
+      <SectionContainer
+        category="Stops"
+        showCategory={showCategory}
+        setShowCategory={setShowCategory}
+        arrowUp={showCategory}
+        {...props}
+      >
+        <button
+          className="ms-auto text-blue-500 text-sm hover:text-blue-600"
+          onClick={addNewStop}
+        >
+          Add New Stop
+        </button>
+        {stopProps.stopsIndex.length > 0 ? (
+          stopProps.stopsIndex.map((stop) => {
+            return (
+              <StopsCard
+                key={stop.stopName}
+                fetchedStop={stop}
+                displayProps={displayProps}
+                tripProps={tripProps}
+                requestProps={requestProps}
+                stopProps={stopProps}
+                {...props}
+              />
+            );
+          })
+        ) : (
+          <div className="text-center text-slate-500 text-lg">
+            <p>No Stops Found</p>
+          </div>
+        )}
       </SectionContainer>
     );
   }

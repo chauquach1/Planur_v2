@@ -29,7 +29,7 @@ export default function TripDisplay({ ...props }) {
           setActiveTab={setActiveTab}
           displayProps={props.displayProps}
         />
-        {/* <AccomsSection
+        <AccomsSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
@@ -43,18 +43,19 @@ export default function TripDisplay({ ...props }) {
           stopProps={props.stopProps}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
-        />
+        /> 
         <PackListSection
           tripProps={props.tripProps}
           tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
           packListProps={props.packListProps}
-        /> */}
+        />
         <EmergencyContactSection 
           tripProps={props.tripProps}
           activeTab={activeTab}
           displayProps={props.displayProps}
+          requestProps={props.requestProps}
           emergencyContactsProps={props.emergencyContactsProps}
         />
       </Suspense>

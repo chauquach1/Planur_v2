@@ -1,4 +1,4 @@
-import { MdLocationPin } from "react-icons/md";
+import { MdLocationPin, MdEdit, MdDelete } from "react-icons/md";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import AddressText from "../misc-components/AddressText"
@@ -36,10 +36,10 @@ export default function StopCard({ fetchedStop, displayProps, tripProps, request
           <MdLocationPin />
           <p className="inline-block">{stop.stopName}</p>
         </div>
-        <div className="ms-auto text-sm">
+        <div className="flex flex-row gap-1 ms-auto text-medium">
           {/* New form rendering buttons: */}
-          <button onClick={updateStop}>Edit</button> |{" "}
-          <button onClick={() => handleDeleteStop(stop._id, tripProps.tripId)}>Delete</button>
+          <button onClick={updateStop}><MdEdit /></button>
+          <button onClick={() => handleDeleteStop(stop._id, tripProps.tripId)}><MdDelete /></button>
         </div>
       </CardHeader>
       <CardBody className="flex flex-col justify-start text-sm pt-0 gap-2">

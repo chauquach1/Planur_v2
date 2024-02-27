@@ -9,7 +9,7 @@ const levels = [
   { label: "Other", value: "Other" },
 ];
 
-export default function SelectReason(props) {
+export default function SelectStopInterest(props) {
   return (
       <Select
         label="Interest Level"

@@ -8,7 +8,7 @@ export default function SectionContainer({ children, ...props}) {
         id={`${props.category}-section`}
         className={`${
           props.showCategory ? null : "hidden"
-        } flex gap-1 p-4 bg-gray-100 rounded-b-xl flex-col`}
+        } flex gap-3 p-4 bg-gray-100 rounded-b-xl flex-col`}
       >
         {children}
       </div>
