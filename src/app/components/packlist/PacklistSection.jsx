@@ -7,15 +7,26 @@ import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 
 export default function PackListPanel({ tripProps, displayProps, requestProps, packListProps, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
+  const [itemsCount, setItemsCount] = useState(0);
+
+  // CHECK FOR PACKLIST ITEMS COUNT
+  useEffect(() => {
+    if (packListProps.packList) {
+      let count = 0;
+      Object.values(packListProps.packList).forEach((itemsArray) => {
+        if (Array.isArray(itemsArray)) {
+          count += itemsArray.length;
+        }
+      });
+      setItemsCount(count);
+    }
+  }, [packListProps.packList]);
 
   const updatePackList = () => {
     requestProps.setRequestType("POST");
     packListProps.setShowPackListForm(true);
   }
 
-  useEffect(() => {
-    console.log("PackListPanel props", props);
-  }), [packListProps.showPackListForm];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,26 +50,26 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
     return (
       <SectionContainer category="Packing List" showCategory={showCategory} setShowCategory={setShowCategory} arrowUp={showCategory} {...props}>
           <button className="ms-auto text-blue-500 text-sm hover:text-blue-600" onClick={updatePackList}>Add/Remove Items</button>
-          {packListProps.packList
-            ?  Object.entries(packListProps.packList).map(([category, items]) => {
-              if (items.length === 0 || typeof items !== "object") {
-                return null;
+          <div className="text-center min-h-[38px] text-slate-500 text-lg">
+            {packListProps.packList && itemsCount > 0
+              ?  Object.entries(packListProps.packList).map(([category, items]) => {
+                if (items.length === 0 || typeof items !== "object") {
+                  return null;
+                }
+                return (
+                  <PackingCategoryList
+                    key={category}
+                    category={category}
+                    items={items}
+                    packList={packListProps.packList}
+                    setPackList={packListProps.setPackList}
+                  />
+                );
+              })
+              : 
+                <p className="">No Packing List Found</p>
               }
-              return (
-                <PackingCategoryList
-                  key={category}
-                  category={category}
-                  items={items}
-                  packList={packListProps.packList}
-                  setPackList={packListProps.setPackList}
-                />
-              );
-            })
-            : 
-            <div className="text-center text-slate-500 text-lg">
-              <p>No Packing List Found</p>
-            </div>
-            }
+          </div>
       </SectionContainer>
     );
   }
