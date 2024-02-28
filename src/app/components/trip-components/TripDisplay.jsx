@@ -20,7 +20,7 @@ export default function TripDisplay({ ...props }) {
   return (
     <div
       id="content-panel-main"
-      className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200 rounded-t-xl"
+      className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
         <SummaryContainer trip={props.tripProps.selectedTrip} />
