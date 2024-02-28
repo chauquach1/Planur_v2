@@ -3,11 +3,16 @@ import SelectReason from "../form-components/SelectReason";
 import { useEffect, useState } from "react";
 
 export default function NewTripForm({ show, setShow }) {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
   const [initialState, setInitialState] = useState({});
 
   const handleSubmit = () => {
     console.log("Form submitted");
+  }
+
+  const handleClose = () => {
+    setInitialState({});
+    onClose();
   }
 
   useEffect(() => {
@@ -73,7 +78,7 @@ export default function NewTripForm({ show, setShow }) {
                   size="sm"
                   color="danger"
                   variant="flat"
-                  onPress={onClose}
+                  onPress={handleClose}
                 >
                   Close
                 </Button>
