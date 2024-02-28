@@ -1,13 +1,16 @@
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure} from "@nextui-org/react";
 import SelectReason from "../form-components/SelectReason";
 import { useEffect, useState } from "react";
+import createNewTrip from "../../_utils/tripRequestsIndex";
 
-export default function NewTripForm({ show, setShow }) {
+export default function NewTripForm({ user, show, setShow }) {
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
   const [initialState, setInitialState] = useState({});
+  const postTripWithUserId = createNewTrip.bind(null, user.uuid);
 
   const handleSubmit = () => {
     console.log("Form submitted");
+    postTripWithUserId(initialState);
   }
 
   const handleClose = () => {
@@ -54,6 +57,14 @@ export default function NewTripForm({ show, setShow }) {
                   name="tripName"
                   placeholder={"Enter your trip name"}
                   onChange={(e) => handleInputChange("tripName", e.target.value)}
+                />
+                <Input
+                  size="sm"
+                  autoFocus
+                  label="Destination"
+                  name="tripDestination"
+                  placeholder={"Enter your destination"}
+                  onChange={(e) => handleInputChange("tripDestination", e.target.value)}
                 />
                 <div className="flex flex-row flex-wrap xl:flex-nowrap gap-2">
                   <Input

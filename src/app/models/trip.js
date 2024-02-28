@@ -4,13 +4,13 @@ const tripSchema = new mongoose.Schema(
     accommodations: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Accommodation" },
     ],
-    tripAddress: {
-      street: String,
-      city: String,
-      state: String,
-      zip: String,
-      country: String,
-    },
+    // tripAddress: {
+    //   street: String,
+    //   city: String,
+    //   state: String,
+    //   zip: String,
+    //   country: String,
+    // },
     tripDestination: String,
     tripStartDate: {
       type: String,
@@ -20,11 +20,11 @@ const tripSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    tripAccommodation: String,
-    tripGuests: Number,
+    // tripAccommodation: String,
+    // tripGuests: Number,
     stops: [{ type: mongoose.Schema.Types.ObjectId, ref: "Stop" }],
     tripReason: String,
-    tripTransportation: String,
+    // tripTransportation: String,
     tripName: String,
     packList: {
       type: mongoose.Schema.Types.ObjectId,

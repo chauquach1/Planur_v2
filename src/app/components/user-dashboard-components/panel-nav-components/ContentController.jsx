@@ -20,7 +20,7 @@ export default function ContentController({ userData, controllerTab, setControll
         trip={selectedTrip}
         user={userData}
       />
-      <NewTripForm  />
+      <NewTripForm user={userData} />
     </div>
   );
 }

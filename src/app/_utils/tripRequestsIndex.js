@@ -14,8 +14,9 @@ export default async function createNewTrip(userId, tripDetails) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Something went wrong!");
+      throw new Error(data, "Something went wrong!");
     }
+    console.log('POST TRIP NewTripForm data', data);
     return data;
   } catch (error) {
     console.error(error);
