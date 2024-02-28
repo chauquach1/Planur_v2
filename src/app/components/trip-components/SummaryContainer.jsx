@@ -5,9 +5,9 @@ export default function SummaryContainer({ trip }) {
   return (
     <div id={trip._id.oid} className="flex flex-col max-w-[400px] max-h-40">
       <div className="flex flex-col flex-wrap">
-        <p className="text-md">{trip.tripName}</p>
+        <p className="text-peach-500  text-4xl font-semibold">{trip.tripName}</p>
       </div>
-      <p>
+      <p className="text-peach-400  text-2xl font-semibold">
         {tripStartDate} - {tripEndDate}
       </p>
       <p>Destination: {trip.tripDestination}</p>
