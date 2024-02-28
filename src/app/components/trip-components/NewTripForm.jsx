@@ -1,12 +1,27 @@
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure} from "@nextui-org/react";
 import SelectReason from "../form-components/SelectReason";
+import { useEffect, useState } from "react";
 
 export default function NewTripForm({ show, setShow }) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [initialState, setInitialState] = useState({});
 
   const handleSubmit = () => {
     console.log("Form submitted");
   }
+
+  useEffect(() => {
+    console.log('NewTripForm initialState:', initialState);
+  }, [initialState]);
+
+  // HANDLE INPUT CHANGE FUNCTIONS
+  const handleInputChange = (key, value) => {
+    setInitialState(prevState => ({
+      ...prevState,
+      [key]: value
+    }));
+  };
+
   return (
     <>
       {/* <Button onPress={onOpen}>Open Modal</Button> */}
@@ -33,20 +48,25 @@ export default function NewTripForm({ show, setShow }) {
                   label="Trip Name"
                   name="tripName"
                   placeholder={"Enter your trip name"}
+                  onChange={(e) => handleInputChange("tripName", e.target.value)}
                 />
                 <div className="flex flex-row flex-wrap xl:flex-nowrap gap-2">
                   <Input
                     label="Arrival Date"
                     type="date"
                     placeholder="mm/dd/yyyy"
+                    onChange={(e) => handleInputChange("tripStartDate", e.target.value)}
                   />
                   <Input
                     label="Departure Date"
                     type="date"
                     placeholder="mm/dd/yyyy"
+                    onChange={(e) => handleInputChange("tripEndDate", e.target.value)}
                   />
                 </div>
-                <SelectReason />
+                <SelectReason 
+                  onChange={(e) => handleInputChange("tripReason", e.target.value)}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button

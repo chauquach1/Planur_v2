@@ -8,14 +8,14 @@ const reasons = [
   { label: "Other", value: "Other" },
 ];
 
-export default function SelectReason({ setReason }) {
+export default function SelectReason({ onChange }) {
   return (
       <Select
         label="Reason for Travel"
         placeholder="Select an reason"
         className=""
         size="sm"
-        onChange={(event) => setReason(event.target.value)}
+        onChange={onChange}
       >
         {reasons.map((reason) => (
           <SelectItem key={reason.value} value={reason.value}>
