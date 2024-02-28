@@ -10,11 +10,10 @@ const reasons = [
 
 export default function SelectReason({ setReason }) {
   return (
-    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
       <Select
         label="Reason for Travel"
         placeholder="Select an reason"
-        className="max-w-xs"
+        className=""
         size="sm"
         onChange={(event) => setReason(event.target.value)}
       >
@@ -24,6 +23,5 @@ export default function SelectReason({ setReason }) {
           </SelectItem>
         ))}
       </Select>
-    </div>
   );
 }
