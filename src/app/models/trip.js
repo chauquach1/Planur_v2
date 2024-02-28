@@ -13,11 +13,11 @@ const tripSchema = new mongoose.Schema(
     },
     tripDestination: String,
     tripStartDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     tripEndDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     tripAccommodation: String,
