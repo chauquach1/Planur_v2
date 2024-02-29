@@ -21,6 +21,10 @@ export default function UserDashboard({ userData, trips }) {
   const [activeContact, setActiveContact] = useState({});
   const [showContactForm, setShowContactForm] = useState(false);
 
+  useEffect(() => {
+    console.log('selectedTrip:', selectedTrip);
+  }, [selectedTrip]);
+
   const displayProps = {
     controllerTab: controllerTab,
     tripDisplayTab: tripDisplayTab,

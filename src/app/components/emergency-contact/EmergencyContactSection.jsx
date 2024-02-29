@@ -6,6 +6,7 @@ import fetchAllEmergencyContacts from "../../_utils/contactsRequestsIndex";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, tripProps, category, id, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
+  const { contactsIndex } = emergencyContactsProps;
 
   const addEmergencyContact = () => {
     emergencyContactsProps.setActiveContact({});
@@ -46,29 +47,26 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
             showCategory ? null : "hidden"
           } bg-slate-100 rounded-b-xl`}
         >
-          <div
-            id="emergency-contacts-section"
-            className="min-h-[38px]"
-          >
-            {emergencyContactsProps.contactsIndex.length > 0 ? (
+          <div id="emergency-contacts-section" className="min-h-[38px]">
+            {contactsIndex && contactsIndex.length > 0 ? (
               <div
                 id="emergency-contacts-index"
                 className="grid gap-1 p-0 justify-start grid-cols-1 2xl:grid-cols-2"
               >
-                {emergencyContactsProps.contactsIndex.map((contact) => {
-                  return (
-                    <EmergencyContactCard
-                      key={contact.firstName + contact.lastName}
-                      fetchedContact={contact}
-                      requestProps={requestProps}
-                      emergencyContactsProps={emergencyContactsProps}
-                      tripId={tripProps.tripId}
-                    />
-                  );
-                })}
+                {contactsIndex.map((contact) => (
+                  <EmergencyContactCard
+                    key={contact.id || contact.firstName + contact.lastName} // Assuming each contact has a unique 'id'
+                    fetchedContact={contact}
+                    requestProps={requestProps}
+                    emergencyContactsProps={emergencyContactsProps} // Consider if passing the whole object is necessary
+                    tripId={tripProps.tripId}
+                  />
+                ))}
               </div>
             ) : (
-              <p className="text-center text-slate-500 text-lg">No contacts found</p>
+              <p className="text-center text-slate-500 text-lg">
+                No contacts found
+              </p>
             )}
           </div>
         </div>

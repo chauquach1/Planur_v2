@@ -15,17 +15,28 @@ export async function GET(request, {params}) {
 
     // Fetch trip by ObjectId
     const trip = await db.collection('trips').findOne({ _id: new ObjectId(id) })
+    console.log('trip', trip);
+
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 404 });
     }
 
     // Fetch emergencyContacts by ObjectId
     const contactIds = trip.emergencyContacts;
+
+    if (!contactIds) {
+      return NextResponse.json([], { status: 200 });
+    }
+
     const emergencyContacts = await db
       .collection("emergencycontacts")
       .find({ _id: { $in: contactIds } })
       .sort({ accomCheckIn: 1 }) // Sort by accomCheckIn in ascending order
       .toArray();
+
+    if (!emergencyContacts) {
+      return NextResponse.json([], { status: 404 });
+    }
     return NextResponse.json(emergencyContacts, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

@@ -6,7 +6,8 @@ export default async function fetchAllEmergencyContacts(tripId) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Something went wrong!");
+      console.log(data);
+      throw new Error(data.error || "Something went wrong!");
     }
     return data;
   } catch (error) {
@@ -25,6 +26,7 @@ export async function getContact (contactId) {
     if (!response.ok) {
       throw new Error(data.message || "Something went wrong!");
     }
+    
     return data;
   } catch (error) {
     console.error(error);

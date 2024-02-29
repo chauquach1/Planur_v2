@@ -18,10 +18,6 @@ export default function NewTripForm({ user, show, setShow }) {
     onClose();
   }
 
-  useEffect(() => {
-    console.log('NewTripForm initialState:', initialState);
-  }, [initialState]);
-
   // HANDLE INPUT CHANGE FUNCTIONS
   const handleInputChange = (key, value) => {
     setInitialState(prevState => ({
