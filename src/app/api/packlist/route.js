@@ -98,16 +98,30 @@ export async function GET(request) {
   const client = await mongoClient();
 
   try {
-    const packListId = request.nextUrl.searchParams.get('packListId')
+    const tripId = request.nextUrl.searchParams.get('tripId')
+
+    console.log('tripId:', tripId);
     
-    if (!packListId) {
-      return NextResponse.json({ error: "TripId parameter is missing" }, { status: 400 });
+    if (!tripId) {
+      return NextResponse.json({ error: "tripId parameter is missing" }, { status: 400 });
     }
 
     const db = client.db("planur_v2");
     const packListsCollection = db.collection("packlists");
 
-    const packList = await packListsCollection.findOne({ _id: new ObjectId(packListId)})
+    const tripsCollections = db.collection("trips");
+    const trip = await tripsCollections.findOne({ _id: new ObjectId(tripId) });
+
+    if (!trip) {
+      return NextResponse.json({ error: "Trip not found" }, { status: 404 });
+    }
+
+    if (!trip.packList) {
+      return NextResponse.json({}, { status: 200 });
+    }
+
+    const packList = await packListsCollection.findOne({ _id: new ObjectId(trip.packList)})
+
     return NextResponse.json( packList , { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

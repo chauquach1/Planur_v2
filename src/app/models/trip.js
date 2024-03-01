@@ -29,7 +29,7 @@ const tripSchema = new mongoose.Schema(
     packList: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PackList",
-      default: null, // You can specify a default value or leave it as null
+      default: undefined
     },
   },
   { timestamps: true }

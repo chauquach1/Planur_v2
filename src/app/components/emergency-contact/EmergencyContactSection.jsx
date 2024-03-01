@@ -20,7 +20,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
       emergencyContactsProps.setContactsIndex(emergencyContacts);
     }
     getEmergencyContacts();
-  } , [props.tripId]);
+  } , [tripProps.tripId]);
 
   if (
     displayProps.tripDisplayTab !== "Emergency Contacts" &&

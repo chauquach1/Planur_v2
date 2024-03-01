@@ -15,7 +15,6 @@ export async function GET(request, {params}) {
 
     // Fetch trip by ObjectId
     const trip = await db.collection('trips').findOne({ _id: new ObjectId(id) })
-    console.log('trip', trip);
 
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 404 });

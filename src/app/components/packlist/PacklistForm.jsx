@@ -12,6 +12,8 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
   const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
 
+  const { tripId } = tripProps;
+
   useEffect(() => {
     if(initialRender.current) {
       initialRender.current = false;
@@ -76,7 +78,7 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
         }
       }
       // If packList exists, update it, otherwise create it
-      packList ? putPackList(newState) : postPackList(props.trip._id, newState);
+      packList ? putPackList(newState) : postPackList(tripId, newState);
       return newState;
     });
   };

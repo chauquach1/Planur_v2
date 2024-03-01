@@ -22,7 +22,9 @@ export default function UserDashboard({ userData, trips }) {
   const [showContactForm, setShowContactForm] = useState(false);
 
   useEffect(() => {
-    console.log('selectedTrip:', selectedTrip);
+    console.log('tripName:', selectedTrip.tripName);
+    console.log('tripId:', selectedTrip._id);
+    console.log('packList:', selectedTrip.packList);
   }, [selectedTrip]);
 
   const displayProps = {
