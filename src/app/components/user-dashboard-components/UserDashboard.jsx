@@ -2,7 +2,7 @@
 import ContentController from "./panel-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
 import SideContainer from "./content-side-components/SideContainer";
-import { useState, useEffect, useCallback, use } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export default function UserDashboard({ userData, trips }) {
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
@@ -20,12 +20,6 @@ export default function UserDashboard({ userData, trips }) {
   const [contactsIndex, setContactsIndex] = useState([]);
   const [activeContact, setActiveContact] = useState({});
   const [showContactForm, setShowContactForm] = useState(false);
-
-  // useEffect(() => {
-  //   console.log('tripName:', selectedTrip.tripName);
-  //   console.log('tripId:', selectedTrip._id);
-  //   console.log('packList:', selectedTrip.packList);
-  // }, [selectedTrip]);
 
   const displayProps = {
     controllerTab: controllerTab,

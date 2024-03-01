@@ -14,10 +14,30 @@ export default function SideContainer({displayProps, tripProps, stopProps, reque
       className={`hidden right-0 top-0 mx-auto
       lg:flex flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] py-4 px-4 bg-slate-300`}
     >
-      <AccomsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} accomProps={accomProps} />
-      <StopsForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} stopProps={stopProps} />
-      <PackListForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} packListProps={packListProps} />
-      <EmergencyContactForm displayProps={displayProps} tripProps={tripProps} requestProps={requestProps} emergencyContactsProps={emergencyContactsProps} />
+      <AccomsForm
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        accomProps={accomProps}
+      />
+      <StopsForm
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        stopProps={stopProps}
+      />
+      <PackListForm
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        packListProps={packListProps}
+      />
+      <EmergencyContactForm
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
+        emergencyContactsProps={emergencyContactsProps}
+      />
     </div>
   );
 }

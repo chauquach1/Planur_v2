@@ -1,6 +1,8 @@
-import { Input, Button } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { Button } from "@nextui-org/react";
+import { useState, useEffect, use } from "react";
+import Input from "../form-components/Input";
 import { postContact, putContact } from "../../_utils/contactsRequestsIndex";
+import FormWrapper from "../form-components/FormWrapper";
 
 export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}, tripProps: {tripId}}) {
   const [initialState, setInitialState] = useState(activeContact || {});
@@ -107,24 +109,20 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
     setShowContactForm(false);
   }
 
-  return (
-    <div
-      className={`${isVisible} right-0 top-0 mx-auto
-    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}
-    >
-      <button
-        className="self-end text-red-500"
-        onClick={closeContactForm}
-      >
-        x Close
-      </button>
+  useEffect(() => {
+    console.log(initialState);
+  }, [initialState]);
 
+  return (
+    <FormWrapper isVisible={isVisible} onClick={()=> setShowContactForm(false)}>
       <form
         id="emergency-initialState-form"
         action={handleSubmit}
         // className="grid grid-cols-8 gap-1 bg-white rounded-xl p-2"
-        className="flex flex-col gap-2 bg-white rounded-xl p-2"
+        className="flex flex-col gap-2 overflow-y-hidden"
       >
+        <div className=" flex flex-col gap-2 rounded-xl h-max overflow-y-scroll bg-white p-2">
+        
         <Input
           key="firstName"
           label="First Name"
@@ -235,6 +233,7 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
           size="sm"
           className="col-span-3"
         />
+        </div>
         <div
           id="submit-btn-container"
           className="flex flex-row mt-2 w-full justify-center pt-2"
@@ -253,6 +252,6 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
           </Button>
         </div>
       </form>
-    </div>
+    </FormWrapper>
   );
 }

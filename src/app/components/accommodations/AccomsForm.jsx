@@ -114,13 +114,12 @@ export default function AccomsForm({tripProps, requestProps, accomProps }) {
   
 
   return (
-    <FormWrapper isVisible={isVisible} onClick={() => accomProps.setShowAccomForm(false)}>
-      <button className="self-end text-red-500" onClick={() => accomProps.setShowAccomForm(false)}>x Close</button>
+    <FormWrapper isVisible={isVisible}  onClick={() => accomProps.setShowAccomForm(false)}>
       <form
         action={handleSubmit}
-        className={`h-full overflow-y-scroll flex-col`}
+        className={`flex flex-col overflow-hidden`}
       >
-        <div className=" flex flex-col gap-2 rounded-xl bg-white p-2">
+        <div className=" flex flex-col gap-2 rounded-xl h-max overflow-y-scroll bg-white p-2">
           <div className="flex flex-row flex-wrap xl:flex-nowrap gap-3">
             <Input
               name="accomName"

@@ -1,7 +1,5 @@
 // GET /api/packlist?packListId=123
 export async function fetchPackList (tripId) {
-  console.log('fetchPackList tripId:', tripId);
-
   try {
     const response = await fetch(
       `http://localhost:3000/api/packlist?tripId=${tripId}`

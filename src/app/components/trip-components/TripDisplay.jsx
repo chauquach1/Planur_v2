@@ -12,10 +12,7 @@ import { useEffect, useState } from "react";
 
 export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
-
-  // useEffect(() => {
-  //   console.log('TripDisplay props', props);
-  // }, []);
+  const { tripProps, displayProps, requestProps, accomProps, stopProps, packListProps, emergencyContactsProps } = props;
 
   return (
     <div
@@ -27,35 +24,35 @@ export default function TripDisplay({ ...props }) {
         <PanelNavContainer
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          displayProps={props.displayProps}
+          displayProps={displayProps}
         />
         <AccomsSection
-          tripProps={props.tripProps}
-          displayProps={props.displayProps}
-          requestProps={props.requestProps}
-          accomProps={props.accomProps}
+          tripProps={tripProps}
+          displayProps={displayProps}
+          requestProps={requestProps}
+          accomProps={accomProps}
         />
         <StopsSection
           stops={sampleStops}
-          tripProps={props.tripProps}
-          tripId={props.tripProps.selectedTrip._id}
-          stopProps={props.stopProps}
-          displayProps={props.displayProps}
-          requestProps={props.requestProps}
+          tripProps={tripProps}
+          tripId={tripProps.selectedTrip._id}
+          stopProps={stopProps}
+          displayProps={displayProps}
+          requestProps={requestProps}
         /> 
         <PackListSection
-          tripProps={props.tripProps}
-          tripId={props.tripProps.selectedTrip._id}
-          displayProps={props.displayProps}
-          requestProps={props.requestProps}
-          packListProps={props.packListProps}
+          tripProps={tripProps}
+          tripId={tripProps.selectedTrip._id}
+          displayProps={displayProps}
+          requestProps={requestProps}
+          packListProps={packListProps}
         />
         <EmergencyContactSection 
-          tripProps={props.tripProps}
+          tripProps={tripProps}
           activeTab={activeTab}
-          displayProps={props.displayProps}
-          requestProps={props.requestProps}
-          emergencyContactsProps={props.emergencyContactsProps}
+          displayProps={displayProps}
+          requestProps={requestProps}
+          emergencyContactsProps={emergencyContactsProps}
         />
       </Suspense>
     </div>

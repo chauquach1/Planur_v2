@@ -18,7 +18,6 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
 
   // CHECK FOR PACKLIST ITEMS COUNT
   useEffect(() => {
-    console.log("Checking for pack list items count...");
     if (packList) {
       let count = 0;
       Object.values(packList).forEach((itemsArray) => {
@@ -39,7 +38,6 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching pack list...");
         let fetchedPackList = await fetchPackList(tripId);
         setPackList(fetchedPackList);
       } catch (error) {

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import SelectStopType from "../form-components/SelectStopType";
 import SelectStopInterest from "../form-components/SelectStopInterest";
+import FormWrapper from "../form-components/FormWrapper";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
 import { postStop, putStop  } from "../../_utils/stopsRequestsIndex";
 import { Button } from "@nextui-org/react";
@@ -111,21 +112,12 @@ export default function StopForm({ tripProps, stopProps, requestProps, ...props 
   const isVisible = stopProps.showStopForm ? "fixed flex" : "hidden";
 
   return (
-    <div
-      className={`${isVisible} right-0 top-0 mx-auto
-    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}
-    >
-      <button
-        className="self-end text-red-500"
-        onClick={() => stopProps.setShowStopForm(false)}
-      >
-        x Close
-      </button>
+    <FormWrapper isVisible={isVisible} onClick={() => stopProps.setShowStopForm(false)}>
       <form
         action={handleSubmit}
-        className={`h-full overflow-y-scroll flex-col`}
+        className={`flex flex-col overflow-hidden`}
       >
-        <div className="flex flex-col gap-2 rounded-xl bg-white p-2">
+        <div className="flex flex-col gap-2 rounded-xl h-max overflow-y-scroll bg-white p-2">
           <Input
             autoFocus={true}
             label="Stop Name"
@@ -314,6 +306,6 @@ export default function StopForm({ tripProps, stopProps, requestProps, ...props 
           </Button>
         </div>
       </form>
-    </div>
+    </FormWrapper>
   );
 }

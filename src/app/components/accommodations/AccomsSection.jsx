@@ -2,8 +2,9 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
+import { add } from "date-fns";
 
-export default function AccomsSection({ displayProps, tripProps, requestProps, accomProps, ...props }) { 
+export default function AccomsSection({displayProps, tripProps, requestProps, accomProps, ...props }) { 
   const [showCategory, setShowCategory] = useState(false);
 
   const { tripId } = tripProps;

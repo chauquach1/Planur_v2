@@ -1,6 +1,7 @@
 import packListItems from "../../libs/completePackList";
 import { putPackList, postPackList } from "../../_utils/packListRequestsIndex";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
+import FormWrapper from "../form-components/FormWrapper";
 import {
   Accordion,
   AccordionItem,
@@ -106,30 +107,20 @@ export default function PackListForm({packListProps, requestProps: {requestType,
   };
 
   return (
-    <div
-      className={`${
-        showPackListForm ? "block" : "hidden"
-      } flex flex-col h-full w-full `}
-    >
-      <button
-        className="self-end text-red-500"
-        onClick={() => setShowPackListForm(false)}
-      >
-        x Close
-      </button>
-      <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
-      <Accordion isCompact selectionMode="multiple">
-        {Object.entries(packListItems).map(([category, items], index) => (
-          <AccordionItem
-            key={index}
-            aria-label={category}
-            title={category.charAt(0).toUpperCase() + category.slice(1)}
-          >
-            {renderCheckboxGroup(category, items)}
-          </AccordionItem>
-        ))}
-      </Accordion>
-      </div>
-    </div>
+    <FormWrapper isVisible={showPackListForm ? "absolute h-full p-0" : "hidden"} onClick={() => setShowPackListForm(false)}>
+        <div className="relative flex flex-col my-auto h-full overflow-y-scroll w-full  bg-white rounded-xl">
+          <Accordion isCompact selectionMode="multiple">
+            {Object.entries(packListItems).map(([category, items], index) => (
+              <AccordionItem
+                key={index}
+                aria-label={category}
+                title={category.charAt(0).toUpperCase() + category.slice(1)}
+              >
+                {renderCheckboxGroup(category, items)}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+    </FormWrapper>
   );
 }
