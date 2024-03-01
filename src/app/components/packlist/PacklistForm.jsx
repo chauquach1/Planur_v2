@@ -8,7 +8,8 @@ import {
 } from "@nextui-org/react";
 
 
-export default function PackListForm({packListProps: { packList, setPackList, showPackListForm, setShowPackListForm }, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
+export default function PackListForm({packListProps, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
+  const { packList, setPackList, showPackListForm, setShowPackListForm } = packListProps;
   const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
 
@@ -77,8 +78,8 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
           newState[category].splice(itemIndex, 1);
         }
       }
-      // If packList exists, update it, otherwise create it
-      packList ? putPackList(newState) : postPackList(tripId, newState);
+      // If packList._id exists, update it, otherwise create it
+      packList._id ? putPackList(newState) : postPackList(tripId, newState);
       return newState;
     });
   };
