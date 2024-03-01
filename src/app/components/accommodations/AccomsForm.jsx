@@ -5,6 +5,7 @@ import SelectAccom from "../form-components/SelectAccom";
 import { useEffect, useState, useRef } from "react";
 import {numDateFormat}  from "../../_utils/dateFormatterIndex";
 import { postAccom, putAccom  } from "../../_utils/accomsRequestsIndex";
+import FormWrapper from "../form-components/FormWrapper";
 import SideContainer from "../user-dashboard-components/content-side-components/SideContainer";
 import SlideOutForm from "../user-dashboard-components/content-side-components/SlideOutForm";
 import { set } from "date-fns";
@@ -113,8 +114,7 @@ export default function AccomsForm({tripProps, requestProps, accomProps }) {
   
 
   return (
-    <div className={`${isVisible} right-0 top-0 mx-auto
-    flex-col h-full w-full md:max-w-[325px] lg:max-w-[400px] xl:max-w-[500px] 2xl:max-w-[600px] p-4 pb-2 bg-slate-300 rounded-tl-xl ms-2`}>
+    <FormWrapper isVisible={isVisible} onClick={() => accomProps.setShowAccomForm(false)}>
       <button className="self-end text-red-500" onClick={() => accomProps.setShowAccomForm(false)}>x Close</button>
       <form
         action={handleSubmit}
@@ -267,6 +267,6 @@ export default function AccomsForm({tripProps, requestProps, accomProps }) {
           </Button>
         </div>
       </form>
-    </div>
+    </FormWrapper>
   );
 }
