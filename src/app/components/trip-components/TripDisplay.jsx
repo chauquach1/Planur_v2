@@ -31,7 +31,6 @@ export default function TripDisplay({ ...props }) {
         />
         <AccomsSection
           tripProps={props.tripProps}
-          tripId={props.tripProps.selectedTrip._id}
           displayProps={props.displayProps}
           requestProps={props.requestProps}
           accomProps={props.accomProps}

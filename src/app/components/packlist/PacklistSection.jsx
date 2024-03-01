@@ -12,6 +12,10 @@ export default function PackListPanel({ tripProps, displayProps, requestProps, p
   const { tripId } = tripProps;
   const { setPackList, packList, setShowPackListForm } = packListProps;
 
+  useEffect(() => {
+    setShowCategory(false);
+  }, [tripId]);
+
   // CHECK FOR PACKLIST ITEMS COUNT
   useEffect(() => {
     console.log("Checking for pack list items count...");

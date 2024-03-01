@@ -6,21 +6,29 @@ import { useState, useEffect } from "react";
 export default function StopsSection({tripProps, stopProps, requestProps, displayProps, ...props}) {
   const [showCategory, setShowCategory] = useState(false);
 
+  const { tripId } = tripProps;
+  const { setActiveStop, setShowStopForm, stopsIndex, setStopsIndex } = stopProps;
+  const { tripDisplayTab } = displayProps;
+
   const addNewStop = () => {
     requestProps.setRequestType("POST");
-    stopProps.setActiveStop({});
-    stopProps.setShowStopForm(true);
+    setActiveStop({});
+    setShowStopForm(true);
   }
+
+  useEffect(() => {
+    setShowCategory(false);
+  }, [tripId]);
 
   useEffect(() => {
     const getStops = async () => {
       const stops = await fetchAllStops(props.tripId)
-      stopProps.setStopsIndex(stops);
+      setStopsIndex(stops);
     }
     getStops();
   } , [props.tripId]);
   
-  if (displayProps.tripDisplayTab !== "Stops" && displayProps.tripDisplayTab !== "Full Details") {
+  if (tripDisplayTab !== "Stops" && tripDisplayTab !== "Full Details") {
     return null;
   } else {
     return (
@@ -37,8 +45,8 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
         >
           Add New Stop
         </button>
-        {stopProps.stopsIndex.length > 0 ? (
-          stopProps.stopsIndex.map((stop) => {
+        {stopsIndex.length > 0 ? (
+          stopsIndex.map((stop) => {
             return (
               <StopsCard
                 key={stop._id}

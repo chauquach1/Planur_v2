@@ -1,30 +1,39 @@
 import SectionContainer from "../trip-components/SectionContainer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import EmergencyContactCard from "./EmergencyContactCard";
 import sampleEmergencyContacts from "../../_tests_/sampleEmergencyContacts";
 import fetchAllEmergencyContacts from "../../_utils/contactsRequestsIndex";
 import RevealSectionBtn from "../misc-components/RevealSectionBtn";
 export default function EmergencyContactSection({ emergencyContactsProps, displayProps, requestProps, tripProps, category, id, ...props }) {
   const [showCategory, setShowCategory] = useState(false);
+  const { setContactsIndex, setShowContactForm, setActiveContact } = emergencyContactsProps;
   const { contactsIndex } = emergencyContactsProps;
+  const { tripId } = tripProps;
+  const { tripDisplayTab } = displayProps;
+  const { setRequestType } = requestProps;
+
+  useEffect(() => {
+    setShowCategory(false);
+  }, [tripId]);
+
 
   const addEmergencyContact = () => {
-    emergencyContactsProps.setActiveContact({});
-    emergencyContactsProps.setShowContactForm(true);
-    requestProps.setRequestType("POST");
+    setActiveContact({});
+    setShowContactForm(true);
+    setRequestType("POST");
   };
 
   useEffect(() => {
     const getEmergencyContacts = async () => {
-      const emergencyContacts = await fetchAllEmergencyContacts(tripProps.tripId)
-      emergencyContactsProps.setContactsIndex(emergencyContacts);
+      const emergencyContacts = await fetchAllEmergencyContacts(tripId)
+      setContactsIndex(emergencyContacts);
     }
     getEmergencyContacts();
-  } , [tripProps.tripId]);
+  } , [tripId]);
 
   if (
-    displayProps.tripDisplayTab !== "Emergency Contacts" &&
-    displayProps.tripDisplayTab !== "Full Details"
+    tripDisplayTab !== "Emergency Contacts" &&
+    tripDisplayTab !== "Full Details"
   ) {
     return null;
   } else {
@@ -59,7 +68,7 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
                     fetchedContact={contact}
                     requestProps={requestProps}
                     emergencyContactsProps={emergencyContactsProps} // Consider if passing the whole object is necessary
-                    tripId={tripProps.tripId}
+                    tripId={tripId}
                   />
                 ))}
               </div>

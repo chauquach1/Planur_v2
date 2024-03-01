@@ -21,11 +21,11 @@ export default function UserDashboard({ userData, trips }) {
   const [activeContact, setActiveContact] = useState({});
   const [showContactForm, setShowContactForm] = useState(false);
 
-  useEffect(() => {
-    console.log('tripName:', selectedTrip.tripName);
-    console.log('tripId:', selectedTrip._id);
-    console.log('packList:', selectedTrip.packList);
-  }, [selectedTrip]);
+  // useEffect(() => {
+  //   console.log('tripName:', selectedTrip.tripName);
+  //   console.log('tripId:', selectedTrip._id);
+  //   console.log('packList:', selectedTrip.packList);
+  // }, [selectedTrip]);
 
   const displayProps = {
     controllerTab: controllerTab,
