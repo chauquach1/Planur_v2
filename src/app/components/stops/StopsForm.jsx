@@ -21,7 +21,7 @@ export default function StopForm({ tripProps, stopProps, requestProps, ...props 
   }, [stopProps.activeStop]);
 
 
-  // UPDATE STATE ACCOM INDEX
+  // UPDATE STATE STOPS INDEX
   const updateStopsIndex = (stopId, newState) => {
     // Clone the existing stopsIndex to ensure immutability
     const updatedStopsIndex = [...stopProps.stopsIndex];

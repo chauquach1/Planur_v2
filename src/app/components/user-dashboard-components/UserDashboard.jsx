@@ -2,9 +2,10 @@
 import ContentController from "./panel-nav-components/ContentController";
 import TripDisplay from "../trip-components/TripDisplay";
 import SideContainer from "./content-side-components/SideContainer";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, use } from "react";
 
 export default function UserDashboard({ userData, trips }) {
+  const [tripsIndex, setTripsIndex] = useState(trips || []);
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
   const [controllerTab, setControllerTab] = useState("tripsindex");
   const [tripDisplayTab, setTripDisplayTab] = useState("Full Details");
@@ -20,6 +21,11 @@ export default function UserDashboard({ userData, trips }) {
   const [contactsIndex, setContactsIndex] = useState([]);
   const [activeContact, setActiveContact] = useState({});
   const [showContactForm, setShowContactForm] = useState(false);
+
+  
+  useEffect(() => {
+    console.log("Trips Index: ", tripsIndex);
+  }, [tripsIndex]);
 
   const displayProps = {
     controllerTab: controllerTab,
@@ -84,7 +90,8 @@ export default function UserDashboard({ userData, trips }) {
         controllerTab={controllerTab}
         setControllerTab={setControllerTab}
         setSelectedTrip={setSelectedTrip}
-        trips={trips}
+        trips={tripsIndex}
+        setTripsIndex={setTripsIndex}
         selectedTrip={selectedTrip}
       />
       <TripDisplay
