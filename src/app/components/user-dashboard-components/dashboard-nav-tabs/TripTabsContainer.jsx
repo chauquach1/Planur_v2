@@ -13,7 +13,7 @@ export default function TripTabsContainer({
     <>
       <div
         id="trips-index-container"
-        className={`${controllerTab === "tripsindex" ? null : "hidden"} grid-flow-col mb-3 gap-2 overflow-y-scroll justify-start`}
+        className={`${controllerTab === "tripsindex" ? null : "hidden"} shadow-inner w-full grid-flow-col gap-2 px-3 overflow-y-scroll justify-start`}
       >
         <AllTripsTab
           trips={trips}

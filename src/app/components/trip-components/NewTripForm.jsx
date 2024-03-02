@@ -45,7 +45,7 @@ export default function NewTripForm({ user, trips, setTripsIndex, show, setShow 
         size="sm"
         radius="full"
         onPress={onOpen}
-        className="mt-auto ms-auto text-end bg-transparent/10 hover:bg-transparent/5 text-peach-500 hover:text-peach-400 text-sm rounded-md"
+        className="w-full text-end bg-transparent/10 hover:bg-transparent/5 text-peach-500 hover:text-peach-400 text-sm rounded-md"
       >
         + New Trip
       </Button>

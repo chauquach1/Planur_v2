@@ -6,7 +6,7 @@ export default function TabBtnsContainer({ ...props }) {
   return (
     <div
       id="tabs-container"
-      className="flex flex-col gap-2 pb-3 border-b-2 text-lg border-white w-full"
+      className="flex flex-col gap-2 p-3 text-lg shadow-lg w-full"
     >
       <TabBtn
         category="accountDetails"
