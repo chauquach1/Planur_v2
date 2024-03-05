@@ -20,7 +20,7 @@ export default function TripDisplay({ ...props }) {
       className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
-        <SummaryContainer trip={props.tripProps.selectedTrip} />
+        <SummaryContainer tripProps={tripProps} requestProps={requestProps} />
         <PanelNavContainer
           activeTab={activeTab}
           setActiveTab={setActiveTab}

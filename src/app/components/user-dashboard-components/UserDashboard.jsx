@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback, useRef, use } from "react";
 export default function UserDashboard({ userData, trips }) {
   const [tripsIndex, setTripsIndex] = useState(trips || []);
   const [selectedTrip, setSelectedTrip] = useState(trips[0] || null);
+  const [showEditTripForm, setShowEditTripForm] = useState(false);
   const [controllerTab, setControllerTab] = useState("tripsindex");
   const [tripDisplayTab, setTripDisplayTab] = useState("Full Details");
   const [requestType, setRequestType] = useState("POST");
@@ -39,7 +40,10 @@ export default function UserDashboard({ userData, trips }) {
   const tripProps = {
     selectedTrip: selectedTrip,
     tripId: selectedTrip._id,
-    trips: trips,
+    tripsIndex: tripsIndex,
+    showEditTripForm: showEditTripForm,
+    setTripsIndex: setTripsIndex,
+    setShowEditTripForm: setShowEditTripForm,
     setSelectedTrip: setSelectedTrip, // Assuming you have a setter for selectedTrip
   };
 

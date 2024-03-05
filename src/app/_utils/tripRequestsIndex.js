@@ -22,3 +22,28 @@ export default async function createNewTrip(userId, tripDetails) {
     console.error(error);
   }
 };
+
+export async function putTrip(tripDetails) {
+  console.log('PUT TRIP NewTripForm', tripDetails);
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/trip`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tripDetails)
+      }
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data, "Something went wrong!");
+    }
+    console.log('PUT TRIP NewTripForm data', data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -2,6 +2,7 @@ import AccomsForm from "../../accommodations/AccomsForm";
 import StopsForm from "../../stops/StopsForm";
 import PackListForm from "../../packlist/PackListForm";
 import EmergencyContactForm from "../../emergency-contact/EmergencyContactForm";
+import EditTripForm from "../../trip-components/EditTripForm";
 import { useEffect } from "react";
 export default function SideContainer({displayProps, tripProps, stopProps, requestProps, accomProps, packListProps, emergencyContactsProps}) {
   // useEffect(() => {
@@ -37,6 +38,11 @@ export default function SideContainer({displayProps, tripProps, stopProps, reque
         tripProps={tripProps}
         requestProps={requestProps}
         emergencyContactsProps={emergencyContactsProps}
+      />
+      <EditTripForm
+        displayProps={displayProps}
+        tripProps={tripProps}
+        requestProps={requestProps}
       />
     </div>
   );
