@@ -47,3 +47,27 @@ export async function putTrip(tripDetails) {
     console.error(error);
   }
 };
+
+export async function deleteTrip(tripId) {
+  console.log('DELETE TRIP NewTripForm', tripId);
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/trip/${tripId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data, "Something went wrong!");
+    }
+    console.log('DELETE TRIP NewTripForm data', data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

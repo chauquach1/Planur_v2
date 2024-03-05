@@ -96,17 +96,6 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
     }));
   };
 
-  const handleNestedInputChange = (parentKey, childKey, value) => {
-    setInitialState(prevState => ({
-      ...prevState,
-      [parentKey]: {
-        ...prevState[parentKey],
-        [childKey]: value
-      }
-    }));
-  };
-
-
   const isVisible = showEditTripForm ? "fixed flex" : "hidden";
 
   return (

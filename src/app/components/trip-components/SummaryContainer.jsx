@@ -1,5 +1,6 @@
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
 import { MdLocationPin, MdEdit, MdDelete } from "react-icons/md";
+import DeleteTripConfirmation from "./DeleteTripConfirmation";
 
 export default function SummaryContainer({ tripProps, requestProps }) {
   const { selectedTrip, setShowEditTripForm } = tripProps;
@@ -34,9 +35,7 @@ export default function SummaryContainer({ tripProps, requestProps }) {
         <button onClick={handleEdit}>
           <MdEdit />
         </button>
-        <button onClick={handleDelete}>
-          <MdDelete />
-        </button>
+        <DeleteTripConfirmation tripProps={tripProps} />
       </div>
     </div>
   );
