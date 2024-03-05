@@ -28,7 +28,7 @@ export async function putTrip(tripDetails) {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/trip`, {
+      `http://localhost:3000/api/trip/${tripDetails._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

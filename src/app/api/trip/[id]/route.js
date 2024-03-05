@@ -4,13 +4,13 @@ import Trip from "../../../models/trip";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
+  console.log("PUT TRIP ROUTE");
+  const tripDetails = await request.json();
   const tripId = params.id;
-  const { uuid, ...tripDetails } = await request.json();
 
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
-    const userCollection = db.collection("users");
     const tripCollection = db.collection("trips");
 
     if (!tripId) {
@@ -19,12 +19,9 @@ export async function PUT(request, { params }) {
         { status: 400 }
       );
     }
-    const user = await userCollection.findOne({ uuid: uuid });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
-    }
 
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
+
     if (!trip) {
       return NextResponse.json({ error: "Trip not found" }, { status: 402 });
     }
@@ -37,9 +34,7 @@ export async function PUT(request, { params }) {
         tripEndDate: tripDetails.endDate,
         tripName: tripDetails.tripName,
         tripDestination: tripDetails.destination,
-        tripGuests: tripDetails.guests,
         tripReason: tripDetails.reason,
-        tripTransportation: tripDetails.transportation,
       },
       { new: true } // This option returns the updated document
     );

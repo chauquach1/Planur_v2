@@ -7,7 +7,7 @@ import { putTrip  } from "../../_utils/tripRequestsIndex";
 import Input from "../form-components/Input";
 
 export default function EditTripForm({ tripProps, requestProps, ...props }) {
-  const { selectedTrip, tripsIndex, setTripsIndex, showEditTripForm, setShowEditTripForm, tripId } = tripProps;
+  const { selectedTrip, setSelectedTrip, tripsIndex, setTripsIndex, showEditTripForm, setShowEditTripForm, tripId } = tripProps;
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [initialState, setInitialState] = useState(selectedTrip || {});
 
@@ -21,7 +21,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
   // UPDATE STATE TRIPS INDEX
   const updateTripsIndex = (tripId, newState) => {
     // Clone the existing stopsIndex to ensure immutability
-    const updatedTripsIndex = [tripsIndex];
+    const updatedTripsIndex = tripsIndex;
 
     // Find the index of the trip with the given tripId
     const index = updatedTripsIndex.findIndex(
@@ -38,6 +38,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
 
     // Update the state with the new stops array
     setTripsIndex(updatedTripsIndex);
+    setSelectedTrip(newState);
   };
 
   // ASYNC POST/PUT REQUEST FUNCTIONS
