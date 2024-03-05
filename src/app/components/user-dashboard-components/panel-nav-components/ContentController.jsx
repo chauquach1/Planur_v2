@@ -1,7 +1,7 @@
 "use client";
 import TabsContainer from "../dashboard-nav-tabs/TabBtnsContainer";
 import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer";
-import NewTripForm from "../../trip-components/NewTripForm";
+import NewTripModal from "../../trip-components/NewTripModal";
 
 export default function ContentController({ userData, controllerTab, setControllerTab, setActiveTab, setSelectedTrip, trips, setTripsIndex, selectedTrip }) {
 
@@ -21,7 +21,7 @@ export default function ContentController({ userData, controllerTab, setControll
         user={userData}
       />
       <div className="w-full h-max p-2">
-        <NewTripForm
+        <NewTripModal
           user={userData}
           trips={trips}
           setTripsIndex={setTripsIndex}

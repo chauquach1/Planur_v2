@@ -70,7 +70,6 @@ export default function NewTripForm({ user, trips, setTripsIndex, show, setShow 
                   />
                   <Input
                     size="sm"
-                    autoFocus
                     label="Destination"
                     name="tripDestination"
                     placeholder={"Enter your destination"}
