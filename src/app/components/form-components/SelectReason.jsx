@@ -16,7 +16,6 @@ export default function SelectReason({ onChange, selectedReason }) {
         className=""
         size="sm"
         onChange={onChange}
-        defaultSelectedKeys={[selectedReason]}
       >
         {reasons.map((reason) => (
           <SelectItem key={reason.value} value={reason.value}>

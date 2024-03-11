@@ -6,13 +6,13 @@ import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDis
 export default function DeleteTripConfirmation({userData, tripProps}) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [modalPlacement, setModalPlacement] = React.useState("auto");
-  const { selectedTrip, setShowEditTripForm } = tripProps;
+  const { selectedTrip, setSelectedTrip, tripsIndex, setTripsIndex, setShowEditTripForm } = tripProps;
 
   // UPDATE STATE TRIPS INDEX
   const updateTripsIndex = (deleteId) => {
     // Clone the existing tripsIndex to ensure immutability
-    const updatedTripsIndex = tripProps.tripsIndex.filter(trip => trip._id !== deleteId);
-    tripProps.setTripsIndex(updatedTripsIndex);
+    const updatedTripsIndex = tripsIndex.filter(trip => trip._id !== deleteId);
+    setTripsIndex(updatedTripsIndex);
   };
 
   const handleDeleteTrip = () => {
@@ -20,6 +20,7 @@ export default function DeleteTripConfirmation({userData, tripProps}) {
     console.log('tripProps', tripProps);
     deleteTrip(selectedTrip._id, userData.uuid);
     updateTripsIndex(selectedTrip._id);
+    setSelectedTrip(tripsIndex[0]);
   }
   
   return (
