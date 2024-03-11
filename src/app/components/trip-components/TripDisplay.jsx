@@ -6,13 +6,24 @@ import AccomsSection from "../accommodations/AccomsSection";
 import StopsSection from "../stops/StopsSection";
 import PackListSection from "../packlist/PacklistSection";
 import EmergencyContactSection from "../emergency-contact/EmergencyContactSection";
-import sampleStops from "../../_tests_/sampleStops";
+import NoTripsDisplay from "./NoTripsDisplay";
 import PanelNavContainer from "../user-dashboard-components/panel-nav-components/PanelNavContainer";
 import { useEffect, useState } from "react";
 
 export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
   const { userData, tripProps, displayProps, requestProps, accomProps, stopProps, packListProps, emergencyContactsProps } = props;
+
+  if (tripProps.tripsIndex.length === 0) {
+    return (
+      <div
+        id="content-panel-main"
+        className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200"
+      >
+        <NoTripsDisplay />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -37,7 +48,6 @@ export default function TripDisplay({ ...props }) {
           accomProps={accomProps}
         />
         <StopsSection
-          stops={sampleStops}
           tripProps={tripProps}
           tripId={tripProps.selectedTrip._id}
           stopProps={stopProps}

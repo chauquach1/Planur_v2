@@ -45,7 +45,7 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
         >
           Add New Stop
         </button>
-        {stopsIndex.length > 0 ? (
+        {stopsIndex?.length > 0 ? (
           stopsIndex.map((stop) => {
             return (
               <StopsCard

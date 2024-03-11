@@ -48,7 +48,7 @@ export default function AccomsSection({displayProps, tripProps, requestProps, ac
           >
             Add New Accommodation
           </button>
-          {accomsIndex.length > 0 ? 
+          {accomsIndex?.length > 0 ? 
             accomsIndex.map((accom) => {
               return (
                 <AccommodationsCard

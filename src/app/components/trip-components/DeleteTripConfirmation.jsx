@@ -20,7 +20,7 @@ export default function DeleteTripConfirmation({userData, tripProps}) {
     console.log('tripProps', tripProps);
     deleteTrip(selectedTrip._id, userData.uuid);
     updateTripsIndex(selectedTrip._id);
-    setSelectedTrip(tripsIndex[0]);
+    tripsIndex.length > 0 ? setSelectedTrip(tripsIndex[0]) : null;
   }
   
   return (
