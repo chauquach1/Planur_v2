@@ -53,20 +53,48 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  console.log("DELETE TRIP ROUTE HIT");
+  
+  const userId = request.nextUrl.searchParams.get('userId')
   const tripId = params.id;
+
+  console.log("tripId", tripId);
+  console.log("userId", userId);
 
   try {
     const client = await mongoClient();
     const db = client.db("planur_v2");
     const tripCollection = db.collection("trips");
+    const usersCollection = db.collection("users");
+
+    if (!tripId) {
+      console.log("Trip ID parameter is missing");
+      return NextResponse.json(
+        { error: "Trip ID parameter is missing" },
+        { status: 400 }
+      );
+    }
 
     const trip = await tripCollection.findOne({ _id: new ObjectId(tripId) });
     if (!trip) {
-      // console.log("Trip not found");
       return NextResponse.json({ error: "Trip not found" }, { status: 403 });
     }
 
+    const user = await usersCollection.findOne({ uuid: userId });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+    
+    // Remove the trip ID from the user's trips array
+    await usersCollection.updateOne(
+      { uuid: userId },
+      { $pull: { trips: new ObjectId(tripId) } }
+    );
+
+    // Delete the trip document from trip collection
     await tripCollection.deleteOne({ _id: new ObjectId(tripId) });
+
     return NextResponse.json({ message: "Trip deleted" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

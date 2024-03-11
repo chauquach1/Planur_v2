@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export default function TripDisplay({ ...props }) {
   const [activeTab, setActiveTab] = useState("Full Details");
-  const { tripProps, displayProps, requestProps, accomProps, stopProps, packListProps, emergencyContactsProps } = props;
+  const { userData, tripProps, displayProps, requestProps, accomProps, stopProps, packListProps, emergencyContactsProps } = props;
 
   return (
     <div
@@ -20,7 +20,11 @@ export default function TripDisplay({ ...props }) {
       className="flex flex-col w-full h-full gap-3 overflow-y-auto p-4 bg-bismark-200"
     >
       <Suspense fallback={<LoadingTripDisplay />}>
-        <SummaryContainer tripProps={tripProps} requestProps={requestProps} />
+        <SummaryContainer
+          userData={userData}
+          tripProps={tripProps}
+          requestProps={requestProps}
+        />
         <PanelNavContainer
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -39,7 +43,7 @@ export default function TripDisplay({ ...props }) {
           stopProps={stopProps}
           displayProps={displayProps}
           requestProps={requestProps}
-        /> 
+        />
         <PackListSection
           tripProps={tripProps}
           tripId={tripProps.selectedTrip._id}
@@ -47,7 +51,7 @@ export default function TripDisplay({ ...props }) {
           requestProps={requestProps}
           packListProps={packListProps}
         />
-        <EmergencyContactSection 
+        <EmergencyContactSection
           tripProps={tripProps}
           activeTab={activeTab}
           displayProps={displayProps}

@@ -99,6 +99,7 @@ export default function UserDashboard({ userData, trips }) {
         selectedTrip={selectedTrip}
       />
       <TripDisplay
+        userData={userData}
         displayProps={displayProps}
         tripProps={tripProps}
         requestProps={requestProps}
@@ -108,6 +109,7 @@ export default function UserDashboard({ userData, trips }) {
         emergencyContactsProps={emergencyContactsProps}
       />
       <SideContainer
+        userData={userData}
         displayProps={displayProps}
         tripProps={tripProps}
         requestProps={requestProps}

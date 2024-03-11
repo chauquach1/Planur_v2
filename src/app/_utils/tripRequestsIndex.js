@@ -48,12 +48,13 @@ export async function putTrip(tripDetails) {
   }
 };
 
-export async function deleteTrip(tripId) {
+export async function deleteTrip(tripId, userId) {
   console.log('DELETE TRIP NewTripForm', tripId);
+  console.log('DELETE TRIP NewTripForm', userId);
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/trip/${tripId}`, {
+      `http://localhost:3000/api/trip/${tripId}?userId=${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
