@@ -8,10 +8,18 @@ export default function DeleteTripConfirmation({userData, tripProps}) {
   const [modalPlacement, setModalPlacement] = React.useState("auto");
   const { selectedTrip, setShowEditTripForm } = tripProps;
 
-  const confirmDeleteTrip = () => {
+  // UPDATE STATE TRIPS INDEX
+  const updateTripsIndex = (deleteId) => {
+    // Clone the existing tripsIndex to ensure immutability
+    const updatedTripsIndex = tripProps.tripsIndex.filter(trip => trip._id !== deleteId);
+    tripProps.setTripsIndex(updatedTripsIndex);
+  };
+
+  const handleDeleteTrip = () => {
     console.log("Delete button clicked");
-    console.log('userData', userData.uuid);
+    console.log('tripProps', tripProps);
     deleteTrip(selectedTrip._id, userData.uuid);
+    updateTripsIndex(selectedTrip._id);
   }
   
   return (
@@ -24,7 +32,7 @@ export default function DeleteTripConfirmation({userData, tripProps}) {
       >
         <ModalContent>
           {(onClose) => (
-            <form action={confirmDeleteTrip}>
+            <form action={handleDeleteTrip}>
               <ModalHeader className="flex flex-col gap-1"><h1>Are you sure you want to delete this trip?</h1></ModalHeader>
               <ModalBody>
                 <h1 className="text-center">{selectedTrip.tripName}</h1>
