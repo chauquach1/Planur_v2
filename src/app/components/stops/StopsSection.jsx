@@ -16,17 +16,15 @@ export default function StopsSection({tripProps, stopProps, requestProps, displa
     setShowStopForm(true);
   }
 
-  useEffect(() => {
-    setShowCategory(false);
-  }, [tripId]);
+  const getStops = async () => {
+    const stops = await fetchAllStops(props.tripId)
+    setStopsIndex(stops);
+  }
 
   useEffect(() => {
-    const getStops = async () => {
-      const stops = await fetchAllStops(props.tripId)
-      setStopsIndex(stops);
-    }
-    getStops();
-  } , [props.tripId]);
+    tripId !== undefined ? getStops(): null;
+    setShowCategory(false);
+  } , [tripId]);
   
   if (tripDisplayTab !== "Stops" && tripDisplayTab !== "Full Details") {
     return null;

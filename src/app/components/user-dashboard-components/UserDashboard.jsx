@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback, useRef, use } from "react";
 
 export default function UserDashboard({ userData, trips }) {
   const [tripsIndex, setTripsIndex] = useState(trips || []);
-  const [selectedTrip, setSelectedTrip] = useState(trips[0] || {});
+  const [selectedTrip, setSelectedTrip] = useState({});
   const [showEditTripForm, setShowEditTripForm] = useState(false);
   const [controllerTab, setControllerTab] = useState("tripsindex");
   const [tripDisplayTab, setTripDisplayTab] = useState("Full Details");
@@ -25,14 +25,9 @@ export default function UserDashboard({ userData, trips }) {
 
   
   useEffect(() => {
-    console.log("Trips Index: ", tripsIndex);
+    tripsIndex.length > 0 ? setSelectedTrip(tripsIndex[0]) : null;
   }, [tripsIndex]);
 
-  // if (tripsIndex.length > 0 && !selectedTrip) {
-  //   setSelectedTrip(tripsIndex[0]);
-  // } else if (tripsIndex.length === 0) {
-  //   return
-  // }
 
   const displayProps = {
     controllerTab: controllerTab,

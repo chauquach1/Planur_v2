@@ -5,7 +5,7 @@ import { postContact, putContact } from "../../_utils/contactsRequestsIndex";
 import FormWrapper from "../form-components/FormWrapper";
 
 export default function EmergencyContactForm({emergencyContactsProps: {contactsIndex, setContactsIndex, activeContact, setActiveContact, showContactForm, setShowContactForm}, requestProps: {requestType, setRequestType}, tripProps: {tripId}}) {
-  const [initialState, setInitialState] = useState(activeContact || {});
+  const [initialState, setInitialState] = useState(activeContact);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const postContactWithTripId = postContact.bind(null, tripId);
 
@@ -104,14 +104,6 @@ export default function EmergencyContactForm({emergencyContactsProps: {contactsI
 
   // FORM VISIBILITY
   const isVisible = showContactForm ? "fixed flex" : "hidden";
-  const closeContactForm = () => {
-    setActiveContact({});
-    setShowContactForm(false);
-  }
-
-  useEffect(() => {
-    console.log(initialState);
-  }, [initialState]);
 
   return (
     <FormWrapper isVisible={isVisible} onClick={()=> setShowContactForm(false)}>

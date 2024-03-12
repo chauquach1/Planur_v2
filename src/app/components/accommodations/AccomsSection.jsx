@@ -2,7 +2,6 @@ import SectionContainer from "../trip-components/SectionContainer";
 import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
-import { add } from "date-fns";
 
 export default function AccomsSection({displayProps, tripProps, requestProps, accomProps, ...props }) { 
   const [showCategory, setShowCategory] = useState(false);
@@ -16,17 +15,14 @@ export default function AccomsSection({displayProps, tripProps, requestProps, ac
     setActiveAccom({});
     setShowAccomForm(true);
   }
-
+  const getAccoms = async () => {
+    const accoms = await fetchAllAccoms(tripId)
+    setAccomsIndex(accoms);
+  }
+  
   useEffect(() => {
+    tripId !== undefined ? getAccoms() : null;
     setShowCategory(false);
-  }, [tripId]);
-
-  useEffect(() => {
-    const getAccoms = async () => {
-      const accoms = await fetchAllAccoms(tripId)
-      setAccomsIndex(accoms);
-    }
-    getAccoms();
   } , [tripId]);
 
 

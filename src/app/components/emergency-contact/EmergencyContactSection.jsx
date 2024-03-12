@@ -12,23 +12,20 @@ export default function EmergencyContactSection({ emergencyContactsProps, displa
   const { tripDisplayTab } = displayProps;
   const { setRequestType } = requestProps;
 
-  useEffect(() => {
-    setShowCategory(false);
-  }, [tripId]);
-
-
   const addEmergencyContact = () => {
     setActiveContact({});
     setShowContactForm(true);
     setRequestType("POST");
   };
+  
+  const getEmergencyContacts = async () => {
+    const emergencyContacts = await fetchAllEmergencyContacts(tripId)
+    setContactsIndex(emergencyContacts);
+  }
 
   useEffect(() => {
-    const getEmergencyContacts = async () => {
-      const emergencyContacts = await fetchAllEmergencyContacts(tripId)
-      setContactsIndex(emergencyContacts);
-    }
-    getEmergencyContacts();
+    tripId !== undefined ? getEmergencyContacts() : null;
+    setShowCategory(false);
   } , [tripId]);
 
   if (
