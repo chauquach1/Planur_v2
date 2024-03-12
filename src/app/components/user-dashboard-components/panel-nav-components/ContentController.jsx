@@ -22,7 +22,7 @@ export default function ContentController({ userData, controllerTab, setControll
       />
       <div className="w-full h-max p-2">
         <NewTripModal
-          user={userData}
+          user={userData.uuid}
           trips={trips}
           setTripsIndex={setTripsIndex}
         />

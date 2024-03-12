@@ -3,10 +3,10 @@ import SelectReason from "../form-components/SelectReason";
 import { useEffect, useState } from "react";
 import createNewTrip from "../../_utils/tripRequestsIndex";
 
-export default function NewTripForm({ user, trips, setTripsIndex, show, setShow }) {
+export default function NewTripForm({ user, trips, setTripsIndex }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [initialState, setInitialState] = useState({});
-  const postTripWithUserId = createNewTrip.bind(null, user.uuid);
+  const postTripWithUserId = createNewTrip.bind(null, user);
 
   // UPDATE STATE TRIPS INDEX
   const tripIndexNewTrip = (newTrip) => {
@@ -45,7 +45,7 @@ export default function NewTripForm({ user, trips, setTripsIndex, show, setShow 
         size="sm"
         radius="full"
         onPress={onOpen}
-        className="w-full text-end bg-transparent/10 hover:bg-transparent/5 text-peach-500 hover:text-peach-400 text-sm rounded-md"
+        className="w-full text-end max-w-xs bg-transparent/10 hover:bg-transparent/5 text-peach-500 hover:text-peach-400 text-sm rounded-md"
       >
         + New Trip
       </Button>
