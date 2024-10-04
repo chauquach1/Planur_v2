@@ -4,7 +4,7 @@ import TripTabsContainer from "../dashboard-nav-tabs/TripTabsContainer";
 import NewTripModal from "../../trip-components/NewTripModal";
 
 export default function ContentController({ userData, controllerTab, setControllerTab, setActiveTab, setSelectedTrip, trips, setTripsIndex, selectedTrip }) {
-
+console.log(userData);
   return (
     <div className="flex flex-col w-full h-full max-w-[350px] bg-slate-300 items-center">
       <TabsContainer

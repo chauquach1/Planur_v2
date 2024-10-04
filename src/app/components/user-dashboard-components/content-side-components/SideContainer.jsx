@@ -1,6 +1,6 @@
 import AccomsForm from "../../accommodations/AccomsForm";
 import StopsForm from "../../stops/StopsForm";
-import PackListForm from "../../packlist/PackListForm";
+import PackListForm from "src/app/components/packlist/PackListForm.jsx";
 import EmergencyContactForm from "../../emergency-contact/EmergencyContactForm";
 import EditTripForm from "../../trip-components/EditTripForm";
 import { useEffect } from "react";

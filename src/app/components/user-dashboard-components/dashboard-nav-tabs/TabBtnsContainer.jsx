@@ -8,16 +8,16 @@ export default function TabBtnsContainer({ ...props }) {
       id="tabs-container"
       className="flex flex-col gap-2 p-3 text-lg shadow-lg w-full"
     >
-      <TabBtn
+      {/* <TabBtn
         category="accountDetails"
         innerText={`${props.firstName} ${props.lastName}`}
         setActiveTab={props.setActiveTab}
         icon={<FaUserAlt />}
-      />
+      /> */}
       <TabBtn
         category="tripsindex"
         innerText="My Trips"
-        setActiveTab={props.setActiveTab}
+        // setActiveTab={props.setActiveTab}
         icon={<FaThList />}
       />
     </div>
