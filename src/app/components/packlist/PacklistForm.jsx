@@ -1,6 +1,7 @@
 import packListItems from "../../libs/completePackList";
 import { putPackList, postPackList } from "../../_utils/packListRequestsIndex";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
+import FormWrapper from "../form-components/FormWrapper";
 import {
   Accordion,
   AccordionItem,
@@ -8,9 +9,12 @@ import {
 } from "@nextui-org/react";
 
 
-export default function PackListForm({packListProps: { packList, setPackList, showPackListForm, setShowPackListForm }, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
+export default function PackListForm({packListProps, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
+  const { packList, setPackList, showPackListForm, setShowPackListForm } = packListProps;
   const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
+
+  const { tripId } = tripProps;
 
   useEffect(() => {
     if(initialRender.current) {
@@ -75,8 +79,8 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
           newState[category].splice(itemIndex, 1);
         }
       }
-      // If packList exists, update it, otherwise create it
-      packList ? putPackList(newState) : postPackList(props.trip._id, newState);
+      // If packList._id exists, update it, otherwise create it
+      packList._id ? putPackList(newState) : postPackList(tripId, newState);
       return newState;
     });
   };
@@ -103,30 +107,20 @@ export default function PackListForm({packListProps: { packList, setPackList, sh
   };
 
   return (
-    <div
-      className={`${
-        showPackListForm ? "block" : "hidden"
-      } flex flex-col h-full w-full `}
-    >
-      <button
-        className="self-end text-red-500"
-        onClick={() => setShowPackListForm(false)}
-      >
-        x Close
-      </button>
-      <div className="flex flex-col h-full w-full overflow-y-scroll bg-white rounded-xl">
-      <Accordion isCompact selectionMode="multiple">
-        {Object.entries(packListItems).map(([category, items], index) => (
-          <AccordionItem
-            key={index}
-            aria-label={category}
-            title={category.charAt(0).toUpperCase() + category.slice(1)}
-          >
-            {renderCheckboxGroup(category, items)}
-          </AccordionItem>
-        ))}
-      </Accordion>
-      </div>
-    </div>
+    <FormWrapper isVisible={showPackListForm ? "absolute h-full p-0" : "hidden"} onClick={() => setShowPackListForm(false)}>
+        <div className="relative flex flex-col my-auto h-full overflow-y-scroll w-full  bg-white rounded-xl">
+          <Accordion isCompact selectionMode="multiple">
+            {Object.entries(packListItems).map(([category, items], index) => (
+              <AccordionItem
+                key={index}
+                aria-label={category}
+                title={category.charAt(0).toUpperCase() + category.slice(1)}
+              >
+                {renderCheckboxGroup(category, items)}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+    </FormWrapper>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import {
-  Button,
   useDisclosure,
 } from "@nextui-org/react";
 import LogInModal from "./LogInModal";
@@ -10,13 +9,12 @@ export default function SignUpBtn() {
 
   return (
     <>
-      <Button
-        onPress={onOpen}
-        variant="light"
-        className="font-semibold min-w-fit p-0 mx-3"
+      <button
+        onClick={onOpen}
+        className="text-sm mx-2"
       >
         Log In
-      </Button>
+      </button>
       <LogInModal 
         isOpen={isOpen}
         onOpenChange={onOpenChange}

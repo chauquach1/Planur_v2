@@ -1,22 +1,35 @@
 import { Input } from "@nextui-org/react";
 
 export default function CustomInput(props) {
+
+  const {
+    name,
+    label,
+    placeholder = " ",
+    type,
+    isRequired,
+    labelPlacement = "inside",
+    className,
+    value,
+    onChange,
+    onValueChange
+  } = props; 
+
   return (
-      <Input
-        name={props.name}
-        label={props.label}
-        placeholder={props.placeholder || " "}
-        type={props.type}
-        isRequired={props.isRequired}
-        autoComplete="off"
-        variant="faded"
-        size="sm"
-        labelPlacement={props.labelPlacement || "inside"}
-        className={props.className}
-        defaultValue={props.defaultValue}
-        value={props.value}
-        onChange={props.onChange}
-        onValueChange={props.onValueChange}
-      />
+    <Input
+      name={name}
+      label={label}
+      placeholder={placeholder}
+      type={type}
+      isRequired={isRequired}
+      autoComplete="off"
+      variant="faded"
+      size="sm"
+      labelPlacement={labelPlacement}
+      className={className}
+      value={value}
+      onChange={onChange}
+      onValueChange={onValueChange}
+    />
   );
 }

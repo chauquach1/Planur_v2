@@ -4,7 +4,11 @@ import Trip from "../../models/trip";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { user, ...tripDetails } = await request.json();
+  console.log('POST TRIP request HIT');
+  const userId = request.nextUrl.searchParams.get('userId')
+  const tripDetails  = await request.json();
+  console.log(`POST TRIP userId:${userId}`);  
+  console.log('POST tripDetails', tripDetails);
   const client = await mongoClient();
 
   try {
@@ -13,40 +17,33 @@ export async function POST(request) {
     const userCollection = db.collection("users");
     // console.log('userCollection', userCollection);
 
-    const mongoUser = await userCollection.findOne({
-      $or: [
-        { _id: new ObjectId(user._id) },
-        { uuid: user.uuid },
-        { email: user.email }
-      ]
-    });
-    // console.log('user from trip route', mongoUser);
-
+    const mongoUser = await userCollection.findOne({uuid: userId});
 
     if (!mongoUser) {
-      // console.log('user not found');
-      return NextResponse.json({ error: "User not found" }, { status: 401 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
     // Create a new trip
     const newTrip = new Trip({
       tripName: tripDetails.tripName,
-      tripDestination: tripDetails.destination,
-      tripStartDate: tripDetails.startDate,
-      tripEndDate: tripDetails.endDate,
-      tripGuests: tripDetails.guests,
-      tripReason: tripDetails.reason,
-      tripTransportation: tripDetails.transportation,
+      tripDestination: tripDetails.tripDestination,
+      tripStartDate: tripDetails.tripStartDate,
+      tripEndDate: tripDetails.tripEndDate,
+      tripReason: tripDetails.tripReason,
     });
+
+    if (!newTrip) {
+      return NextResponse.json({ error: "Failed to create trip" }, { status: 500 });
+    }
 
     await newTrip.save();
     userCollection.updateOne(
-      { _id: new ObjectId(user._id)},
+      { uuid: userId},
       { $push: { trips: newTrip._id } }
     );
 
     return NextResponse.json(newTrip, { status: 200 });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

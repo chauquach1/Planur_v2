@@ -5,14 +5,15 @@ import {
 } from "@nextui-org/react";
 import SignUpModal from "./SignUpModal";
 
-export default function SignUpBtn({variant, size}) {
+export default function SignUpBtn() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       <Button
         onPress={onOpen}
-        size={size}
+        variant="light"
+        size="sm"
         radius="full"
         className="bg-peach-400 text-white"
       >

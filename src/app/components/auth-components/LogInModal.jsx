@@ -12,7 +12,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import { use, useState } from "react";
 import { useFormStatus, useFormState } from "react-dom";
-import { LogIn } from "../../actions/authactions";
+import { LogIn } from "../../libs/features/authentication/authactions";
 
 export default function LogInModal({isOpen, onOpenChange}) {
   const [logInData, formAction] = useFormState(LogIn, null);
@@ -64,15 +64,6 @@ export default function LogInModal({isOpen, onOpenChange}) {
                 />
               </ModalBody>
               <ModalFooter className="gap-4 items-center">
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={onClose}
-                  className="p-0 min-w-fit"
-                  size="md"
-                >
-                  Close
-                </Button>
                 <Button
                   color="primary"
                   onPress={onClose}

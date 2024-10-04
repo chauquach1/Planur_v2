@@ -78,8 +78,8 @@ export default function NavNextUI() {
           </NavbarItem>
         ) : (
           <NavbarItem>
+            <SignUpBtn />
             <LogInBtn />
-            <SignUpBtn variant="light" size="sm" />
           </NavbarItem>
         )}
       </NavbarContent>

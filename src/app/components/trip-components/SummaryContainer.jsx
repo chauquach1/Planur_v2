@@ -1,18 +1,43 @@
 import {calendarDateFormat} from "../../_utils/dateFormatterIndex";
-export default function SummaryContainer({ trip }) {
-  const tripStartDate = calendarDateFormat(trip.tripStartDate);
-  const tripEndDate = calendarDateFormat(trip.tripEndDate);
+import { MdLocationPin, MdEdit, MdDelete } from "react-icons/md";
+import DeleteTripConfirmation from "./DeleteTripConfirmation";
+import { use } from "react";
+
+export default function SummaryContainer({ userData, tripProps, requestProps }) {
+  const { selectedTrip, setShowEditTripForm } = tripProps;
+  const tripStartDate = calendarDateFormat(selectedTrip.tripStartDate);
+  const tripEndDate = calendarDateFormat(selectedTrip.tripEndDate);
+
+  const handleEdit = () => {
+    console.log("Edit button clicked");
+    requestProps.setRequestType("PUT");
+    setShowEditTripForm(true);
+  }
+
+  const handleDelete = () => {
+    console.log("Delete button clicked");
+  }
+
   return (
-    <div id={trip._id.oid} className="flex flex-col max-w-[400px] max-h-40">
-      <div className="flex flex-col flex-wrap">
-        <p className="text-md">{trip.tripName}</p>
+    <div className="flex flex-row w-full justify-between items-start">
+      <div id={selectedTrip._id} className="flex flex-col w-full max-h-40 ">
+        <div className="flex flex-col flex-wrap">
+          <p className="text-peach-500  text-4xl font-semibold">
+            {selectedTrip.tripName}
+          </p>
+        </div>
+        <p className="text-peach-400  text-2xl font-semibold">
+          {tripStartDate} - {tripEndDate}
+        </p>
+        <p>Destination: {selectedTrip.tripDestination}</p>
+        <p>Reason: {selectedTrip.tripReason}</p>
       </div>
-      <p>
-        {tripStartDate} - {tripEndDate}
-      </p>
-      <p>Destination: {trip.tripDestination}</p>
-      <p>Reason: {trip.tripReason}</p>
-      <p>Number of Travelers: {trip.tripGuests}</p>
+      <div className="flex flex-row gap-1 ms-auto text-medium p-2">
+        <button onClick={handleEdit}>
+          <MdEdit />
+        </button>
+        <DeleteTripConfirmation userData={userData} tripProps={tripProps} />
+      </div>
     </div>
   );
 }

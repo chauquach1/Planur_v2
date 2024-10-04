@@ -3,25 +3,30 @@ import AccommodationsCard from "./AccommodationsCard";
 import fetchAllAccoms from "../../_utils/fetchAllAccoms";
 import { useEffect, useState } from "react";
 
-export default function AccomsSection({ displayProps, tripProps, requestProps, accomProps, ...props }) { 
+export default function AccomsSection({displayProps, tripProps, requestProps, accomProps, ...props }) { 
   const [showCategory, setShowCategory] = useState(false);
+
+  const { tripId } = tripProps;
+  const { setAccomsIndex, setShowAccomForm, setActiveAccom, accomsIndex } = accomProps;
+  const { tripDisplayTab } = displayProps;
 
   const addNewAccom = () => {
     requestProps.setRequestType("POST");
-    accomProps.setActiveAccom({});
-    accomProps.setShowAccomForm(true);
+    setActiveAccom({});
+    setShowAccomForm(true);
   }
-
+  const getAccoms = async () => {
+    const accoms = await fetchAllAccoms(tripId)
+    setAccomsIndex(accoms);
+  }
+  
   useEffect(() => {
-    const getAccoms = async () => {
-      const accoms = await fetchAllAccoms(props.tripId)
-      accomProps.setAccomsIndex(accoms);
-    }
-    getAccoms();
-  } , [props.tripId]);
+    tripId !== undefined ? getAccoms() : null;
+    setShowCategory(false);
+  } , [tripId]);
 
 
-  if (displayProps.tripDisplayTab !== "Accommodations" && displayProps.tripDisplayTab !== "Full Details") {
+  if (tripDisplayTab !== "Accommodations" && tripDisplayTab !== "Full Details") {
     return null;
   } else {
     return (
@@ -39,8 +44,8 @@ export default function AccomsSection({ displayProps, tripProps, requestProps, a
           >
             Add New Accommodation
           </button>
-          {accomProps.accomsIndex.length > 0 ? 
-            accomProps.accomsIndex.map((accom) => {
+          {accomsIndex?.length > 0 ? 
+            accomsIndex.map((accom) => {
               return (
                 <AccommodationsCard
                   key={accom.accomName}
