@@ -27,7 +27,7 @@ export default function SideContainer({displayProps, tripProps, stopProps, reque
         requestProps={requestProps}
         stopProps={stopProps}
       />
-      <PackListForm
+      <PackListCheckboxForm
         displayProps={displayProps}
         tripProps={tripProps}
         requestProps={requestProps}
