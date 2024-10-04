@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 
 
-export default function PackListForm({packListProps, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
+export default function PackListCheckboxForm({packListProps, requestProps: {requestType, setRequestType}, tripProps, ...props}) {
   const { packList, setPackList, showPackListForm, setShowPackListForm } = packListProps;
   const [initialState, setInitialState] = useState(packList);
   const initialRender = useRef(true);
