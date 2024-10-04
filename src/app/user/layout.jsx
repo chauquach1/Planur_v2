@@ -5,6 +5,10 @@ import { redirect } from "next/navigation";
 import Loading from "./loading";
 import { Suspense } from "react";
 import fetchTrips from "../_utils/fetchAllTrips";
+
+// REDUX
+import StoreProvider from "../../redux/StoreProvider";
+
 export const metadata = {
   title: "User's Page",
   description: "The fastest way to build apps with Next.js and Supabase",
@@ -32,11 +36,10 @@ export default async function UserLayout() {
   return (
     <main className="container flex flex-row h-screen min-w-full gap-1 bg-slate-600 justify-center">
       <Suspense fallback={<Loading />}>
-        <div
-          id="content-navigation"
-          className=" flex flex-col h-full w-full"
-        >
-          <UserDashboard userData={userData} trips={trips}/>
+        <div id="content-navigation" className=" flex flex-col h-full w-full">
+          <StoreProvider tripsIndex={trips}>
+            <UserDashboard userData={userData} trips={trips} />
+          </StoreProvider>
         </div>
       </Suspense>
     </main>

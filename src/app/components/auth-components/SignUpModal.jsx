@@ -24,7 +24,7 @@ export default function SignUpModal({isOpen, onOpenChange}) {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="center"
-        size="xs"
+        size="sm"
       >
         <ModalContent>
           {(onClose) => (
@@ -64,15 +64,6 @@ export default function SignUpModal({isOpen, onOpenChange}) {
                 />
               </ModalBody>
               <ModalFooter className="gap-4 items-center">
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={onClose}
-                  className="p-0 min-w-fit"
-                  size="md"
-                >
-                  Close
-                </Button>
                 <Button color="primary" onPress={onClose} size="sm">
                   Sign Up
                 </Button>

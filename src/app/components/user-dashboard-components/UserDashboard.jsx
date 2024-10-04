@@ -25,7 +25,7 @@ export default function UserDashboard({ userData, trips }) {
 
   
   useEffect(() => {
-    tripsIndex.length > 0 ? setSelectedTrip(tripsIndex[0]) : null;
+    tripsIndex.length > 0 ? setSelectedTrip(tripsIndex[0]) : null
   }, [tripsIndex]);
 
 

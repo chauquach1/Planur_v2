@@ -112,7 +112,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
             label="Trip Name"
             name="tripName"
             placeholder={"Enter your trip name"}
-            value={initialState.tripName}
+            // value={initialState.tripName}
             onChange={(e) => handleInputChange("tripName", e.target.value)}
           />
           <Input
@@ -120,7 +120,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
             label="Destination"
             name="tripDestination"
             placeholder={"Enter your destination"}
-            value={initialState.tripDestination}
+            // value={initialState.tripDestination}
             onChange={(e) =>
               handleInputChange("tripDestination", e.target.value)
             }
@@ -130,7 +130,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
               label="Arrival Date"
               type="date"
               placeholder="mm/dd/yyyy"
-              value={initialState.tripStartDate}
+              // value={initialState.tripStartDate}
               onChange={(e) =>
                 handleInputChange("tripStartDate", e.target.value)
               }
@@ -139,7 +139,7 @@ export default function EditTripForm({ tripProps, requestProps, ...props }) {
               label="Departure Date"
               type="date"
               placeholder="mm/dd/yyyy"
-              value={initialState.tripEndDate}
+              // value={initialState.tripEndDate}
               onChange={(e) => handleInputChange("tripEndDate", e.target.value)}
             />
           </div>
