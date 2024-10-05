@@ -3,10 +3,6 @@ import { ObjectId } from "mongodb";
 import Accommodation from "../../models/accommodation";
 import { NextResponse } from "next/server";
 
-export async function accomsFetch(request){
-  const rawFormData = await request.json();
-  console.log('ACCOMS FETCH accommodation', rawFormData);
-}
 
 export async function POST(request) {
   console.log('POST ACCOM ROUTE HIT');

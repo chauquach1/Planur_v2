@@ -1,6 +1,6 @@
 import AccomsForm from "../../accommodations/AccomsForm";
 import StopsForm from "../../stops/StopsForm";
-import PackListForm from "../../packlist/PackListForm";
+import PackListCheckboxForm from "../../packlist/PackListCheckboxForm";
 import EmergencyContactForm from "../../emergency-contact/EmergencyContactForm";
 import EditTripForm from "../../trip-components/EditTripForm";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ export default function SideContainer({displayProps, tripProps, stopProps, reque
         requestProps={requestProps}
         stopProps={stopProps}
       />
-      <PackListForm
+      <PackListCheckboxForm
         displayProps={displayProps}
         tripProps={tripProps}
         requestProps={requestProps}

@@ -3,10 +3,6 @@ import { ObjectId } from "mongodb";
 import Stop from "../../models/stop"
 import { NextResponse } from "next/server";
 
-export async function stopsFetch(request){
-  const rawFormData = await request.json();
-  console.log('STOPS FETCH stop', rawFormData);
-}
 
 export async function POST(request) {
   console.log('POST STOP ROUTE HIT');
