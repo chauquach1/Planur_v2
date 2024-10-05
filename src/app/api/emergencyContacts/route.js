@@ -3,10 +3,6 @@ import { ObjectId } from "mongodb";
 import EmergencyContact from "../../models/EmergencyContact";
 import { NextResponse } from "next/server";
 
-export async function contactsFetch(request){
-  const rawFormData = await request.json();
-  console.log('CONTACTS FETCH contact', rawFormData);
-}
 
 export async function POST(request) {
   console.log('POST CONTACT ROUTE HIT');
