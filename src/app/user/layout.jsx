@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import fetchTrips from "../_utils/fetchAllTrips";
 
 // REDUX
-import StoreProvider from "../../redux/StoreProvider";
+import StoreProvider from "../StoreProvider";
 
 export const metadata = {
   title: "User's Page",

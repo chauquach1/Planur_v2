@@ -1,5 +1,5 @@
 "use server";
-import {mongoClient} from "../../libs/mongo/mongodb";
+import {mongoClient} from "../../lib/mongo/mongodb";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 import PackList from "../../models/PackList";
