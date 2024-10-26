@@ -1,9 +1,8 @@
 'use client'
 import { useRef } from 'react'
 import { Provider } from 'react-redux'
-import { makeStore } from "../app/GlobalRedux/store";
-import { initializeTripsIndex } from '../app/GlobalRedux/features/tripsIndex/tripsIndexSlice';
-
+import { makeStore } from "../lib/store";
+import { initializeTripsIndex } from "../redux/features/tripsIndex/tripsIndexSlice"; 
 export default function StoreProvider({ tripsIndex, children }) {
   const storeRef = useRef()
   if (!storeRef.current) {

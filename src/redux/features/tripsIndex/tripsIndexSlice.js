@@ -5,14 +5,11 @@ const tripsIndexSlice = createSlice({
   initialState: [],
   reducers: {
     initializeTripsIndex: (state, action) => {
-      console.log('initializeTripsIndex state', state);
-      console.log('initializeTripsIndex action', action);
-      console.log('initializeTripsIndex action.payload', action.payload);
       return action.payload
     }
   },
 })
 
-export const { initializeTripsIndex } = tripsIndexSlice.actions
+export const { initializeTripsIndex, logTripsIndex } = tripsIndexSlice.actions
 
 export default tripsIndexSlice.reducer

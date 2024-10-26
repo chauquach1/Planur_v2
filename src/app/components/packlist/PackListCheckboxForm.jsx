@@ -1,4 +1,4 @@
-import packListItems from "../../lib/completePackList";
+import packListItems from "../../../lib/completePackList";
 import { putPackList, postPackList } from "../../_utils/packListRequestsIndex";
 import { useState, useReducer, useCallback, useEffect, useRef } from "react";
 import FormWrapper from "../form-components/FormWrapper";

@@ -12,7 +12,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import { use, useState } from "react";
 import { useFormStatus, useFormState } from "react-dom";
-import { LogIn } from "../../lib/features/authentication/authactions";
+import { LogIn } from "../../../lib/features/authentication/authactions";
 
 export default function LogInModal({isOpen, onOpenChange}) {
   const [logInData, formAction] = useFormState(LogIn, null);

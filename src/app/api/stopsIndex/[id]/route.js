@@ -1,4 +1,4 @@
-import {mongoClient} from "../../../lib/mongo/mongodb";
+import {mongoClient} from "../../../../lib/mongo/mongodb";
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
